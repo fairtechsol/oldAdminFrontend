@@ -200,6 +200,11 @@ const MatchDetail = () => {
               typeOfBet={"Match Odds"}
               minBet={Math.floor(matchDetail?.matchOdd?.minBet)}
               maxBet={Math.floor(matchDetail?.matchOdd?.maxBet)}
+              data={
+                matchDetail?.matchOdd?.runners?.length > 0
+                  ? matchDetail?.matchOdd?.runners
+                  : []
+              }
             />
           )}
           {matchDetail?.marketCompleteMatch?.isActive && (
@@ -208,6 +213,11 @@ const MatchDetail = () => {
               typeOfBet={"Market Complete Match"}
               minBet={Math.floor(matchDetail?.marketCompleteMatch?.minBet)}
               maxBet={Math.floor(matchDetail?.marketCompleteMatch?.maxBet)}
+              data={
+                matchDetail?.marketCompleteMatch?.runners?.length > 0
+                  ? matchDetail?.marketCompleteMatch?.runners
+                  : []
+              }
             />
           )}
           {matchDetail?.apiTideMatch?.isActive && (
@@ -216,6 +226,11 @@ const MatchDetail = () => {
               typeOfBet={"Tied Match"}
               minBet={Math.floor(matchDetail?.apiTideMatch?.minBet)}
               maxBet={Math.floor(matchDetail?.apiTideMatch?.maxBet)}
+              data={
+                matchDetail?.apiTideMatch?.runners?.length > 0
+                  ? matchDetail?.apiTideMatch?.runners
+                  : []
+              }
             />
           )}
           {matchDetail?.bookmaker?.isActive && (

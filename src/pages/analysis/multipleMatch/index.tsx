@@ -191,6 +191,11 @@ const MultipleMatch = ({}) => {
                                   maxBet={Math.floor(
                                     item?.marketCompleteMatch?.maxBet
                                   )}
+                                  data={
+                                    item?.marketCompleteMatch?.runners?.length > 0
+                                      ? item?.marketCompleteMatch?.runners
+                                      : []
+                                  }
                                 />
                               )}
                               {item?.apiTideMatch?.isActive && (
@@ -203,6 +208,11 @@ const MultipleMatch = ({}) => {
                                   maxBet={Math.floor(
                                     item?.apiTideMatch?.maxBet
                                   )}
+                                  data={
+                                    item?.apiTideMatch?.runners?.length > 0
+                                      ? item?.apiTideMatch?.runners
+                                      : []
+                                  }
                                 />
                               )}
                               {item?.quickBookmaker?.map((bookmaker: any) => {
@@ -383,6 +393,11 @@ const MultipleMatch = ({}) => {
                                 maxBet={Math.floor(
                                   item?.marketCompleteMatch?.maxBet
                                 )}
+                                data={
+                                  item?.marketCompleteMatch?.runners?.length > 0
+                                    ? item?.marketCompleteMatch?.runners
+                                    : []
+                                }
                               />
                             )}
                             {item?.apiTideMatch && (
@@ -391,6 +406,11 @@ const MultipleMatch = ({}) => {
                                 typeOfBet={"Tied Match"}
                                 minBet={Math.floor(item?.apiTideMatch?.minBet)}
                                 maxBet={Math.floor(item?.apiTideMatch?.maxBet)}
+                                data={
+                                  item?.apiTideMatch?.runners?.length > 0
+                                    ? item?.apiTideMatch?.runners
+                                    : []
+                                }
                               />
                             )}
                             {item?.bookmaker && (

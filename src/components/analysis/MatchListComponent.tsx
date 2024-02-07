@@ -197,22 +197,22 @@ const MatchListComponent = (props: any) => {
         >
           <Box
             sx={{
-              background: data?.teamA_rate >= 0 ? "#27AC1E" : "#E32A2A",
+              background: data?.teamARate >= 0 ? "#27AC1E" : "#E32A2A",
               width: "38%",
               height: "100%",
               border: "1.5px solid white",
             }}
           >
             <StockBox
-              value={data?.teamA_rate ? data?.teamA_rate : 0}
-              up={data?.teamA_rate >= 0 ? true : false}
+              value={data?.teamARate ? data?.teamARate : 0}
+              up={data?.teamARate >= 0 ? true : false}
               team={team}
               mode={mode}
             />
           </Box>
           <Box
             sx={{
-              background: data?.teamB_rate >= 0 ? "#27AC1E" : "#E32A2A",
+              background: data?.teamBRate >= 0 ? "#27AC1E" : "#E32A2A",
               width: "38%",
               height: "100%",
               marginX: "2px",
@@ -220,8 +220,8 @@ const MatchListComponent = (props: any) => {
             }}
           >
             <StockBox
-              value={data?.teamB_rate ? data?.teamB_rate : 0}
-              up={data?.teamB_rate >= 0 ? true : false}
+              value={data?.teamBRate ? data?.teamBRate : 0}
+              up={data?.teamBRate >= 0 ? true : false}
               team={team2}
               mode={mode}
             />
@@ -236,9 +236,9 @@ const MatchListComponent = (props: any) => {
           >
             <StockBox
               value={
-                data?.totalPlacedBet < 10 && data?.totalPlacedBet > 0
-                  ? "0" + data?.totalPlacedBet
-                  : data?.totalPlacedBet
+                data?.totalBet < 10 && data?.totalBet > 0
+                  ? "0" + data?.totalBet
+                  : data?.totalBet
               }
               team={"Total Bet"}
               mode={mode}
