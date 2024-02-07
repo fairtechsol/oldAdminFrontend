@@ -4,7 +4,6 @@ import { CHECK } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import moment from "moment-timezone";
-import { checkUserType } from "../../helper";
 
 const MatchListComponent = (props: any) => {
   const { team, team2, selected, mode, data, setSelected } = props;
@@ -61,7 +60,7 @@ const MatchListComponent = (props: any) => {
     <Box
       onClick={() => {
         if (mode == "0") {
-          navigate(`/${checkUserType()}/market_analysis/matches`, {
+          navigate(`/admin/market_analysis/matches`, {
             state: { submit: true, matchId: data?.id },
           });
         }

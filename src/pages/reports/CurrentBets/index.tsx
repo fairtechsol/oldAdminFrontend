@@ -20,7 +20,7 @@ const CurrentBets = () => {
   return (
     <>
       <HeaderCurrentBets />
-      <BetsList betHistory={currentBetsList ? currentBetsList : []} />
+      <BetsList betHistory={currentBetsList ? currentBetsList?.rows : []} />
     </>
   );
 };

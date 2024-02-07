@@ -13,7 +13,6 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { checkUserType } from "../../../helper";
 
 const data = [
   { id: 1, title: "INPLAY", image: Play, url: "live_market" },
@@ -75,7 +74,7 @@ const AdminEventListing = () => {
         return (
           <NavLink
             key={idx}
-            to={`/${checkUserType()}/${i.url}`}
+            to={`/admin/${i.url}`}
             className={({ isActive }) =>
               [isActive ? "activeEventTab" : ""].join(" ")
             }

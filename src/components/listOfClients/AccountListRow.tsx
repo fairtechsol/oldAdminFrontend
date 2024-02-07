@@ -9,7 +9,6 @@ import StyledImage from "../Common/StyledImages";
 import RowModalComponents from "./RowModalComponents";
 import { Modal } from "../Common/Modal";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
-import { checkUserType } from "../../helper";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -91,7 +90,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
             <EditOutlinedIcon
               fontSize="medium"
               onClick={() => {
-                navigate(`/${checkUserType()}/edit_account`, {
+                navigate(`/admin/edit_account`, {
                   state: {
                     id: element?.id,
                   },

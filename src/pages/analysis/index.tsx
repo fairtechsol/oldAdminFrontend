@@ -22,7 +22,6 @@ import {
 import { useDispatch } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { toast } from "react-toastify";
-import { checkUserType } from "../../helper";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -180,7 +179,7 @@ const Analysis = () => {
                     if (selected) setMode("0");
                     setSelected([]);
                     if (max == "3") {
-                      navigate(`/${checkUserType()}/market_analysis/multiple_Match`, {
+                      navigate(`/admin/market_analysis/multiple_Match`, {
                         state: {
                           match: Number(max),
                           matchIds: matchIds,
@@ -188,7 +187,7 @@ const Analysis = () => {
                         },
                       });
                     } else {
-                      navigate(`/${checkUserType()}/market_analysis/multiple_Match`, {
+                      navigate(`/admin/market_analysis/multiple_Match`, {
                         state: {
                           match: Number(max),
                           matchIds: matchIds,

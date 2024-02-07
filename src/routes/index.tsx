@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-// routes
+import AuthRoutes from "./authRoutes";
+import MainRoutes from "./mainRoutes";
 import config from "../config";
-import adminroute from "./adminRoutes";
-import walletRoute from "./walletRoutes";
 
-export default function routes(role: any) {
-  return createBrowserRouter(role === "admin" ? adminroute() : walletRoute(), {
+export default function routes() {
+  return createBrowserRouter([AuthRoutes, MainRoutes], {
     basename: config.BASE_NAME,
   });
 }

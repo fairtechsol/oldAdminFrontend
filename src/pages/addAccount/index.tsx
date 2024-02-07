@@ -34,7 +34,6 @@ import {
 } from "../../utils/Validations";
 import ButtonWithSwitch from "../../components/addMatchComp/ButtonWithSwitch";
 import _, { debounce } from "lodash";
-import { checkUserType } from "../../helper";
 
 const MatchCommissionTypes = [
   { value: "0.00", label: "0.00" },
@@ -128,119 +127,48 @@ const AddAccount = () => {
     validationSchema: addUserValidation(userAlreadyExist),
     onSubmit: (values: any) => {
       try {
-        const commonPayload = {
+        let payload = {
           userName: values.userName,
           fullName: values.fullName,
           password: values.password,
           confirmPassword: values.confirmPassword,
-          phoneNumber: values.phoneNumber.toString(),
+          phoneNumber: values.phoneNumber
+            ? JSON.stringify(values.phoneNumber)
+            : "",
           city: values.city,
-          // remark: values.remarks,
+          roleName: values.roleName.value,
+          creditRefrence: values.creditRefrence,
+          // commissionDownPartnership: values.commissionDownPartnership,
+          myPartnership: values.myPartnership,
+          sessionCommission:
+            values.sessionCommission.value === "" ||
+            values.sessionCommission.value === "0.00"
+              ? 0
+              : values.sessionCommission.value,
+          matchComissionType:
+            values.matchCommissionType.value === "" ||
+            values.matchCommissionType.value === "0.00"
+              ? null
+              : values.matchCommissionType.value,
+          matchCommission:
+            values.matchCommission.value === "" ||
+            values.matchCommission.value === "0.00"
+              ? 0
+              : values.matchCommission.value,
+          transactionPassword: values?.adminTransPassword,
         };
-
-        let payload;
-        if (values.roleName.value === "expert") {
-          payload = {
-            ...commonPayload,
-            transactionPassword: values.adminTransPassword,
-            allPrivilege: lockUnlockObj.allPrivilege,
-            addMatchPrivilege: lockUnlockObj.addMatchPrivilege,
-            betFairMatchPrivilege: lockUnlockObj.betFairMatchPrivilege,
-            bookmakerMatchPrivilege: lockUnlockObj.bookmakerMatchPrivilege,
-            sessionMatchPrivilege: lockUnlockObj.sessionMatchPrivilege,
-          };
-          dispatch(addExpert(payload));
-        } else if (values.roleName.value === "superAdmin") {
-          payload = {
-            ...commonPayload,
-            roleName: values.roleName.value,
-            domain: values.domain,
-            logo: values.base64Image,
-            creditRefrence: values.creditRefrence,
-            sidebarColor: values.sidebarColor,
-            headerColor: values.headerColor,
-            footerColor: values.footerColor,
-            transactionPassword: values.adminTransPassword,
-            myPartnership: values.myPartnership,
-            sessionCommission:
-              values.sessionCommission.value === "" ||
-              values.sessionCommission.value === "0.00"
-                ? 0
-                : values.sessionCommission.value,
-            matchComissionType:
-              values.matchCommissionType.value === "" ||
-              values.matchCommissionType.value === "0.00"
-                ? null
-                : values.matchCommissionType.value,
-            matchCommission:
-              values.matchCommission.value === "" ||
-              values.matchCommission.value === "0.00"
-                ? 0
-                : values.matchCommission.value,
-          };
-          dispatch(addUrlAdmin(payload));
-        } else if (values.roleName.value === "fairGameAdmin") {
-          payload = {
-            ...commonPayload,
-            roleName: values.roleName.value,
-            creditRefrence:
-              values.creditRefrence === "" ? 0 : values.creditRefrence,
+        if (values.roleName.value === "user") {
+          let newPayload = {
+            ...payload,
             exposureLimit: values.exposureLimit,
-            maxBetLimit: values.maxBetLimit,
-            minBetLimit: values.minBetLimit,
-            myPartnership: values.myPartnership,
-            sessionCommission:
-              values.sessionCommission.value === "" ||
-              values.sessionCommission.value === "0.00"
-                ? 0
-                : values.sessionCommission.value,
-            matchComissionType:
-              values.matchCommissionType.value === "" ||
-              values.matchCommissionType.value === "0.00"
-                ? null
-                : values.matchCommissionType.value,
-            matchCommission:
-              values.matchCommission.value === "" ||
-              values.matchCommission.value === "0.00"
-                ? 0
-                : values.matchCommission.value,
-            isOldFairGame: true,
-            transactionPassword: values.adminTransPassword,
+            maxBetLimit: values.maxBet,
+            minBetLimit: values.minBet,
+            delayTime: JSON.stringify(values.delay),
           };
-          dispatch(addUser(payload));
+          dispatch(addUser(newPayload));
         } else {
-          payload = {
-            ...commonPayload,
-            roleName:
-              values.roleName.value === "oldSuperAdmin"
-                ? "superAdmin"
-                : values.roleName.value,
-            creditRefrence: values.creditRefrence,
-            isOldFairGame: true,
-            transactionPassword: values.adminTransPassword,
-            myPartnership:
-              values.roleName.value !== "user"
-                ? values.myPartnership
-                : values.downlinePartnership,
-            sessionCommission:
-              values.sessionCommission.value === "" ||
-              values.sessionCommission.value === "0.00"
-                ? 0
-                : values.sessionCommission.value,
-            matchComissionType:
-              values.matchCommissionType.value === "" ||
-              values.matchCommissionType.value === "0.00"
-                ? null
-                : values.matchCommissionType.value,
-            matchCommission:
-              values.matchCommission.value === "" ||
-              values.matchCommission.value === "0.00"
-                ? 0
-                : values.matchCommission.value,
-          };
-          dispatch(addUrlAdmin(payload));
+          dispatch(addUser(payload));
         }
-        dispatch(updateReset());
       } catch (e) {
         console.log(e);
       }
@@ -1221,7 +1149,7 @@ const AddAccount = () => {
           showModal={showModal}
           buttonMessage={"Ok"}
           functionDispatch={() => {}}
-          navigateTo={`/${checkUserType()}/list_of_clients`}
+          navigateTo={`/admin/list_of_clients`}
         />
       )}
     </>

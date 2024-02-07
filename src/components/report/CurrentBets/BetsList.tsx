@@ -13,10 +13,16 @@ const BetsList = (props: any) => {
   const [pageLimit, setPageLimit] = useState<number>(15);
 
   function paginate(array: any, pageNumber: number, pageSize: number) {
-    --pageNumber;
-    const startIndex = pageNumber * pageSize;
-    const endIndex = startIndex + pageSize;
-    return array.slice(startIndex, endIndex);
+    try {
+      --pageNumber;
+      if (array.length > 0) {
+        const startIndex = pageNumber * pageSize;
+        const endIndex = startIndex + pageSize;
+        return array?.slice(startIndex, endIndex);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const currentPageData = paginate(betHistory, currentPage, pageLimit);
@@ -69,7 +75,7 @@ const BetsList = (props: any) => {
               />
             );
           })}
-        {(!betHistory || betHistory.length === 0) && (
+        {(!betHistory || betHistory?.length === 0) && (
           <EmptyRow containerStyle={{ background: "#FFE094" }} />
         )}
       </Box>
@@ -82,7 +88,7 @@ const BetsList = (props: any) => {
       >
         <Pagination
           currentPage={currentPage}
-          pages={+(betHistory.length / pageLimit).toFixed()}
+          pages={+(betHistory?.length / pageLimit).toFixed()}
           setCurrentPage={setCurrentPage}
         />
       </Box>

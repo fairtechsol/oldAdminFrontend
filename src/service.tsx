@@ -1,6 +1,5 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { checkUserType } from "./helper";
 
 const toastOptions = {
   autoClose: 1500,
@@ -12,8 +11,8 @@ const toastOptions = {
 const service = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
-      ? "http://3.89.232.255:5050"
-      : "http://localhost:5050",
+      ? "http://3.89.232.255:5000"
+      : "http://localhost:5000",
 });
 
 service.defaults.timeout = 100000;
@@ -54,7 +53,7 @@ service.interceptors.response.use(
       toast.error(error.response.data.message, toastOptions);
     } else if (error.response.status === 401) {
       toast.error(error.response.data.message, toastOptions);
-      window.location.replace(`/${checkUserType()}/login`);
+      window.location.replace(`/admin/login`);
       sessionStorage.clear();
     }
 

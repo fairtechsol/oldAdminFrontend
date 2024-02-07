@@ -9,10 +9,10 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
-      navigate("/wallet/list_of_clients");
+      navigate("/admin/list_of_clients");
     } else {
       if (!sessionStorage.getItem("forceChangePassword")) {
-        navigate("/wallet/login");
+        navigate("/admin/login");
       }
     }
   }, []);

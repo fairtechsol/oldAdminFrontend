@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 import { socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
-import { checkUserType } from "../../helper";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -79,9 +78,9 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         if (location.pathname.includes("market_analysis")) {
-          navigate(`/${checkUserType()}/market_analysis`);
+          navigate(`/admin/market_analysis`);
         } else {
-          navigate(`/${checkUserType()}/live_market`);
+          navigate(`/admin/live_market`);
         }
       }
     } catch (e) {

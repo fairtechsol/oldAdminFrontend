@@ -6,7 +6,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useNavigate } from "react-router-dom";
 import { memo, useState } from "react";
 import RowModalComponents from "./RowModalCompExpert";
-import { checkUserType } from "../../../helper";
 
 const AccountListExpertRow = (props: AccountListRowInterface) => {
   const {
@@ -70,7 +69,7 @@ const AccountListExpertRow = (props: AccountListRowInterface) => {
             <EditOutlinedIcon
               fontSize="medium"
               onClick={() => {
-                navigate(`/${checkUserType()}/edit_account`, {
+                navigate(`/admin/edit_account`, {
                   state: {
                     id: element?.id,
                     expertMatchDetail: element,

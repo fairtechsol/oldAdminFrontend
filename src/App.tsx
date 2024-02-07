@@ -4,11 +4,7 @@ import routes from "./routes";
 function App() {
   if (process.env.NODE_ENV === "production") console.log = () => {};
 
-  return (
-    <RouterProvider
-      router={routes(window.location.pathname.includes("admin") ? "admin" : "")}
-    />
-  );
+  return <RouterProvider router={routes()} />;
 }
 
 export default App;

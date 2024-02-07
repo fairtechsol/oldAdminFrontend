@@ -19,7 +19,6 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { socketService } from "../../socketManager";
-import { checkUserType } from "../../helper";
 
 const Inplay = () => {
   const navigate = useNavigate();
@@ -85,7 +84,7 @@ const Inplay = () => {
             <MatchComponent
               key={match.id}
               onClick={() => {
-                navigate(`/${checkUserType()}/live_market/matches`, {
+                navigate(`/admin/live_market/matches`, {
                   state: {
                     submit: true,
                     matchId: match?.id,

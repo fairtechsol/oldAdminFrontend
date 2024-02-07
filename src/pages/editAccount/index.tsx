@@ -27,7 +27,6 @@ import { AppDispatch, RootState } from "../../store/store";
 import CustomErrorMessage from "../../components/Common/CustomErrorMessage";
 import CustomModal from "../../components/Common/CustomModal";
 import ButtonWithSwitch from "../../components/addMatchComp/ButtonWithSwitch";
-import { checkUserType } from "../../helper";
 
 // const AccountTypes = [
 //   { value: "fairGameAdmin", label: "Fairgame Admin", level: 1 },
@@ -135,39 +134,11 @@ const EditAccount = () => {
         phoneNumber: values.phoneNumber.toString(),
         city: values.city,
         remark: values.remarks,
+        sessionCommission: values.sessionCommission.value,
+        matchComissionType: values.matchCommissionType.value,
+        matchCommission: values.matchCommission.value,
       };
-
-      let payload;
-      if (values.roleName.value === "expert") {
-        payload = {
-          ...commonPayload,
-          allPrivilege: lockUnlockObj.allPrivilege,
-          addMatchPrivilege: lockUnlockObj.addMatchPrivilege,
-          betFairMatchPrivilege: lockUnlockObj.betFairMatchPrivilege,
-          bookmakerMatchPrivilege: lockUnlockObj.bookmakerMatchPrivilege,
-          sessionMatchPrivilege: lockUnlockObj.sessionMatchPrivilege,
-        };
-        dispatch(updateExpert(payload));
-      } else if (values.roleName.value === "superAdmin") {
-        payload = {
-          ...commonPayload,
-          logo: values.base64Image,
-          isOldFairGame: false,
-          sidebarColor: values.sidebarColor,
-          headerColor: values.headerColor,
-          footerColor: values.footerColor,
-          transactionPassword: values.adminTransPassword,
-        };
-        dispatch(updateUrlAdmin(payload));
-      } else {
-        payload = {
-          ...commonPayload,
-          sessionCommission: values.sessionCommission.value,
-          matchComissionType: values.matchCommissionType.value,
-          matchCommission: values.matchCommission.value,
-        };
-        dispatch(updateUser(payload));
-      }
+      dispatch(updateUser(commonPayload));
     },
   });
 
@@ -467,8 +438,6 @@ const EditAccount = () => {
       console.log(e);
     }
   }, [editSuccess]);
-  
-
 
   return (
     <>
@@ -806,10 +775,10 @@ const EditAccount = () => {
                       (option: any) =>
                         option.value === formik.values.roleName.value
                     )}
-                  // touched={touched.roleName}
-                  // error={errors.roleName}
-                  // error={touched.roleName && Boolean(errors.roleName)}
-                  // onBlur={formik.handleBlur}
+                    // touched={touched.roleName}
+                    // error={errors.roleName}
+                    // error={touched.roleName && Boolean(errors.roleName)}
+                    // onBlur={formik.handleBlur}
                   />
                   {/* <CustomErrorMessage touched={touched.roleName} errors={errors.roleName} /> */}
                 </Box>
@@ -989,7 +958,7 @@ const EditAccount = () => {
                     id={"downlinePartnership"}
                     type={"Number"}
                     value={formik.values.downlinePartnership}
-                  // onChange={formik.handleChange}
+                    // onChange={formik.handleChange}
                   />
                 </>
               )}
@@ -1166,7 +1135,7 @@ const EditAccount = () => {
           showModal={showModal}
           buttonMessage={"Ok"}
           functionDispatch={() => {}}
-          navigateTo={`/${checkUserType()}/list_of_clients`}
+          navigateTo={`/admin/list_of_clients`}
         />
       )}
     </>

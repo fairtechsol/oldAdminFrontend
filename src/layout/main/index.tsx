@@ -9,7 +9,6 @@ import {
 import { AppDispatch } from "../../store/store";
 import Header from "./header";
 import { socketService } from "../../socketManager";
-import { WalletPrivateRoute } from "../../helper";
 
 const MainLayout = () => {
   const navigate = useNavigate();
@@ -17,7 +16,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (!sessionStorage.getItem("userToken")) {
-      navigate("/wallet/login");
+      navigate("/admin/login");
     }
     dispatch(getUsersProfile());
     dispatch(marqueeNotification());
@@ -35,12 +34,10 @@ const MainLayout = () => {
 
   return (
     <>
-      <WalletPrivateRoute>
-        <Header />
-        <BackgroundLayout>
-          <Outlet />
-        </BackgroundLayout>
-      </WalletPrivateRoute>
+      <Header />
+      <BackgroundLayout>
+        <Outlet />
+      </BackgroundLayout>
     </>
   );
 };
