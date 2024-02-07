@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "../../../utils/Validations";
+import { Constants } from "../../../utils/Constants";
 
 const Login = () => {
   const theme = useTheme();
@@ -47,9 +48,9 @@ const Login = () => {
           "forceChangePassword",
           JSON.stringify(forceChangePassword)
         );
-        navigate(`/admin/change_password`);
+        navigate(`${Constants.oldAdmin}change_password`);
       } else if (isTransPasswordCreated) {
-        navigate(`/admin/list_of_clients`);
+        navigate(`${Constants.oldAdmin}list_of_clients`);
       }
       dispatch(authReset());
     }

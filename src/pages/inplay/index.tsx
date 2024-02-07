@@ -74,7 +74,7 @@ const Inplay = () => {
         socketService.match.leaveMatchRoom(item?.id);
       });
     };
-  }, []);
+  }, [matchListInplay?.matches?.length]);
 
   return (
     <>
@@ -84,7 +84,7 @@ const Inplay = () => {
             <MatchComponent
               key={match.id}
               onClick={() => {
-                navigate(`/admin/live_market/matches`, {
+                navigate(`${Constants.oldAdmin}live_market/matches`, {
                   state: {
                     submit: true,
                     matchId: match?.id,

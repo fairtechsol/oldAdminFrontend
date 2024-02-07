@@ -9,6 +9,7 @@ import {
 import { AppDispatch } from "../../store/store";
 import Header from "./header";
 import { socketService } from "../../socketManager";
+import { Constants } from "../../utils/Constants";
 
 const MainLayout = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (!sessionStorage.getItem("userToken")) {
-      navigate("/admin/login");
+      navigate(`${Constants.oldAdmin}login`);
     }
     dispatch(getUsersProfile());
     dispatch(marqueeNotification());

@@ -66,15 +66,15 @@ export const ApiConstants = {
 
 export const Constants = {
   wallet: "wallet",
-  oldAdmin: "old/admin",
+  oldAdmin: "/old/admin/",
   pageLimit: 15,
   AdminAuthPaths: {
-    root: "/admin",
+    root: "/old/admin",
     login: "login",
     changePassword: "change_password",
   },
   AdminMainPaths: {
-    root: "/admin",
+    root: "/old/admin",
     listOfClients: "list_of_clients",
     match: "match",
     liveMarket: "live_market",
@@ -90,10 +90,10 @@ export const Constants = {
     changePassword: "change-password",
   },
   AdminReportsPaths: {
-    profitLoss: "/admin/reports/profit_loss",
-    accountStatement: "/admin/reports/account_statement",
-    currentBet: "/admin/reports/current_bet",
-    generalReport: "/admin/reports/general_report",
+    profitLoss: "/old/admin/reports/profit_loss",
+    accountStatement: "/old/admin/reports/account_statement",
+    currentBet: "/old/admin/reports/current_bet",
+    generalReport: "/old/admin/reports/general_report",
   },
   pageCount: 10,
   listOfClientCountLimit: 15,
@@ -107,7 +107,7 @@ export const Constants = {
   customTimeOut: 1000 * 60 * 60, // 5 mint in mili seconds user ideal 5 mint after that logout
   customTimer: 1000 * 60 * 5, // 30 sec in mili seconds remainint timer start and show message  Your session will expire in 30 second
   sessionExpireTime: 60 * 5, // 30 sec
-  apiBasePath: "http://3.89.232.255:5050",
+  apiBasePath: "http://3.89.232.255:5001",
   thirdParty: "http://3.89.232.255:3200",
   expertPath: "http://3.89.232.255:6060",
 };
@@ -116,7 +116,7 @@ export const baseUrls = {
   socket:
     process.env.NODE_ENV === "production"
       ? `${Constants.apiBasePath}`
-      : "http://localhost:5050",
+      : "http://localhost:5000",
   thirdParty:
     process.env.NODE_ENV === "production"
       ? `${Constants.thirdParty}`

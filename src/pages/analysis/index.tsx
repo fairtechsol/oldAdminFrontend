@@ -179,7 +179,7 @@ const Analysis = () => {
                     if (selected) setMode("0");
                     setSelected([]);
                     if (max == "3") {
-                      navigate(`/admin/market_analysis/multiple_Match`, {
+                      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
                         state: {
                           match: Number(max),
                           matchIds: matchIds,
@@ -187,7 +187,7 @@ const Analysis = () => {
                         },
                       });
                     } else {
-                      navigate(`/admin/market_analysis/multiple_Match`, {
+                      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
                         state: {
                           match: Number(max),
                           matchIds: matchIds,

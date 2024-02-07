@@ -4,15 +4,16 @@ import { Outlet, useNavigate } from "react-router-dom";
 import AuthBackground from "../../pages/auth/AuthBackground";
 import StyledImage from "../../components/Common/StyledImages";
 import { FgLogo } from "../../assets";
+import { Constants } from "../../utils/Constants";
 const AuthLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
-      navigate("/admin/list_of_clients");
+      navigate(`${Constants.oldAdmin}list_of_clients`);
     } else {
       if (!sessionStorage.getItem("forceChangePassword")) {
-        navigate("/admin/login");
+        navigate(`${Constants.oldAdmin}login`);
       }
     }
   }, []);

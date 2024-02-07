@@ -1,6 +1,7 @@
 import MainBox from "./MainBox";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Constants } from "../../utils/Constants";
 
 const RenderOdds = (props: any) => {
   const { i, handleDrawerToggle, colors } = props;
@@ -9,7 +10,7 @@ const RenderOdds = (props: any) => {
     <Box
       onClick={(event: any) => {
         event.stopPropagation();
-        navigate(`/admin/match`, {
+        navigate(`${Constants.oldAdmin}match`, {
           state: { matchId: i?.id },
         });
         handleDrawerToggle();

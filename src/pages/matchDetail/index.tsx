@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
+import { Constants } from "../../utils/Constants";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -78,9 +79,9 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         if (location.pathname.includes("market_analysis")) {
-          navigate(`/admin/market_analysis`);
+          navigate(`${Constants.oldAdmin}market_analysis`);
         } else {
-          navigate(`/admin/live_market`);
+          navigate(`${Constants.oldAdmin}live_market`);
         }
       }
     } catch (e) {

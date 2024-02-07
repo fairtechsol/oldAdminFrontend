@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
+import { Constants } from "../../../utils/Constants";
 
 const menutItems = [
   { title: "Secure Auth Verification" },
-  { title: "Change Password", link: `/admin/change-password` },
+  { title: "Change Password", link: `${Constants.oldAdmin}change-password` },
 ];
 const BoxDropDownMenu = (props: any) => {
   const { handleClose } = props;

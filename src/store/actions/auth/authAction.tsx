@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import service from "../../../service";
-import { ApiConstants } from "../../../utils/Constants";
+import { ApiConstants, Constants } from "../../../utils/Constants";
 
 interface LoginData {
   userName: string;
@@ -33,7 +33,7 @@ export const logout = createAsyncThunk<any>(
     try {
       const response = await service.post(`${ApiConstants.AUTH.LOGOUT}`);
       sessionStorage.clear();
-      window.location.replace(`/admin/login`);
+      window.location.replace(`${Constants.oldAdmin}login`);
       return response;
     } catch (error) {
       const err = error as AxiosError;

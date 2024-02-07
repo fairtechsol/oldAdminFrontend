@@ -31,6 +31,7 @@ import {
 } from "../../utils/Validations";
 import ButtonWithSwitch from "../../components/addMatchComp/ButtonWithSwitch";
 import _, { debounce } from "lodash";
+import { Constants } from "../../utils/Constants";
 
 const MatchCommissionTypes = [
   { value: "0.00", label: "0.00" },
@@ -1146,7 +1147,7 @@ const AddAccount = () => {
           showModal={showModal}
           buttonMessage={"Ok"}
           functionDispatch={() => {}}
-          navigateTo={`/admin/list_of_clients`}
+          navigateTo={`${Constants.oldAdmin}list_of_clients`}
         />
       )}
     </>
