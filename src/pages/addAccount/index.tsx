@@ -16,13 +16,10 @@ import SelectField from "../../components/Common/DropDown/SelectField";
 import Loader from "../../components/Loader";
 import Input from "../../components/login/Input";
 import {
-  addExpert,
   addReset,
-  addUrlAdmin,
   addUser,
   getAlreadyUserExist,
   // profileReset,
-  updateReset,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import CustomErrorMessage from "../../components/Common/CustomErrorMessage";

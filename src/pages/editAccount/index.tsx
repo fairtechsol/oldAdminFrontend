@@ -17,9 +17,7 @@ import Loader from "../../components/Loader";
 import Input from "../../components/login/Input";
 import {
   getUsersDetail,
-  updateExpert,
   updateReset,
-  updateUrlAdmin,
   updateUser,
   updateUserReset,
 } from "../../store/actions/user/userAction";
