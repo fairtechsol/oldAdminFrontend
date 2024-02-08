@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import BoxButton from "./BoxButton";
 import ChangePasswordComponent from "./ChangePasswordComponent";
 import DepositComponent from "./DepositComponent";
@@ -7,15 +7,26 @@ import SetCreditComponent from "./SetCreditComponent";
 import SetExposureLimit from "./SetExposureLimit";
 import WithdrawComponent from "./WithdrawComponent";
 import { ApiConstants } from "../../../utils/Constants";
-import { RootState } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  handleSettleCommission,
+  userListSuccessReset,
+} from "../../../store/actions/user/userAction";
 
 const RowModalComponents = (props: any) => {
   const { element, selected, setSelected, backgroundColor } = props;
+  const dispatch: AppDispatch = useDispatch();
+
+  const [settlementModal, setSettlementModal] = useState(false);
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
+
+  const { success } = useSelector((state: RootState) => state.user.userList);
 
   const classes = {
     mainBox: {
@@ -55,6 +66,13 @@ const RowModalComponents = (props: any) => {
       borderColor: "white",
     },
   };
+
+  useEffect(() => {
+    if (success) {
+      setSettlementModal(false);
+      dispatch(userListSuccessReset());
+    }
+  }, [success]);
 
   return (
     <Box sx={classes.mainBox}>
@@ -214,6 +232,23 @@ const RowModalComponents = (props: any) => {
           />
           <BoxButton
             color={"#0B4F26"}
+            onClick={(e: any) => {
+              e?.preventDefault();
+              setSettlementModal(true);
+            }}
+            title={"C_Settlement"}
+            containerStyle={{
+              marginLeft: { lg: "10px", xs: "0" },
+              flex: 1,
+              borderColor: "white",
+            }}
+            titleStyle={{
+              fontSize: { xs: "12px" },
+            }}
+            labelStyle={{}}
+          />
+          <BoxButton
+            color={"#0B4F26"}
             onClick={() => {
               setSelected(3);
             }}
@@ -278,6 +313,36 @@ const RowModalComponents = (props: any) => {
             labelStyle={{}}
             isSelected={selected == 5}
           />
+          <Dialog
+            open={settlementModal}
+            onClose={() => setSettlementModal((prev: boolean) => !prev)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are you sure want to settle this commission ?"}
+            </DialogTitle>
+            <DialogActions>
+              <Button
+                onClick={() => setSettlementModal((prev: boolean) => !prev)}
+              >
+                No
+              </Button>
+              <Button
+                sx={{ color: "#E32A2A" }}
+                onClick={() => {
+                  dispatch(
+                    handleSettleCommission({
+                      userId: element?.id,
+                      domain: element?.domain,
+                    })
+                  );
+                }}
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Box>
       )}
     </Box>

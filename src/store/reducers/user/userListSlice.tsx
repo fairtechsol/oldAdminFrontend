@@ -5,6 +5,7 @@ import {
   getAlreadyUserExist,
   getUserList,
   handleExport,
+  handleSettleCommission,
   setCreditRefference,
   setExposureLimit,
   setLockUnlockUser,
@@ -115,6 +116,18 @@ export const userList = createSlice({
         state.loading = false;
       })
       .addCase(changePasswordRow.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(handleSettleCommission.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(handleSettleCommission.fulfilled, (state) => {
+        state.success = true;
+        state.loading = false;
+      })
+      .addCase(handleSettleCommission.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

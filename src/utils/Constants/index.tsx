@@ -10,6 +10,7 @@ export const ApiConstants = {
     BALANCE: "/user/balance",
     EXPERTLIST: "/expert/list",
     ADDFGADMIN: "/user/add",
+    COMMISSION_SETTLEMENT: "/balance/settle/commission",
     ALREADY_EXIST: "/user/exist",
     ADDURLADMIN: "/superadmin/add",
     UPDATEURLADMIN: "/superadmin/updateUser",
@@ -22,6 +23,8 @@ export const ApiConstants = {
     CREDITREFERRENCE: "/user/update/creditreferrence",
     EXPOSURELIMIT: "/user/update/exposurelimit",
     CHILD_PROFIT_LOSS: "",
+    COMMISSION_MATCH: "/user/commissionMatch",
+    COMMISSION_BET_PLACED: "/user/commissionBetPlaced",
   },
   SUPERADMIN: {
     ADD: "/superadmin/add",
@@ -66,15 +69,15 @@ export const ApiConstants = {
 
 export const Constants = {
   wallet: "wallet",
-  oldAdmin: "/old/admin/",
+  oldAdmin: "/admin/",
   pageLimit: 15,
   AdminAuthPaths: {
-    root: "/old/admin",
+    root: "/admin",
     login: "login",
     changePassword: "change_password",
   },
   AdminMainPaths: {
-    root: "/old/admin",
+    root: "/admin",
     listOfClients: "list_of_clients",
     match: "match",
     liveMarket: "live_market",
@@ -90,10 +93,10 @@ export const Constants = {
     changePassword: "change-password",
   },
   AdminReportsPaths: {
-    profitLoss: "/old/admin/reports/profit_loss",
-    accountStatement: "/old/admin/reports/account_statement",
-    currentBet: "/old/admin/reports/current_bet",
-    generalReport: "/old/admin/reports/general_report",
+    profitLoss: "/admin/reports/profit_loss",
+    accountStatement: "/admin/reports/account_statement",
+    currentBet: "/admin/reports/current_bet",
+    generalReport: "/admin/reports/general_report",
   },
   pageCount: 10,
   listOfClientCountLimit: 15,

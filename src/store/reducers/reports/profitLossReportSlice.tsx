@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getBetProfitLoss,
+  getCommissionBetPlaced,
+  getCommissionMatch,
   getDomainProfitLoss,
   getSessionProfitLoss,
   getTotalProfitLoss,
@@ -14,6 +16,8 @@ interface InitialState {
   domainProfitLossList: any;
   betProfitLossList: any;
   sessionProfitLossList: any;
+  commissionMatchList: any;
+  commissionBetPlacedList: any;
   loading: boolean;
   success: boolean;
   error: any;
@@ -24,6 +28,8 @@ const initialState: InitialState = {
   domainProfitLossList: [],
   betProfitLossList: [],
   sessionProfitLossList: [],
+  commissionMatchList: [],
+  commissionBetPlacedList: [],
   loading: false,
   success: false,
   error: null,
@@ -88,6 +94,36 @@ const profitLossReportSlice = createSlice({
         state.sessionProfitLossList = action.payload;
       })
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getCommissionMatch.pending, (state) => {
+        state.loading = false;
+        state.success = false;
+        state.error = null;
+        state.commissionMatchList = [];
+      })
+      .addCase(getCommissionMatch.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.commissionMatchList = action.payload;
+      })
+      .addCase(getCommissionMatch.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getCommissionBetPlaced.pending, (state) => {
+        state.loading = false;
+        state.success = false;
+        state.error = null;
+        state.commissionBetPlacedList = [];
+      })
+      .addCase(getCommissionBetPlaced.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.commissionBetPlacedList = action.payload;
+      })
+      .addCase(getCommissionBetPlaced.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

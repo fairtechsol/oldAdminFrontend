@@ -253,6 +253,24 @@ export const changeAmmountUser = createAsyncThunk<any, any>(
   }
 );
 
+export const handleSettleCommission = createAsyncThunk<any, any>(
+  "settleCommission/update",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.COMMISSION_SETTLEMENT}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      throw thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const marqueeNotification = createAsyncThunk<any>(
   "expert/notification",
   async (_, thunkApi) => {
