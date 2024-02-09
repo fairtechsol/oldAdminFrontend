@@ -195,7 +195,13 @@ const ChangePassword = (props: any) => {
           modalTitle="Your password has been changed sucessfully"
           setShowModal={setShowModal}
           showModal={showModal}
-          functionDispatch={() => dispatch(logout())}
+          functionDispatch={() => {
+            if (sessionStorage.getItem("forceChangePassword") === "true") {
+              sessionStorage.clear();
+            } else {
+              dispatch(logout());
+            }
+          }}
           buttonMessage={"Navigate To Login"}
           navigateTo={`${Constants.oldAdmin}login`}
         />
