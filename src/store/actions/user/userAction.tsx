@@ -419,6 +419,13 @@ export const handleExport = createAsyncThunk<any, any>(
   }
 );
 
+export const updateBalanceOfLoggedUser = createAsyncThunk<any, any>(
+  "/loggedUserBalance/update",
+  async (data) => {
+    return data;
+  }
+);
+
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");

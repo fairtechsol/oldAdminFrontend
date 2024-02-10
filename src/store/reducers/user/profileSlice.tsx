@@ -6,6 +6,7 @@ import {
   getUsersProfile,
   marqueeNotification,
   profileReset,
+  updateBalanceOfLoggedUser,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -89,6 +90,15 @@ const profileSlice = createSlice({
       .addCase(marqueeNotification.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(updateBalanceOfLoggedUser.fulfilled, (state, action) => {
+        state.profileDetail = {
+          ...state.profileDetail,
+          userBal: {
+            ...state.profileDetail.userBal,
+            ...action.payload,
+          },
+        };
       })
       .addCase(profileReset, (state) => {
         return { ...state, success: false };
