@@ -48,9 +48,7 @@ const SearchInput = (props: any) => {
       if (fromDate && toDate) {
         filter += `&createdAt=between${moment(fromDate)?.format(
           "YYYY-MM-DD"
-        )}|${moment(toDate.setDate(toDate.getDate() + 1))?.format(
-          "YYYY-MM-DD"
-        )}`;
+        )}|${moment(toDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
       } else if (fromDate) {
         filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
       } else if (toDate) {

@@ -31,7 +31,7 @@ const RowHeaderDomain = ({
           if (startDate && endDate) {
             filter += `&createdAt=between${moment(startDate)?.format(
               "YYYY-MM-DD"
-            )}|${moment(endDate.setDate(endDate.getDate() + 1))?.format(
+            )}|${moment(endDate.add(1, "days"))?.format(
               "YYYY-MM-DD"
             )}`;
           } else if (startDate) {

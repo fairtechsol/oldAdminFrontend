@@ -32,7 +32,7 @@ const MainLayout = () => {
     if (sessionStorage.getItem("userToken")) {
       socketService.connect();
       socketService.auth.logout();
-      socketService.match.userBalanceUpdate(updateUserBalance);
+      socketService.match.updateUserBalance(updateUserBalance);
     }
     return () => {
       socketService.disconnect();
