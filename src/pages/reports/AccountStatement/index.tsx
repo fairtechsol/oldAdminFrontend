@@ -32,7 +32,7 @@ const AccountStatement = () => {
       if (fromDate && toDate) {
         filter += `&createdAt=between${moment(fromDate)?.format(
           "YYYY-MM-DD"
-        )}|${moment(toDate.setDate(toDate.getDate() + 1))?.format(
+        )}|${moment(toDate.add(1, "days"))?.format(
           "YYYY-MM-DD"
         )}`;
       } else if (fromDate) {
@@ -63,7 +63,7 @@ const AccountStatement = () => {
               if (fromDate && toDate) {
                 filter += `&createdAt=between${moment(fromDate)?.format(
                   "YYYY-MM-DD"
-                )}|${moment(toDate.setDate(toDate.getDate() + 1))?.format(
+                )}|${moment(toDate.add(1, "days"))?.format(
                   "YYYY-MM-DD"
                 )}`;
               } else if (fromDate) {
