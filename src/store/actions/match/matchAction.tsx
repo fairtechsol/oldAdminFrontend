@@ -176,6 +176,31 @@ export const updateMatchRates = createAsyncThunk<any, any>(
     return matchDetails;
   }
 );
+export const updateBetsPlaced = createAsyncThunk<any, any>(
+  "/placed/bets",
+  async (placedBets) => {
+    return placedBets;
+  }
+);
+export const updateBalance = createAsyncThunk<any, any>(
+  "/user/balance",
+  async (balance) => {
+    return balance;
+  }
+);
+
+export const betDataFromSocket = createAsyncThunk<any, any>(
+  "/betData/update",
+  async (data) => {
+    return data;
+  }
+);
+export const updateMaxLossForBet = createAsyncThunk<any, any>(
+  "/maxLoss/update",
+  async (data) => {
+    return data;
+  }
+);
 
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");

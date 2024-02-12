@@ -57,6 +57,10 @@ const Inplay = () => {
     }
   }, [success]);
 
+  const getMatchListService = () => {
+    dispatch(getMatchListInplay({ currentPage: currentPage }));
+  };
+
   useEffect(() => {
     try {
       if (matchListInplay && matchListInplay?.matches?.length > 0) {
@@ -65,6 +69,7 @@ const Inplay = () => {
         });
         socketService.match.matchResultDeclared(matchResultDeclared);
         socketService.match.matchResultUnDeclared(matchResultDeclared);
+        socketService.match.matchAdded(getMatchListService);
       }
     } catch (e) {
       console.log(e);

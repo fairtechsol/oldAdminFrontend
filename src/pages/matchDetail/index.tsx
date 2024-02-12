@@ -10,10 +10,14 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import {
   AllBetDelete,
+  betDataFromSocket,
   getMatchDetail,
   getPlacedBets,
   matchListReset,
+  updateBalance,
+  updateBetsPlaced,
   updateMatchRates,
+  updateMaxLossForBet,
 } from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
 import { socketService } from "../../socketManager";
@@ -99,6 +103,28 @@ const MatchDetail = () => {
       console.log(e);
     }
   };
+  const setMatchBetsPlaced = (event: any) => {
+    try {
+      if (event?.jobData?.matchId === state?.matchId) {
+        dispatch(updateBetsPlaced(event?.jobData));
+        dispatch(updateBalance(event?.jobData));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const setSessionBetsPlaced = (event: any) => {
+    try {
+      if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
+        dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
+        dispatch(updateBalance(event));
+        dispatch(betDataFromSocket(event));
+        dispatch(updateMaxLossForBet(event));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -116,6 +142,8 @@ const MatchDetail = () => {
         socketService.match.matchResultDeclared(matchResultDeclared);
         socketService.match.matchDeleteBet(matchDeleteBet);
         socketService.match.sessionDeleteBet(matchDeleteBet);
+        socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
+        socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
       }
     } catch (e) {
       console.log(e);
