@@ -46,7 +46,7 @@ export const reportSlice = createSlice({
       })
       .addCase(getCurrentBets.fulfilled, (state, action) => {
         state.success = true;
-        state.currentBetsList = action.payload;
+        state.currentBetsList = action.payload?.rows;
         state.loading = false;
       })
       .addCase(getCurrentBets.rejected, (state, action) => {
