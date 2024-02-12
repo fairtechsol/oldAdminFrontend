@@ -82,7 +82,7 @@ export const addUserValidation = (item: any) => {
     }),
     // domain: Yup.string().matches(
     //   /^http:\/\/localhost:5000$/,
-    //   "Your URL should be http://3.89.232.255:5000 format for dev"
+    //   "Your URL should be http://54.208.19.89:5000 format for dev"
     // ),
     // matchCommissionType: Yup.string().required(
     //   "Match Commission Type is required"
