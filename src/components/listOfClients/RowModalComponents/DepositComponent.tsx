@@ -104,6 +104,7 @@ const DepositComponent = (props: any) => {
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
+        dispatch(getUsersProfile());
       }
       dispatch(userListSuccessReset());
     }
