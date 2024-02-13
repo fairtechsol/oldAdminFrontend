@@ -104,6 +104,7 @@ const WithdrawComponent = (props: any) => {
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
+        dispatch(getUsersProfile());
       }
       dispatch(userListSuccessReset());
     }
