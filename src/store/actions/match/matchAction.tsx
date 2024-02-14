@@ -202,5 +202,19 @@ export const updateMaxLossForBet = createAsyncThunk<any, any>(
   }
 );
 
+export const updateProfitLossForBet = createAsyncThunk<any, any>(
+  "/profitLoss/update",
+  async (data) => {
+    return data;
+  }
+);
+
+export const updateTeamRates = createAsyncThunk<any, any>(
+  "/teamRates/update",
+  async (data) => {
+    return data;
+  }
+);
+
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");

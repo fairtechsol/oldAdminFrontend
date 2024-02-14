@@ -1,9 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
 
 const PlaceBetComponent = (props: any) => {
-  const { newData } = props;
-  const [proLoss] = useState(newData?.profitLoss);
+  const { profitLoss } = props;
   return (
     <Box
       //   onClick={handleClick}
@@ -49,7 +47,9 @@ const PlaceBetComponent = (props: any) => {
             }}
           >
             Total Bet :{" "}
-            <span style={{ color: "#0B4F26" }}>{proLoss?.total_bet || 0}</span>
+            <span style={{ color: "#0B4F26" }}>
+              {profitLoss?.totalBet || 0}
+            </span>
           </Typography>
         </Box>
         <Box sx={{ zIndex: 100, display: "flex", flexDirection: "column" }}>
@@ -57,18 +57,16 @@ const PlaceBetComponent = (props: any) => {
             sx={{
               marginTop: "2px",
               fontSize: {
-                lg: !newData?.profitLoss?.max_loss ? "8px" : "8px",
+                lg: !profitLoss?.maxLoss ? "8px" : "8px",
                 md: "8px",
                 xs: "8px",
               },
-              fontWeight: !newData?.profitLoss?.max_loss ? "500" : "500",
+              fontWeight: !profitLoss?.maxLoss ? "500" : "500",
               color: "white",
             }}
           >
             {" "}
-            {!newData?.profitLoss?.max_loss
-              ? "Profit/Loss"
-              : newData?.profitLoss?.max_loss}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss}
           </Typography>
         </Box>
       </Box>

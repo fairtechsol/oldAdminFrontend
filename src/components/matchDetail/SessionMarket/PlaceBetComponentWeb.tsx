@@ -1,10 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
 import { UD } from "../../../assets";
 
 const PlaceBetComponentWeb = (props: any) => {
-  const { amount, newData } = props;
-  const [proLoss] = useState(newData?.profitLoss);
+  const { amount, profitLoss } = props;
   return (
     <>
       <Box
@@ -42,7 +40,7 @@ const PlaceBetComponentWeb = (props: any) => {
           <Typography
             sx={{ fontSize: ".5vw", fontWeight: "bold", color: "#0B4F26" }}
           >
-            {proLoss?.total_bet || 0}
+            {profitLoss?.totalBet || 0}
           </Typography>
         </Box>
         <Box
@@ -61,9 +59,7 @@ const PlaceBetComponentWeb = (props: any) => {
             }}
           >
             {" "}
-            {!newData?.profitLoss?.max_loss
-              ? "Profit/Loss"
-              : newData?.profitLoss?.max_loss}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss}
           </Typography>
           <img
             src={UD}

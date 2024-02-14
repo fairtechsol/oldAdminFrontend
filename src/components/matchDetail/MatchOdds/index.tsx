@@ -279,8 +279,14 @@ const MatchOdds = (props: any) => {
                   color={
                     typeOfBet === "Manual Tied Match"
                       ? currentMatch?.profitLossDataMatch?.yesRateTie
-                      : currentMatch?.profitLossDataMatch?.teamARate <= 0
-                      ? "#FF4D4D"
+                        ? currentMatch?.profitLossDataMatch?.yesRateTie < 0
+                          ? "#FF4D4D"
+                          : "#319E5B"
+                        : "#319E5B"
+                      : currentMatch?.profitLossDataMatch?.teamARate
+                      ? currentMatch?.profitLossDataMatch?.teamARate < 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
                       : "#319E5B"
                   }
                   data={data?.length > 0 ? data[0] : []}
@@ -313,8 +319,14 @@ const MatchOdds = (props: any) => {
                   color={
                     typeOfBet === "Manual Tied Match"
                       ? currentMatch?.profitLossDataMatch?.noRateTie
-                      : currentMatch?.profitLossDataMatch?.teamBRate <= 0
-                      ? "#FF4D4D"
+                        ? currentMatch?.profitLossDataMatch?.noRateTie < 0
+                          ? "#FF4D4D"
+                          : "#319E5B"
+                        : "#319E5B"
+                      : currentMatch?.profitLossDataMatch?.teamBRate
+                      ? currentMatch?.profitLossDataMatch?.teamBRate < 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
                       : "#319E5B"
                   }
                   data={data?.length > 0 ? data[1] : []}
