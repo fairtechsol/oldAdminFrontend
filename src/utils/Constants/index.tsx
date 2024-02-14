@@ -110,9 +110,9 @@ export const Constants = {
   customTimeOut: 1000 * 60 * 60, // 5 mint in mili seconds user ideal 5 mint after that logout
   customTimer: 1000 * 60 * 5, // 30 sec in mili seconds remainint timer start and show message  Your session will expire in 30 second
   sessionExpireTime: 60 * 5, // 30 sec
-  apiBasePath: "http://54.208.19.89:5001",
-  thirdParty: "http://54.208.19.89:3200",
-  expertPath: "http://54.208.19.89:6060",
+  apiBasePath: "http://107.23.165.155:5001",
+  thirdParty: "http://107.23.165.155:3200",
+  expertPath: "http://107.23.165.155:6060",
   localPath: "http://localhost:5000",
   localPathThird: "http://localhost:3200",
   localPathExpert: "http://localhost:6060",
