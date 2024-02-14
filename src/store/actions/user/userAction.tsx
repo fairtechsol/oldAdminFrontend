@@ -426,6 +426,75 @@ export const updateBalanceOfLoggedUser = createAsyncThunk<any, any>(
   }
 );
 
+export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
+  "/matchWiseProfitLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.MATCH_WISE_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.result;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
+  "/usrTotalProfitLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.result;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
+  "/totalBetProfitLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getSessionProfitLoss = createAsyncThunk<any, any>(
+  "/sessionProfitLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");

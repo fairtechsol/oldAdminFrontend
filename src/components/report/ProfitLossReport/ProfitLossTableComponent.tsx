@@ -2,6 +2,9 @@ import { Box } from "@mui/material";
 import RowHeaderMatches from "./RowHeaderMatches";
 import Pagination from "../../Common/Pagination";
 import { useState } from "react";
+import { AppDispatch } from "../../../store/store";
+import { useDispatch } from "react-redux";
+import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 
 const ProfitLossTableComponent = (props: any) => {
   const {
@@ -12,14 +15,45 @@ const ProfitLossTableComponent = (props: any) => {
     visible,
     startDate,
     endDate,
+    setShow,
+    show,
   } = props;
-
+  const [event, setEvent] = useState("");
+  const dispatch: AppDispatch = useDispatch();
   const [selectedId, setSelectedId] = useState({
     type: "",
     id: "",
     betId: "",
     sessionBet: false,
   });
+
+  const getHandleReport = (eventType: any) => {
+    setEvent(eventType);
+    if (show) {
+      setSelectedId((prev) => ({
+        ...prev,
+        type: "",
+        id: "",
+        betId: "",
+        sessionBet: false,
+      }));
+    }
+    if (!show) {
+      setSelectedId((prev) => ({
+        ...prev,
+        type: "",
+        id: "",
+        betId: "",
+        sessionBet: false,
+      }));
+      dispatch(
+        getMatchWiseProfitLoss({
+          type: event,
+        })
+      );
+    }
+    setShow(!show);
+  };
 
   return (
     <Box>

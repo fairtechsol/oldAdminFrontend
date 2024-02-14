@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
-import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
-import { getTotalProfitLoss } from "../../../store/actions/reports";
 import moment from "moment";
+import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
+import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
 
 const ProfitLossReport = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -26,22 +26,20 @@ const ProfitLossReport = () => {
       if (startDate && endDate) {
         filter += `&createdAt=between${moment(startDate)?.format(
           "YYYY-MM-DD"
-        )}|${moment(endDate.add(1, "days"))?.format(
-          "YYYY-MM-DD"
-        )}`;
+        )}|${moment(endDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
       } else if (startDate) {
         filter += `&createdAt=gte${moment(startDate)?.format("YYYY-MM-DD")}`;
       } else if (endDate) {
         filter += `&createdAt=lte${moment(endDate)?.format("YYYY-MM-DD")}`;
       }
-      dispatch(getTotalProfitLoss({ filter: filter }));
+      dispatch(getUserTotalProfitLoss({ filter: filter }));
     } catch (error) {
       console.error("Error:", (error as Error)?.message);
     }
   };
 
   useEffect(() => {
-    dispatch(getTotalProfitLoss({ filter: "" }));
+    dispatch(getUserTotalProfitLoss({ filter: "" }));
   }, []);
 
   return (

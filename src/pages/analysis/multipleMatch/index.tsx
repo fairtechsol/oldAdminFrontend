@@ -43,19 +43,33 @@ const MultipleMatch = ({}) => {
     dispatch(updateMultipleMatchDetail(event));
   };
 
+  const setMultiSessionBetsPlaced = (event: any) => {};
+  const setMultiMatchBetsPlaced = (event: any) => {};
+  const matchMultiResultDeclared = (event: any) => {};
+  const matchMultiDeleteBet = (event: any) => {};
+
   useEffect(() => {
     try {
       if (state?.matchIds) {
-        socketService.match.leaveAllRooms();
+        // socketService.match.leaveAllRooms();
         dispatch(getMultipleMatchDetail(state?.matchIds));
       }
-      if (state?.matchIds && state?.matchIds?.length > 0) {
+      if (
+        state?.matchIds &&
+        state?.matchIds?.length > 0 &&
+        profileDetail?.roleName
+      ) {
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRates(item, updateMatchDetailToRedux);
         });
+        socketService.match.userSessionBetPlaced(setMultiSessionBetsPlaced);
+        socketService.match.userMatchBetPlaced(setMultiMatchBetsPlaced);
+        socketService.match.matchResultDeclared(matchMultiResultDeclared);
+        socketService.match.matchDeleteBet(matchMultiDeleteBet);
+        socketService.match.sessionDeleteBet(matchMultiDeleteBet);
       }
     } catch (e) {
       console.log(e);
@@ -65,7 +79,7 @@ const MultipleMatch = ({}) => {
         socketService.match.leaveMatchRoom(item);
       });
     };
-  }, [state?.matchIds]);
+  }, [state?.matchIds, profileDetail?.roleName]);
 
   useEffect(() => {
     if (success) {
@@ -192,7 +206,8 @@ const MultipleMatch = ({}) => {
                                     item?.marketCompleteMatch?.maxBet
                                   )}
                                   data={
-                                    item?.marketCompleteMatch?.runners?.length > 0
+                                    item?.marketCompleteMatch?.runners?.length >
+                                    0
                                       ? item?.marketCompleteMatch?.runners
                                       : []
                                   }
@@ -258,6 +273,7 @@ const MultipleMatch = ({}) => {
                               {item?.manualSessionActive && (
                                 <SessionMarket
                                   title={"Quick Session Market"}
+                                  allBetsData={item?.profitLossDataSession}
                                   // match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={QuicksessionData}
@@ -280,6 +296,7 @@ const MultipleMatch = ({}) => {
                               {item?.apiSessionActive && (
                                 <SessionMarket
                                   title={"Session Market"}
+                                  allBetsData={item?.profitLossDataSession}
                                   match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={sessionData}
@@ -497,6 +514,7 @@ const MultipleMatch = ({}) => {
                             {item?.apiSessionActive && (
                               <SessionMarket
                                 title={"Quick Session Market"}
+                                allBetsData={item?.profitLossDataSession}
                                 sessionData={item?.sessionBettings}
                                 currentMatch={item}
                                 sessionOffline={item?.sessionOffline}
@@ -508,6 +526,7 @@ const MultipleMatch = ({}) => {
                             {item?.manualSessionActive && (
                               <SessionMarket
                                 title={"Session Market"}
+                                allBetsData={item?.profitLossDataSession}
                                 match={"multiple"}
                                 currentMatch={item}
                                 sessionOffline={item?.sessionOffline}
@@ -745,6 +764,7 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Quick Session Market"}
+                            allBetsData={item?.profitLossDataSession}
                             // match={"multiple"}
                             currentMatch={item}
                             sessionData={QuicksessionData}
@@ -762,6 +782,7 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Session Market"}
+                            allBetsData={item?.profitLossDataSession}
                             match={"multiple"}
                             currentMatch={item}
                             sessionData={sessionData}
