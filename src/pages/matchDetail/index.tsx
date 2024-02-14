@@ -10,14 +10,15 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import {
   AllBetDelete,
-  betDataFromSocket,
+  // betDataFromSocket,
   getMatchDetail,
   getPlacedBets,
   matchListReset,
-  updateBalance,
+  // updateBalance,
   updateBetsPlaced,
   updateMatchRates,
   updateMaxLossForBet,
+  updateTeamRates,
 } from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
 import { socketService } from "../../socketManager";
@@ -103,23 +104,31 @@ const MatchDetail = () => {
       console.log(e);
     }
   };
-  const setMatchBetsPlaced = (event: any) => {
+  const setSessionBetsPlaced = (event: any) => {
     try {
-      if (event?.jobData?.matchId === state?.matchId) {
-        dispatch(updateBetsPlaced(event?.jobData));
-        dispatch(updateBalance(event?.jobData));
+      if (event?.jobData?.placedBet?.matchId === state?.matchId) {
+        dispatch(
+          updateBetsPlaced({
+            newBet: event?.jobData?.placedBet,
+            userName: event?.jobData?.betPlaceObject?.betPlacedData?.userName,
+            myStake: event?.jobData?.betPlaceObject?.myStack,
+          })
+        );
+        // dispatch(updateBalance(event));
+        // dispatch(betDataFromSocket(event));
+        dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
       console.log(e);
     }
   };
-  const setSessionBetsPlaced = (event: any) => {
+
+  const setMatchBetsPlaced = (event: any) => {
     try {
-      if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
-        dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
-        dispatch(updateBalance(event));
-        dispatch(betDataFromSocket(event));
-        dispatch(updateMaxLossForBet(event));
+      if (event?.jobData?.matchId === state?.matchId) {
+        dispatch(updateBetsPlaced(event?.jobData));
+        // dispatch(updateBalance(event?.jobData));
+        dispatch(updateTeamRates(event));
       }
     } catch (e) {
       console.log(e);
@@ -128,7 +137,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (state?.matchId) {
+      if (state?.matchId && profileDetail?.roleName) {
         dispatch(getMatchDetail(state?.matchId));
         dispatch(getPlacedBets(state?.matchId));
         socketService.match.joinMatchRoom(
@@ -152,7 +161,7 @@ const MatchDetail = () => {
       socketService.match.leaveAllRooms();
       socketService.match.leaveMatchRoom(state?.matchId);
     };
-  }, [state?.matchId]);
+  }, [state?.matchId, profileDetail?.roleName]);
 
   useEffect(() => {
     try {
@@ -301,6 +310,7 @@ const MatchDetail = () => {
           {matchDetail?.manualSessionActive && matchesMobile && (
             <SessionMarket
               title={"Quick Session Market"}
+              allBetsData={matchDetail?.profitLossDataSession}
               currentMatch={matchDetail}
               sessionData={QuicksessionData}
               min={matchDetail?.betFairSessionMinBet || 0}
@@ -310,6 +320,7 @@ const MatchDetail = () => {
           {matchDetail?.apiSessionActive && matchesMobile && (
             <SessionMarket
               title={"Session Market"}
+              allBetsData={matchDetail?.profitLossDataSession}
               currentMatch={matchDetail}
               sessionData={sessionData}
               min={Math.floor(matchDetail?.betFairSessionMinBet)}
@@ -446,6 +457,7 @@ const MatchDetail = () => {
             {matchDetail?.manualSessionActive && (
               <SessionMarket
                 title={"Quick Session Market"}
+                allBetsData={matchDetail?.profitLossDataSession}
                 currentMatch={matchDetail}
                 sessionExposer={"0.00"}
                 sessionData={QuicksessionData}
@@ -456,6 +468,7 @@ const MatchDetail = () => {
             {matchDetail?.apiSessionActive && (
               <SessionMarket
                 title={"Session Market"}
+                allBetsData={matchDetail?.profitLossDataSession}
                 currentMatch={matchDetail}
                 sessionExposer={"0.00"}
                 sessionData={sessionData}

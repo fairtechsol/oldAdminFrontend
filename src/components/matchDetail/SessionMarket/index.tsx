@@ -8,7 +8,6 @@ const SessionMarket = (props: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const {
-    sessionBets,
     blockMatch,
     showUnlock,
     locked,
@@ -19,6 +18,7 @@ const SessionMarket = (props: any) => {
     max,
     sessionExposer,
     sessionData,
+    allBetsData,
   } = props;
   const visible = true;
 
@@ -133,7 +133,11 @@ const SessionMarket = (props: any) => {
             }}
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
-              <BetsCountBox total={sessionBets || 0} />
+              <BetsCountBox
+                total={allBetsData?.reduce((acc: number, bet: any) => {
+                  return acc + bet?.totalBet;
+                }, 0)}
+              />
               {/* static code */}
               <Box
                 sx={{
@@ -165,9 +169,9 @@ const SessionMarket = (props: any) => {
                     lineHeight: 1,
                   }}
                 >
-                  {!isNaN(sessionExposer)
-                    ? Number(sessionExposer).toFixed(2)
-                    : ""}
+                  {allBetsData?.reduce((acc: number, bet: any) => {
+                    return acc + bet?.maxLoss;
+                  }, 0)}
                 </Typography>
               </Box>
             </Box>
@@ -347,6 +351,9 @@ const SessionMarket = (props: any) => {
                     >
                       <SeasonMarketBox
                         newData={JSON.parse(element)}
+                        profitLossData={allBetsData?.filter(
+                          (item: any) => item?.betId === JSON.parse(element)?.id
+                        )}
                         index={index}
                       />
                       <Divider />
