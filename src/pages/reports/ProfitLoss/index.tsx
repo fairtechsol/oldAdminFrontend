@@ -15,13 +15,15 @@ const ProfitLossReport = () => {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
+  const [show, setShow] = useState(false);
 
-  const { totalProfitLossList } = useSelector(
-    (state: RootState) => state.report.reportList
+  const { userTotalProfitLoss } = useSelector(
+    (state: RootState) => state.user.profitLoss
   );
 
   const handleClick = () => {
     try {
+      setShow(false);
       let filter = "";
       if (startDate && endDate) {
         filter += `&createdAt=between${moment(startDate)?.format(
@@ -69,10 +71,11 @@ const ProfitLossReport = () => {
 
       <Box>
         <ProfitLossTableComponent
-          visible={true}
+          show={show}
+          setShow={setShow}
           startDate={startDate}
           endDate={endDate}
-          eventData={totalProfitLossList && totalProfitLossList}
+          eventData={userTotalProfitLoss && userTotalProfitLoss}
           currentPage={currentPage}
           pageCount={pageCount}
           setCurrentPage={setCurrentPage}
