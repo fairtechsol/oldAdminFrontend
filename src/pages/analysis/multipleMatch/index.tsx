@@ -43,22 +43,16 @@ const MultipleMatch = ({}) => {
     dispatch(updateMultipleMatchDetail(event));
   };
 
-  const setMultiSessionBetsPlaced = (event: any) => {};
-  const setMultiMatchBetsPlaced = (event: any) => {};
-  const matchMultiResultDeclared = (event: any) => {};
-  const matchMultiDeleteBet = (event: any) => {};
+  const setMultiSessionBetsPlaced = () => {};
+  const setMultiMatchBetsPlaced = () => {};
+  const matchMultiResultDeclared = () => {};
+  const matchMultiDeleteBet = () => {};
 
   useEffect(() => {
     try {
-      if (state?.matchIds) {
+      if (state?.matchIds && profileDetail?.roleName) {
         // socketService.match.leaveAllRooms();
         dispatch(getMultipleMatchDetail(state?.matchIds));
-      }
-      if (
-        state?.matchIds &&
-        state?.matchIds?.length > 0 &&
-        profileDetail?.roleName
-      ) {
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });

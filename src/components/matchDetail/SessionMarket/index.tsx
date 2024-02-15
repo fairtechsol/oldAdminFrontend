@@ -16,7 +16,6 @@ const SessionMarket = (props: any) => {
     title,
     min,
     max,
-    sessionExposer,
     sessionData,
     allBetsData,
   } = props;
