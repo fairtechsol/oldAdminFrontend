@@ -25,6 +25,10 @@ export const ApiConstants = {
     CHILD_PROFIT_LOSS: "",
     COMMISSION_MATCH: "/user/commissionMatch",
     COMMISSION_BET_PLACED: "/user/commissionBetPlaced",
+    MATCH_WISE_PROFITLOSS: "user/total/matchWise/profitLoss",
+    TOTAL_PROFITLOSS: "user/totalProfitLoss",
+    TOTAL_BET_PROFITLOSS: "user/total/bet/profitLoss",
+    TOTAL_SESSION_PROFITLOSS: "user/total/session/profitLoss",
   },
   SUPERADMIN: {
     ADD: "/superadmin/add",
