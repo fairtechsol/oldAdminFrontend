@@ -96,7 +96,11 @@ const SubHeaderListRow = (props: any) => {
           )}
         </Typography>
         <StyledImage
-          src="https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
+          src={
+            +data?.profitsum >= 0
+              ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
+              : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
+          }
           sx={{
             height: "15px",
             marginLeft: "5px",
@@ -135,7 +139,11 @@ const SubHeaderListRow = (props: any) => {
           )}
         </Typography>
         <StyledImage
-          src="https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
+          src={
+            +data?.percentprofitloss >= 0
+              ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
+              : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
+          }
           sx={{
             height: "15px",
             marginLeft: "5px",
