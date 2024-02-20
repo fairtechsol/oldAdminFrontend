@@ -22,7 +22,7 @@ const initialValues: any = {
 };
 
 const LockUnlockComponent = (props: any) => {
-  const { setSelected, element, walletAccountDetail, endpoint, isWallet } =
+  const { setSelected, element, walletAccountDetail, endpoint, isWallet,onChangeAmount } =
     props;
 
   let elementLockUnlockObj1 = {
@@ -93,6 +93,10 @@ const LockUnlockComponent = (props: any) => {
   // const handleLockSubmit = (e: any) => {
   //   e.preventDefault();
   // };
+  useEffect(() => {
+    onChangeAmount(lockUnlockObj,element?.id,'lock');
+  }, [lockUnlockObj,onChangeAmount]);
+  // console.log('lockUnlockObj?.all_blocked',lockUnlockObj?.all_blocked)
   return (
     <form onSubmit={handleSubmit}>
       <Box

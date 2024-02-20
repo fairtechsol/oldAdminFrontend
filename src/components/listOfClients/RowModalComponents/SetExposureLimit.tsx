@@ -24,7 +24,7 @@ const initialValues: any = {
 };
 
 const SetExposureLimit = (props: any) => {
-  const { backgroundColor, setSelected, element, endpoint, isWallet } = props;
+  const { backgroundColor, setSelected, element, endpoint, isWallet,onChangeAmount } = props;
   const [showPass, setShowPass] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();
@@ -80,7 +80,9 @@ const SetExposureLimit = (props: any) => {
       dispatch(userListSuccessReset());
     }
   }, [success]);
-
+  useEffect(() => {
+    onChangeAmount(formik.values.amount,element?.id,'exposure');
+  }, [formik.values.amount,onChangeAmount]);
   return (
     <form onSubmit={handleSubmit}>
       <Box
