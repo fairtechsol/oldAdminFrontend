@@ -1,7 +1,7 @@
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Box, Typography } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DownGIcon, DownIcon, LockIcon, UnLockIcon } from "../../assets";
 import { AccountListRowInterface } from "../../interface/listOfClients";
@@ -38,12 +38,18 @@ const AccountListRow = (props: AccountListRowInterface) => {
   const [exposureValue, setExposureValue] = useState(0);
   const [lockValue, setLockValue] = useState<any>(null)
   const [typeOfAmount, setTypeOfAmount] = useState<string>("");
+  const [profitLossColor, setProfitLossColor] = useState("#27AC1E");
   const [showCommissionReport, setShowCommissionReport] = useState({
     value: false,
     id: "",
   });
+
+  useEffect(() => {
+    // Update the color based on the calculated profit/loss value
+    setProfitLossColor(calculateProfitLoss() >= 0 ? "#27AC1E" : "#E32A2A");
+  }, [element, typeOfAmount, depositeValue, creditValue, withdrawValue]);
+
   const handleAmountChange = (amount: any, id: string, type: string) => {
-    console.log(amount,type,lockValue)
     if (id === element?.id) {
       setTypeOfAmount(type);
       if (type === "deposite") {
@@ -57,6 +63,61 @@ const AccountListRow = (props: AccountListRowInterface) => {
       } else if (type === "lock"){
         setLockValue(amount)
       }
+    }
+  };
+
+  const calculateValue = (): number => {
+    const baseValue = +element?.userBal?.profitLoss || 0;
+  
+    if (Number(baseValue) >= 0) {
+      return (
+        Number(typeOfAmount === 'deposite'
+          ? baseValue + depositeValue || 0 + depositeValue
+          : typeOfAmount === 'withdraw'
+            ? baseValue - withdrawValue || 0 - withdrawValue
+            : typeOfAmount === 'credit' && creditValue
+              ? baseValue + element?.creditRefrence - creditValue || 0 - creditValue
+              : baseValue
+        )
+      );
+    } else {
+      return (
+        Number(typeOfAmount === 'deposite'
+          ? baseValue + depositeValue || 0 + depositeValue
+          : typeOfAmount === 'withdraw'
+            ? baseValue - withdrawValue || 0 - withdrawValue
+            : typeOfAmount === 'credit' && creditValue
+              ? baseValue + element?.creditRefrence - creditValue || 0 - creditValue
+              : baseValue
+        )
+      );
+    }
+  };
+  const calculateProfitLoss = (): number => {
+    const baseProfitLoss = +element?.percentProfitLoss || 0;
+
+    if (typeof baseProfitLoss === 'number' && baseProfitLoss >= 0) {
+      return (
+        Number(typeOfAmount === 'deposite'
+          ? (Number(+element?.userBal?.profitLoss + depositeValue) * element?.upLinePartnership) / 100
+          : typeOfAmount === 'credit' && creditValue
+            ? (Number(+element?.userBal?.profitLoss + element?.creditRefrence - creditValue) * element?.upLinePartnership) / 100
+            : typeOfAmount === 'withdraw'
+              ? (Number(+element?.userBal?.profitLoss - withdrawValue) * element?.upLinePartnership) / 100
+              : +element?.percentProfitLoss || 0
+        )
+      );
+    } else {
+      return (
+        Number(typeOfAmount === 'deposite'
+          ? (Number(+element?.userBal?.profitLoss + depositeValue) * element?.upLinePartnership) / 100
+          : typeOfAmount === 'credit' && creditValue
+            ? (Number(+element?.userBal?.profitLoss + element?.creditRefrence - creditValue) * element?.upLinePartnership) / 100
+            : typeOfAmount === 'withdraw'
+              ? (Number(+element?.userBal?.profitLoss - withdrawValue) * element?.upLinePartnership) / 100
+              : +element?.percentProfitLoss || 0
+        )
+      );
     }
   };
   return (
@@ -185,7 +246,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
             paddingX: "10px",
             justifyContent: "space-between",
             background:
-              Number(+element?.userBal?.profitLoss || 0) >= 0
+            calculateValue() >= 0
                 ? "#27AC1E"
                 : "#E32A2A",
             alignItems: "center",
@@ -194,17 +255,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           }}
         >
           <Typography variant="h5" sx={{ color: "white" }}>
-            {Number(+element?.userBal?.profitLoss || 0) >= 0 ? (
-              <>
-                <span style={{ visibility: "hidden" }}>-</span>
-                {typeOfAmount ==='deposite' ?  +element?.userBal?.profitLoss + depositeValue ||
-                  0 + depositeValue  : typeOfAmount ==='withdraw' ? +element?.userBal?.profitLoss - withdrawValue ||
-                  0 - withdrawValue : +element?.userBal?.profitLoss - creditValue ||
-                  0 - creditValue }
-              </>
-            ) : (
-              typeOfAmount ==='deposite' ? +element?.userBal?.profitLoss + depositeValue || 0 + depositeValue : typeOfAmount ==='withdraw' ? +element?.userBal?.profitLoss - withdrawValue || 0 - withdrawValue : +element?.userBal?.profitLoss - creditValue || 0 - creditValue
-            )}
+          {calculateValue()}
           </Typography>
           <StyledImage
             src={
@@ -226,45 +277,14 @@ const AccountListRow = (props: AccountListRowInterface) => {
             display: "flex",
             paddingX: "10px",
             justifyContent: "space-between",
-            background:
-              Number(+element?.percentProfitLoss || 0) >= 0
-                ? "#27AC1E"
-                : "#E32A2A",
+            background:{profitLossColor},
             alignItems: "center",
             height: "45px",
             borderRight: "2px solid white",
           }}
         >
           <Typography variant="h5" sx={{ color: "white" }}>
-            {Number(+element?.percentProfitLoss || 0) >= 0 ? (
-              <>
-                <span style={{ visibility: "hidden" }}>-</span>
-                {typeOfAmount === 'deposite'
-                  ? (Number(+element?.userBal?.profitLoss + depositeValue) *
-                      element?.upLinePartnership) /
-                    100 : typeOfAmount === 'credit' ? (Number(+element?.userBal?.profitLoss - creditValue) *
-                    element?.upLinePartnership) /
-                  100 : typeOfAmount === 'withdraw' ? (Number(+element?.userBal?.profitLoss - withdrawValue) *
-                  element?.upLinePartnership) /
-                100
-                  : +element?.percentProfitLoss || 0}
-              </>
-            ) : typeOfAmount === 'deposite' ? (
-              (Number(+element?.userBal?.profitLoss + depositeValue) *
-                element?.upLinePartnership) /
-              100
-            ) : typeOfAmount === 'credit' ? (
-              (Number(+element?.userBal?.profitLoss - creditValue) *
-                element?.upLinePartnership) /
-              100
-            ) : typeOfAmount === 'withdraw' ? (
-              (Number(+element?.userBal?.profitLoss - withdrawValue) *
-                element?.upLinePartnership) /
-              100
-            ) 
-            : (
-              +element?.percentProfitLoss || 0
-            )}
+          {calculateProfitLoss()}
           </Typography>
           <StyledImage
             src={
