@@ -1,39 +1,37 @@
-import { memo } from "react";
-import { useState } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
+import { memo, useState } from "react";
+import { ARROW_UP, ARROWDOWN, ArrowDown } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
-import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
-import AllRateSeperate from "./AllRateSeperate";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useDispatch } from "react-redux";
-import {
-  getBetProfitLoss,
-  getSessionProfitLoss,
-  resetBetProfitLoss,
-  resetSessionProfitLoss,
-} from "../../../store/actions/reports";
 import SessionComponentMatches from "./SessionComponentMatches";
-import SessionBetSeperate from "./SessionBetSeperate";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import {
+  getSessionProfitLoss,
+  getTotalBetProfitLoss,
+} from "../../../store/actions/user/userAction";
 import { useSelector } from "react-redux";
+import SessionBetSeperate from "./SessionBetSeperate";
+import AllRateSeperate from "./AllRateSeperate";
 
 const RowComponentMatches = ({
   item,
   index,
   selectedId,
+  betData,
+  sessionBetData,
   getBetReport,
-  domainUrl,
-  setSelectedId,
+  user,
 }: any) => {
-  const dispatch: AppDispatch = useDispatch();
-  const { sessionProfitLossList, betProfitLossList } = useSelector(
-    (state: RootState) => state.report.reportList
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const { totalSessionProfitLoss, totalBetProfitLoss } = useSelector(
+    (state: RootState) => state.user.profitLoss
   );
+  const dispatch: AppDispatch = useDispatch();
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
   const [showSessionBets, setShowSessionBets] = useState(false);
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -90,7 +88,7 @@ const RowComponentMatches = ({
               right: 5,
             }}
           >
-            ({moment(item?.startAt || new Date()).format("DD-MM-YYYY")})
+            ({moment(item?.matchDate).format("DD-MM-YYYY")})
           </Typography>
 
           <Box
@@ -126,19 +124,19 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          {/* {user === "admin" && (
+          {user === "admin" && (
             <StyledImage
               src={ArrowDown}
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
                 transform:
-                  selectedId?.id === item?.matchId && showListOfUsers
+                  selectedId?.id === item?.matchId
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
             />
-          )} */}
+          )}
           {/* <StyledImage
               src={ArrowDown}
               sx={{
@@ -160,34 +158,20 @@ const RowComponentMatches = ({
               selectedId?.type === "all_bet"
             ) {
               setShowBets((prev) => !prev);
-              dispatch(resetBetProfitLoss());
-              setSelectedId({
-                eventType: item?.eventType,
-                id: "",
-                type: "all_bet",
-                betId: "",
-                sessionBet: false,
-              });
             } else {
-              dispatch(
-                getBetProfitLoss({
-                  matchId: item?.matchId,
-                  isSession: false,
-                  url: domainUrl || "",
-                })
-              );
               setShowBets(true);
-              setSelectedId({
+              getBetReport({
                 eventType: item?.eventType,
-                id: item?.matchId,
+                match_id: item?.matchId,
                 type: "all_bet",
                 betId: "",
                 sessionBet: false,
               });
+              dispatch(getTotalBetProfitLoss({ matchId: item?.matchId }));
             }
           }}
           sx={{
-            background: item?.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+            background: item.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
             width: { xs: "25%", lg: "30%" },
             height: "100%",
@@ -216,7 +200,7 @@ const RowComponentMatches = ({
               Rate Profit/Loss
             </Typography>
             <StyledImage
-              src={item?.rateProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
+              src={item.rateProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -270,33 +254,20 @@ const RowComponentMatches = ({
               selectedId?.type === "session_bet"
             ) {
               setShowSessions((prev) => !prev);
-              setSelectedId({
-                eventType: item?.eventType,
-                id: "",
-                type: "session_bet",
-                betId: "",
-                sessionBet: false,
-              });
-              dispatch(resetSessionProfitLoss());
             } else {
-              dispatch(
-                getSessionProfitLoss({
-                  matchId: item?.matchId,
-                  url: domainUrl || "",
-                })
-              );
               setShowSessions(true);
-              setSelectedId({
+              getBetReport({
                 eventType: item?.eventType,
-                id: item?.matchId,
+                match_id: item?.matchId,
                 type: "session_bet",
                 betId: "",
                 sessionBet: false,
               });
+              dispatch(getSessionProfitLoss({ matchId: item?.matchId }));
             }
           }}
           sx={{
-            background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+            background: item.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
             width: { xs: "25%", lg: "30%" },
             height: "100%",
@@ -325,7 +296,7 @@ const RowComponentMatches = ({
               Session Profit/Loss
             </Typography>
             <StyledImage
-              src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
+              src={item.sessionProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -386,8 +357,8 @@ const RowComponentMatches = ({
               >
                 <AllRateSeperate
                   betHistory={false}
-                  count={betProfitLossList?.length}
-                  allBetsData={betProfitLossList}
+                  count={betData?.length}
+                  allBetsData={totalBetProfitLoss && totalBetProfitLoss}
                   profit
                 />
               </Box>
@@ -415,20 +386,19 @@ const RowComponentMatches = ({
                     padding: 0.2,
                   }}
                 >
-                  {sessionProfitLossList &&
-                    sessionProfitLossList?.map((list: any, index: number) => {
+                  {totalSessionProfitLoss?.length > 0 &&
+                    totalSessionProfitLoss?.map((bets: any, index: number) => {
                       return (
                         <SessionComponentMatches
                           key={index}
-                          item={list}
+                          item={bets}
                           index={index + 1}
+                          matchId={item?.matchId}
                           showSessionBets={showSessionBets}
                           setShowSessionBets={setShowSessionBets}
-                          domainUrl={domainUrl}
-                          matchId={item?.matchId}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          setSelectedId={setSelectedId}
+                          sessionBetData={sessionBetData}
                         />
                       );
                     })}
@@ -447,7 +417,7 @@ const RowComponentMatches = ({
                     >
                       <SessionBetSeperate
                         betHistory={false}
-                        allBetsData={betProfitLossList}
+                        placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}
                       />
