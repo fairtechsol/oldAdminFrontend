@@ -31,6 +31,7 @@ const SetCreditComponent = (props: any) => {
     setSelected,
     element,
     endpoint,
+    onChangeAmount
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -90,6 +91,10 @@ const SetCreditComponent = (props: any) => {
       dispatch(userListSuccessReset());
     }
   }, [success]);
+
+  useEffect(() => {
+    onChangeAmount(formik.values.amount,element?.id,'credit');
+  }, [formik.values.amount,onChangeAmount]);
 
   return (
     <form onSubmit={handleSubmit}>

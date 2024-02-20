@@ -43,6 +43,7 @@ const DepositComponent = (props: any) => {
     setSelected,
     selected,
     titleBackgroundColor,
+    onChangeAmount
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -111,6 +112,7 @@ const DepositComponent = (props: any) => {
   }, [success]);
 
   useEffect(() => {
+    onChangeAmount(formik.values.amount,element?.id,'deposite');
     if (isWallet) {
       setInitialBalance(
         +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
@@ -120,7 +122,7 @@ const DepositComponent = (props: any) => {
         +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
       );
     }
-  }, [formik.values.amount]);
+  }, [formik.values.amount,onChangeAmount]);
 
   return (
     <>

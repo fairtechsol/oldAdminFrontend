@@ -17,7 +17,7 @@ import {
 } from "../../../store/actions/user/userAction";
 
 const RowModalComponents = (props: any) => {
-  const { element, selected, setSelected, backgroundColor } = props;
+  const { element, selected, setSelected, backgroundColor,onValueChange } = props;
   const dispatch: AppDispatch = useDispatch();
 
   const [settlementModal, setSettlementModal] = useState(false);
@@ -73,7 +73,9 @@ const RowModalComponents = (props: any) => {
       dispatch(userListSuccessReset());
     }
   }, [success]);
-
+  const handleAmountChange = (amount: any,id:string,type:string) => {
+    onValueChange(amount,id,type)
+  };
   return (
     <Box sx={classes.mainBox}>
       {selected !== null && (
@@ -103,6 +105,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               titleBackgroundColor="#27AC1E"
+              onChangeAmount={handleAmountChange}
             />
           )}
           {selected == 1 && (
@@ -119,6 +122,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               backgroundColor={backgroundColor}
+              onChangeAmount={handleAmountChange}
             />
           )}
           {selected == 2 && (
@@ -134,6 +138,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               backgroundColor={backgroundColor}
+              onChangeAmount={handleAmountChange}
             />
           )}
           {selected == 3 && (
@@ -164,6 +169,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               backgroundColor={backgroundColor}
+              onChangeAmount={handleAmountChange}
             />
           )}
           {selected == 4 && (
@@ -179,6 +185,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               backgroundColor={backgroundColor}
+              onChangeAmount={handleAmountChange}
             />
           )}
         </Box>
