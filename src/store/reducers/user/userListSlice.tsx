@@ -3,6 +3,7 @@ import {
   changeAmmountUser,
   changePasswordRow,
   getAlreadyUserExist,
+  getTotalBalance,
   getUserList,
   handleExport,
   handleSettleCommission,
@@ -19,6 +20,7 @@ interface InitialState {
   success: boolean;
   loading: boolean;
   error: any;
+  totalBalance: any;
 }
 
 const initialState: InitialState = {
@@ -28,6 +30,7 @@ const initialState: InitialState = {
   success: false,
   loading: false,
   error: null,
+  totalBalance: null,
 };
 
 export const userList = createSlice({
@@ -147,6 +150,18 @@ export const userList = createSlice({
       })
       .addCase(userListSuccessReset, (state) => {
         return { ...state, success: false };
+      })
+      .addCase(getTotalBalance.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTotalBalance.fulfilled, (state, action) => {
+        state.totalBalance = action.payload;
+        state.loading = false;
+      })
+      .addCase(getTotalBalance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
       });
   },
 });

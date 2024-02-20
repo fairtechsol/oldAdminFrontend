@@ -97,6 +97,23 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   }
 );
 
+export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
+  "user/balance",
+  async (_, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.TOTAL_BALANCE}`,
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const addUser = createAsyncThunk<any, any>(
   "user/add",
   async (requestData, thunkApi) => {
