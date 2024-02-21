@@ -38,16 +38,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
   const [exposureValue, setExposureValue] = useState(0);
   const [lockValue, setLockValue] = useState<any>(null)
   const [typeOfAmount, setTypeOfAmount] = useState<string>("");
-  const [profitLossColor, setProfitLossColor] = useState("#27AC1E");
   const [showCommissionReport, setShowCommissionReport] = useState({
     value: false,
     id: "",
   });
 
-  useEffect(() => {
-    // Update the color based on the calculated profit/loss value
-    setProfitLossColor(calculateProfitLoss() >= 0 ? "#27AC1E" : "#E32A2A");
-  }, [element, typeOfAmount, depositeValue, creditValue, withdrawValue]);
 
   const handleAmountChange = (amount: any, id: string, type: string) => {
     if (id === element?.id) {
@@ -277,7 +272,10 @@ const AccountListRow = (props: AccountListRowInterface) => {
             display: "flex",
             paddingX: "10px",
             justifyContent: "space-between",
-            background:{profitLossColor},
+            background:
+            calculateProfitLoss() >= 0
+                ? "#27AC1E"
+                : "#E32A2A",
             alignItems: "center",
             height: "45px",
             borderRight: "2px solid white",
