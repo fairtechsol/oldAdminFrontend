@@ -244,7 +244,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {+data?.totalExposure || 0}
+          {/* {+data?.totalExposure || 0} */}
         </Typography>
       </Box>
       <Box
