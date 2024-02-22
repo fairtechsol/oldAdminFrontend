@@ -3,6 +3,7 @@ import {
   changeAmmountUser,
   changePasswordRow,
   getAlreadyUserExist,
+  getModalUserList,
   getTotalBalance,
   getUserList,
   handleExport,
@@ -21,6 +22,7 @@ interface InitialState {
   loading: boolean;
   error: any;
   totalBalance: any;
+  userModalList:any;
 }
 
 const initialState: InitialState = {
@@ -31,6 +33,7 @@ const initialState: InitialState = {
   loading: false,
   error: null,
   totalBalance: null,
+  userModalList: null,
 };
 
 export const userList = createSlice({
@@ -59,6 +62,18 @@ export const userList = createSlice({
         state.loading = false;
       })
       .addCase(getUserList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getModalUserList.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getModalUserList.fulfilled, (state, action) => {
+        state.userModalList = action.payload;
+        state.loading = false;
+      })
+      .addCase(getModalUserList.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
