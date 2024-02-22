@@ -8,6 +8,9 @@ interface RequestData {
   currentPage?: number;
   url?: any;
   searchBy?: string;
+  userId?:string;
+  roleName?:string;
+  domain?:string;
 }
 
 interface SearchUsers {
@@ -97,12 +100,34 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   }
 );
 
-export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
-  "user/balance",
-  async (_, thunkApi) => {
+
+export const getModalUserList = createAsyncThunk<any, RequestData | undefined>(
+  "user/modalList",
+  async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.TOTAL_BALANCE}`,
+        `${requestData?.url}?searchBy=${
+          requestData?.searchBy ? requestData?.searchBy : ""
+        }&userId=${requestData?.userId}&roleName=${requestData?.roleName}&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
+          requestData?.currentPage
+        }&limit=${Constants.pageLimit}`
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
+export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
+  "user/balance",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.TOTAL_BALANCE}?userId=${requestData?.userId ? requestData?.userId : ''}&roleName=${requestData?.roleName ? requestData?.roleName : ''}`,
       );
       if (resp) {
         return resp?.data;

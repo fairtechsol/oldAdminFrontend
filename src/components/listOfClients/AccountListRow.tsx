@@ -9,7 +9,11 @@ import StyledImage from "../Common/StyledImages";
 import RowModalComponents from "./RowModalComponents";
 import { Modal } from "../Common/Modal";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
-import { Constants } from "../../utils/Constants";
+import { ApiConstants, Constants } from "../../utils/Constants";
+import AccountListTable from "./AccountListModal";
+import { getModalUserList, getTotalBalance } from "../../store/actions/user/userAction";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -26,7 +30,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
   } = props;
 
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
   const [showModalMessage, setShowModalMessage] = useState("No data found");
@@ -42,7 +48,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
     value: false,
     id: "",
   });
-
+  const [showSubUsers, setSubSusers] = useState({
+    value: false,
+    id: "",
+    title: "",
+  });
 
   const handleAmountChange = (amount: any, id: string, type: string) => {
     if (id === element?.id) {
@@ -115,6 +125,29 @@ const AccountListRow = (props: AccountListRowInterface) => {
       );
     }
   };
+  const handleModal=()=>{
+    setSubSusers({
+      value: true,
+      id: element?.id,
+      title: element?.userName,
+    });
+    dispatch(
+      getModalUserList({
+        currentPage: currentPage,
+        url: ApiConstants.USER.LIST,
+        userId: element?.id,
+        roleName: element?.roleName,
+        domain: element?.domainData ? element?.domainData?.domain : "",
+      })
+    );
+    dispatch(
+      getTotalBalance({
+        userId: element?.id,
+        roleName: element?.roleName,
+        domain: element?.domainData ? element?.domainData?.domain : "",
+      })
+    );
+  }
   return (
     <>
       <Box
@@ -147,13 +180,10 @@ const AccountListRow = (props: AccountListRowInterface) => {
         >
           <Typography
             variant="h5"
-            onClick={() => {
+            onClick={(e:any) => {
+              e.stopPropagation();
               if (!["user", "expert"].includes(element?.roleName)) {
-                // setSubSusers({
-                //   value: true,
-                //   id: element?.id,
-                //   title: element?.userName,
-                // });
+                handleModal()
               } else {
                 return false;
               }
@@ -657,6 +687,35 @@ const AccountListRow = (props: AccountListRowInterface) => {
           </Box>
         </Box>
       )}
+ <ModalMUI
+        open={showSubUsers?.value}
+        onClose={() => {
+          setSubSusers({ value: false, id: "", title: "" });
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            // flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <AccountListTable
+            title={element?.userName}
+            id={element?.id}
+            endpoint={ApiConstants.USER.LIST}
+            show={showSubUsers?.value}
+            setShow={setSubSusers}
+            roleName={element?.roleName}
+            domain={element?.domainData?.domain}
+          />
+        </Box>
+      </ModalMUI>
 
       <ModalMUI
         open={showCommissionReport?.value}
