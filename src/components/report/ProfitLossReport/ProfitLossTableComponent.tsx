@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import RowHeaderMatches from "./RowHeaderMatches";
-import Pagination from "../../Common/Pagination";
 import { useState } from "react";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
