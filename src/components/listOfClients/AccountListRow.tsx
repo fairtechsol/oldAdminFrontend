@@ -11,7 +11,10 @@ import { Modal } from "../Common/Modal";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
 import { ApiConstants, Constants } from "../../utils/Constants";
 import AccountListTable from "./AccountListModal";
-import { getModalUserList, getTotalBalance } from "../../store/actions/user/userAction";
+import {
+  getModalUserList,
+  getTotalBalance,
+} from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 
@@ -32,7 +35,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage] = useState<number>(1);
   const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
   const [showModalMessage, setShowModalMessage] = useState("No data found");
@@ -141,7 +144,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
       );
     }
   };
-  const handleModal=()=>{
+  const handleModal = () => {
     setSubSusers({
       value: true,
       id: element?.id,
@@ -163,7 +166,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
         domain: element?.domainData ? element?.domainData?.domain : "",
       })
     );
-  }
+  };
   return (
     <>
       <Box
@@ -196,10 +199,10 @@ const AccountListRow = (props: AccountListRowInterface) => {
         >
           <Typography
             variant="h5"
-            onClick={(e:any) => {
+            onClick={(e: any) => {
               e.stopPropagation();
               if (!["user", "expert"].includes(element?.roleName)) {
-                handleModal()
+                handleModal();
               } else {
                 return false;
               }
@@ -735,7 +738,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           </Box>
         </Box>
       )}
- <ModalMUI
+      <ModalMUI
         open={showSubUsers?.value}
         onClose={() => {
           setSubSusers({ value: false, id: "", title: "" });

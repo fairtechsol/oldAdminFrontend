@@ -8,9 +8,9 @@ interface RequestData {
   currentPage?: number;
   url?: any;
   searchBy?: string;
-  userId?:string;
-  roleName?:string;
-  domain?:string;
+  userId?: string;
+  roleName?: string;
+  domain?: string;
 }
 
 interface SearchUsers {
@@ -88,7 +88,7 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
           requestData?.searchBy ? requestData?.searchBy : ""
         }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
           requestData?.currentPage
-        }&limit=${Constants.pageLimit}`
+        }&limit=${Constants.pageLimit}&sort=user.createdAt:DESC`
       );
       if (resp) {
         return resp?.data;
@@ -100,7 +100,6 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   }
 );
 
-
 export const getModalUserList = createAsyncThunk<any, RequestData | undefined>(
   "user/modalList",
   async (requestData, thunkApi) => {
@@ -108,7 +107,9 @@ export const getModalUserList = createAsyncThunk<any, RequestData | undefined>(
       const resp = await service.get(
         `${requestData?.url}?searchBy=${
           requestData?.searchBy ? requestData?.searchBy : ""
-        }&userId=${requestData?.userId}&roleName=${requestData?.roleName}&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
+        }&userId=${requestData?.userId}&roleName=${
+          requestData?.roleName
+        }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
           requestData?.currentPage
         }&limit=${Constants.pageLimit}`
       );
@@ -127,7 +128,9 @@ export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.TOTAL_BALANCE}?userId=${requestData?.userId ? requestData?.userId : ''}&roleName=${requestData?.roleName ? requestData?.roleName : ''}`,
+        `${ApiConstants.USER.TOTAL_BALANCE}?userId=${
+          requestData?.userId ? requestData?.userId : ""
+        }&roleName=${requestData?.roleName ? requestData?.roleName : ""}`
       );
       if (resp) {
         return resp?.data;
