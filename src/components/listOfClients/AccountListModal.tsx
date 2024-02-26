@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, Button } from "@mui/material";
 import { useState } from "react";
-import {  RootState } from "../../store/store";
+import {  AppDispatch, RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import ListHeader from "./ListHeader";
 import { useSelector } from "react-redux";
@@ -9,6 +9,8 @@ import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
 import SearchInput from "../Common/SearchInput";
 import { Constants } from "../../utils/Constants";
+import { getTotalBalance } from "../../store/actions/user/userAction";
+import { useDispatch } from "react-redux";
 
 const AccountListTable = ({
   id,
@@ -20,7 +22,7 @@ const AccountListTable = ({
 }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const dispatch: AppDispatch = useDispatch();
   // console.log(domain, "title", title, id);
   const { userModalList } = useSelector(
     (state: RootState) => state.user.userList
@@ -28,7 +30,10 @@ const AccountListTable = ({
   const { totalBalance } = useSelector(
     (state: RootState) => state.user.userList
   );
-
+  const handleModal=()=>{
+    setShow({ value: false, id: "", title: "" });
+    dispatch(getTotalBalance())
+  }
   return (
     <>
       <Box
@@ -85,7 +90,7 @@ const AccountListTable = ({
             <Button
               sx={{ color: "", fontSize: "30px" }}
               onClick={() => {
-                setShow({ value: false, id: "", title: "" });
+                handleModal();
               }}
             >
               &times;
