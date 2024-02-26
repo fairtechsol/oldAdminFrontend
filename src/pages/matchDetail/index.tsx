@@ -137,24 +137,23 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if(success){
-      if (state?.matchId && profileDetail?.roleName) {
-        dispatch(getMatchDetail(state?.matchId));
-        dispatch(getPlacedBets(state?.matchId));
-        socketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
-        );
-        socketService.match.getMatchRates(
-          state?.matchId,
-          updateMatchDetailToRedux
-        );
-        socketService.match.matchResultDeclared(matchResultDeclared);
-        socketService.match.matchDeleteBet(matchDeleteBet);
-        socketService.match.sessionDeleteBet(matchDeleteBet);
-        socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
-        socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
-      }}
+      if (success) {
+        if (state?.matchId && profileDetail?.roleName) {
+          socketService.match.joinMatchRoom(
+            state?.matchId,
+            profileDetail?.roleName
+          );
+          socketService.match.getMatchRates(
+            state?.matchId,
+            updateMatchDetailToRedux
+          );
+          socketService.match.matchResultDeclared(matchResultDeclared);
+          socketService.match.matchDeleteBet(matchDeleteBet);
+          socketService.match.sessionDeleteBet(matchDeleteBet);
+          socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
+          socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+        }
+      }
     } catch (e) {
       console.log(e);
     }
@@ -172,6 +171,10 @@ const MatchDetail = () => {
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
     };
   }, [success]);
+  useEffect(() => {
+    dispatch(getMatchDetail(state?.matchId));
+    dispatch(getPlacedBets(state?.matchId));
+  }, []);
 
   useEffect(() => {
     try {
@@ -195,28 +198,27 @@ const MatchDetail = () => {
       return item;
     });
 
-
-    useEffect(() => {
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === "visible") {
-          if (state?.matchId) {
-            dispatch(getMatchDetail(state?.matchId));
-            dispatch(getPlacedBets(state?.matchId));
-          }
-        } else if (document.visibilityState === "hidden") {
-          socketService.match.leaveMatchRoom(state?.matchId);
-          socketService.match.getMatchRatesOff(
-            state?.matchId,
-            updateMatchDetailToRedux
-          );
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (state?.matchId) {
+          dispatch(getMatchDetail(state?.matchId));
+          dispatch(getPlacedBets(state?.matchId));
         }
-      };
-  
-      document.addEventListener("visibilitychange", handleVisibilityChange);
-      return () => {
-        document.removeEventListener("visibilitychange", handleVisibilityChange);
-      };
-    }, []);
+      } else if (document.visibilityState === "hidden") {
+        socketService.match.leaveMatchRoom(state?.matchId);
+        socketService.match.getMatchRatesOff(
+          state?.matchId,
+          updateMatchDetailToRedux
+        );
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   return (
     <>
