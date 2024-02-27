@@ -1,20 +1,24 @@
 import io from "socket.io-client";
 import { authSocketService } from "./authSocket";
 import { matchSocketService } from "./matchDetailService";
-import { baseUrls } from "../utils/Constants";
+import { Constants, baseUrls } from "../utils/Constants";
 
 export let socket: any = null;
 export let thirdParty: any = null;
 
 export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
-    transports: ["websocket"],
+    transports: [`${Constants.WEBSOCKET}`],
     auth: {
       token: `${sessionStorage.getItem("userToken")}`,
     },
   });
   thirdParty = io(baseUrls.thirdParty, {
-    transports: ["websocket"],
+    transports: [
+      process.env.NODE_ENV === "production"
+        ? `${Constants.POLLING}`
+        : `${Constants.WEBSOCKET}`,
+    ],
     auth: {
       token: `${sessionStorage.getItem("userToken")}`,
     },
