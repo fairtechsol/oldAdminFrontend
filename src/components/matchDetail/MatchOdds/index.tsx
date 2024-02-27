@@ -292,8 +292,8 @@ const MatchOdds = (props: any) => {
                   data={data?.length > 0 ? data[0] : []}
                   lock={false}
                   matchOddsData={{
-                    back: Math.floor(data?.backTeamA),
-                    lay: Math.floor(data?.layTeamA),
+                    back: data?.backTeamA,
+                    lay: data?.layTeamA,
                   }}
                   ballStatus={data?.statusTeamA === "ball start" ? true : false}
                   status={data?.statusTeamA !== "active" ? true : false}
