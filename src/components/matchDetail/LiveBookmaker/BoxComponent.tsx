@@ -115,7 +115,7 @@ const BoxComponent = (props: any) => {
             >
               <Typography
                 style={{
-                  fontSize: matchesMobile ? "12px" : "22px",
+                  fontSize: matchesMobile ? "12px" : "18px",
                   textTransform: "uppercase",
                   width: "100%",
                   textAlign: "center",

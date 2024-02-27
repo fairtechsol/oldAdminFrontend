@@ -12,6 +12,7 @@ const BoxButton = (props: any) => {
     loading,
     type,
     color,
+    disabled,
   } = props;
   const classes = {
     mainBox: [
@@ -51,7 +52,12 @@ const BoxButton = (props: any) => {
     ],
   };
   return (
-    <Button type={type} onClick={onClick} sx={classes.mainBox}>
+    <Button
+      type={type}
+      onClick={onClick}
+      sx={classes.mainBox}
+      disabled={disabled}
+    >
       <Typography sx={classes.mainBoxTypography}>
         {loading ? (
           <CircularProgress

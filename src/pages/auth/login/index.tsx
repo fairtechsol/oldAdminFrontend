@@ -30,7 +30,7 @@ const Login = () => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
 
   const {
     success,
@@ -105,6 +105,7 @@ const Login = () => {
       >
         <Button
           type="submit"
+          disabled={isSubmitting}
           variant="contained"
           color="secondary"
           sx={{

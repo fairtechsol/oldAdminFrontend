@@ -39,7 +39,7 @@ const ChangePassword = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
 
   useEffect(() => {
     if (success) {
@@ -102,7 +102,9 @@ const ChangePassword = (props: any) => {
               onChange={formik.handleChange}
             />
             {touched.oldPassword && errors.oldPassword && (
-              <p style={{ color: "#fa1e1e", marginTop: "0"  }}>{errors.oldPassword as string}</p>
+              <p style={{ color: "#fa1e1e", marginTop: "0" }}>
+                {errors.oldPassword as string}
+              </p>
             )}
             <Input
               required={true}
@@ -125,7 +127,9 @@ const ChangePassword = (props: any) => {
               onChange={formik.handleChange}
             />
             {touched.newPassword && errors.newPassword && (
-              <p style={{ color: "#fa1e1e", marginTop: "0"  }}>{errors.newPassword as string}</p>
+              <p style={{ color: "#fa1e1e", marginTop: "0" }}>
+                {errors.newPassword as string}
+              </p>
             )}
             <Input
               required={true}
@@ -148,12 +152,13 @@ const ChangePassword = (props: any) => {
               onChange={formik.handleChange}
             />
             {touched.confirmPassword && errors.confirmPassword && (
-              <p style={{ color: "#fa1e1e", marginTop: "0"  }}>
+              <p style={{ color: "#fa1e1e", marginTop: "0" }}>
                 {errors.confirmPassword as string}
               </p>
             )}
             <Button
               type="submit"
+              disabled={isSubmitting}
               sx={{
                 height: "50px",
                 display: "flex",

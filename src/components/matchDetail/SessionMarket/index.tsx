@@ -21,8 +21,6 @@ const SessionMarket = (props: any) => {
   } = props;
   const visible = true;
 
-  const dataToIterate = sessionData;
-
   // useEffect(() => {
   //   if (currentMatch?.sessionBettings?.length > 0) {
   //     const sessionData =
@@ -337,21 +335,39 @@ const SessionMarket = (props: any) => {
                 position: "relative",
               }}
             >
-              {dataToIterate?.length > 0 &&
-                // matchSessionData?.reverse()?.map((element, index) => {
-                dataToIterate?.map((element: any, index: any) => {
+              {sessionData?.length > 0 &&
+                sessionData?.map((element: any, index: any) => {
                   return (
                     <Box
-                      key={JSON.parse(element)?.id}
+                      key={
+                        title === "Session Market"
+                          ? element?.id
+                          : JSON.parse(element)?.id
+                      }
                       sx={{
                         width: "100%",
                         display: element?.betStatus === 2 ? "none" : "block",
                       }}
                     >
                       <SeasonMarketBox
-                        newData={JSON.parse(element)}
+                        newData={
+                          title === "Session Market"
+                            ? {
+                                ...element,
+                                noRate: element.LayPrice1 ?? 0,
+                                noPercent: element.LaySize1 ?? 0,
+                                yesRate: element.BackPrice1 ?? 0,
+                                yesPercent: element.BackSize1 ?? 0,
+                                status: element?.GameStatus ?? "active",
+                              }
+                            : JSON.parse(element)
+                        }
                         profitLossData={allBetsData?.filter(
-                          (item: any) => item?.betId === JSON.parse(element)?.id
+                          (item: any) =>
+                            item?.betId ===
+                            (title === "Session Market"
+                              ? element?.id
+                              : JSON.parse(element)?.id)
                         )}
                         index={index}
                       />

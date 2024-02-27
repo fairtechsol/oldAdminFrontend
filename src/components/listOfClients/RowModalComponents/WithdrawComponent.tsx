@@ -43,7 +43,7 @@ const WithdrawComponent = (props: any) => {
     selected,
     setSelected,
     titleBackgroundColor,
-    onChangeAmount
+    onChangeAmount,
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -86,7 +86,7 @@ const WithdrawComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
 
   const { loading, success } = useSelector(
     (state: RootState) => state.user.userList
@@ -112,7 +112,7 @@ const WithdrawComponent = (props: any) => {
   }, [success]);
 
   useEffect(() => {
-    onChangeAmount(formik.values.amount,element?.id,'withdraw');
+    onChangeAmount(formik.values.amount, element?.id, "withdraw");
     if (isWallet) {
       setInitialBalance(
         +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
@@ -122,7 +122,7 @@ const WithdrawComponent = (props: any) => {
         +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
       );
     }
-  }, [formik.values.amount,onChangeAmount]);
+  }, [formik.values.amount, onChangeAmount]);
 
   return (
     <>
@@ -488,6 +488,7 @@ const WithdrawComponent = (props: any) => {
                 <BoxButton
                   color={"#0B4F26"}
                   loading={loading}
+                  disabled={isSubmitting}
                   containerStyle={{
                     maxWidth: "150px !important",
                     height: "44px",
