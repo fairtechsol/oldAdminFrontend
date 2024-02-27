@@ -72,7 +72,34 @@ export const getPlacedBets = createAsyncThunk<any, any>(
     }
   }
 );
-
+export const getSessionProLoss = createAsyncThunk<any, any>(
+  "/getSessionProLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.RUN_AMOUNT}/${requestData?.id}`
+      );
+      if (resp?.data && resp?.data?.profitLoss[0]) {
+        return {
+          id: requestData?.id,
+          name: requestData?.name,
+          type: requestData?.type,
+          proLoss: resp?.data?.profitLoss,
+        };
+      } else {
+        return {
+          id: requestData?.id,
+          name: requestData?.name,
+          type: requestData?.type,
+          proLoss: [JSON.stringify({ betPlaced: [] })],
+        };
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getMultipleMatchDetail = createAsyncThunk<any, any>(
   "multipleMatch/detail",
   async (requestData, thunkApi) => {
@@ -215,6 +242,18 @@ export const updateTeamRates = createAsyncThunk<any, any>(
     return data;
   }
 );
-
+export const getSessionProfitLossMatchDetailFilter = createAsyncThunk<any, any>(
+  "getSessionProfitLossMatchDetail/filter",
+  async (requestData) => {
+    return requestData;
+  }
+);
+export const updateProfitLoss = createAsyncThunk<any, any>(
+  "/placed/profitLoss",
+  async (profitLoss) => {
+    console.log('second')
+    return profitLoss;
+  }
+);
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");

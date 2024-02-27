@@ -1,12 +1,26 @@
 import { Box, Typography } from "@mui/material";
 import { UD } from "../../../assets";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/store";
+import { getSessionProLoss } from "../../../store/actions/match/matchAction";
 
-const PlaceBetComponentWeb = (props: any) => {
-  const { amount, profitLoss } = props;
+const PlaceBetComponentWeb = ({ newData, profitLoss }: any) => {
+  const dispatch: AppDispatch = useDispatch();
+  
   return (
     <>
       <Box
-        // onClick={handleClick}
+         onClick={() => {
+          dispatch(
+            getSessionProLoss({
+              id: newData?.id,
+              name: newData?.name,
+              type: !newData?.isManual
+                ? "Session Market"
+                : "Quick Session Market",
+            })
+          );
+        }}
         sx={{
           background: "#0B4F26",
           flexDirection: "row",
@@ -53,8 +67,8 @@ const PlaceBetComponentWeb = (props: any) => {
         >
           <Typography
             sx={{
-              fontSize: { lg: amount ? ".65vw" : ".6vw" },
-              fontWeight: amount ? "bold" : "500",
+              fontSize: { lg: profitLoss?.maxLoss ? ".65vw" : ".6vw" },
+              fontWeight: profitLoss?.maxLoss ? "bold" : "500",
               color: "white",
             }}
           >

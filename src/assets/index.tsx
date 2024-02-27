@@ -49,3 +49,4 @@ export { default as Football } from "./images/football.png";
 export { default as Cricket } from "./images/cricket.png";
 export { default as Tennis } from "./images/tennis.png";
 export { default as CancelDark } from "./images/cancelDark.png";
+export { default as CANCEL } from "./images/cancel.png";

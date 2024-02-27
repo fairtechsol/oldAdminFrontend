@@ -3,6 +3,10 @@ import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import BetsCountBox from "./BetsCountBox";
 import Divider from "../../Inplay/Divider";
 import SeasonMarketBox from "./SeasonMarketBox";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import RunsBox from "./RunsBox";
+import { useState } from "react";
 
 const SessionMarket = (props: any) => {
   const theme = useTheme();
@@ -20,6 +24,10 @@ const SessionMarket = (props: any) => {
     allBetsData,
   } = props;
   const visible = true;
+  const { sessionProLoss } = useSelector(
+    (state: RootState) => state.match.bets
+  );
+  const [currentOdds] = useState<any>(null);
 
   // useEffect(() => {
   //   if (currentMatch?.sessionBettings?.length > 0) {
@@ -419,37 +427,36 @@ const SessionMarket = (props: any) => {
           </Box>
         )}
       </Box>
-      {0 > 0 && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            gap: "1px",
-            // height: "524px",
-            height: "360",
-            overflow: "auto",
-            marginTop: ".25vw",
-          }}
-        >
-          {/* {data?.map((v) => {
-            console.log(
-              "currentOdds?.bet_id === v?.id ? currentOdds : null",
-              v
-            );
-            return (
-              <RunsBox
-                currentOdds={currentOdds?.bet_id === v?.id ? currentOdds : null}
-                key={v?.id}
-                item={v}
-                // setData={setData}
-                setData={setData}
-                // popData={popData}
-              />
-            );
-          })} */}
-        </Box>
-      )}
+      
+      {sessionProLoss?.length > 0 &&
+        sessionProLoss?.find((v: any) => v?.type === title) && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: "1px",
+              rowGap: "5px",
+              height: "524px",
+              overflow: "scroll",
+              marginTop: "1.25vw",
+            }}
+          >
+            {sessionProLoss
+              ?.filter((v: any) => v.type == title)
+              ?.map((v: any) => {
+                return (
+                  <RunsBox
+                    key={v?.id}
+                    item={v}
+                    currentOdd={
+                      currentOdds?.betId === v?.id ? currentOdds : null
+                    }
+                  />
+                );
+              })}
+          </Box>
+        )}
     </>
   );
 };
