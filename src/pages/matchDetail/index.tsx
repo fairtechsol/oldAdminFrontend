@@ -39,7 +39,7 @@ const MatchDetail = () => {
   const [selectedBetData, setSelectedBetData] = useState([]);
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
-  const { matchDetail } = useSelector(
+  const { matchDetail, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets, loading } = useSelector(
@@ -146,7 +146,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (matchDetail) {
+      if (success) {
         socketService.match.joinMatchRoom(
           state?.matchId,
           profileDetail?.roleName
@@ -165,8 +165,10 @@ const MatchDetail = () => {
     } catch (e) {
       console.log(e);
     }
+  }, [success]);
+
+  useEffect(() => {
     return () => {
-      // socketService.match.leaveAllRooms();
       socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(
         state?.matchId,
@@ -178,7 +180,7 @@ const MatchDetail = () => {
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
     };
-  }, [matchDetail]);
+  },[]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
