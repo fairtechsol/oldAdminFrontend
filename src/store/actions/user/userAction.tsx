@@ -88,7 +88,7 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
           requestData?.searchBy ? requestData?.searchBy : ""
         }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
           requestData?.currentPage
-        }&limit=${Constants.pageLimit}&sort=user.createdAt:DESC`
+        }&limit=${Constants.pageLimit}&sort=user.userName:ASC`
       );
       if (resp) {
         return resp?.data;

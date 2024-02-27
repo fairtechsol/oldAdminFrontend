@@ -22,8 +22,14 @@ const initialValues: any = {
 };
 
 const LockUnlockComponent = (props: any) => {
-  const { setSelected, element, walletAccountDetail, endpoint, isWallet,onChangeAmount } =
-    props;
+  const {
+    setSelected,
+    element,
+    walletAccountDetail,
+    endpoint,
+    isWallet,
+    onChangeAmount,
+  } = props;
 
   let elementLockUnlockObj1 = {
     all_blocked: element?.userBlock === true ? true : false,
@@ -66,7 +72,7 @@ const LockUnlockComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit } = formik;
+  const { handleSubmit, isSubmitting } = formik;
 
   const { success, loading } = useSelector(
     (state: RootState) => state.user.userList
@@ -94,8 +100,8 @@ const LockUnlockComponent = (props: any) => {
   //   e.preventDefault();
   // };
   useEffect(() => {
-    onChangeAmount(lockUnlockObj,element?.id,'lock');
-  }, [lockUnlockObj,onChangeAmount]);
+    onChangeAmount(lockUnlockObj, element?.id, "lock");
+  }, [lockUnlockObj, onChangeAmount]);
   // console.log('lockUnlockObj?.all_blocked',lockUnlockObj?.all_blocked)
   return (
     <form onSubmit={handleSubmit}>
@@ -269,6 +275,7 @@ const LockUnlockComponent = (props: any) => {
             <BoxButton
               color={"#0B4F26"}
               loading={loading}
+              disabled={isSubmitting}
               containerStyle={{
                 maxWidth: "100%!important",
                 height: "44px",

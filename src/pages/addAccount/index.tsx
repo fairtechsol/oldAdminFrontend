@@ -173,7 +173,7 @@ const AddAccount = () => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
 
   const handlePartnershipChange = (event: any) => {
     try {
@@ -1114,6 +1114,7 @@ const AddAccount = () => {
                 </div>
               </Box>
               <Button
+                disabled={isSubmitting}
                 className="cursor-pointer"
                 sx={{
                   background: "#0B4F26",

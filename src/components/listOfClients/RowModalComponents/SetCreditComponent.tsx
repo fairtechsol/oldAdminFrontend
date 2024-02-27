@@ -31,7 +31,7 @@ const SetCreditComponent = (props: any) => {
     setSelected,
     element,
     endpoint,
-    onChangeAmount
+    onChangeAmount,
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -59,16 +59,14 @@ const SetCreditComponent = (props: any) => {
       }
       dispatch(
         setCreditRefference({
-          url: isWallet
-            ? ApiConstants.WALLET.CREDITREFERRENCE
-            : endpoint,
+          url: isWallet ? ApiConstants.WALLET.CREDITREFERRENCE : endpoint,
           payload: payload,
         })
       );
     },
   });
 
-  const { handleSubmit } = formik;
+  const { handleSubmit, isSubmitting } = formik;
 
   const { loading, success } = useSelector(
     (state: RootState) => state.user.userList
@@ -93,8 +91,8 @@ const SetCreditComponent = (props: any) => {
   }, [success]);
 
   useEffect(() => {
-    onChangeAmount(formik.values.amount,element?.id,'credit');
-  }, [formik.values.amount,onChangeAmount]);
+    onChangeAmount(formik.values.amount, element?.id, "credit");
+  }, [formik.values.amount, onChangeAmount]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -278,6 +276,7 @@ const SetCreditComponent = (props: any) => {
             <BoxButton
               color={"#0B4F26"}
               loading={loading}
+              disabled={isSubmitting}
               containerStyle={{ width: "150px", height: "35px" }}
               isSelected={true}
               type="submit"

@@ -43,7 +43,7 @@ const DepositComponent = (props: any) => {
     setSelected,
     selected,
     titleBackgroundColor,
-    onChangeAmount
+    onChangeAmount,
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -86,7 +86,7 @@ const DepositComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
 
   const { loading, success } = useSelector(
     (state: RootState) => state.user.userList
@@ -112,7 +112,7 @@ const DepositComponent = (props: any) => {
   }, [success]);
 
   useEffect(() => {
-    onChangeAmount(formik.values.amount,element?.id,'deposite');
+    onChangeAmount(formik.values.amount, element?.id, "deposite");
     if (isWallet) {
       setInitialBalance(
         +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
@@ -122,7 +122,7 @@ const DepositComponent = (props: any) => {
         +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
       );
     }
-  }, [formik.values.amount,onChangeAmount]);
+  }, [formik.values.amount, onChangeAmount]);
 
   return (
     <>
@@ -524,6 +524,7 @@ const DepositComponent = (props: any) => {
                 <BoxButton
                   color={"#0B4F26"}
                   loading={loading}
+                  disabled={isSubmitting}
                   containerStyle={{ width: "150px", height: "35px" }}
                   isSelected={true}
                   title={"Submit"}
