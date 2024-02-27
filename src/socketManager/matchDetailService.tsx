@@ -49,4 +49,31 @@ export const matchSocketService = {
   userMatchBetPlaced: (callback: any) => {
     socket.on("userMatchBetPlaced", callback);
   },
+  getMatchRatesOff: (matchId: any, callback: any) => {
+    thirdParty.off(`liveData${matchId}`, callback);
+  },
+  matchResultDeclaredOff: (callback: any) => {
+    socket.off("matchResult", callback);
+  },
+  matchResultUnDeclaredOff: (callback: any) => {
+    socket.off("matchResultUnDeclare", callback);
+  },
+  matchDeleteBetOff: (callback: any) => {
+    socket.off("matchDeleteBet", callback);
+  },
+  sessionDeleteBetOff: (callback: any) => {
+    socket.off("sessionDeleteBet", callback);
+  },
+  matchAddedOff: (callback: any) => {
+    socket.off("addMatch", callback);
+  },
+  updateUserBalanceOff: (callback: any) => {
+    socket.off("updateUserBalance", callback);
+  },
+  userSessionBetPlacedOff: (callback: any) => {
+    socket.off("userSessionBetPlaced", callback);
+  },
+  userMatchBetPlacedOff: (callback: any) => {
+    socket.off("userMatchBetPlaced", callback);
+  },
 };
