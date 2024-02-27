@@ -18,6 +18,7 @@ import {
   updateBetsPlaced,
   updateMatchRates,
   updateMaxLossForBet,
+  updateProfitLoss,
   updateTeamRates,
 } from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
@@ -116,6 +117,7 @@ const MatchDetail = () => {
         );
         // dispatch(updateBalance(event));
         // dispatch(betDataFromSocket(event));
+        dispatch(updateProfitLoss(event))
         dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
@@ -158,7 +160,7 @@ const MatchDetail = () => {
       console.log(e);
     }
     return () => {
-      socketService.match.leaveAllRooms();
+      // socketService.match.leaveAllRooms();
       socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(
         state?.matchId,
