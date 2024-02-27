@@ -39,7 +39,7 @@ const MatchDetail = () => {
   const [selectedBetData, setSelectedBetData] = useState([]);
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
-  const { success, matchDetail } = useSelector(
+  const { matchDetail } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets, loading } = useSelector(
@@ -117,7 +117,7 @@ const MatchDetail = () => {
         );
         // dispatch(updateBalance(event));
         // dispatch(betDataFromSocket(event));
-        dispatch(updateProfitLoss(event))
+        dispatch(updateProfitLoss(event));
         dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
@@ -138,23 +138,29 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
+    if (state?.matchId) {
+      dispatch(getMatchDetail(state?.matchId));
+      dispatch(getPlacedBets(state?.matchId));
+    }
+  }, []);
+
+  useEffect(() => {
     try {
-      if (success) {
-        if (state?.matchId && profileDetail?.roleName) {
-          socketService.match.joinMatchRoom(
-            state?.matchId,
-            profileDetail?.roleName
-          );
-          socketService.match.getMatchRates(
-            state?.matchId,
-            updateMatchDetailToRedux
-          );
-          socketService.match.matchResultDeclared(matchResultDeclared);
-          socketService.match.matchDeleteBet(matchDeleteBet);
-          socketService.match.sessionDeleteBet(matchDeleteBet);
-          socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
-          socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
-        }
+      if (matchDetail) {
+        socketService.match.joinMatchRoom(
+          state?.matchId,
+          profileDetail?.roleName
+        );
+        socketService.match.getMatchRates(
+          state?.matchId,
+          updateMatchDetailToRedux
+        );
+        socketService.match.matchResultDeclared(matchResultDeclared);
+        socketService.match.matchDeleteBet(matchDeleteBet);
+        socketService.match.sessionDeleteBet(matchDeleteBet);
+        socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
+        socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+        dispatch(matchListReset());
       }
     } catch (e) {
       console.log(e);
@@ -164,7 +170,7 @@ const MatchDetail = () => {
       socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(
         state?.matchId,
-        profileDetail?.roleName
+        updateMatchDetailToRedux
       );
       socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
       socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
@@ -172,21 +178,7 @@ const MatchDetail = () => {
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
     };
-  }, [success]);
-  useEffect(() => {
-    dispatch(getMatchDetail(state?.matchId));
-    dispatch(getPlacedBets(state?.matchId));
-  }, []);
-
-  useEffect(() => {
-    try {
-      if (success) {
-        dispatch(matchListReset());
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }, [success]);
+  }, [matchDetail]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -196,7 +188,7 @@ const MatchDetail = () => {
           dispatch(getPlacedBets(state?.matchId));
         }
       } else if (document.visibilityState === "hidden") {
-        socketService.match.leaveMatchRoom(state?.matchId);
+        // socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(
           state?.matchId,
           updateMatchDetailToRedux
