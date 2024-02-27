@@ -121,6 +121,8 @@ export const Constants = {
   localPath: "http://localhost:5000",
   localPathThird: "http://localhost:3200",
   localPathExpert: "http://localhost:6060",
+  WEBSOCKET: "websocket",
+  POLLING: "polling",
 };
 
 export const baseUrls = {
