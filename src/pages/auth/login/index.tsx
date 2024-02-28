@@ -21,7 +21,7 @@ const Login = () => {
     userRole,
     isTransPasswordCreated,
     loading,
-    error
+    error,
   } = useSelector((state: RootState) => state.auth);
 
   const initialValues: any = {
@@ -58,7 +58,10 @@ const Login = () => {
       setSubmitting(false);
       dispatch(authReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   return (
     <form
