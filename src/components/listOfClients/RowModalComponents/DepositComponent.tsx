@@ -86,9 +86,9 @@ const DepositComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
 
-  const { loading, success } = useSelector(
+  const { loading, success, error } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -107,9 +107,13 @@ const DepositComponent = (props: any) => {
         );
         dispatch(getUsersProfile());
       }
+      setSubmitting(false);
       dispatch(userListSuccessReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   useEffect(() => {
     onChangeAmount(formik.values.amount, element?.id, "deposite");
