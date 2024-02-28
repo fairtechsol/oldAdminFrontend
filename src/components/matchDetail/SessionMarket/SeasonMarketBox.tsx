@@ -26,7 +26,7 @@ const SeasonMarketBox = (props: any) => {
           position: "relative",
         }}
       >
-        {newData?.betStatus === 0 && (
+        {newData?.activeStatus === "save" && (
           <Box
             sx={{
               margin: "1px",
@@ -56,7 +56,7 @@ const SeasonMarketBox = (props: any) => {
               fontWeight: "600",
             }}
           >
-            {newData?.name}
+            {newData?.name ?? newData?.RunnerName}
           </Typography>
         </Box>
         <Box
@@ -86,7 +86,7 @@ const SeasonMarketBox = (props: any) => {
             />
           )}
 
-          {newData?.status !== "active" ? (
+          {newData?.status !== "active" || newData?.activeStatus !== "live" ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
@@ -102,7 +102,7 @@ const SeasonMarketBox = (props: any) => {
                 zIndex: 1,
               }}
             >
-              {newData?.status == "Ball Started" ? (
+              {newData?.status == "Ball Running" ? (
                 <img
                   src={BallStart}
                   style={{ width: "113px", height: "32px" }}
