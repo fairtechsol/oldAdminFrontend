@@ -59,9 +59,10 @@ export const getPlacedBets = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${
           ApiConstants.MATCH.GET_BETS
-        }?status=PENDING&betPlaced.matchId=${requestData}&result=inArr${JSON.stringify(
-          ["PENDING", "UNDECLARE"]
-        )}`
+        }?betPlaced.matchId=${requestData}&result=inArr${JSON.stringify([
+          "PENDING",
+          "UNDECLARE",
+        ])}`
       );
       if (resp?.data) {
         return resp?.data;
@@ -251,7 +252,6 @@ export const getSessionProfitLossMatchDetailFilter = createAsyncThunk<any, any>(
 export const updateProfitLoss = createAsyncThunk<any, any>(
   "/placed/profitLoss",
   async (profitLoss) => {
-    console.log('second')
     return profitLoss;
   }
 );
