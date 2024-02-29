@@ -7,6 +7,7 @@ import BoxButton from "./BoxButton";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getTotalBalance,
   getUserList,
   getUsersProfile,
   setExposureLimit,
@@ -84,6 +85,7 @@ const SetExposureLimit = (props: any) => {
           })
         );
       }
+      dispatch(getTotalBalance());
       dispatch(userListSuccessReset());
     }
   }, [success]);

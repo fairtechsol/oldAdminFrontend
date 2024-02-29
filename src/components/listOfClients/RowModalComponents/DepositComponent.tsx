@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeAmmountUser,
+  getTotalBalance,
   getUserList,
   getUsersProfile,
   userListSuccessReset,
@@ -105,6 +106,7 @@ const DepositComponent = (props: any) => {
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
+        dispatch(getTotalBalance());
         dispatch(getUsersProfile());
       }
       setSubmitting(false);

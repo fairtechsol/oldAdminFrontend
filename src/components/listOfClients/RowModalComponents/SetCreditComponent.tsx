@@ -6,6 +6,7 @@ import BoxButton from "./BoxButton";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getTotalBalance,
   getUserList,
   getUsersProfile,
   setCreditRefference,
@@ -86,6 +87,7 @@ const SetCreditComponent = (props: any) => {
           })
         );
       }
+      dispatch(getTotalBalance());
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
