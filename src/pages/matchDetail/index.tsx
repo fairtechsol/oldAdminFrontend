@@ -403,7 +403,7 @@ const MatchDetail = () => {
               </Box>
             )}
             <Box sx={{ width: "2%" }}></Box>
-            <Box
+            {/* <Box
               onClick={() => {
                 if (mode) {
                   setVisible(true);
@@ -436,7 +436,7 @@ const MatchDetail = () => {
                 {!mode ? "Delete Bet" : "Delete"}
               </Typography>
               <img src={DeleteIcon} style={{ width: "17px", height: "20px" }} />
-            </Box>
+            </Box> */}
           </Box>
           <Box sx={{ mt: 0 }}>
             <FullAllBets
