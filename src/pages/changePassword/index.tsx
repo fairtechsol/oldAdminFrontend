@@ -22,7 +22,7 @@ const ChangePassword = (props: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const { success, transactionPassword, loading } = useSelector(
+  const { success, transactionPassword, loading, error } = useSelector(
     (state: RootState) => state.user.profile
   );
 
@@ -39,13 +39,17 @@ const ChangePassword = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
 
   useEffect(() => {
     if (success) {
+      setSubmitting(false);
       setShowModal(true);
     }
-  }, [loading]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [loading, error]);
 
   return (
     <>

@@ -6,6 +6,7 @@ import BoxButton from "./BoxButton";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getTotalBalance,
   getUserList,
   getUsersProfile,
   setCreditRefference,
@@ -66,9 +67,9 @@ const SetCreditComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, isSubmitting } = formik;
+  const { handleSubmit, isSubmitting, setSubmitting } = formik;
 
-  const { loading, success } = useSelector(
+  const { loading, success, error } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -86,9 +87,14 @@ const SetCreditComponent = (props: any) => {
           })
         );
       }
+      dispatch(getTotalBalance());
+      setSubmitting(false);
       dispatch(userListSuccessReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   useEffect(() => {
     onChangeAmount(formik.values.amount, element?.id, "credit");

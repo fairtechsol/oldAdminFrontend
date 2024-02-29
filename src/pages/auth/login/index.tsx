@@ -15,6 +15,14 @@ const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
+  const {
+    success,
+    forceChangePassword,
+    userRole,
+    isTransPasswordCreated,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.auth);
 
   const initialValues: any = {
     userName: "",
@@ -26,19 +34,14 @@ const Login = () => {
     initialValues: initialValues,
     validationSchema: loginValidationSchema,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       dispatch(login(values));
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
-
-  const {
-    success,
-    forceChangePassword,
-    userRole,
-    isTransPasswordCreated,
-    loading,
-  } = useSelector((state: RootState) => state.auth);
+  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
 
   useEffect(() => {
     if (success) {
@@ -52,9 +55,13 @@ const Login = () => {
       } else if (isTransPasswordCreated) {
         navigate(`${Constants.oldAdmin}list_of_clients`);
       }
+      setSubmitting(false);
       dispatch(authReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   return (
     <form
@@ -105,9 +112,9 @@ const Login = () => {
       >
         <Button
           type="submit"
-          disabled={isSubmitting}
           variant="contained"
           color="secondary"
+          disabled={isSubmitting}
           sx={{
             width: "62%",
             cursor: "pointer",

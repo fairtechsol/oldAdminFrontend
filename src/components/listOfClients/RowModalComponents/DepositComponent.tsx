@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeAmmountUser,
+  getTotalBalance,
   getUserList,
   getUsersProfile,
   userListSuccessReset,
@@ -86,9 +87,9 @@ const DepositComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
 
-  const { loading, success } = useSelector(
+  const { loading, success, error } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -105,11 +106,16 @@ const DepositComponent = (props: any) => {
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
+        dispatch(getTotalBalance());
         dispatch(getUsersProfile());
       }
+      setSubmitting(false);
       dispatch(userListSuccessReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   useEffect(() => {
     onChangeAmount(formik.values.amount, element?.id, "deposite");

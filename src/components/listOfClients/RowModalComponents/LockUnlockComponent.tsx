@@ -72,9 +72,9 @@ const LockUnlockComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, isSubmitting } = formik;
+  const { handleSubmit, isSubmitting, setSubmitting } = formik;
 
-  const { success, loading } = useSelector(
+  const { success, loading, error } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -92,9 +92,13 @@ const LockUnlockComponent = (props: any) => {
           })
         );
       }
+      setSubmitting(false);
       dispatch(userListSuccessReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false);
+    }
+  }, [success, error]);
 
   // const handleLockSubmit = (e: any) => {
   //   e.preventDefault();
