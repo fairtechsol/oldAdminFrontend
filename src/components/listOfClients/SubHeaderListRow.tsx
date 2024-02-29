@@ -40,7 +40,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {+data?.totalCreditReference || 0}
+          {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.totalCreditReference || 0)}
         </Typography>
       </Box>
       <Box
@@ -59,11 +59,12 @@ const SubHeaderListRow = (props: any) => {
           {Number(data?.currBalance || 0) >= 0 ? (
             <>
               <span style={{ visibility: "hidden" }}>-</span>
-              {Number(data?.currBalance || 0)}
+              {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(Number(data?.currBalance || 0))}
             </>
           ) : (
-            Number(data?.currBalance || 0)
+            new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(Number(data?.currBalance || 0))
           )}
+
         </Typography>
       </Box>
       <Box
@@ -71,9 +72,8 @@ const SubHeaderListRow = (props: any) => {
           width: { lg: "11.5vw", md: "11.5vw", xs: "26.5vw" },
           display: "flex",
           paddingX: "10px",
-          background: `${
-            Number(+data?.profitsum || 0) >= 0 ? "#27AC1E" : "#E32A2A"
-          }`,
+          background: `${Number(+data?.profitsum || 0) >= 0 ? "#27AC1E" : "#E32A2A"
+            }`,
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -89,11 +89,12 @@ const SubHeaderListRow = (props: any) => {
           {Number(+data?.profitsum || 0) >= 0 ? (
             <>
               <span style={{ visibility: "hidden" }}>-</span>
-              {+data?.profitsum || 0}
+              {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.profitsum || 0)}
             </>
           ) : (
-            +data?.profitsum || 0
+            new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.profitsum || 0)
           )}
+
         </Typography>
         <StyledImage
           src={
@@ -114,9 +115,8 @@ const SubHeaderListRow = (props: any) => {
           width: { lg: "11.5vw", md: "11.5vw", xs: "26.5vw" },
           display: "flex",
           paddingX: "10px",
-          background: `${
-            Number(+data?.percentprofitloss || 0) >= 0 ? "#27AC1E" : "#E32A2A"
-          }`,
+          background: `${Number(+data?.percentprofitloss || 0) >= 0 ? "#27AC1E" : "#E32A2A"
+            }`,
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -132,11 +132,12 @@ const SubHeaderListRow = (props: any) => {
           {Number(+data?.percentprofitloss || 0) >= 0 ? (
             <>
               <span style={{ visibility: "hidden" }}>-</span>
-              {+data?.percentprofitloss || 0}
+              {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.percentprofitloss || 0)}
             </>
           ) : (
-            +data?.percentprofitloss || 0
+            new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.percentprofitloss || 0)
           )}
+
         </Typography>
         <StyledImage
           src={
@@ -181,7 +182,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {+data?.totalExposure || 0}
+          {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(+data?.totalExposure || 0)}
         </Typography>
       </Box>
       <Box
@@ -201,11 +202,12 @@ const SubHeaderListRow = (props: any) => {
           {Number(data?.availableBalance || 0) >= 0 ? (
             <>
               <span style={{ visibility: "hidden" }}>-</span>
-              {Number(data?.availableBalance || 0)}
+              {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(Number(data?.availableBalance || 0))}
             </>
           ) : (
-            Number(data?.availableBalance || 0)
+            new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(Number(data?.availableBalance || 0))
           )}
+
         </Typography>
       </Box>
       <Box

@@ -155,9 +155,7 @@ const Header = () => {
                 containerStyle={classes.BoxCont1sub2BoxProfileContStyle}
                 image={"https://picsum.photos/200/300"}
                 value={profileDetail && profileDetail?.userName}
-                balance={
-                  profileDetail && profileDetail?.userBal?.currentBalance
-                }
+                balance={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(profileDetail?.userBal?.currentBalance ?? 0)}
               />
             </Box>
           </Box>
