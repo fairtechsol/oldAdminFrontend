@@ -133,7 +133,7 @@ export const getCommissionMatch = createAsyncThunk<any, any>(
         `${ApiConstants.USER.COMMISSION_MATCH}/${userId}`
       );
       if (resp) {
-        return resp?.data?.data;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -143,13 +143,13 @@ export const getCommissionMatch = createAsyncThunk<any, any>(
 );
 export const getCommissionBetPlaced = createAsyncThunk<any, any>(
   "commissionBetPlaced/list",
-  async (userId, thunkApi) => {
+  async ({ userId, matchId }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.COMMISSION_BET_PLACED}/${userId}`
+        `${ApiConstants.USER.COMMISSION_BET_PLACED}/${userId}?matchId=${matchId}`
       );
       if (resp) {
-        return resp?.data?.data;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;

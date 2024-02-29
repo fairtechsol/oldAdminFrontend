@@ -27,16 +27,33 @@ const MatchList = ({
       <Box
         onClick={() => {
           if (
+            showCommisionReport &&
             selectedId?.matchId == element?.matchId &&
             selectedId?.userId == id
           ) {
-          } else {
+            setShowCommisionReport(false);
             setSelectedId({
-              matchId: element?.matchId,
-              userId: id,
+              matchId: "",
+              userId: "",
             });
-            setShowCommisionReport(true);
-            dispatch(getCommissionBetPlaced(id));
+          } else {
+            if (
+              selectedId?.matchId == element?.matchId &&
+              selectedId?.userId == id
+            ) {
+            } else {
+              setSelectedId({
+                matchId: element?.matchId,
+                userId: id,
+              });
+              setShowCommisionReport(true);
+              dispatch(
+                getCommissionBetPlaced({
+                  userId: id,
+                  matchId: element?.matchId,
+                })
+              );
+            }
           }
         }}
         sx={{
