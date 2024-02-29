@@ -69,8 +69,8 @@ const FullAllBets = (props: any) => {
             },
             {
               name:
-                v?.marketType == "MANUAL BOOKMAKER"
-                  ? "Quick Bookmaker"
+                v?.marketType !== "session"
+                  ? v?.bettingName ?? v?.marketType
                   : v?.marketType,
               color: ["NO", "YES"].includes(v?.betType) ? "#FFF" : "black",
               background: ["NO", "YES"].includes(v?.betType)
