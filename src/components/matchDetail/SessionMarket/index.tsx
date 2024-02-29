@@ -175,7 +175,8 @@ const SessionMarket = (props: any) => {
                   }}
                 >
                   {allBetsData?.reduce((acc: number, bet: any) => {
-                    return acc + bet?.maxLoss;
+                    let total = Number(acc) + Number(bet?.maxLoss)
+                    return Number(total)?.toFixed(2);
                   }, 0)}
                 </Typography>
               </Box>
