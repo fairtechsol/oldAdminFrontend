@@ -26,6 +26,7 @@ import { socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import { Constants } from "../../utils/Constants";
+import moment from "moment";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -180,7 +181,7 @@ const MatchDetail = () => {
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -261,6 +262,7 @@ const MatchDetail = () => {
                   ? matchDetail?.matchOdd?.runners
                   : []
               }
+              showBox={matchDetail?.matchOdd?.activeStatus === "save"}
             />
           )}
           {matchDetail?.marketCompleteMatch?.isActive && (
@@ -273,6 +275,9 @@ const MatchDetail = () => {
                 matchDetail?.marketCompleteMatch?.runners?.length > 0
                   ? matchDetail?.marketCompleteMatch?.runners
                   : []
+              }
+              showBox={
+                matchDetail?.marketCompleteMatch?.activeStatus === "save"
               }
             />
           )}
@@ -287,6 +292,7 @@ const MatchDetail = () => {
                   ? matchDetail?.apiTideMatch?.runners
                   : []
               }
+              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
             />
           )}
           {matchDetail?.bookmaker?.isActive && (
@@ -299,6 +305,7 @@ const MatchDetail = () => {
                   ? matchDetail?.bookmaker?.runners
                   : []
               }
+              showBox={matchDetail?.bookmaker?.activeStatus === "save"}
             />
           )}
           {matchDetail?.quickBookmaker?.map((bookmaker: any, index: any) => {

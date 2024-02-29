@@ -16,6 +16,8 @@ const LiveBookmaker = (props: any) => {
     selft,
     minBet,
     maxBet,
+    showBox,
+    upcoming,
   } = props;
 
   const [visible, setVisible] = useState(true);
@@ -214,6 +216,21 @@ const LiveBookmaker = (props: any) => {
           </>
 
           <Box sx={{ position: "relative", width: "99.8%" }}>
+            {(upcoming || showBox) && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  height: "100%",
+                  // top: "18%",
+                  width: "100%",
+                  display: "flex",
+                  zIndex: "999",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "rgba(0, 0, 0, .5)",
+                }}
+              ></Box>
+            )}
             <BoxComponent
               // color={"#46e080"}
               teamImage={currentMatch?.teamA_Image}

@@ -12,12 +12,16 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
+  getTotalBalance,
+  getUserList,
+  getUsersProfile,
   handleSettleCommission,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 
 const RowModalComponents = (props: any) => {
-  const { element, selected, setSelected, backgroundColor,onValueChange } = props;
+  const { element, selected, setSelected, backgroundColor, onValueChange } =
+    props;
   const dispatch: AppDispatch = useDispatch();
 
   const [settlementModal, setSettlementModal] = useState(false);
@@ -70,11 +74,19 @@ const RowModalComponents = (props: any) => {
   useEffect(() => {
     if (success) {
       setSettlementModal(false);
+      dispatch(
+        getUserList({
+          currentPage: 1,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+      dispatch(getTotalBalance());
+      dispatch(getUsersProfile());
       dispatch(userListSuccessReset());
     }
   }, [success]);
-  const handleAmountChange = (amount: any,id:string,type:string) => {
-    onValueChange(amount,id,type)
+  const handleAmountChange = (amount: any, id: string, type: string) => {
+    onValueChange(amount, id, type);
   };
   return (
     <Box sx={classes.mainBox}>
