@@ -102,7 +102,8 @@ const SeasonMarketBox = (props: any) => {
                 zIndex: 1,
               }}
             >
-              {newData?.status == "Ball Running" ? (
+              {newData?.status == "Ball Running" ||
+              newData?.status === "ball start" ? (
                 <img
                   src={BallStart}
                   style={{ width: "113px", height: "32px" }}
