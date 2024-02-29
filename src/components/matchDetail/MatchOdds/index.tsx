@@ -17,6 +17,8 @@ const MatchOdds = (props: any) => {
     handleShowLock,
     selft,
     session,
+    showBox,
+    upcoming,
   } = props;
 
   const visible = true;
@@ -258,6 +260,21 @@ const MatchOdds = (props: any) => {
             </Box>
           </Box>
           <Box sx={{ position: "relative", width: "99.8%", background: "red" }}>
+            {(upcoming || showBox) && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  height: "100%",
+                  // top: "18%",
+                  width: "100%",
+                  display: "flex",
+                  zIndex: "999",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "rgba(0, 0, 0, .5)",
+                }}
+              ></Box>
+            )}
             {session === "manualBookMaker" ? (
               <>
                 <TeamRowComponent

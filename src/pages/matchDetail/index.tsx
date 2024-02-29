@@ -26,6 +26,7 @@ import { socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import { Constants } from "../../utils/Constants";
+import moment from "moment";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -180,7 +181,7 @@ const MatchDetail = () => {
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -203,6 +204,48 @@ const MatchDetail = () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+
+  function calculateTimeLeft() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const targetDate = moment(matchDetail?.startAt).tz(timezone);
+
+    const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
+    let timeLeft = {};
+    if (difference > 0) {
+      timeLeft = {
+        days:
+          ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || 0,
+        hours:
+          ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) ||
+          0,
+        minutes:
+          ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
+        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
+      };
+    } else {
+      timeLeft = {
+        days: "00",
+        hours: "00",
+        minutes: "00",
+      };
+    }
+
+    return timeLeft;
+  }
+
+  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
+
+  const upcoming =
+    Number(timeLeft.days) === 0 &&
+    Number(timeLeft.hours) === 0 &&
+    Number(timeLeft.minutes) <= 30;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft);
+    }, 0);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <>
@@ -261,6 +304,8 @@ const MatchDetail = () => {
                   ? matchDetail?.matchOdd?.runners
                   : []
               }
+              showBox={matchDetail?.matchOdd?.activeStatus === "save"}
+              upcoming={!upcoming}
             />
           )}
           {matchDetail?.marketCompleteMatch?.isActive && (
@@ -274,6 +319,10 @@ const MatchDetail = () => {
                   ? matchDetail?.marketCompleteMatch?.runners
                   : []
               }
+              showBox={
+                matchDetail?.marketCompleteMatch?.activeStatus === "save"
+              }
+              upcoming={!upcoming}
             />
           )}
           {matchDetail?.apiTideMatch?.isActive && (
@@ -287,6 +336,8 @@ const MatchDetail = () => {
                   ? matchDetail?.apiTideMatch?.runners
                   : []
               }
+              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+              upcoming={!upcoming}
             />
           )}
           {matchDetail?.bookmaker?.isActive && (
@@ -299,6 +350,8 @@ const MatchDetail = () => {
                   ? matchDetail?.bookmaker?.runners
                   : []
               }
+              showBox={matchDetail?.bookmaker?.activeStatus === "save"}
+              upcoming={!upcoming}
             />
           )}
           {matchDetail?.quickBookmaker?.map((bookmaker: any, index: any) => {
@@ -312,6 +365,7 @@ const MatchDetail = () => {
                 maxBet={Math.floor(bookmaker?.maxBet) || 0}
                 typeOfBet={bookmaker?.name}
                 matchOddsData={bookmaker}
+                upcoming={!upcoming}
               />
             );
           })}
@@ -323,6 +377,7 @@ const MatchDetail = () => {
               session={"manualBookMaker"}
               minBet={Math.floor(matchDetail?.manualTiedMatch?.minBet)}
               maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
+              upcoming={!upcoming}
             />
           )}
 
@@ -336,6 +391,7 @@ const MatchDetail = () => {
               )}
               min={matchDetail?.betFairSessionMinBet || 0}
               max={matchDetail?.betFairSessionMaxBet || 0}
+              upcoming={!upcoming}
             />
           )}
           {matchDetail?.apiSessionActive && matchesMobile && (
@@ -346,6 +402,7 @@ const MatchDetail = () => {
               sessionData={matchDetail?.apiSession}
               min={Math.floor(matchDetail?.betFairSessionMinBet)}
               max={Math.floor(matchDetail?.betFairSessionMaxBet)}
+              upcoming={!upcoming}
             />
           )}
 
@@ -473,6 +530,7 @@ const MatchDetail = () => {
                 data={matchDetail?.manualTiedMatch}
                 minBet={Math.floor(matchDetail?.manualTiedMatch?.minBet)}
                 maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
+                upcoming={!upcoming}
               />
             )}
             {matchDetail?.manualSessionActive && (
@@ -486,6 +544,7 @@ const MatchDetail = () => {
                 )}
                 min={matchDetail?.betFairSessionMinBet || 0}
                 max={matchDetail?.betFairSessionMaxBet || 0}
+                upcoming={!upcoming}
               />
             )}
             {matchDetail?.apiSessionActive && (
@@ -497,6 +556,7 @@ const MatchDetail = () => {
                 sessionData={matchDetail?.apiSession}
                 max={Math.floor(matchDetail?.betFairSessionMaxBet)}
                 min={Math.floor(matchDetail?.betFairSessionMinBet)}
+                upcoming={!upcoming}
               />
             )}
 
