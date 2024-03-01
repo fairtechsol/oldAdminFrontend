@@ -263,5 +263,12 @@ export const removeRunAmount = createAsyncThunk<any, any>(
   }
 );
 
+export const updateMaxLossForBetOnUndeclare = createAsyncThunk<any, any>(
+  "/maxLoss/updateOnUndeclare",
+  async (data) => {
+    return data;
+  }
+);
+
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");

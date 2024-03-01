@@ -18,6 +18,7 @@ import {
   updateBetsPlaced,
   updateMatchRates,
   updateMaxLossForBet,
+  updateMaxLossForBetOnUndeclare,
   updateProfitLoss,
   updateTeamRates,
 } from "../../store/actions/match/matchAction";
@@ -151,6 +152,17 @@ const MatchDetail = () => {
     }
   };
 
+  const handleSessionResultUnDeclare = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(updateMaxLossForBetOnUndeclare(event));
+        dispatch(getPlacedBets(state?.matchId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
@@ -175,6 +187,9 @@ const MatchDetail = () => {
         socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
         socketService.match.sessionResult(handleSessionResultDeclare);
+        socketService.match.sessionResultUnDeclare(
+          handleSessionResultUnDeclare
+        );
         dispatch(matchListReset());
       }
     } catch (e) {
@@ -195,6 +210,9 @@ const MatchDetail = () => {
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
       socketService.match.sessionResultOff(handleSessionResultDeclare);
+      socketService.match.sessionResultUnDeclareOff(
+        handleSessionResultUnDeclare
+      );
     };
   }, []);
 

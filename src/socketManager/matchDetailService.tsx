@@ -52,6 +52,12 @@ export const matchSocketService = {
   sessionResult: (callback: any) => {
     socket.on("sessionResult", callback);
   },
+  sessionResultUnDeclare: (callback: any) => {
+    socket.on("sessionResultUnDeclare", callback);
+  },
+  sessionResultUnDeclareOff: (callback: any) => {
+    socket.off("sessionResultUnDeclareOff", callback);
+  },
   sessionResultOff: (callback: any) => {
     socket.off("sessionResult", callback);
   },

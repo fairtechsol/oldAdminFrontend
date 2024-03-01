@@ -8,6 +8,7 @@ import {
   updateMatchListRates,
   updateMatchRates,
   updateMaxLossForBet,
+  updateMaxLossForBetOnUndeclare,
   updateTeamRates,
 } from "../../actions/match/matchAction";
 
@@ -175,6 +176,24 @@ const matchListSlice = createSlice({
           };
         } else {
           return state.matchDetail;
+        }
+      })
+      .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
+        const { betId, matchId, parentRedisUpdateObj } = action.payload;
+        if (state?.matchDetail?.id === matchId) {
+          state.matchDetail.profitLossDataSession = Array.from(
+            new Set([
+              ...state.matchDetail.profitLossDataSession,
+              {
+                betId: betId,
+                maxLoss: JSON.parse(parentRedisUpdateObj[`${betId}_profitLoss`])
+                  .maxLoss,
+                totalBet: JSON.parse(
+                  parentRedisUpdateObj[`${betId}_profitLoss`]
+                ).totalBet,
+              },
+            ])
+          );
         }
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {
