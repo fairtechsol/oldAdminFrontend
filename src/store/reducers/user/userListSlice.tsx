@@ -7,6 +7,7 @@ import {
   getTotalBalance,
   getUserList,
   handleExport,
+  handleModelActions,
   handleSettleCommission,
   setCreditRefference,
   setExposureLimit,
@@ -23,6 +24,8 @@ interface InitialState {
   error: any;
   totalBalance: any;
   userModalList:any;
+  openModal:boolean;
+  userElement:any;
 }
 
 const initialState: InitialState = {
@@ -34,6 +37,8 @@ const initialState: InitialState = {
   error: null,
   totalBalance: null,
   userModalList: null,
+  openModal:false,
+  userElement:null,
 };
 
 export const userList = createSlice({
@@ -76,6 +81,18 @@ export const userList = createSlice({
       .addCase(getModalUserList.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(handleModelActions.fulfilled, (state, action) => {
+        const {openModal,domain} = action.payload
+        state.openModal = openModal;
+        let obj = {
+          roleName : action.payload.roleName,
+          id: action.payload.userId,
+          domain : domain,
+          title: action.payload.title
+        }
+        state.userElement=obj
+        state.loading = false;
       })
       .addCase(changeAmmountUser.pending, (state) => {
         state.loading = true;
