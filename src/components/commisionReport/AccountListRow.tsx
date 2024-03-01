@@ -9,9 +9,12 @@ const AccountListRow = ({
   element,
 }: any) => {
   const prevElement = {
-    name: element?.name,
+    name: element?.matchName,
     commissionAmount: element?.commissionAmount,
-    commissionType: element?.commissionType,
+    commissionType:
+      element?.betType === "NO" || element?.betType === "YES"
+        ? "Session"
+        : "Match",
     betType: element?.betType,
     stack: element?.stake,
     odds: element?.odds,
@@ -19,7 +22,7 @@ const AccountListRow = ({
     teamBet: element?.teamName,
     createAt: element?.date,
     myCommission:
-      (+element?.commissionAmount * element?.partnerShip) / 100 +
+      ((+element?.commissionAmount || 0) * element?.partnerShip) / 100 +
       `(${element?.partnerShip}%)`,
     userName: element?.userName,
   };

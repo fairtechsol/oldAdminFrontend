@@ -80,9 +80,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
     if (Number(baseValue) >= 0) {
       return Number(
         typeOfAmount === "deposite"
-          ? baseValue + depositeValue || 0 + depositeValue
+          ? baseValue + depositeValue
           : typeOfAmount === "withdraw"
-          ? baseValue - withdrawValue || 0 - withdrawValue
+          ? baseValue - withdrawValue
           : typeOfAmount === "credit" && creditValue
           ? baseValue + element?.creditRefrence - creditValue || 0 - creditValue
           : baseValue
@@ -90,9 +90,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
     } else {
       return Number(
         typeOfAmount === "deposite"
-          ? baseValue + depositeValue || 0 + depositeValue
+          ? baseValue + depositeValue
           : typeOfAmount === "withdraw"
-          ? baseValue - withdrawValue || 0 - withdrawValue
+          ? baseValue - withdrawValue
           : typeOfAmount === "credit" && creditValue
           ? baseValue + element?.creditRefrence - creditValue || 0 - creditValue
           : baseValue
@@ -394,25 +394,15 @@ const AccountListRow = (props: AccountListRowInterface) => {
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
                 {typeOfAmount === "deposite"
-                  ? Number(
-                      +element?.availableBalance + depositeValue ||
-                        0 + depositeValue
-                    )
+                  ? Number(+element?.availableBalance + depositeValue)
                   : typeOfAmount === "withdraw"
-                  ? Number(
-                      +element?.availableBalance - withdrawValue ||
-                        0 - withdrawValue
-                    )
+                  ? Number(+element?.availableBalance - withdrawValue)
                   : +element?.availableBalance || 0}
               </>
             ) : typeOfAmount === "deposite" ? (
-              Number(
-                +element?.availableBalance + depositeValue || 0 + depositeValue
-              )
+              Number(+element?.availableBalance + depositeValue)
             ) : typeOfAmount === "withdraw" ? (
-              Number(
-                +element?.availableBalance - withdrawValue || 0 - withdrawValue
-              )
+              Number(+element?.availableBalance - withdrawValue)
             ) : (
               +element?.availableBalance || 0
             )}
