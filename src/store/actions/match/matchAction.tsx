@@ -255,5 +255,13 @@ export const updateProfitLoss = createAsyncThunk<any, any>(
     return profitLoss;
   }
 );
+
+export const removeRunAmount = createAsyncThunk<any, any>(
+  "/remove/runAmount",
+  async (profitLoss) => {
+    return profitLoss;
+  }
+);
+
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");

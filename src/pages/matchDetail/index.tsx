@@ -13,6 +13,7 @@ import {
   getMatchDetail,
   getPlacedBets,
   matchListReset,
+  removeRunAmount,
   // updateBalance,
   updateBetsPlaced,
   updateMatchRates,
@@ -139,6 +140,17 @@ const MatchDetail = () => {
     }
   };
 
+  const handleSessionResultDeclare = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(removeRunAmount(event));
+        dispatch(getPlacedBets(state?.matchId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
@@ -162,6 +174,7 @@ const MatchDetail = () => {
         socketService.match.sessionDeleteBet(matchDeleteBet);
         socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+        socketService.match.sessionResult(handleSessionResultDeclare);
         dispatch(matchListReset());
       }
     } catch (e) {
@@ -181,6 +194,7 @@ const MatchDetail = () => {
       socketService.match.matchResultDeclaredOff(matchResultDeclared);
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
+      socketService.match.sessionResultOff(handleSessionResultDeclare);
     };
   }, []);
 

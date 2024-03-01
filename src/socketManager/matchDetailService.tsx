@@ -49,6 +49,12 @@ export const matchSocketService = {
   userMatchBetPlaced: (callback: any) => {
     socket.on("userMatchBetPlaced", callback);
   },
+  sessionResult: (callback: any) => {
+    socket.on("sessionResult", callback);
+  },
+  sessionResultOff: (callback: any) => {
+    socket.off("sessionResult", callback);
+  },
   getMatchRatesOff: (matchId: any, callback: any) => {
     thirdParty.off(`liveData${matchId}`, callback);
   },
