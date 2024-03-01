@@ -63,7 +63,7 @@ const MyAccount = () => {
           >
             <DataShow
               title={"Upper Level Credit Reference"}
-              value={myAccountDetails?.userCreditReference ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.userCreditReference ?? 0)}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
                 background: `${
@@ -75,7 +75,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"Down level Occupy Balance"}
-              value={myAccountDetails?.downLevelOccupyBalance ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.downLevelOccupyBalance ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -91,7 +91,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"Down Level Credit Reference"}
-              value={myAccountDetails?.downLevelCreditReference ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.downLevelCreditReference ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -115,7 +115,7 @@ const MyAccount = () => {
           >
             <DataShow
               title={"Total Master Balance"}
-              value={myAccountDetails?.totalMasterBalance ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.totalMasterBalance ?? 0)}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
                 background: `${
@@ -127,7 +127,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"Upper Level"}
-              value={myAccountDetails?.upperLevelBalance ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.upperLevelBalance ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -143,7 +143,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"Down Level Profit/Loss"}
-              value={myAccountDetails?.downLevelProfitLoss ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.downLevelProfitLoss ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -168,7 +168,7 @@ const MyAccount = () => {
           >
             <DataShow
               title={"Available Balance"}
-              value={myAccountDetails?.availableBalance ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.availableBalance ?? 0)}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
                 background: `${
@@ -180,7 +180,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"Available Balance With Profit/Loss"}
-              value={myAccountDetails?.availableBalanceWithProfitLoss ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.availableBalanceWithProfitLoss ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -198,7 +198,7 @@ const MyAccount = () => {
             />
             <DataShow
               title={"My Profit/Loss"}
-              value={myAccountDetails?.profitLoss ?? 0}
+              value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(myAccountDetails?.profitLoss ?? 0)}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",

@@ -306,7 +306,7 @@ const DepositComponent = (props: any) => {
                   }}
                 >
                   <TextField
-                    value={initialBalance || 0}
+                    value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(initialBalance || 0)}
                     sx={{ width: "100%", height: "45px" }}
                     variant="standard"
                     InputProps={{

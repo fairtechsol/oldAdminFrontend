@@ -63,7 +63,7 @@ const TableDataRow = (props: any) => {
             fTextStyle,
           ]}
         >
-          {moment(date).format("DD-MM-YYYY HH:mm")}
+          {moment(date).format("DD-MM-YYYY HH:mm:ss")}
         </Typography>
       </Box>
       <Box
@@ -80,7 +80,7 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {amount > 0 ? amount : ""}
+         {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
         </Typography>
       </Box>
       <Box
@@ -97,7 +97,7 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {amount < 0 ? amount : ""}
+         {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
         </Typography>
       </Box>
       <Box
@@ -112,7 +112,7 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {closing}
+        {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(closing)}
         </Typography>
       </Box>
       <Box
