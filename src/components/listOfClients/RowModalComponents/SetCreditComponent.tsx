@@ -18,7 +18,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 const initialValues: any = {
   userId: "",
-  amount: "",
+  amount: 0,
   transactionPassword: "",
   transactionType: "",
   remark: "",
@@ -100,6 +100,24 @@ const SetCreditComponent = (props: any) => {
     onChangeAmount(formik.values.amount, element?.id, "credit");
   }, [formik.values.amount, onChangeAmount]);
 
+  const formatIndianCurrency = (amount: number) => {
+    const formatter = new Intl.NumberFormat('en-IN', {
+      currency: 'INR'
+    });
+    return formatter.format(amount);
+  };
+
+  const checkHandleChange = (event: any) => {
+    let value = 0;
+    if (event.target.value != "") {
+
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+    }
+    
+    formik.setFieldValue("amount",value);
+    onChangeAmount(value, element?.id, "credit");
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Box
@@ -143,8 +161,8 @@ const SetCreditComponent = (props: any) => {
                 required={true}
                 name={"amount"}
                 id={"amount"}
-                value={formik.values.amount}
-                onChange={formik.handleChange}
+                value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
+                onChange={(e: any) => checkHandleChange(e)}
                 onKeyDown={handleKeyDown}
                 variant="standard"
                 InputProps={{
@@ -160,7 +178,6 @@ const SetCreditComponent = (props: any) => {
                     color: "white",
                   },
                 }}
-                type={"Number"}
               />
             </Box>
           </Box>

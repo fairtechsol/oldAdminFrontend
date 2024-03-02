@@ -27,7 +27,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 const initialValues: any = {
   userId: "",
-  amount: "",
+  amount: 0,
   transactionPassword: "",
   remark: "",
   transactionType: "add",
@@ -92,6 +92,28 @@ const DepositComponent = (props: any) => {
   const { loading, success, error } = useSelector(
     (state: RootState) => state.user.userList
   );
+
+
+  const formatIndianCurrency = (amount: number) => {
+    const formatter = new Intl.NumberFormat('en-IN', {
+      currency: 'INR'
+    });
+    return formatter.format(amount);
+  };
+
+  const checkHandleChange = (event: any) => {
+    let value = 0;
+    if (event.target.value != "") {
+
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+    }
+    
+    formik.setFieldValue("amount",value);
+    onChangeAmount(value, element?.id, "deposite");
+    // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
+    // setChexckValue(event.target.value);
+  };
+
 
   useEffect(() => {
     if (success) {
@@ -245,9 +267,7 @@ const DepositComponent = (props: any) => {
                     required={true}
                     id="amount"
                     name="amount"
-                    // onKeyDown={handleKeyDown}
-                    // value={depositObj.amount}
-                    value={formik.values.amount}
+                    value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
                     variant="standard"
                     InputProps={{
                       placeholder: "Type Amount...",
@@ -262,8 +282,7 @@ const DepositComponent = (props: any) => {
                         color: "white",
                       },
                     }}
-                    type={"Number"}
-                    onChange={formik.handleChange}
+                    onChange={(e: any) => checkHandleChange(e)}
                   />
                 </Box>
               </Box>
