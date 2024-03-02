@@ -10,13 +10,13 @@ import RowModalComponents from "./RowModalComponents";
 import { Modal } from "../Common/Modal";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
 import { ApiConstants, Constants } from "../../utils/Constants";
-import AccountListTable from "./AccountListModal";
 import {
   getModalUserList,
   getTotalBalance,
+  handleModelActions,
 } from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
+import { AppDispatch  } from "../../store/store";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -51,12 +51,6 @@ const AccountListRow = (props: AccountListRowInterface) => {
     value: false,
     id: "",
   });
-  const [showSubUsers, setSubSusers] = useState({
-    value: false,
-    id: "",
-    title: "",
-  });
-
   const handleAmountChange = (amount: any, id: string, type: string) => {
     if (id === element?.id) {
       setTypeOfAmount(type);
@@ -145,25 +139,27 @@ const AccountListRow = (props: AccountListRowInterface) => {
     }
   };
   const handleModal = () => {
-    setSubSusers({
-      value: true,
-      id: element?.id,
-      title: element?.userName,
-    });
     dispatch(
-      getModalUserList({
-        currentPage: currentPage,
+      handleModelActions({
         url: ApiConstants.USER.LIST,
         userId: element?.id,
         roleName: element?.roleName,
-        domain: element?.domainData ? element?.domainData?.domain : "",
+        openModal:true,
+        title:element?.userName
       })
     );
     dispatch(
       getTotalBalance({
         userId: element?.id,
         roleName: element?.roleName,
-        domain: element?.domainData ? element?.domainData?.domain : "",
+      })
+    ); 
+    dispatch(
+      getModalUserList({
+        currentPage: currentPage,
+        url: ApiConstants.USER.LIST,
+        userId: element?.id,
+        roleName: element?.roleName,
       })
     );
   };
@@ -728,35 +724,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           </Box>
         </Box>
       )}
-      <ModalMUI
-        open={showSubUsers?.value}
-        onClose={() => {
-          setSubSusers({ value: false, id: "", title: "" });
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            // flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <AccountListTable
-            title={element?.userName}
-            id={element?.id}
-            endpoint={ApiConstants.USER.LIST}
-            show={showSubUsers?.value}
-            setShow={setSubSusers}
-            roleName={element?.roleName}
-            domain={element?.domainData?.domain}
-          />
-        </Box>
-      </ModalMUI>
+      
 
       <ModalMUI
         open={showCommissionReport?.value}

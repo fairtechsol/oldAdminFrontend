@@ -9,16 +9,11 @@ import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
 import SearchInput from "../Common/SearchInput";
 import { Constants } from "../../utils/Constants";
-import { getTotalBalance } from "../../store/actions/user/userAction";
+import { getTotalBalance, handleModelActions } from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
 
 const AccountListTable = ({
-  id,
-  setShow,
-  title,
   endpoint,
-  roleName,
-  domain,
 }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -27,13 +22,21 @@ const AccountListTable = ({
   const { userModalList } = useSelector(
     (state: RootState) => state.user.userList
   );
-  const { totalBalance } = useSelector(
+  const { totalBalance ,userElement} = useSelector(
     (state: RootState) => state.user.userList
   );
-  const handleModal=()=>{
-    setShow({ value: false, id: "", title: "" });
-    dispatch(getTotalBalance())
-  }
+  const handleModal = () => {
+    dispatch(getTotalBalance());
+    dispatch(
+      handleModelActions({
+        url:'',
+        userId: '',
+        roleName: '',
+        domain: "",
+        openModal:false,
+      })
+    );
+  };
   return (
     <>
       <Box
@@ -60,8 +63,8 @@ const AccountListTable = ({
           }}
         >
           <ListHeader
-            id={id}
-            title={title}
+            id={userElement?.id}
+            title={userElement?.title}
             searchFor={"userList"}
             downloadPdfExcel={true}
             // getListOfUser={getListOfUser}
@@ -83,9 +86,8 @@ const AccountListTable = ({
               show={true}
               searchFor={"userModalList"}
               endpoint={endpoint}
-              userId={id}
-              roleName={roleName}
-              domain={domain ? domain : ""}
+              userId={userElement?.id}
+              roleName={userElement?.roleName}
             />
             <Button
               sx={{ color: "", fontSize: "30px" }}
