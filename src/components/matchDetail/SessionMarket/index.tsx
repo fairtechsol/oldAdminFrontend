@@ -102,7 +102,7 @@ const SessionMarket = (props: any) => {
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
                 total={allBetsData?.reduce((acc: number, bet: any) => {
-                  return acc + bet?.totalBet;
+                  return acc + +bet?.totalBet;
                 }, 0)}
               />
               {/* static code */}

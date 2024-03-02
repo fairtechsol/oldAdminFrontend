@@ -60,7 +60,7 @@ const PlaceBetComponent = ({ newData, profitLoss }: any) => {
           >
             Total Bet :{" "}
             <span style={{ color: "#0B4F26" }}>
-              {profitLoss?.totalBet || 0}
+              {Math.floor(profitLoss?.totalBet) || 0}
             </span>
           </Typography>
         </Box>
