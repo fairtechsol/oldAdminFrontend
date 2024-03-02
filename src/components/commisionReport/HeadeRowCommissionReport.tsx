@@ -173,7 +173,7 @@ const HeaderRowCommissionReport = () => {
             fontSize: { xs: "10px", lg: "12px", md: "12px" },
           }}
         >
-          Stack
+          Stake
         </Typography>
       </Box>
 

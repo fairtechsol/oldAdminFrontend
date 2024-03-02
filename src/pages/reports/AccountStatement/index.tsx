@@ -18,6 +18,7 @@ const AccountStatement = () => {
   const [pageLimit, setPageLimit] = useState<number>(15);
   const [fromDate, setFromDate] = useState<any>();
   const [toDate, setToDate] = useState<any>();
+  const [searchValue, setSearchValue] = useState("");
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -32,9 +33,7 @@ const AccountStatement = () => {
       if (fromDate && toDate) {
         filter += `&createdAt=between${moment(fromDate)?.format(
           "YYYY-MM-DD"
-        )}|${moment(toDate.add(1, "days"))?.format(
-          "YYYY-MM-DD"
-        )}`;
+        )}|${moment(toDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
       } else if (fromDate) {
         filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
       } else if (toDate) {
@@ -45,6 +44,8 @@ const AccountStatement = () => {
           id: profileDetail?.id,
           page: currentPage,
           pageLimit: pageLimit,
+          keyword: searchValue,
+          searchBy: "description,user.userName,actionByUser.userName",
           filter,
         })
       );
@@ -63,9 +64,7 @@ const AccountStatement = () => {
               if (fromDate && toDate) {
                 filter += `&createdAt=between${moment(fromDate)?.format(
                   "YYYY-MM-DD"
-                )}|${moment(toDate.add(1, "days"))?.format(
-                  "YYYY-MM-DD"
-                )}`;
+                )}|${moment(toDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
               } else if (fromDate) {
                 filter += `&createdAt=gte${moment(fromDate)?.format(
                   "YYYY-MM-DD"
@@ -75,11 +74,15 @@ const AccountStatement = () => {
                   "YYYY-MM-DD"
                 )}`;
               }
+              setCurrentPage(1);
               dispatch(
                 getAccountStatement({
                   id: profileDetail?.id,
-                  page: currentPage,
+                  page: 1,
+                  pageLimit: pageLimit,
                   filter: filter,
+                  keyword: searchValue,
+                  searchBy: "description,user.userName,actionByUser.userName",
                 })
               );
             }}
@@ -117,6 +120,7 @@ const AccountStatement = () => {
             setCurrentPage={setCurrentPage}
             fromDate={fromDate}
             toDate={toDate}
+            setSearchValue={setSearchValue}
           />
 
           {loading ? (

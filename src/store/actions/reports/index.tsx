@@ -25,7 +25,7 @@ export const getAccountStatement = createAsyncThunk<any, AccountStatement>(
         `${ApiConstants.WALLET.REPORTS.GETACCOUNTSTATEMENT}/${
           requestData?.id
         }?page=${requestData?.page ? requestData?.page : 1}&limit=${
-          requestData.pageLimit ? requestData.pageLimit : Constants.pageLimit
+          requestData.pageLimit
         }&searchBy=${requestData?.searchBy || ""}&keyword=${
           requestData?.keyword || ""
         }${requestData?.filter || ""}&sort=transaction.createdAt:DESC`
