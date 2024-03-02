@@ -13,6 +13,7 @@ const ListHeaderRow = (props: any) => {
     setCurrentPage,
     fromDate,
     toDate,
+    setSearchValue,
   } = props;
   return (
     <Box
@@ -44,6 +45,8 @@ const ListHeaderRow = (props: any) => {
         endpoint={ApiConstants.USER.LIST}
         getListOfUser={getAccountStatement}
         pageLimit={pageLimit}
+        onChange={setSearchValue}
+        setCurrentPage={setCurrentPage}
         width={"100%"}
         placeholder={"Search..."}
         inputContainerStyle={{

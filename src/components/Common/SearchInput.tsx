@@ -29,6 +29,7 @@ const SearchInput = (props: any) => {
     pageLimit,
     fromDate,
     toDate,
+    setCurrentPage,
   } = props;
 
   const theme = useTheme();
@@ -54,6 +55,7 @@ const SearchInput = (props: any) => {
       } else if (toDate) {
         filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
       }
+      setCurrentPage(1);
       if (searchFor === "accountStatement") {
         dispatch(
           getAccountStatement({

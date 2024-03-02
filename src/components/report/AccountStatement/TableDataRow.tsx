@@ -127,7 +127,7 @@ const TableDataRow = (props: any) => {
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
-          background: transType === "credit_refer" ? "#F8C851" : "#FFE094",
+          background: transType === "creditReference" ? "#F8C851" : "#FFE094",
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>
