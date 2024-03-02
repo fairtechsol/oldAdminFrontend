@@ -27,7 +27,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 const initialValues: any = {
   userId: "",
-  amount: "",
+  amount: 0,
   transactionPassword: "",
   remark: "",
   transactionType: "withDraw",
@@ -56,6 +56,26 @@ const WithdrawComponent = (props: any) => {
   );
 
   const dispatch: AppDispatch = useDispatch();
+
+  const formatIndianCurrency = (amount: number) => {
+    const formatter = new Intl.NumberFormat('en-IN', {
+      currency: 'INR'
+    });
+    return formatter.format(amount);
+  };
+
+  const checkHandleChange = (event: any) => {
+    let value = 0;
+    if (event.target.value != "") {
+
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+    }
+    
+    formik.setFieldValue("amount",value);
+    onChangeAmount(value, element?.id, "withdraw");
+    // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
+    // setChexckValue(event.target.value);
+  };
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -250,7 +270,7 @@ const WithdrawComponent = (props: any) => {
                     name="amount"
                     // onKeyDown={handleKeyDown}
                     // value={withDrawObj.amount}
-                    value={formik.values.amount}
+                    value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
                     variant="standard"
                     InputProps={{
                       placeholder: "Type Amount...",
@@ -264,9 +284,8 @@ const WithdrawComponent = (props: any) => {
                         fontWeight: "600",
                         color: "white",
                       },
-                    }}
-                    type={"Number"}
-                    onChange={formik.handleChange}
+                    }} 
+                    onChange={(e: any) => checkHandleChange(e)}
                   />
                 </Box>
               </Box>
