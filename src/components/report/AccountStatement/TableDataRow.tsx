@@ -12,7 +12,7 @@ const TableDataRow = (props: any) => {
     description,
     touserName,
     fromuserName,
-    trans_type,
+    transType,
     amount,
   } = props;
 
@@ -80,7 +80,9 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-         {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
+          {["win", "add"].includes(transType)
+            ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(amount)
+            : ""}
         </Typography>
       </Box>
       <Box
@@ -97,7 +99,9 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-         {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
+          {["withDraw", "loss", "creditReference"].includes(transType)
+            ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(amount)
+            : ""}
         </Typography>
       </Box>
       <Box
@@ -112,7 +116,7 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-        {new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(closing)}
+          {new Intl.NumberFormat("en-IN", { currency: "INR" }).format(closing)}
         </Typography>
       </Box>
       <Box
@@ -123,7 +127,7 @@ const TableDataRow = (props: any) => {
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
-          background: trans_type === "credit_refer" ? "#F8C851" : "#FFE094",
+          background: transType === "credit_refer" ? "#F8C851" : "#FFE094",
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>

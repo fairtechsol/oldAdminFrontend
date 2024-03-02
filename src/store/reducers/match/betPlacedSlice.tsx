@@ -3,6 +3,7 @@ import {
   getPlacedBets,
   getSessionProLoss,
   getSessionProfitLossMatchDetailFilter,
+  removeRunAmount,
   updateBetsPlaced,
   updateProfitLoss,
 } from "../../actions/match/matchAction";
@@ -99,6 +100,12 @@ const betsSlice = createSlice({
 
           state.sessionProLoss = updatedSessionProLoss;
         }
+      })
+      .addCase(removeRunAmount.fulfilled, (state, action) => {
+        const { betId } = action.payload;
+        state.sessionProLoss = state.sessionProLoss.filter(
+          (item: any) => item?.id !== betId
+        );
       })
       .addCase(
         getSessionProfitLossMatchDetailFilter.fulfilled,

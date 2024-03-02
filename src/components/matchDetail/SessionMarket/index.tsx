@@ -3,10 +3,6 @@ import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import BetsCountBox from "./BetsCountBox";
 import Divider from "../../Inplay/Divider";
 import SeasonMarketBox from "./SeasonMarketBox";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
-import RunsBox from "./RunsBox";
-import { useState } from "react";
 
 const SessionMarket = (props: any) => {
   const theme = useTheme();
@@ -24,41 +20,7 @@ const SessionMarket = (props: any) => {
     allBetsData,
   } = props;
   const visible = true;
-  const { sessionProLoss } = useSelector(
-    (state: RootState) => state.match.bets
-  );
-  const [currentOdds] = useState<any>(null);
 
-  // useEffect(() => {
-  //   if (currentMatch?.sessionBettings?.length > 0) {
-  //     const sessionData =
-  //       currentMatch?.sessionBettings?.length > 0
-  //         ? currentMatch?.bettings?.filter((element: any) => {
-  //             if (
-  //               currentMatch?.apiSessionActive &&
-  //               title === "Session Market"
-  //             ) {
-  //               return (
-  //                 element?.sessionBet === true && element?.selectionId !== null
-  //               ); // Show elements where selectionId is not null when apiSessionActive is true
-  //             }
-
-  //             if (
-  //               currentMatch?.manualSessionActive &&
-  //               title === "Quick Session Market"
-  //             ) {
-  //               return (
-  //                 element?.sessionBet === true && element?.selectionId === null
-  //               ); // Show elements where selectionId is null when manualSessionActive is true
-  //             }
-
-  //             return false; // Default case: no active session types
-  //           })
-  //         : 0;
-
-  //     setMatchSessionData(sessionData);
-  //   }
-  // }, [currentMatch]);
   return (
     <>
       <Box
@@ -175,7 +137,7 @@ const SessionMarket = (props: any) => {
                   }}
                 >
                   {allBetsData?.reduce((acc: number, bet: any) => {
-                    let total = Number(acc) + Number(bet?.maxLoss)
+                    let total = Number(acc) + Number(bet?.maxLoss);
                     return Number(total)?.toFixed(2);
                   }, 0)}
                 </Typography>
@@ -432,36 +394,6 @@ const SessionMarket = (props: any) => {
           </Box>
         )}
       </Box>
-
-      {sessionProLoss?.length > 0 &&
-        sessionProLoss?.find((v: any) => v?.type === title) && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              gap: "1px",
-              rowGap: "5px",
-              height: "524px",
-              overflow: "scroll",
-              marginTop: "1.25vw",
-            }}
-          >
-            {sessionProLoss
-              ?.filter((v: any) => v.type == title)
-              ?.map((v: any) => {
-                return (
-                  <RunsBox
-                    key={v?.id}
-                    item={v}
-                    currentOdd={
-                      currentOdds?.betId === v?.id ? currentOdds : null
-                    }
-                  />
-                );
-              })}
-          </Box>
-        )}
     </>
   );
 };

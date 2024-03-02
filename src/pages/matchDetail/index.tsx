@@ -13,10 +13,12 @@ import {
   getMatchDetail,
   getPlacedBets,
   matchListReset,
+  removeRunAmount,
   // updateBalance,
   updateBetsPlaced,
   updateMatchRates,
   updateMaxLossForBet,
+  updateMaxLossForBetOnUndeclare,
   updateProfitLoss,
   updateTeamRates,
 } from "../../store/actions/match/matchAction";
@@ -25,6 +27,7 @@ import { socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import { Constants } from "../../utils/Constants";
+import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -41,9 +44,11 @@ const MatchDetail = () => {
   const { matchDetail, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  const { placedBets, loading } = useSelector(
+  const { placedBets, loading, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
+
+  const [currentOdds] = useState<any>(null);
 
   const handleDeleteBet = (value: any) => {
     try {
@@ -136,6 +141,28 @@ const MatchDetail = () => {
     }
   };
 
+  const handleSessionResultDeclare = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(removeRunAmount(event));
+        dispatch(getPlacedBets(state?.matchId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSessionResultUnDeclare = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(updateMaxLossForBetOnUndeclare(event));
+        dispatch(getPlacedBets(state?.matchId));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
@@ -159,6 +186,10 @@ const MatchDetail = () => {
         socketService.match.sessionDeleteBet(matchDeleteBet);
         socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+        socketService.match.sessionResult(handleSessionResultDeclare);
+        socketService.match.sessionResultUnDeclare(
+          handleSessionResultUnDeclare
+        );
         dispatch(matchListReset());
       }
     } catch (e) {
@@ -178,6 +209,10 @@ const MatchDetail = () => {
       socketService.match.matchResultDeclaredOff(matchResultDeclared);
       socketService.match.matchDeleteBetOff(matchDeleteBet);
       socketService.match.sessionDeleteBetOff(matchDeleteBet);
+      socketService.match.sessionResultOff(handleSessionResultDeclare);
+      socketService.match.sessionResultUnDeclareOff(
+        handleSessionResultUnDeclare
+      );
     };
   }, []);
 
@@ -518,7 +553,32 @@ const MatchDetail = () => {
                   min={Math.floor(matchDetail?.betFairSessionMinBet)}
                 />
               )}
-
+            {sessionProLoss?.length > 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  gap: "1px",
+                  rowGap: "5px",
+                  height: "524px",
+                  overflow: "scroll",
+                  marginTop: "1.25vw",
+                }}
+              >
+                {sessionProLoss?.map((v: any) => {
+                  return (
+                    <RunsBox
+                      key={v?.id}
+                      item={v}
+                      currentOdd={
+                        currentOdds?.betId === v?.id ? currentOdds : null
+                      }
+                    />
+                  );
+                })}
+              </Box>
+            )}
             <UserProfitLoss
               single={"single"}
               title={"User Profit Loss"}

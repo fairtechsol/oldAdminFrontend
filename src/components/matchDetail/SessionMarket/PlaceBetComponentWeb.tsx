@@ -6,15 +6,15 @@ import { getSessionProLoss } from "../../../store/actions/match/matchAction";
 
 const PlaceBetComponentWeb = ({ newData, profitLoss }: any) => {
   const dispatch: AppDispatch = useDispatch();
-  
+
   return (
     <>
       <Box
-         onClick={() => {
+        onClick={() => {
           dispatch(
             getSessionProLoss({
               id: newData?.id,
-              name: newData?.name,
+              name: newData?.name ?? newData?.RunnerName,
               type: !newData?.isManual
                 ? "Session Market"
                 : "Quick Session Market",

@@ -17,7 +17,7 @@ const PlaceBetComponent = ({ newData, profitLoss }: any) => {
           dispatch(
             getSessionProLoss({
               id: newData?.id,
-              name: newData?.name,
+              name: newData?.name ?? newData?.RunnerName,
               type: !newData?.isManual
                 ? "Session Market"
                 : "Quick Session Market",
