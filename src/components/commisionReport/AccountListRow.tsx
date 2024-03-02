@@ -9,10 +9,7 @@ const AccountListRow = ({
   element,
 }: any) => {
   const prevElement = {
-    title:
-      element?.commissionType === "session"
-        ? element?.bet_id?.bet_condition
-        : element?.match_id?.title,
+    name: element?.name,
     commissionAmount: element?.commissionAmount,
     commissionType: element?.commissionType,
     betType: element?.betType,
@@ -21,7 +18,9 @@ const AccountListRow = ({
     isActive: element?.isActive,
     teamBet: element?.teamName,
     createAt: element?.date,
-    myCommission: element?.myCommission,
+    myCommission:
+      (+element?.commissionAmount * element?.partnerShip) / 100 +
+      `(${element?.partnerShip}%)`,
     userName: element?.userName,
   };
   const [elementToUDM, setElementToUDM] = useState(prevElement);
@@ -32,7 +31,7 @@ const AccountListRow = ({
   useEffect(() => {
     checkIfElementUpdated(prevElement);
   }, [element?.commissionType]);
-  
+
   return (
     <>
       {!elementToUDM?.isActive && (
@@ -150,7 +149,7 @@ const AccountListRow = ({
               },
             ]}
           >
-            {elementToUDM?.title}
+            {elementToUDM?.name}
           </Typography>
         </Box>
         <Box
