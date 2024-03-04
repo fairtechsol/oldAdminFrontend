@@ -83,9 +83,9 @@ const ChangePasswordComponent = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
 
-  const { loading, success } = useSelector(
+  const { loading, success, error } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -95,7 +95,10 @@ const ChangePasswordComponent = (props: any) => {
       setSelected(false);
       dispatch(userListSuccessReset());
     }
-  }, [success]);
+    if (error) {
+      setSubmitting(false)
+    }
+  }, [success, error]);
 
   return (
     <form onSubmit={handleSubmit}>
