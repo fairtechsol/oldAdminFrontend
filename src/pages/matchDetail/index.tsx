@@ -19,8 +19,11 @@ import {
   updateMatchRates,
   updateMaxLossForBet,
   updateMaxLossForBetOnUndeclare,
+  updateMaxLossForDeleteBet,
+  updatePlacedbets,
   updateProfitLoss,
   updateTeamRates,
+  updateTeamRatesOnDelete,
 } from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
 import { socketService } from "../../socketManager";
@@ -102,8 +105,10 @@ const MatchDetail = () => {
     try {
       setMode(false);
       if (event?.matchId === state?.matchId) {
-        dispatch(getMatchDetail(state?.matchId));
-        dispatch(getPlacedBets(state?.matchId));
+        // dispatch(getMatchDetail(state?.matchId));
+        // dispatch(getPlacedBets(state?.matchId));
+        dispatch(updatePlacedbets(event));
+        dispatch(updateTeamRatesOnDelete(event));
       }
     } catch (e) {
       console.log(e);
@@ -151,7 +156,17 @@ const MatchDetail = () => {
       console.log(error);
     }
   };
-
+  const handleSessionDeleteBet = (event: any) => {
+    try {
+      // setMode(false);
+      if (event?.matchId === state?.matchId) {
+        dispatch(updatePlacedbets(event));
+        dispatch(updateMaxLossForDeleteBet(event));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const handleSessionResultUnDeclare = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
@@ -183,7 +198,7 @@ const MatchDetail = () => {
         );
         socketService.match.matchResultDeclared(matchResultDeclared);
         socketService.match.matchDeleteBet(matchDeleteBet);
-        socketService.match.sessionDeleteBet(matchDeleteBet);
+        socketService.match.sessionDeleteBet(handleSessionDeleteBet);
         socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
         socketService.match.sessionResult(handleSessionResultDeclare);
@@ -208,7 +223,7 @@ const MatchDetail = () => {
       socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
       socketService.match.matchResultDeclaredOff(matchResultDeclared);
       socketService.match.matchDeleteBetOff(matchDeleteBet);
-      socketService.match.sessionDeleteBetOff(matchDeleteBet);
+      socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
       socketService.match.sessionResultOff(handleSessionResultDeclare);
       socketService.match.sessionResultUnDeclareOff(
         handleSessionResultUnDeclare

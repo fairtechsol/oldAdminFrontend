@@ -60,7 +60,7 @@ const FullAllBets = (props: any) => {
               background: ["NO", "YES"].includes(v?.betType)
                 ? "#319E5B"
                 : "#F1C550",
-              deletedReason: v?.result === "UNDECLARE" ? true : false,
+              deletedReason: v?.deleteReason,
               id: v?.id,
               userId: v?.user?.id,
               betId: v?.betId,
@@ -76,7 +76,7 @@ const FullAllBets = (props: any) => {
               background: ["NO", "YES"].includes(v?.betType)
                 ? "#319E5B"
                 : "#F1C550",
-              deletedReason: v?.result === "UNDECLARE" ? true : false,
+              deletedReason: v?.deleteReason,
             },
             {
               name: v?.teamName,
@@ -84,7 +84,7 @@ const FullAllBets = (props: any) => {
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
                 : "rgb(255, 146, 146)",
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
             {
               name: v?.odds,
@@ -94,7 +94,7 @@ const FullAllBets = (props: any) => {
                 ? "#B3E0FF"
                 : "rgb(255, 146, 146)",
               small: true,
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
             {
               name: v?.betType,
@@ -103,7 +103,7 @@ const FullAllBets = (props: any) => {
                 ? "#B3E0FF"
                 : "rgb(255, 146, 146)",
               small: true,
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
             {
               name: v?.amount || v?.stake,
@@ -111,13 +111,13 @@ const FullAllBets = (props: any) => {
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
                 : "rgb(255, 146, 146)",
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
             {
               name: v?.myStake ? v?.myStake : (v?.amount * partnership) / 100,
               color: "white",
               background: "#0B4F26",
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
             {
               name: moment(v?.createdAt).format("LT"),
@@ -127,7 +127,7 @@ const FullAllBets = (props: any) => {
                 : "rgb(255, 146, 146)",
               time: true,
               date: moment(v?.createdAt).format("L"),
-              deletedReason: v?.deletedReason,
+              deletedReason: v?.deleteReason,
             },
           ],
         };
@@ -387,7 +387,7 @@ const FullAllBets = (props: any) => {
                             }}
                           >
                             Bet{" "}
-                            <span style={{ color: "#e41b23" }}>deleted</span>{" "}
+                            <span style={{ color: "#e41b23" }}>deleted</span> due to {i?.values[0]?.deletedReason}
                           </Typography>
                         </Box>
                       </Box>

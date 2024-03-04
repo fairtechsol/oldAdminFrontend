@@ -229,6 +229,12 @@ export const updateMaxLossForBet = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const updateMaxLossForDeleteBet = createAsyncThunk<any, any>(
+  "/maxLossOnDelete/update",
+  async (data) => {
+    return data;
+  }
+);
 
 export const updateProfitLossForBet = createAsyncThunk<any, any>(
   "/profitLoss/update",
@@ -239,6 +245,12 @@ export const updateProfitLossForBet = createAsyncThunk<any, any>(
 
 export const updateTeamRates = createAsyncThunk<any, any>(
   "/teamRates/update",
+  async (data) => {
+    return data;
+  }
+);
+export const updateTeamRatesOnDelete = createAsyncThunk<any, any>(
+  "/teamRates/updateOnDelete",
   async (data) => {
     return data;
   }
@@ -265,6 +277,12 @@ export const removeRunAmount = createAsyncThunk<any, any>(
 
 export const updateMaxLossForBetOnUndeclare = createAsyncThunk<any, any>(
   "/maxLoss/updateOnUndeclare",
+  async (data) => {
+    return data;
+  }
+);
+export const updatePlacedbets = createAsyncThunk<any, any>(
+  "/maxLoss/updatePlacedbets",
   async (data) => {
     return data;
   }
