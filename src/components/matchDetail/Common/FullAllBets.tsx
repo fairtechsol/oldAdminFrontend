@@ -120,7 +120,7 @@ const FullAllBets = (props: any) => {
               deletedReason: v?.deleteReason,
             },
             {
-              name: moment(v?.createdAt).format("LT"),
+              name: moment(v?.createdAt).format("LTS"),
               color: "black",
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
