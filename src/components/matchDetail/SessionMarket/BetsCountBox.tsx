@@ -36,7 +36,7 @@ const BetsCountBox = (props: any) => {
           lineHeight: 1,
         }}
       >
-        {total?.toFixed(2)}
+        {total}
       </Typography>
     </Box>
   );
