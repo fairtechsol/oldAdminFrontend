@@ -31,7 +31,7 @@ const Header = () => {
     BoxCont1: [
       {
         // flex: "1",
-        width: "auto",
+        width: "100%",
         minHeight: { lg: 60, md: 60, xs: 60 },
         minWidth: {lg: 60, md: 60, xs: 60},
         display: "flex",
@@ -59,12 +59,12 @@ const Header = () => {
     },
     BoxCont1sub1sub1StyleImg: {
       height: { lg: "24px", xs: "20px" },
-      width: "auto",
+      width: "100%",
       cursor: "pointer",
     },
     RenderLogoCompStyleImg: {
       height: { lg: "45px", xs: "30px" },
-      width: "auto",
+      width: "100%",
       marginTop: "12px",
       marginLeft: { lg: "20px", xs: "10px" },
     },
@@ -118,7 +118,7 @@ const Header = () => {
       minWidth: { lg: "100px", xs: "1.5vw" },
       width: "140px",
     },
-    BoxCont1sub2BoxProfileContStyle: matchesMobile ? { width: "52%" } : {},
+    BoxCont1sub2BoxProfileContStyle: matchesMobile ? { width: "100%" } : {},
     BoxEnd: {
       minHeight: {
         lg: 60,
