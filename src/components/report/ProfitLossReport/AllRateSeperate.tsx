@@ -520,11 +520,12 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            data={
-              data?.marketType == "MANUAL BOOKMAKER"
-                ? "Quick Bookmaker"
-                : data?.marketType
-            }
+            // data={
+            //   data?.marketType == "MANUAL BOOKMAKER"
+            //     ? "Quick Bookmaker"
+            //     : data?.marketType
+            // }showing market type
+            data={data?.bettingName}
             first={true}
             header={header}
           />
