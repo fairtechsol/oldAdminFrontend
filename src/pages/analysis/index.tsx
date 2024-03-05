@@ -22,6 +22,7 @@ import {
 import { useDispatch } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { toast } from "react-toastify";
+import { makeStyles } from '@material-ui/core/styles';
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -32,7 +33,14 @@ const Analysis = () => {
   const [matchIds, setMatchIds] = useState<any>([]);
   // const [marketIds, setMarketIds] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const useStyles = makeStyles({
+    whiteTextPagination: {
+      '& .MuiPaginationItem-root': {
+        color: 'white', // Change text color to white
+      },
+    },
+  });
+  const classes = useStyles();
   const { loading, analysisList, success } = useSelector(
     (state: RootState) => state.match.analysisList
   );
@@ -231,7 +239,7 @@ const Analysis = () => {
             })}
             <Pagination
               page={currentPage}
-              className="whiteTextPagination d-flex justify-content-center"
+              className={`${classes.whiteTextPagination} d-flex justify-content-center`}
               count={Math.ceil(
                 parseInt(analysisList?.count ? analysisList?.count : 1) /
                   Constants.pageLimit

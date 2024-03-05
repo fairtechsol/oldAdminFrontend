@@ -88,7 +88,12 @@ const BetsList = (props: any) => {
       >
         <Pagination
           currentPage={currentPage}
-          pages={+(betHistory?.length / pageLimit).toFixed()}
+          // pages={+(betHistory?.length / pageLimit)}/// giving Nan
+          pages={Math.ceil(
+            parseInt(
+              betHistory?.length ? betHistory?.length : 1
+            ) / pageLimit
+          )}
           setCurrentPage={setCurrentPage}
         />
       </Box>
