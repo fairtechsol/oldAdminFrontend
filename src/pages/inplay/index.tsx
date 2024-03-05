@@ -159,7 +159,7 @@ const Inplay = () => {
             />
           );
         })
-      ) : (
+      ) : !loading &&(
         <Table>
           <TableBody>
             <TableRow>
