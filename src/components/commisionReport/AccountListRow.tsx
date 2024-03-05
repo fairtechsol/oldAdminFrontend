@@ -172,7 +172,7 @@ const AccountListRow = ({
             {elementToUDM?.createAt
               ? `${moment(elementToUDM?.createAt).format("L")}  ${moment(
                   elementToUDM?.createAt
-                ).format("LT")}`
+                ).format("LTS")}`
               : ""}
           </Typography>
         </Box>
