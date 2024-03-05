@@ -217,7 +217,7 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
         >
-          {moment(data?.createdAt).format("HH:mm A")}
+          {moment(data?.createdAt).format("HH:mm:ss A")}
         </Typography>
       </Box>
       <Box
