@@ -514,7 +514,7 @@ const MatchOdds = (props: any) => {
                       color={
                         currentMatch?.profitLossDataMatch?.teamCRate <= 0
                           ? "#FF4D4D"
-                          : "#46e080"
+                          : "#319E5B"
                       }
                       name={currentMatch?.teamC}
                       rates={
