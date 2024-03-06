@@ -70,31 +70,28 @@ const Analysis = () => {
     }
   };
 
+  const getMatchListService = () => {
+    dispatch(getAnalysisList({ currentPage: currentPage }));
+  };
+
   useEffect(() => {
     dispatch(getAnalysisList({ currentPage: currentPage }));
   }, [currentPage]);
 
   useEffect(() => {
-    socketService.match.matchResultDeclared(
-      dispatch(getAnalysisList({ currentPage: currentPage }))
-    );
-    socketService.match.matchResultUnDeclared(
-      dispatch(getAnalysisList({ currentPage: currentPage }))
-    );
-    return () => {
-      socketService.match.matchResultDeclaredOff(
-        dispatch(getAnalysisList({ currentPage: currentPage }))
-      );
-      socketService.match.matchResultUnDeclaredOff(
-        dispatch(getAnalysisList({ currentPage: currentPage }))
-      );
-    };
-  }, []);
-
-  useEffect(() => {
     if (success) {
+      if (analysisList && analysisList?.matches?.length > 0) {
+        socketService.match.matchResultDeclared(getMatchListService);
+        socketService.match.matchResultUnDeclared(getMatchListService);
+        socketService.match.matchAdded(getMatchListService);
+      }
       dispatch(analysisListReset());
     }
+    return () => {
+      socketService.match.matchResultDeclaredOff(getMatchListService);
+      socketService.match.matchResultUnDeclaredOff(getMatchListService);
+      socketService.match.matchAdded(getMatchListService);
+    };
   }, [success]);
 
   return (
