@@ -35,6 +35,8 @@ import {
   updateTeamRatesOfMultipleMatch,
   updateTeamRatesOnDeleteForMultiMatch,
 } from "../../../store/actions/match/multipleMatchAction";
+import RunsBox from "../../../components/matchDetail/SessionMarket/RunsBox";
+import { resetSessionProfitLoss } from "../../../store/actions/reports";
 
 const MultipleMatch = ({}) => {
   const theme = useTheme();
@@ -46,11 +48,12 @@ const MultipleMatch = ({}) => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
   const [selectedBetData, setSelectedBetData] = useState([]);
+  const [currentOdds] = useState<any>(null);
   const { multipleMatchDetail, success } = useSelector(
     (state: RootState) => state.match.analysisList
   );
 
-  const { placedBets, loading, sessionProLoss } = useSelector(
+  const { placedBets, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
 
@@ -154,13 +157,22 @@ const MultipleMatch = ({}) => {
 
   useEffect(() => {
     try {
-      if (state?.matchIds && profileDetail?.roleName) {
-        // socketService.match.leaveAllRooms();
+      if (state?.matchIds) {
         dispatch(getMultipleMatchDetail(state?.matchIds));
+        dispatch(resetSessionProfitLoss());
+        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [state?.matchIds]);
+
+  useEffect(() => {
+    try {
+      if (success && profileDetail?.roleName) {
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });
-        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRates(item, updateMatchDetailToRedux);
         });
@@ -175,10 +187,14 @@ const MultipleMatch = ({}) => {
         socketService.match.sessionResultUnDeclareOff(
           handleMultiMatchSessionResultUnDeclare
         );
+        dispatch(analysisListReset());
       }
     } catch (e) {
       console.log(e);
     }
+  }, [success]);
+
+  useEffect(() => {
     return () => {
       state?.matchIds?.map((item: any) => {
         socketService.match.leaveMatchRoom(item);
@@ -198,13 +214,30 @@ const MultipleMatch = ({}) => {
         handleMultiMatchSessionResultUnDeclare
       );
     };
-  }, [state?.matchIds, profileDetail?.roleName]);
+  }, []);
 
   useEffect(() => {
-    if (success) {
-      dispatch(analysisListReset());
-    }
-  }, [success]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (state?.matchId) {
+          dispatch(getMultipleMatchDetail(state?.matchIds));
+          dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
+        }
+      } else if (document.visibilityState === "hidden") {
+        state?.matchIds?.map((item: any) => {
+          socketService.match.leaveMatchRoom(item);
+        });
+        state?.matchIds?.map((item: any) => {
+          socketService.match.getMatchRatesOff(item, updateMatchDetailToRedux);
+        });
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   return (
     <>
@@ -424,6 +457,43 @@ const MultipleMatch = ({}) => {
                                   min={item?.betFairSessionMinBet}
                                 />
                               )}
+                              {sessionProLoss?.length > 0 &&
+                                sessionProLoss.filter(
+                                  (runAmount: any) =>
+                                    runAmount?.matchId === item?.id
+                                ).length > 0 && (
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                      flexWrap: "wrap",
+                                      gap: "1px",
+                                      rowGap: "5px",
+                                      height: "440px",
+                                      overflow: "scroll",
+                                      marginTop: "1.25vw",
+                                    }}
+                                  >
+                                    {sessionProLoss
+                                      .filter(
+                                        (runAmount: any) =>
+                                          runAmount?.matchId === item?.id
+                                      )
+                                      .map((v: any) => {
+                                        return (
+                                          <RunsBox
+                                            key={v?.id}
+                                            item={v}
+                                            currentOdd={
+                                              currentOdds?.betId === v?.id
+                                                ? currentOdds
+                                                : null
+                                            }
+                                          />
+                                        );
+                                      })}
+                                  </Box>
+                                )}
                             </Box>
                             <Box
                               sx={{
@@ -649,6 +719,43 @@ const MultipleMatch = ({}) => {
                                 min={item?.betFairSessionMaxBet}
                               />
                             )}
+                            {sessionProLoss?.length > 0 &&
+                              sessionProLoss.filter(
+                                (runAmount: any) =>
+                                  runAmount?.matchId === item?.id
+                              ).length > 0 && (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    flexWrap: "wrap",
+                                    gap: "1px",
+                                    rowGap: "5px",
+                                    height: "440px",
+                                    overflow: "scroll",
+                                    marginTop: "1.25vw",
+                                  }}
+                                >
+                                  {sessionProLoss
+                                    .filter(
+                                      (runAmount: any) =>
+                                        runAmount?.matchId === item?.id
+                                    )
+                                    .map((v: any) => {
+                                      return (
+                                        <RunsBox
+                                          key={v?.id}
+                                          item={v}
+                                          currentOdd={
+                                            currentOdds?.betId === v?.id
+                                              ? currentOdds
+                                              : null
+                                          }
+                                        />
+                                      );
+                                    })}
+                                </Box>
+                              )}
                             <FullAllBets
                               tag={false}
                               IObets={placedBets.filter(
@@ -897,6 +1004,42 @@ const MultipleMatch = ({}) => {
                             min={item?.betFairSessionMinBet}
                           />
                         )}
+                        {sessionProLoss?.length > 0 &&
+                          sessionProLoss.filter(
+                            (runAmount: any) => runAmount?.matchId === item?.id
+                          ).length > 0 && (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                                gap: "1px",
+                                rowGap: "5px",
+                                height: "440px",
+                                overflow: "scroll",
+                                marginTop: "1.25vw",
+                              }}
+                            >
+                              {sessionProLoss
+                                .filter(
+                                  (runAmount: any) =>
+                                    runAmount?.matchId === item?.id
+                                )
+                                .map((v: any) => {
+                                  return (
+                                    <RunsBox
+                                      key={v?.id}
+                                      item={v}
+                                      currentOdd={
+                                        currentOdds?.betId === v?.id
+                                          ? currentOdds
+                                          : null
+                                      }
+                                    />
+                                  );
+                                })}
+                            </Box>
+                          )}
                         <FullAllBets
                           tag={false}
                           IObets={placedBets.filter(

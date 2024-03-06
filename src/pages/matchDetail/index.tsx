@@ -32,6 +32,7 @@ import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import { Constants } from "../../utils/Constants";
 import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
+import { resetSessionProfitLoss } from "../../store/actions/reports";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -183,6 +184,7 @@ const MatchDetail = () => {
   useEffect(() => {
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
+      dispatch(resetSessionProfitLoss());
       dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
   }, []);

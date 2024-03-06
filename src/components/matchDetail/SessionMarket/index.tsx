@@ -18,6 +18,7 @@ const SessionMarket = (props: any) => {
     max,
     sessionData,
     allBetsData,
+    currentMatch,
   } = props;
   const visible = true;
 
@@ -334,6 +335,7 @@ const SessionMarket = (props: any) => {
                                   element?.GameStatus !== ""
                                     ? element?.GameStatus
                                     : "active",
+                                matchId: currentMatch?.id,
                               }
                             : JSON.parse(element)
                         }
