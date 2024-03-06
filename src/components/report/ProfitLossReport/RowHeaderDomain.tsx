@@ -2,8 +2,8 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import StyledImage from "../../Common/StyledImages";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/store";
+import { useDispatch,useSelector } from "react-redux";
+import { AppDispatch,RootState } from "../../../store/store";
 import {
   getDomainProfitLoss,
   resetBetProfitLoss,
@@ -23,23 +23,24 @@ const RowHeaderDomain = ({
 }: any) => {
   const [visible, setVisible] = useState(false);
   const dispatch: AppDispatch = useDispatch();
+  const { userData } = useSelector(
+    (state: RootState) => state.report.reportList
+  );
   return (
     <Box
       onClick={() => {
         if (!visible) {
           let filter = "";
+          if (userData?.id) {
+            filter += `id=${userData?.id}`;
+          }
           if (startDate && endDate) {
-            filter += `&createdAt=between${moment(startDate)?.format(
-              "YYYY-MM-DD"
-            )}|${moment(endDate.add(1, "days"))?.format(
-              "YYYY-MM-DD"
-            )}`;
+            filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
+            filter += `&endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
           } else if (startDate) {
-            filter += `&createdAt=gte${moment(startDate)?.format(
-              "YYYY-MM-DD"
-            )}`;
+            filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
           } else if (endDate) {
-            filter += `&createdAt=lte${moment(endDate)?.format("YYYY-MM-DD")}`;
+            filter += `endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
           }
           setCurrentPage(1);
           dispatch(

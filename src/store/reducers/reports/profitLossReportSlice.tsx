@@ -9,6 +9,7 @@ import {
   resetBetProfitLoss,
   resetDomainProfitLoss,
   resetSessionProfitLoss,
+  updateUserSearchId,
 } from "../../actions/reports";
 
 interface InitialState {
@@ -21,6 +22,7 @@ interface InitialState {
   loading: boolean;
   success: boolean;
   error: any;
+  userData:any;
 }
 
 const initialState: InitialState = {
@@ -33,6 +35,7 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
+  userData:{},
 };
 
 const profitLossReportSlice = createSlice({
@@ -135,6 +138,11 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(resetBetProfitLoss, (state) => {
         return { ...state, betProfitLossList: [] };
+      })
+      .addCase(updateUserSearchId.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.userData = action.payload.search;
       });
   },
 });
