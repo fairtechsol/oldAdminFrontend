@@ -8,13 +8,12 @@ import {
 } from "@mui/material";
 import Loader from "../../components/Loader";
 import MatchComponent from "../../components/Inplay/MatchComponent";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   getMatchDetail,
   getMatchListInplay,
-  getPlacedBets,
   matchListReset,
   updateMatchRates,
 } from "../../store/actions/match/matchAction";
@@ -22,7 +21,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { socketService } from "../../socketManager";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 const Inplay = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -30,8 +29,8 @@ const Inplay = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const useStyles = makeStyles({
     whiteTextPagination: {
-      '& .MuiPaginationItem-root': {
-        color: 'white', // Change text color to white
+      "& .MuiPaginationItem-root": {
+        color: "white", // Change text color to white
       },
     },
   });
@@ -60,15 +59,6 @@ const Inplay = () => {
     }
   }, [currentPage]);
 
-  useEffect(() => {
-    try {
-    } catch (e) {
-      if (success) {
-        dispatch(matchListReset());
-      }
-    }
-  }, [success]);
-
   const getMatchListService = () => {
     dispatch(getMatchListInplay({ currentPage: currentPage }));
   };
@@ -84,15 +74,20 @@ const Inplay = () => {
 
   useEffect(() => {
     try {
-      if(success){
-      if (matchListInplay && matchListInplay?.matches?.length > 0) {
-        matchListInplay?.matches?.map((item: any) => {
-          socketService.match.joinMatchRoom(item?.id, profileDetail?.roleName);
-        });
-        socketService.match.matchResultDeclared(matchResultDeclared);
-        socketService.match.matchResultUnDeclared(matchResultDeclared);
-        socketService.match.matchAdded(getMatchListService);
-      }}
+      if (success) {
+        if (matchListInplay && matchListInplay?.matches?.length > 0) {
+          matchListInplay?.matches?.map((item: any) => {
+            socketService.match.joinMatchRoom(
+              item?.id,
+              profileDetail?.roleName
+            );
+          });
+          socketService.match.matchResultDeclared(matchResultDeclared);
+          socketService.match.matchResultUnDeclared(matchResultDeclared);
+          socketService.match.matchAdded(getMatchListService);
+        }
+        dispatch(matchListReset());
+      }
     } catch (e) {
       console.log(e);
     }
@@ -104,9 +99,7 @@ const Inplay = () => {
       socketService.match.matchResultUnDeclaredOff(matchResultDeclared);
       socketService.match.matchAddedOff(getMatchListService);
     };
-  }, [matchListInplay?.matches?.length,success]);
-
-
+  }, [matchListInplay?.matches?.length, success]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -117,15 +110,14 @@ const Inplay = () => {
             // dispatch(getPlacedBets(item?.id));
           }
         });
-       
       } else if (document.visibilityState === "hidden") {
         matchListInplay?.matches?.map((item: any) => {
-        socketService.match.leaveMatchRoom(item?.id);
-        socketService.match.getMatchRatesOff(
-          item?.id,
-          updateMatchDetailToRedux
-        );
-      });
+          socketService.match.leaveMatchRoom(item?.id);
+          socketService.match.getMatchRatesOff(
+            item?.id,
+            updateMatchDetailToRedux
+          );
+        });
       }
     };
 
@@ -135,41 +127,39 @@ const Inplay = () => {
     };
   }, []);
 
-
-
   return (
     <>
-      {matchListInplay && matchListInplay?.matches?.length > 0 ? (
-        matchListInplay?.matches?.map((match: any) => {
-          return (
-            <MatchComponent
-              key={match.id}
-              onClick={() => {
-                navigate(`${Constants.oldAdmin}live_market/matches`, {
-                  state: {
-                    submit: true,
-                    matchId: match?.id,
-                  },
-                });
-              }}
-              top={true}
-              blur={false}
-              match={match}
-              // handleUpdateMatch={handleUpdateMatch}
-            />
-          );
-        })
-      ) : !loading &&(
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell style={{ color: "white", textAlign: "center" }}>
-                No Record Found...
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      )}
+      {matchListInplay && matchListInplay?.matches?.length > 0
+        ? matchListInplay?.matches?.map((match: any) => {
+            return (
+              <MatchComponent
+                key={match.id}
+                onClick={() => {
+                  navigate(`${Constants.oldAdmin}live_market/matches`, {
+                    state: {
+                      submit: true,
+                      matchId: match?.id,
+                    },
+                  });
+                }}
+                top={true}
+                blur={false}
+                match={match}
+                // handleUpdateMatch={handleUpdateMatch}
+              />
+            );
+          })
+        : !loading && (
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ color: "white", textAlign: "center" }}>
+                    No Record Found...
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          )}
       {matchListInplay && matchListInplay?.matches?.length > 0 && (
         <Pagination
           page={currentPage}
