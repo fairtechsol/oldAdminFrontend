@@ -66,6 +66,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
       );
       if (resp?.data && resp?.data?.profitLoss[0]) {
         return {
+          matchId: requestData?.matchId,
           id: requestData?.id,
           name: requestData?.name,
           type: requestData?.type,
@@ -73,6 +74,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
         };
       } else {
         return {
+          matchId: requestData?.matchId,
           id: requestData?.id,
           name: requestData?.name,
           type: requestData?.type,
