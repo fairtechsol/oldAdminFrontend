@@ -865,9 +865,8 @@ const AddAccount = () => {
                         ...inputContainerStyle,
                         height: { lg: "45px", xs: "36px" },
                       }}
-                      required={true}
                       disabled={state?.id ? true : false}
-                      title={"Credit Reference*"}
+                      title={"Credit Reference"}
                       name={"creditRefrence"}
                       type={"Number"}
                       id="creditRefrence"
