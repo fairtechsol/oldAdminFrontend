@@ -160,7 +160,7 @@ const AllRateSeperate = ({
                 <Box
                   sx={{
                     height: "25px",
-                    width: "30%",
+                    width: "12%",
                     display: "flex",
                     background: "#319E5B",
                     justifyContent: "center",
@@ -318,7 +318,7 @@ const AllRateSeperate = ({
                       <Box
                         sx={{
                           height: "40px",
-                          width: "30%",
+                          width: "12%",
                           // margin: { xs: "1px", lg: "1px" },
                           // display: "flex",
                           background: i?.totalLoss > 0 ? "#10DC61" : "#E32A2A",
@@ -520,11 +520,12 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            data={
-              data?.marketType == "MANUAL BOOKMAKER"
-                ? "Quick Bookmaker"
-                : data?.marketType
-            }
+            // data={
+            //   data?.marketType == "MANUAL BOOKMAKER"
+            //     ? "Quick Bookmaker"
+            //     : data?.marketType
+            // }showing market type
+            data={data?.bettingName ?? data?.marketType}
             first={true}
             header={header}
           />
@@ -532,7 +533,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data?.username || data?.userName || data?.user?.userName}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
@@ -558,7 +559,7 @@ const RowComponent = ({ header, data }: any) => {
             data={data?.rate || data?.amount}
             header={header}
             width={"50%"}
-            boxWidth="100%"
+            boxWidth="40%"
           />
         </>
       )}
@@ -574,7 +575,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[1]}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
@@ -598,7 +599,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[5]}
             header={header}
-            boxWidth="100%"
+            boxWidth="40%"
           />
         </>
       )}
@@ -742,7 +743,7 @@ const SingleBox = ({
           <Typography
             sx={{
               fontWeight: "700",
-              fontSize: { xs: "8px", md: "10px", lg: ".5vw" },
+              fontSize: { xs: "8px", md: "10px", lg: ".9vw" },
               color: "black",
               textAlign: "center",
               maxHeight: "2em",

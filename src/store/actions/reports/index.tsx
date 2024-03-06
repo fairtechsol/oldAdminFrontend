@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import service from "../../../service";
-import { ApiConstants, Constants } from "../../../utils/Constants";
+import { ApiConstants } from "../../../utils/Constants";
 import { AxiosError } from "axios";
 
 interface AccountStatement {

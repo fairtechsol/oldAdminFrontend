@@ -22,12 +22,20 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { socketService } from "../../socketManager";
-
+import { makeStyles } from '@material-ui/core/styles';
 const Inplay = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const useStyles = makeStyles({
+    whiteTextPagination: {
+      '& .MuiPaginationItem-root': {
+        color: 'white', // Change text color to white
+      },
+    },
+  });
+  const classes = useStyles();
   const { loading, matchListInplay, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -106,7 +114,7 @@ const Inplay = () => {
         matchListInplay?.matches?.map((item: any) => {
           if (item?.id) {
             dispatch(getMatchDetail(item?.id));
-            dispatch(getPlacedBets(item?.id));
+            // dispatch(getPlacedBets(item?.id));
           }
         });
        
@@ -151,7 +159,7 @@ const Inplay = () => {
             />
           );
         })
-      ) : (
+      ) : !loading &&(
         <Table>
           <TableBody>
             <TableRow>
@@ -165,7 +173,7 @@ const Inplay = () => {
       {matchListInplay && matchListInplay?.matches?.length > 0 && (
         <Pagination
           page={currentPage}
-          className="whiteTextPagination d-flex justify-content-center"
+          className={`${classes.whiteTextPagination} d-flex justify-content-center`}
           count={Math.ceil(
             parseInt(matchListInplay?.count ? matchListInplay?.count : 1) /
               Constants.pageLimit

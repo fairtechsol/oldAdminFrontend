@@ -19,22 +19,6 @@ export const getMatchListInplay = createAsyncThunk<any, any>(
     }
   }
 );
-export const getAnalysisList = createAsyncThunk<any, any>(
-  "analysis/list",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.INPLAY.MATCHLIST}?page=${requestData?.currentPage}&limit=${Constants.pageLimit}&sort=match.startAt:ASC`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
 export const getMatchDetail = createAsyncThunk<any, any>(
   "match/detail",
   async (requestData, thunkApi) => {
@@ -59,10 +43,10 @@ export const getPlacedBets = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${
           ApiConstants.MATCH.GET_BETS
-        }?betPlaced.matchId=${requestData}&result=inArr${JSON.stringify([
+        }?matchId=${requestData}&result=inArr${JSON.stringify([
           "PENDING",
           "UNDECLARE",
-        ])}`
+        ])}&sort=betPlaced.createdAt:DESC`
       );
       if (resp?.data) {
         return resp?.data;
@@ -82,6 +66,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
       );
       if (resp?.data && resp?.data?.profitLoss[0]) {
         return {
+          matchId: requestData?.matchId,
           id: requestData?.id,
           name: requestData?.name,
           type: requestData?.type,
@@ -89,6 +74,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
         };
       } else {
         return {
+          matchId: requestData?.matchId,
           id: requestData?.id,
           name: requestData?.name,
           type: requestData?.type,
@@ -98,22 +84,6 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
     } catch (error: any) {
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const getMultipleMatchDetail = createAsyncThunk<any, any>(
-  "multipleMatch/detail",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.GET}/${requestData}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
     }
   }
 );

@@ -55,7 +55,7 @@ const betsSlice = createSlice({
         const user = {
           userName: userName,
         };
-        if (!state.placedBets.some((item: any) => item.id === betId)) {
+        if (!state.placedBets.find((item: any) => item.id === betId)) {
           newBet.myStake = myStake;
           newBet.user = user;
 
