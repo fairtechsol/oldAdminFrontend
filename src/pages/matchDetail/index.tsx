@@ -151,8 +151,8 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(removeRunAmount(event));
+        dispatch(getPlacedBets(`eq${state?.matchId}`));
         dispatch(amountupdate(event));
-        dispatch(getPlacedBets(state?.matchId));
       }
     } catch (error) {
       console.log(error);
@@ -173,7 +173,7 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(updateMaxLossForBetOnUndeclare(event));
-        dispatch(getPlacedBets(state?.matchId));
+        dispatch(getPlacedBets(`eq${state?.matchId}`));
       }
     } catch (error) {
       console.log(error);
@@ -183,7 +183,7 @@ const MatchDetail = () => {
   useEffect(() => {
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
-      dispatch(getPlacedBets(state?.matchId));
+      dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
   }, []);
 
@@ -238,7 +238,7 @@ const MatchDetail = () => {
       if (document.visibilityState === "visible") {
         if (state?.matchId) {
           dispatch(getMatchDetail(state?.matchId));
-          dispatch(getPlacedBets(state?.matchId));
+          dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
       } else if (document.visibilityState === "hidden") {
         // socketService.match.leaveMatchRoom(state?.matchId);

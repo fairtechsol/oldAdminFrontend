@@ -11,21 +11,35 @@ import UserProfitLoss from "../../../components/matchDetail/Common/UserProfitLos
 import FullAllBets from "../../../components/matchDetail/Common/FullAllBets";
 import SessionMarket from "../../../components/matchDetail/SessionMarket";
 import LiveBookmaker from "../../../components/matchDetail/LiveBookmaker";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   analysisListReset,
-  getMultipleMatchDetail,
+  getPlacedBets,
+  removeRunAmount,
+  updateBetsPlaced,
   updateMultipleMatchDetail,
+  updatePlacedbets,
+  updateProfitLoss,
 } from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
 import { socketService } from "../../../socketManager";
+import {
+  getMultipleMatchDetail,
+  updateBetDataOnDeclareOfMultipleMatch,
+  updateMaxLossForBetForMultipleMatch,
+  updateMaxLossForBetOnUndeclareForMultipleMatch,
+  updateMaxLossForDeleteBetForMultiMatch,
+  updateTeamRatesOfMultipleMatch,
+  updateTeamRatesOnDeleteForMultiMatch,
+} from "../../../store/actions/match/multipleMatchAction";
 
 const MultipleMatch = ({}) => {
   const theme = useTheme();
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -36,17 +50,107 @@ const MultipleMatch = ({}) => {
     (state: RootState) => state.match.analysisList
   );
 
-  const IObets: any = [];
+  const { placedBets, loading, sessionProLoss } = useSelector(
+    (state: RootState) => state.match.bets
+  );
+
   const sessionBets: any = [];
 
   const updateMatchDetailToRedux = (event: any) => {
     dispatch(updateMultipleMatchDetail(event));
   };
 
-  const setMultiSessionBetsPlaced = () => {};
-  const setMultiMatchBetsPlaced = () => {};
-  const matchMultiResultDeclared = () => {};
-  const matchMultiDeleteBet = () => {};
+  const setMultiSessionBetsPlaced = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.jobData?.placedBet?.matchId)) {
+        dispatch(
+          updateBetsPlaced({
+            newBet: {
+              ...event?.jobData?.placedBet,
+            },
+            userName: event?.jobData?.betPlaceObject?.betPlacedData?.userName,
+            myStake: event?.jobData?.betPlaceObject?.myStack,
+          })
+        );
+        dispatch(updateProfitLoss(event));
+        dispatch(updateMaxLossForBetForMultipleMatch(event));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setMultiMatchBetsPlaced = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.jobData?.newBet?.matchId)) {
+        dispatch(
+          updateBetsPlaced({
+            newBet: {
+              ...event?.jobData?.newBet,
+              userId: event?.jobData?.userId,
+              domain: event?.jobData?.domainUrl,
+            },
+            userName: event?.jobData?.userName,
+            myStake: event?.jobData?.myStake,
+          })
+        );
+        dispatch(updateTeamRatesOfMultipleMatch(event));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const matchMultiResultDeclared = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.matchId)) {
+        navigate(`/wallet/market_analysis`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMultiMatchSessionResultDeclare = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.matchId)) {
+        dispatch(
+          updateBetDataOnDeclareOfMultipleMatch({
+            betId: event?.betId,
+            matchId: event?.matchId,
+          })
+        );
+        dispatch(removeRunAmount(event));
+        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMultiMatchSessionResultUnDeclare = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.matchId)) {
+        dispatch(updateMaxLossForBetOnUndeclareForMultipleMatch(event));
+        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMultiMatchDeleteBet = (event: any) => {
+    if (state?.matchIds.includes(event?.matchId)) {
+      dispatch(updatePlacedbets(event));
+      dispatch(updateTeamRatesOnDeleteForMultiMatch(event));
+    }
+  };
+  const handleMultiMatchSessionDeleteBet = (event: any) => {
+    if (state?.matchIds.includes(event?.matchId)) {
+      dispatch(updatePlacedbets(event));
+      dispatch(updateMaxLossForDeleteBetForMultiMatch(event));
+    }
+  };
 
   useEffect(() => {
     try {
@@ -56,14 +160,21 @@ const MultipleMatch = ({}) => {
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });
+        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRates(item, updateMatchDetailToRedux);
         });
         socketService.match.userSessionBetPlaced(setMultiSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMultiMatchBetsPlaced);
         socketService.match.matchResultDeclared(matchMultiResultDeclared);
-        socketService.match.matchDeleteBet(matchMultiDeleteBet);
-        socketService.match.sessionDeleteBet(matchMultiDeleteBet);
+        socketService.match.matchDeleteBet(handleMultiMatchDeleteBet);
+        socketService.match.sessionDeleteBet(handleMultiMatchSessionDeleteBet);
+        socketService.match.sessionResultOff(
+          handleMultiMatchSessionResultDeclare
+        );
+        socketService.match.sessionResultUnDeclareOff(
+          handleMultiMatchSessionResultUnDeclare
+        );
       }
     } catch (e) {
       console.log(e);
@@ -72,6 +183,20 @@ const MultipleMatch = ({}) => {
       state?.matchIds?.map((item: any) => {
         socketService.match.leaveMatchRoom(item);
       });
+      state?.matchIds?.map((item: any) => {
+        socketService.match.getMatchRatesOff(item, updateMatchDetailToRedux);
+      });
+      socketService.match.userSessionBetPlacedOff(setMultiSessionBetsPlaced);
+      socketService.match.userMatchBetPlacedOff(setMultiMatchBetsPlaced);
+      socketService.match.matchResultDeclaredOff(matchMultiResultDeclared);
+      socketService.match.matchDeleteBetOff(handleMultiMatchDeleteBet);
+      socketService.match.sessionDeleteBetOff(handleMultiMatchSessionDeleteBet);
+      socketService.match.sessionResultOff(
+        handleMultiMatchSessionResultDeclare
+      );
+      socketService.match.sessionResultUnDeclareOff(
+        handleMultiMatchSessionResultUnDeclare
+      );
     };
   }, [state?.matchIds, profileDetail?.roleName]);
 
@@ -103,21 +228,12 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any, index: any) => {
-                  let IObetsData = IObets?.filter(
-                    (element: any) => element?.match_id === item?.id
-                  );
                   let sessionBetsData = sessionBets?.filter(
                     (element: any) => element?.match_id === item?.id
                   );
 
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
-                    ?.map((item: any) => {
-                      return item;
-                    });
-
-                  const sessionData = item?.sessionBettings
-                    ?.filter((item: any) => JSON.parse(item).selectionId)
                     ?.map((item: any) => {
                       return item;
                     });
@@ -254,6 +370,7 @@ const MultipleMatch = ({}) => {
                                 <MatchOdds
                                   typeOfBet={"Manual Tied Match"}
                                   currentMatch={item}
+                                  data={item?.manualTiedMatch}
                                   session={"manualBookMaker"}
                                   minBet={Math.floor(
                                     item?.manualTiedMatch?.minBet
@@ -293,7 +410,7 @@ const MultipleMatch = ({}) => {
                                   allBetsData={item?.profitLossDataSession}
                                   match={"multiple"}
                                   //   currentOdds={currentOdds}
-                                  sessionData={sessionData}
+                                  sessionData={item?.apiSession}
                                   currentMatch={item}
                                   data={[]}
                                   sessionOffline={item?.sessionOffline}
@@ -334,7 +451,9 @@ const MultipleMatch = ({}) => {
                               </Box>
                               <FullAllBets
                                 tag={false}
-                                IObets={IObetsData}
+                                IObets={placedBets.filter(
+                                  (bet: any) => bet?.match?.id === item?.id
+                                )}
                                 setSelectedBetData={setSelectedBetData}
                                 selectedBetData={selectedBetData}
                               />
@@ -523,6 +642,7 @@ const MultipleMatch = ({}) => {
                                 allBetsData={item?.profitLossDataSession}
                                 match={"multiple"}
                                 currentMatch={item}
+                                sessionData={item?.apiSession}
                                 sessionOffline={item?.sessionOffline}
                                 sessionBets={sessionBetsData?.length}
                                 max={item?.betFairSessionMaxBet}
@@ -530,8 +650,10 @@ const MultipleMatch = ({}) => {
                               />
                             )}
                             <FullAllBets
-                              tag={true}
-                              IObets={IObetsData}
+                              tag={false}
+                              IObets={placedBets.filter(
+                                (bet: any) => bet?.match?.id === item?.id
+                              )}
                               setSelectedBetData={setSelectedBetData}
                               selectedBetData={selectedBetData}
                             />
@@ -597,28 +719,12 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any) => {
-                  // let manualSessionHttp: any = {};
-                  // if (manualRateHttp.hasOwnProperty(item?.id)) {
-                  //   manualSessionHttp = manualRateHttp[item?.id];
-                  // }
-                  // let matchOddsDataTemp = item?.bettings?.filter(
-                  //   (element: any) => element?.sessionBet === false
-                  // );
-                  let IObetsData = IObets?.filter(
-                    (element: any) => element?.match_id === item?.id
-                  );
                   let sessionBetsData = sessionBets?.filter(
                     (element: any) => element?.match_id === item?.id
                   );
 
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
-                    ?.map((item: any) => {
-                      return item;
-                    });
-
-                  const sessionData = item?.sessionBettings
-                    ?.filter((item: any) => JSON.parse(item).selectionId)
                     ?.map((item: any) => {
                       return item;
                     });
@@ -749,6 +855,7 @@ const MultipleMatch = ({}) => {
                           <MatchOdds
                             typeOfBet={"Manual Tied Match"}
                             currentMatch={item}
+                            session={"manualBookMaker"}
                             minBet={Math.floor(item?.manualTiedMatch?.minBet)}
                             maxBet={Math.floor(item?.manualTiedMatch?.maxBet)}
                             matchOddsData={item?.manualTiedMatch}
@@ -779,7 +886,7 @@ const MultipleMatch = ({}) => {
                             allBetsData={item?.profitLossDataSession}
                             match={"multiple"}
                             currentMatch={item}
-                            sessionData={sessionData}
+                            sessionData={item?.apiSession}
                             // currentOdds={currentOdds}
                             sessionOffline={item?.sessionOffline}
                             // sessionExposer={manualSessionHttp?.sessionExposure}
@@ -791,8 +898,10 @@ const MultipleMatch = ({}) => {
                           />
                         )}
                         <FullAllBets
-                          tag={true}
-                          IObets={IObetsData}
+                          tag={false}
+                          IObets={placedBets.filter(
+                            (bet: any) => bet?.match?.id === item?.id
+                          )}
                           setSelectedBetData={setSelectedBetData}
                           selectedBetData={selectedBetData}
                         />
