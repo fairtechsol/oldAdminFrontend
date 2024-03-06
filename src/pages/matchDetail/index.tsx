@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import {
   AllBetDelete,
+  amountupdate,
   // betDataFromSocket,
   getMatchDetail,
   getPlacedBets,
@@ -150,6 +151,7 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(removeRunAmount(event));
+        dispatch(amountupdate(event));
         dispatch(getPlacedBets(state?.matchId));
       }
     } catch (error) {
