@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  amountupdate,
   betDataFromSocket,
   getMatchDetail,
   getMatchListInplay,
@@ -253,7 +254,7 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {
         const { userRedisObj, jobData } = action.payload;
-        if (["tiedMatch2", "tiedMatch"].includes(jobData?.newBet?.marketType)) {
+        if (["tiedMatch2", "tiedMatch1"].includes(jobData?.newBet?.marketType)) {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             yesRateTie: userRedisObj[jobData?.teamArateRedisKey],
@@ -277,7 +278,7 @@ const matchListSlice = createSlice({
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
         debugger;
         const { redisObject, matchBetType } = action.payload;
-        if (matchBetType === "tiedMatch2" || matchBetType === "tiedMatch") {
+        if (matchBetType === "tiedMatch2" || matchBetType === "tiedMatch1") {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             yesRateTie: redisObject[action.payload?.teamArateRedisKey],
@@ -296,6 +297,20 @@ const matchListSlice = createSlice({
             teamBRate: redisObject[action.payload?.teamBrateRedisKey],
             teamCRate: redisObject[action.payload?.teamCrateRedisKey] ?? "",
           };
+        }
+      })
+      .addCase(amountupdate.fulfilled, (state, action) => {
+        const { matchId, betId} = action.payload;
+        if (state?.matchDetail?.id === matchId) {
+          const updatedProfitLossDataSession = state.matchDetail?.profitLossDataSession
+            .filter((item: any) => betId !== item?.betId);
+        
+          state.matchDetail = {
+            ...state.matchDetail,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        }else {
+          return state.matchDetail;
         }
       });
   },
