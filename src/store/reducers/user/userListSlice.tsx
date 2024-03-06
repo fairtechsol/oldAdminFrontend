@@ -4,6 +4,7 @@ import {
   changePasswordRow,
   getAlreadyUserExist,
   getModalUserList,
+  getSearchClientList,
   getTotalBalance,
   getUserList,
   handleExport,
@@ -26,6 +27,7 @@ interface InitialState {
   userModalList:any;
   openModal:boolean;
   userElement:any;
+  searchUserList: any;
 }
 
 const initialState: InitialState = {
@@ -35,6 +37,7 @@ const initialState: InitialState = {
   success: false,
   loading: false,
   error: null,
+  searchUserList: [],
   totalBalance: null,
   userModalList: null,
   openModal:false,
@@ -192,6 +195,20 @@ export const userList = createSlice({
         state.loading = false;
       })
       .addCase(getTotalBalance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getSearchClientList.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(getSearchClientList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.searchUserList = action.payload;
+      })
+      .addCase(getSearchClientList.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       });

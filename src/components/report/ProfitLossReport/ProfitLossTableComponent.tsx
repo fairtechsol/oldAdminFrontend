@@ -26,6 +26,9 @@ const ProfitLossTableComponent = (props: any) => {
   const { matchWiseProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
+  const { userData } = useSelector(
+    (state: RootState) => state.report.reportList
+  );
   const [selectedId, setSelectedId] = useState({
     type: "",
     id: "",
@@ -54,7 +57,8 @@ const ProfitLossTableComponent = (props: any) => {
       }));
       dispatch(
         getMatchWiseProfitLoss({
-          type: eventType,
+          type: event,
+          searchId:userData?.id
         })
       );
     }

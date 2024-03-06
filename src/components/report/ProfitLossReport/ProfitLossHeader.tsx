@@ -15,6 +15,7 @@ const ProfitLossHeader = (props: any) => {
     endDate,
     onClick,
     title,
+    setSelectedUser
   } = props;
   return (
     <Box
@@ -74,6 +75,7 @@ const ProfitLossHeader = (props: any) => {
                 title={"Search By Client Name"}
                 setSearch={setSearch}
                 search={search}
+                setSelectedUser={setSelectedUser}
               />
             </Box>
           )}
