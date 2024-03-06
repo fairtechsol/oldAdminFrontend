@@ -9,3 +9,8 @@ export const formatNumber = (value?: any, isRound?: any) => {
     // return value
   }
 };
+
+export const customSort = (a: any, b: any) => {
+  const order: any = { live: 1, save: 2, result: 3 };
+  return order[a?.activeStatus] - order[b?.activeStatus];
+};
