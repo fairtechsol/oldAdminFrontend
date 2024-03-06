@@ -6,13 +6,14 @@ import { AppDispatch, RootState } from "../../../store/store";
 import moment from "moment";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
 import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
+import { updateUserSearchId } from "../../../store/actions/reports";
 
 const ProfitLossReport = () => {
   const dispatch: AppDispatch = useDispatch();
   // const [pageLimit] = useState(10);
   const [pageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<any>("");
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
   const [show, setShow] = useState(false);
@@ -25,14 +26,17 @@ const ProfitLossReport = () => {
     try {
       setShow(false);
       let filter = "";
+      if (search?.id) {
+        filter += `id=${search?.id}`;
+        dispatch(updateUserSearchId({search}))
+      }
       if (startDate && endDate) {
-        filter += `&createdAt=between${moment(startDate)?.format(
-          "YYYY-MM-DD"
-        )}|${moment(endDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
+        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
+        filter += `&endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
       } else if (startDate) {
-        filter += `&createdAt=gte${moment(startDate)?.format("YYYY-MM-DD")}`;
+        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
       } else if (endDate) {
-        filter += `&createdAt=lte${moment(endDate)?.format("YYYY-MM-DD")}`;
+        filter += `endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
     } catch (error) {

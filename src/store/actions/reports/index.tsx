@@ -157,7 +157,12 @@ export const getCommissionBetPlaced = createAsyncThunk<any, any>(
     }
   }
 );
-
+export const updateUserSearchId = createAsyncThunk<any, any>(
+  "/maxLoss/updateUserSearchId",
+  async (data) => {
+    return data;
+  }
+);
 export const resetAccountStatement = createAction("statement/reset");
 export const resetSessionProfitLoss = createAction("sessionProfitLoss/reset");
 export const resetBetProfitLoss = createAction("betProfitLoss/reset");

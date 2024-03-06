@@ -216,21 +216,20 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
-        const { betId, matchId, parentRedisUpdateObj } = action.payload;
+        const { betId, matchId, profitLossData } = action.payload;
         if (state?.matchDetail?.id === matchId) {
           state.matchDetail.profitLossDataSession = Array.from(
             new Set([
               ...state.matchDetail.profitLossDataSession,
               {
                 betId: betId,
-                maxLoss: JSON.parse(parentRedisUpdateObj[`${betId}_profitLoss`])
+                maxLoss: profitLossData
                   .maxLoss,
-                totalBet: JSON.parse(
-                  parentRedisUpdateObj[`${betId}_profitLoss`]
-                ).totalBet,
+                totalBet: profitLossData.totalBet,
               },
             ])
           );
+          
         }
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {

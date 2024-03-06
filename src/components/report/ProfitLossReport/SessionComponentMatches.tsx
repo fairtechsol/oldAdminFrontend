@@ -24,7 +24,9 @@ const SessionComponentMatches = ({
   const { totalBetProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
-
+  const { userData } = useSelector(
+    (state: RootState) => state.report.reportList
+  );
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
@@ -46,6 +48,7 @@ const SessionComponentMatches = ({
                 betId: item?.betId,
                 matchId: item?.matchid || item?.matchId || matchId,
                 isSession: true,
+                id:userData?.id 
               })
             );
           }
