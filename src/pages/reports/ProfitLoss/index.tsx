@@ -1,13 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import moment from "moment";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
-import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
+import { getSearchClientList, getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
 import { updateUserSearchId } from "../../../store/actions/reports";
-
+import { debounce } from "lodash";
+interface FilterObject {
+  userId?: any; 
+  startDate?: string;
+  endDate?: string;
+}
 const ProfitLossReport = () => {
   const dispatch: AppDispatch = useDispatch();
   // const [pageLimit] = useState(10);
@@ -18,32 +23,60 @@ const ProfitLossReport = () => {
   const [endDate, setEndDate] = useState<any>();
   const [show, setShow] = useState(false);
 
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
-
+const { searchUserList } = useSelector(
+    (state: RootState) => state.user.userList
+  );
   const handleClick = () => {
     try {
       setShow(false);
-      let filter = "";
+      let filter : FilterObject = {};
+      
       if (search?.id) {
-        filter += `id=${search?.id}`;
-        dispatch(updateUserSearchId({search}))
+        filter['userId'] = search?.id;
+        dispatch(updateUserSearchId({ search }));
       }
       if (startDate && endDate) {
-        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
-        filter += `&endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
-      } else if (startDate) {
-        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
-      } else if (endDate) {
-        filter += `endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
+        filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+        filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+      } else {
+        if (startDate) {
+          filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+        }
+        if (endDate) {
+          filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+        }
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
     } catch (error) {
       console.error("Error:", (error as Error)?.message);
     }
   };
+  const debouncedInputValue = useMemo(() => {
+    return debounce((value) => {
+      dispatch(
+        getSearchClientList({
+          userName: value,
+          createdBy: profileDetail && profileDetail?.id,
+        })
+      );
+    }, 500);
+  }, []);
 
+  useEffect(() => {
+    try {
+      if (!search?.id) {
+        debouncedInputValue(search);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [search]);
   useEffect(() => {
     dispatch(getUserTotalProfitLoss({ filter: "" }));
   }, []);
@@ -56,6 +89,7 @@ const ProfitLossReport = () => {
         startDate={startDate}
         setStartDate={setStartDate}
         endDate={endDate}
+        clientData={searchUserList && searchUserList?.users}
         setEndDate={setEndDate}
         setSearch={setSearch}
         search={search}

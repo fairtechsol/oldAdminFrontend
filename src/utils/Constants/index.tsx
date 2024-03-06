@@ -12,6 +12,7 @@ export const ApiConstants = {
     ADDFGADMIN: "/user/add",
     COMMISSION_SETTLEMENT: "/balance/settle/commission",
     ALREADY_EXIST: "/user/exist",
+    ALREADY_SEARCHLIST: "/user/searchlist",
     ADDURLADMIN: "/superadmin/add",
     UPDATEURLADMIN: "/superadmin/updateUser",
     ADDEXPERT: "/expert/add",

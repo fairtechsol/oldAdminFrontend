@@ -494,7 +494,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
     try {
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
-        requestData
+        requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
         return resp?.data?.result;
@@ -545,6 +545,22 @@ export const handleModelActions = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const getSearchClientList = createAsyncThunk<
+  any,
+  SearchUsers | undefined
+>("user/clientList", async (requestData, thunkApi) => {
+  try {
+    const resp = await service.get(
+      `${ApiConstants.USER.ALREADY_SEARCHLIST}?userName=${requestData?.userName}&createdBy:${requestData?.createdBy}`
+    );
+    if (resp) {
+      return resp?.data;
+    }
+  } catch (error: any) {
+    const err = error as AxiosError;
+    throw thunkApi.rejectWithValue(err.response?.status);
+  }
+});
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
