@@ -130,8 +130,8 @@ const MatchOdds = (props: any) => {
                   )
                 : typeOfBet === "Market Complete Match"
                 ? bookRatioA(
-                    currentMatch?.profitLossDataMatch?.yesRateTie,
-                    currentMatch?.profitLossDataMatch?.noRateTie
+                    currentMatch?.profitLossDataMatch?.yesRateComplete,
+                    currentMatch?.profitLossDataMatch?.noRateComplete
                   )
                 : bookRatioA(
                     currentMatch?.profitLossDataMatch?.teamARate,
@@ -152,8 +152,8 @@ const MatchOdds = (props: any) => {
                   )
                 : typeOfBet === "Market Complete Match"
                 ? bookRatioB(
-                    currentMatch?.profitLossDataMatch?.yesRateTie,
-                    currentMatch?.profitLossDataMatch?.noRateTie
+                    currentMatch?.profitLossDataMatch?.yesRateComplete,
+                    currentMatch?.profitLossDataMatch?.noRateComplete
                   )
                 : bookRatioB(
                     currentMatch?.profitLossDataMatch?.teamARate,

@@ -26,7 +26,7 @@ const MoneyBox = (props: any) => {
           color: color,
         }}
       >
-        {rates}
+        {parseFloat(rates).toFixed(2)}
       </Typography>
     </Box>
   );

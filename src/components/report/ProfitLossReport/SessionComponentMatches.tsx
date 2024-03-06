@@ -214,7 +214,7 @@ const SessionComponentMatches = ({
           <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
             <SessionBetSeperate
               betHistory={false}
-              placedBets={totalBetProfitLoss && totalBetProfitLoss}
+              allBetsData={totalBetProfitLoss && totalBetProfitLoss}
               profit
               isArrow={true}
             />

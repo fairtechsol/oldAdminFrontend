@@ -15,14 +15,13 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import {
-  analysisListReset,
-  getAnalysisList,
-} from "../../store/actions/match/matchAction";
+import { analysisListReset } from "../../store/actions/match/matchAction";
 import { useDispatch } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { toast } from "react-toastify";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
+import { getAnalysisList } from "../../store/actions/match/multipleMatchAction";
+import { socketService } from "../../socketManager";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -35,8 +34,8 @@ const Analysis = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const useStyles = makeStyles({
     whiteTextPagination: {
-      '& .MuiPaginationItem-root': {
-        color: 'white', // Change text color to white
+      "& .MuiPaginationItem-root": {
+        color: "white", // Change text color to white
       },
     },
   });
@@ -74,6 +73,23 @@ const Analysis = () => {
   useEffect(() => {
     dispatch(getAnalysisList({ currentPage: currentPage }));
   }, [currentPage]);
+
+  useEffect(() => {
+    socketService.match.matchResultDeclared(
+      dispatch(getAnalysisList({ currentPage: currentPage }))
+    );
+    socketService.match.matchResultUnDeclared(
+      dispatch(getAnalysisList({ currentPage: currentPage }))
+    );
+    return () => {
+      socketService.match.matchResultDeclaredOff(
+        dispatch(getAnalysisList({ currentPage: currentPage }))
+      );
+      socketService.match.matchResultUnDeclaredOff(
+        dispatch(getAnalysisList({ currentPage: currentPage }))
+      );
+    };
+  }, []);
 
   useEffect(() => {
     if (success) {
@@ -187,21 +203,27 @@ const Analysis = () => {
                     if (selected) setMode("0");
                     setSelected([]);
                     if (max == "3") {
-                      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
-                        state: {
-                          match: Number(max),
-                          matchIds: matchIds,
-                          // marketIds: marketIds,
-                        },
-                      });
+                      navigate(
+                        `${Constants.oldAdmin}market_analysis/multiple_Match`,
+                        {
+                          state: {
+                            match: Number(max),
+                            matchIds: matchIds,
+                            // marketIds: marketIds,
+                          },
+                        }
+                      );
                     } else {
-                      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
-                        state: {
-                          match: Number(max),
-                          matchIds: matchIds,
-                          // marketIds: marketIds,
-                        },
-                      });
+                      navigate(
+                        `${Constants.oldAdmin}market_analysis/multiple_Match`,
+                        {
+                          state: {
+                            match: Number(max),
+                            matchIds: matchIds,
+                            // marketIds: marketIds,
+                          },
+                        }
+                      );
                     }
                   }}
                   title={"Submit"}
