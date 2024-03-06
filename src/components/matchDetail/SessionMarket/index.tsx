@@ -3,6 +3,7 @@ import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import BetsCountBox from "./BetsCountBox";
 import Divider from "../../Inplay/Divider";
 import SeasonMarketBox from "./SeasonMarketBox";
+import { useState } from "react";
 
 const SessionMarket = (props: any) => {
   const theme = useTheme();
@@ -20,7 +21,7 @@ const SessionMarket = (props: any) => {
     allBetsData,
     currentMatch,
   } = props;
-  const visible = true;
+  const [visible, setVisible] = useState(true);
 
   return (
     <>
@@ -146,7 +147,7 @@ const SessionMarket = (props: any) => {
             </Box>
             <img
               onClick={() => {
-                // setVisible(!visible);
+                setVisible(!visible);
               }}
               src={ARROWUP}
               style={{

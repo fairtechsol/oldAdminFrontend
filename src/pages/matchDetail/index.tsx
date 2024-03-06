@@ -386,7 +386,10 @@ const MatchDetail = () => {
               maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
             />
           )}
-
+          <Box
+            sx={{ width: "150px", height: "3px" }}
+          >
+          </Box>
           {matchDetail?.manualSessionActive &&
             matchDetail?.sessionBettings?.filter(
               (item: any) => !JSON.parse(item).selectionId
@@ -403,6 +406,7 @@ const MatchDetail = () => {
                 max={matchDetail?.betFairSessionMaxBet || 0}
               />
             )}
+
           {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (
@@ -544,6 +548,9 @@ const MatchDetail = () => {
                 maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
               />
             )}
+            <Box
+              sx={{ width: "150px", height: "3px" }}
+            ></Box>
             {matchDetail?.manualSessionActive &&
               matchDetail?.sessionBettings?.filter(
                 (item: any) => !JSON.parse(item).selectionId

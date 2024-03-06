@@ -49,7 +49,7 @@ const Header = () => {
     BoxCont1sub1: {
       display: "flex",
       alignItems: "center",
-      width: "auto",
+      width: "100%",
       flex: 1,
     },
     BoxCont1sub1sub1: {

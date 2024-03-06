@@ -83,8 +83,8 @@ const TeamRowComponent = (props: any) => {
             right: 0,
             top: 0,
             zIndex: 10,
-            width: { lg: "60%", xs: "40.5%" },
-            justifyContent: { xs: "flex-end", lg: "center" },
+            width: { lg: "30%", xs: "40.5%" },
+            justifyContent: { xs: "center", lg: "center" },
             alignItems: "center",
             display: "flex",
           }}
