@@ -386,10 +386,7 @@ const MatchDetail = () => {
               maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
             />
           )}
-          <Box
-            sx={{ width: "150px", height: "3px" }}
-          >
-          </Box>
+          <Box sx={{ width: "150px", height: "3px" }}></Box>
           {matchDetail?.manualSessionActive &&
             matchDetail?.sessionBettings?.filter(
               (item: any) => !JSON.parse(item).selectionId
@@ -397,7 +394,9 @@ const MatchDetail = () => {
             matchesMobile && (
               <SessionMarket
                 title={"Quick Session Market"}
-                allBetsData={matchDetail?.profitLossDataSession}
+                allBetsData={Array.from(
+                  new Set(matchDetail?.profitLossDataSession)
+                )}
                 currentMatch={matchDetail}
                 sessionData={matchDetail?.sessionBettings?.filter(
                   (item: any) => !JSON.parse(item).selectionId
@@ -412,7 +411,9 @@ const MatchDetail = () => {
             matchDetail?.apiSession?.length > 0 && (
               <SessionMarket
                 title={"Session Market"}
-                allBetsData={matchDetail?.profitLossDataSession}
+                allBetsData={Array.from(
+                  new Set(matchDetail?.profitLossDataSession)
+                )}
                 currentMatch={matchDetail}
                 sessionData={matchDetail?.apiSession}
                 min={Math.floor(matchDetail?.betFairSessionMinBet)}
@@ -548,9 +549,7 @@ const MatchDetail = () => {
                 maxBet={Math.floor(matchDetail?.manualTiedMatch?.maxBet)}
               />
             )}
-            <Box
-              sx={{ width: "150px", height: "3px" }}
-            ></Box>
+            <Box sx={{ width: "150px", height: "3px" }}></Box>
             {matchDetail?.manualSessionActive &&
               matchDetail?.sessionBettings?.filter(
                 (item: any) => !JSON.parse(item).selectionId

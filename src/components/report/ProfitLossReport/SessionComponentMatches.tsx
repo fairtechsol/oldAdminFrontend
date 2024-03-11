@@ -48,7 +48,7 @@ const SessionComponentMatches = ({
                 betId: item?.betId,
                 matchId: item?.matchid || item?.matchId || matchId,
                 isSession: true,
-                searchId:userData?.id 
+                searchId: userData?.id,
               })
             );
           }
@@ -217,7 +217,11 @@ const SessionComponentMatches = ({
           <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
             <SessionBetSeperate
               betHistory={false}
-              allBetsData={totalBetProfitLoss && totalBetProfitLoss}
+              allBetsData={
+                totalBetProfitLoss
+                  ? Array.from(new Set(totalBetProfitLoss))
+                  : []
+              }
               profit
               isArrow={true}
             />

@@ -275,7 +275,6 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
-        debugger;
         const { redisObject, matchBetType } = action.payload;
         if (matchBetType === "tiedMatch2" || matchBetType === "tiedMatch1") {
           state.matchDetail.profitLossDataMatch = {
