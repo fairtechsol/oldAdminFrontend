@@ -243,7 +243,7 @@ const MatchDetail = () => {
           dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
       } else if (document.visibilityState === "hidden") {
-        // socketService.match.leaveMatchRoom(state?.matchId);
+        socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(
           state?.matchId,
           updateMatchDetailToRedux
@@ -376,7 +376,7 @@ const MatchDetail = () => {
                 />
               );
             })}
-          {matchDetail?.manualTiedMatch && matchesMobile && (
+          {matchDetail?.manualTiedMatch?.isActive && matchesMobile && (
             <MatchOdds
               typeOfBet={"Manual Tied Match"}
               data={matchDetail?.manualTiedMatch}
