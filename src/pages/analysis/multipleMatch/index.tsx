@@ -1,19 +1,21 @@
 import {
-  Typography,
   Box,
+  Button,
+  Typography,
   useMediaQuery,
   useTheme,
-  Button,
 } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import MatchOdds from "../../../components/matchDetail/MatchOdds";
-import UserProfitLoss from "../../../components/matchDetail/Common/UserProfitLoss";
-import FullAllBets from "../../../components/matchDetail/Common/FullAllBets";
-import SessionMarket from "../../../components/matchDetail/SessionMarket";
-import LiveBookmaker from "../../../components/matchDetail/LiveBookmaker";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import FullAllBets from "../../../components/matchDetail/Common/FullAllBets";
+import UserProfitLoss from "../../../components/matchDetail/Common/UserProfitLoss";
+import LiveBookmaker from "../../../components/matchDetail/LiveBookmaker";
+import MatchOdds from "../../../components/matchDetail/MatchOdds";
+import SessionMarket from "../../../components/matchDetail/SessionMarket";
+import RunsBox from "../../../components/matchDetail/SessionMarket/RunsBox";
+import { socketService } from "../../../socketManager";
 import {
   analysisListReset,
   getPlacedBets,
@@ -23,9 +25,6 @@ import {
   updatePlacedbets,
   updateProfitLoss,
 } from "../../../store/actions/match/matchAction";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
-import { socketService } from "../../../socketManager";
 import {
   getMultipleMatchDetail,
   updateBetDataOnDeclareOfMultipleMatch,
@@ -35,8 +34,8 @@ import {
   updateTeamRatesOfMultipleMatch,
   updateTeamRatesOnDeleteForMultiMatch,
 } from "../../../store/actions/match/multipleMatchAction";
-import RunsBox from "../../../components/matchDetail/SessionMarket/RunsBox";
 import { resetSessionProfitLoss } from "../../../store/actions/reports";
+import { AppDispatch, RootState } from "../../../store/store";
 
 const MultipleMatch = ({}) => {
   const theme = useTheme();
@@ -91,7 +90,6 @@ const MultipleMatch = ({}) => {
             newBet: {
               ...event?.jobData?.newBet,
               userId: event?.jobData?.userId,
-              domain: event?.jobData?.domainUrl,
             },
             userName: event?.jobData?.userName,
             myStake: event?.jobData?.myStake,
@@ -107,7 +105,7 @@ const MultipleMatch = ({}) => {
   const matchMultiResultDeclared = (event: any) => {
     try {
       if (state?.matchIds.includes(event?.matchId)) {
-        navigate(`/wallet/market_analysis`);
+        navigate(`/admin/market_analysis`);
       }
     } catch (error) {
       console.log(error);
@@ -181,10 +179,8 @@ const MultipleMatch = ({}) => {
         socketService.match.matchResultDeclared(matchMultiResultDeclared);
         socketService.match.matchDeleteBet(handleMultiMatchDeleteBet);
         socketService.match.sessionDeleteBet(handleMultiMatchSessionDeleteBet);
-        socketService.match.sessionResultOff(
-          handleMultiMatchSessionResultDeclare
-        );
-        socketService.match.sessionResultUnDeclareOff(
+        socketService.match.sessionResult(handleMultiMatchSessionResultDeclare);
+        socketService.match.sessionResultUnDeclare(
           handleMultiMatchSessionResultUnDeclare
         );
         dispatch(analysisListReset());
@@ -192,7 +188,7 @@ const MultipleMatch = ({}) => {
     } catch (e) {
       console.log(e);
     }
-  }, [success]);
+  }, [success, profileDetail]);
 
   useEffect(() => {
     return () => {
@@ -214,12 +210,12 @@ const MultipleMatch = ({}) => {
         handleMultiMatchSessionResultUnDeclare
       );
     };
-  }, []);
+  }, [profileDetail]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        if (state?.matchId) {
+        if (state?.matchIds) {
           dispatch(getMultipleMatchDetail(state?.matchIds));
           dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         }
@@ -373,19 +369,21 @@ const MultipleMatch = ({}) => {
                                   }
                                 />
                               )}
-                              {item?.quickBookmaker?.map((bookmaker: any) => {
-                                return (
-                                  <MatchOdds
-                                    currentMatch={item}
-                                    session={"manualBookMaker"}
-                                    data={bookmaker}
-                                    minBet={bookmaker?.minBet || 0}
-                                    maxBet={bookmaker?.maxBet || 0}
-                                    typeOfBet={bookmaker?.name}
-                                    matchOddsData={bookmaker}
-                                  />
-                                );
-                              })}
+                              {item?.quickBookmaker
+                                ?.filter((item: any) => item?.isActive === true)
+                                .map((bookmaker: any) => {
+                                  return (
+                                    <MatchOdds
+                                      currentMatch={item}
+                                      session={"manualBookMaker"}
+                                      data={bookmaker}
+                                      minBet={bookmaker?.minBet || 0}
+                                      maxBet={bookmaker?.maxBet || 0}
+                                      typeOfBet={bookmaker?.name}
+                                      matchOddsData={bookmaker}
+                                    />
+                                  );
+                                })}
                               {item?.bookmaker?.isActive && (
                                 <LiveBookmaker
                                   currentMatch={item}
@@ -417,7 +415,9 @@ const MultipleMatch = ({}) => {
                               {item?.manualSessionActive && (
                                 <SessionMarket
                                   title={"Quick Session Market"}
-                                  allBetsData={item?.profitLossDataSession}
+                                  allBetsData={Array.from(
+                                    new Set(item?.profitLossDataSession)
+                                  )}
                                   // match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={QuicksessionData}
@@ -440,7 +440,9 @@ const MultipleMatch = ({}) => {
                               {item?.apiSessionActive && (
                                 <SessionMarket
                                   title={"Session Market"}
-                                  allBetsData={item?.profitLossDataSession}
+                                  allBetsData={Array.from(
+                                    new Set(item?.profitLossDataSession)
+                                  )}
                                   match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={item?.apiSession}
@@ -522,7 +524,9 @@ const MultipleMatch = ({}) => {
                               <FullAllBets
                                 tag={false}
                                 IObets={placedBets.filter(
-                                  (bet: any) => bet?.match?.id === item?.id
+                                  (bet: any) =>
+                                    (bet?.match?.id || bet?.matchId) ===
+                                    item?.id
                                 )}
                                 setSelectedBetData={setSelectedBetData}
                                 selectedBetData={selectedBetData}
@@ -626,19 +630,21 @@ const MultipleMatch = ({}) => {
                                 }
                               />
                             )}
-                            {item?.quickBookmaker?.map((bookmaker: any) => {
-                              return (
-                                <MatchOdds
-                                  currentMatch={item}
-                                  session={"manualBookMaker"}
-                                  data={bookmaker}
-                                  minBet={bookmaker?.minBet || 0}
-                                  maxBet={bookmaker?.maxBet || 0}
-                                  typeOfBet={bookmaker?.name}
-                                  matchOddsData={bookmaker}
-                                />
-                              );
-                            })}
+                            {item?.quickBookmaker
+                              ?.filter((item: any) => item?.isActive === true)
+                              ?.map((bookmaker: any) => {
+                                return (
+                                  <MatchOdds
+                                    currentMatch={item}
+                                    session={"manualBookMaker"}
+                                    data={bookmaker}
+                                    minBet={bookmaker?.minBet || 0}
+                                    maxBet={bookmaker?.maxBet || 0}
+                                    typeOfBet={bookmaker?.name}
+                                    matchOddsData={bookmaker}
+                                  />
+                                );
+                              })}
                             {/* {item?.manualBookMakerActive && (
                               <Odds
                                 currentMatch={item}
@@ -697,7 +703,9 @@ const MultipleMatch = ({}) => {
                             {item?.apiSessionActive && (
                               <SessionMarket
                                 title={"Quick Session Market"}
-                                allBetsData={item?.profitLossDataSession}
+                                allBetsData={Array.from(
+                                  new Set(item?.profitLossDataSession)
+                                )}
                                 sessionData={item?.sessionBettings}
                                 currentMatch={item}
                                 sessionOffline={item?.sessionOffline}
@@ -709,7 +717,9 @@ const MultipleMatch = ({}) => {
                             {item?.manualSessionActive && (
                               <SessionMarket
                                 title={"Session Market"}
-                                allBetsData={item?.profitLossDataSession}
+                                allBetsData={Array.from(
+                                  new Set(item?.profitLossDataSession)
+                                )}
                                 match={"multiple"}
                                 currentMatch={item}
                                 sessionData={item?.apiSession}
@@ -759,7 +769,8 @@ const MultipleMatch = ({}) => {
                             <FullAllBets
                               tag={false}
                               IObets={placedBets.filter(
-                                (bet: any) => bet?.match?.id === item?.id
+                                (bet: any) =>
+                                  (bet?.match?.id || bet?.matchId) === item?.id
                               )}
                               setSelectedBetData={setSelectedBetData}
                               selectedBetData={selectedBetData}
@@ -929,20 +940,22 @@ const MultipleMatch = ({}) => {
                             }
                           />
                         )}
-                        {item?.quickBookmaker?.map((bookmaker: any) => {
-                          return (
-                            <MatchOdds
-                              key={bookmaker?.id}
-                              currentMatch={item}
-                              session={"manualBookMaker"}
-                              data={bookmaker}
-                              minBet={bookmaker?.minBet || 0}
-                              maxBet={bookmaker?.maxBet || 0}
-                              typeOfBet={bookmaker?.name}
-                              matchOddsData={bookmaker}
-                            />
-                          );
-                        })}
+                        {item?.quickBookmaker
+                          ?.filter((item: any) => item?.isActive === true)
+                          ?.map((bookmaker: any) => {
+                            return (
+                              <MatchOdds
+                                key={bookmaker?.id}
+                                currentMatch={item}
+                                session={"manualBookMaker"}
+                                data={bookmaker}
+                                minBet={bookmaker?.minBet || 0}
+                                maxBet={bookmaker?.maxBet || 0}
+                                typeOfBet={bookmaker?.name}
+                                matchOddsData={bookmaker}
+                              />
+                            );
+                          })}
 
                         {/* {item?.apiBookMakerActive && (
                           <LiveBookmaker
@@ -972,7 +985,9 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Quick Session Market"}
-                            allBetsData={item?.profitLossDataSession}
+                            allBetsData={Array.from(
+                              new Set(item?.profitLossDataSession)
+                            )}
                             // match={"multiple"}
                             currentMatch={item}
                             sessionData={QuicksessionData}
@@ -990,7 +1005,9 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Session Market"}
-                            allBetsData={item?.profitLossDataSession}
+                            allBetsData={Array.from(
+                              new Set(item?.profitLossDataSession)
+                            )}
                             match={"multiple"}
                             currentMatch={item}
                             sessionData={item?.apiSession}
@@ -1043,7 +1060,8 @@ const MultipleMatch = ({}) => {
                         <FullAllBets
                           tag={false}
                           IObets={placedBets.filter(
-                            (bet: any) => bet?.match?.id === item?.id
+                            (bet: any) =>
+                              (bet?.match?.id || bet?.matchId) === item?.id
                           )}
                           setSelectedBetData={setSelectedBetData}
                           selectedBetData={selectedBetData}
