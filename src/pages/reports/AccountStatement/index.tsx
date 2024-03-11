@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Loader from "../../../components/Loader";
 import Pagination from "../../../components/Common/Pagination";
 import YellowHeader from "../../../components/report/AccountStatement/YellowHeader";
@@ -138,7 +138,7 @@ const AccountStatement = () => {
             <>
               <Box sx={{ overflowX: "scroll", width: "100%" }}>
                 <TableHeaderList />
-                {accountStatement?.transactions?.map((item: any) => (
+                {accountStatement?.transactions?.length > 0 ? accountStatement?.transactions?.map((item: any) => (
                   <TableDataRow
                     key={item?.id}
                     index={item?.id}
@@ -154,7 +154,19 @@ const AccountStatement = () => {
                     fromuserName={item?.actionByUser?.userName}
                     touserName={item?.user?.userName}
                   />
-                ))}
+                )) : <Box>
+                <Typography
+                  sx={{
+                    color: "#000",
+                    textAlign: "center",
+                    fontSize: { lg: "16px", xs: "10px" },
+                    fontWeight: "600",
+                    margin: "1rem",
+                  }}
+                >
+                  No Matching Records Found
+                </Typography>
+              </Box>}
               </Box>
               <Pagination
                 currentPage={currentPage}

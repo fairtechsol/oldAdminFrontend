@@ -182,6 +182,7 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0); 
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
       dispatch(resetSessionProfitLoss());
