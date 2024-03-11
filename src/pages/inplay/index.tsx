@@ -43,14 +43,6 @@ const Inplay = () => {
     (state: RootState) => state.user.profile
   );
 
-  const matchResultDeclared = () => {
-    try {
-      dispatch(getMatchListInplay({ currentPage: currentPage }));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
     try {
       dispatch(getMatchListInplay({ currentPage: currentPage }));
@@ -75,15 +67,19 @@ const Inplay = () => {
   useEffect(() => {
     try {
       if (success) {
-        if (matchListInplay && matchListInplay?.matches?.length > 0) {
+        if (
+          matchListInplay?.matches &&
+          matchListInplay?.matches?.length > 0 &&
+          profileDetail?.roleName
+        ) {
           matchListInplay?.matches?.map((item: any) => {
             socketService.match.joinMatchRoom(
               item?.id,
               profileDetail?.roleName
             );
           });
-          socketService.match.matchResultDeclared(matchResultDeclared);
-          socketService.match.matchResultUnDeclared(matchResultDeclared);
+          socketService.match.matchResultDeclared(getMatchListService);
+          socketService.match.matchResultUnDeclared(getMatchListService);
           socketService.match.matchAdded(getMatchListService);
         }
         dispatch(matchListReset());
@@ -91,25 +87,24 @@ const Inplay = () => {
     } catch (e) {
       console.log(e);
     }
+  }, [matchListInplay?.matches?.length, success, profileDetail?.roleName]);
+
+  useEffect(() => {
     return () => {
       matchListInplay?.matches?.map((item: any) => {
         socketService.match.leaveMatchRoom(item?.id);
       });
-      socketService.match.matchResultDeclaredOff(matchResultDeclared);
-      socketService.match.matchResultUnDeclaredOff(matchResultDeclared);
+      socketService.match.matchResultDeclaredOff(getMatchListService);
+      socketService.match.matchResultUnDeclaredOff(getMatchListService);
       socketService.match.matchAddedOff(getMatchListService);
     };
-  }, [matchListInplay?.matches?.length, success]);
+  }, [matchListInplay?.matches?.length, profileDetail?.roleName]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        matchListInplay?.matches?.map((item: any) => {
-          if (item?.id) {
-            dispatch(getMatchDetail(item?.id));
-            // dispatch(getPlacedBets(item?.id));
-          }
-        });
+        setCurrentPage(1);
+        getMatchListService();
       } else if (document.visibilityState === "hidden") {
         matchListInplay?.matches?.map((item: any) => {
           socketService.match.leaveMatchRoom(item?.id);
