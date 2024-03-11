@@ -374,7 +374,17 @@ const AddAccount = () => {
 
   return (
     <>
-      {loading && <Loader />}
+      {loading ? <Box
+          sx={{
+            minHeight: "60vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999,
+          }}
+        >
+          <Loader text="" />
+        </Box> : 
       <Box sx={{ margin: "1%" }}>
         <Typography
           sx={{
@@ -1145,7 +1155,7 @@ const AddAccount = () => {
             </Box>
           </Box>
         </form>
-      </Box>
+      </Box>}
       {showModal && (
         <CustomModal
           modalTitle={`User Added sucessfully`}
