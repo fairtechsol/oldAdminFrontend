@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import RowHeaderMatches from "./RowHeaderMatches";
 import { useState } from "react";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -87,6 +87,7 @@ const ProfitLossTableComponent = (props: any) => {
   };
 
   return (
+    eventData?.length > 0 ?
     <Box>
       {eventData?.map((item: any, index: any) => {
         return (
@@ -128,7 +129,20 @@ const ProfitLossTableComponent = (props: any) => {
           // callPage={callPage}
         />
       )}
-    </Box>
+    </Box>:
+      <Box>
+        <Typography
+          sx={{
+            color: "#fff",
+            textAlign: "center",
+            fontSize: { lg: "16px", xs: "10px" },
+            fontWeight: "600",
+            margin: "1rem",
+          }}
+        >
+          No Matching Records Found
+        </Typography>
+      </Box>
   );
 };
 
