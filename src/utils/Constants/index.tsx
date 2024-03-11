@@ -120,7 +120,7 @@ export const Constants = {
   apiBasePath: "http://107.23.165.155:5001",
   thirdParty: "http://107.23.165.155:3200",
   expertPath: "http://107.23.165.155:6060",
-  localPath: "http://localhost:5000",
+  localPath: "http://localhost:5001",
   localPathThird: "http://localhost:3200",
   localPathExpert: "http://localhost:6060",
   WEBSOCKET: "websocket",

@@ -28,6 +28,9 @@ const RowComponentMatches = ({
   const { totalSessionProfitLoss, totalBetProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
+  const { userData } = useSelector(
+    (state: RootState) => state.report.reportList
+  );
   const dispatch: AppDispatch = useDispatch();
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
@@ -167,7 +170,9 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getTotalBetProfitLoss({ matchId: item?.matchId }));
+              dispatch(getTotalBetProfitLoss({ matchId: item?.matchId ,
+                searchId: userData?.id ? userData?.id : ""
+               }));
             }
           }}
           sx={{
@@ -263,7 +268,9 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getSessionProfitLoss({ matchId: item?.matchId }));
+              dispatch(getSessionProfitLoss({ 
+                matchId: item?.matchId ,
+                searchId:userData?.id }));
             }
           }}
           sx={{

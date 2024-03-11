@@ -36,10 +36,10 @@ const { searchUserList } = useSelector(
     try {
       setShow(false);
       let filter : FilterObject = {};
-      
+      dispatch(updateUserSearchId({ search }));
       if (search?.id) {
         filter['userId'] = search?.id;
-        dispatch(updateUserSearchId({ search }));
+       
       }
       if (startDate && endDate) {
         filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
