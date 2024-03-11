@@ -48,7 +48,7 @@ const SessionComponentMatches = ({
                 betId: item?.betId,
                 matchId: item?.matchid || item?.matchId || matchId,
                 isSession: true,
-                id:userData?.id 
+                searchId:userData?.id 
               })
             );
           }

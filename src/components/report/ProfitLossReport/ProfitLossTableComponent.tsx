@@ -20,6 +20,8 @@ const ProfitLossTableComponent = (props: any) => {
     sessionBets,
     setShow,
     show,
+    endDate,
+    startDate
   } = props;
   const [event, setEvent] = useState("");
   const dispatch: AppDispatch = useDispatch();
@@ -35,6 +37,7 @@ const ProfitLossTableComponent = (props: any) => {
     betId: "",
     sessionBet: false,
   });
+
 
   const getHandleReport = (eventType: any) => {
     setEvent(eventType);
@@ -57,8 +60,10 @@ const ProfitLossTableComponent = (props: any) => {
       }));
       dispatch(
         getMatchWiseProfitLoss({
-          type: event,
-          searchId:userData?.id
+          type: eventType,
+          searchId:userData?.id,
+          startDate:startDate,
+          endDate:endDate
         })
       );
     }
