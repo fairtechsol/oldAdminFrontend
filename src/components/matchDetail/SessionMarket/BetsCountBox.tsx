@@ -26,7 +26,7 @@ const BetsCountBox = (props: any) => {
           color: "#FF4D4D",
         }}
       >
-        Session Bets
+        S Bets
       </Typography>
       <Typography
         sx={{
