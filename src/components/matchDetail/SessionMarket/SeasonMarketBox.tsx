@@ -48,16 +48,29 @@ const SeasonMarketBox = (props: any) => {
             alignItems: "center",
           }}
         >
+          <Typography>
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "11px", md: "10px", xs: "8px" },
+              fontSize: { lg: "14px", md: "11px", xs: "10px" },
               marginLeft: "7px",
               fontWeight: "600",
             }}
           >
             {newData?.name ?? newData?.RunnerName}
           </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: { lg: "12px", md: "10px", xs: "9px" },
+              marginLeft: "7px",
+              fontWeight: "600",
+            }}
+          >
+           MAX: {newData?.maxBet ?? newData?.max}
+          </Typography>
+          </Typography>
+          
         </Box>
         <Box
           sx={{
