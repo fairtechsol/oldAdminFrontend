@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import Select from "react-select";
 
 const SelectField = ({
+  id,
   label,
   containerStyle,
   titleStyle,
@@ -9,6 +10,15 @@ const SelectField = ({
   error,
   ...props
 }: any) => {
+
+  const getMenuPlacement = (id:any) => {
+    if (id === 'sessionCommission') {
+      return 'top';
+    } else {
+      return 'bottom';
+    }
+  };
+
   const customStyles = {
     control: (base: any, state: { isFocused: any }) => ({
       ...base,
@@ -49,7 +59,7 @@ const SelectField = ({
       {/* <InputLabel sx={[{}, titleStyle]} htmlFor={props.name}>
         {label}
       </Label> */}
-      <Select {...props} styles={customStyles} />
+      <Select {...props} styles={customStyles} menuPlacement={getMenuPlacement(id)}/>
       {touched && error ? <div style={{ color: "red" }}>{error}</div> : null}
     </Box>
   );

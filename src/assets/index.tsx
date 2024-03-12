@@ -1,5 +1,5 @@
 export { default as LoginBg } from "./images/loginBg_webp.webp";
-export { default as FgLogo } from "./images/logo.webp";
+export { default as FgLogo } from "./images/fairgame7.webp";
 export { default as ArrowDown } from "./images/arrow_down.png";
 export { default as Draw } from "./images/draw.png";
 export { default as Logout } from "./images/logout.png";
