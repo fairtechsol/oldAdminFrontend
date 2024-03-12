@@ -139,10 +139,13 @@ const SessionMarket = (props: any) => {
                     lineHeight: 1,
                   }}
                 >
-                  {allBetsData?.reduce((acc: number, bet: any) => {
+                  {/* {allBetsData?.reduce((acc: number, bet: any) => {
                     let total = Number(acc) + Number(bet?.maxLoss);
                     return Number(total)?.toFixed(2);
-                  }, 0)}
+                  }, 0)} */}
+                  {new Intl.NumberFormat("en-IN").format(parseFloat(allBetsData?.reduce((acc: number, bet: any) => {
+                    return acc + (Number(bet?.maxLoss) || 0);
+                  }, 0).toFixed(2)))}
                 </Typography>
               </Box>
             </Box>
@@ -330,18 +333,18 @@ const SessionMarket = (props: any) => {
                           newData={
                             title === "Session Market"
                               ? {
-                                  ...element,
-                                  noRate: element.LayPrice1 ?? 0,
-                                  noPercent: element.LaySize1 ?? 0,
-                                  yesRate: element.BackPrice1 ?? 0,
-                                  yesPercent: element.BackSize1 ?? 0,
-                                  status:
-                                    element?.GameStatus &&
+                                ...element,
+                                noRate: element.LayPrice1 ?? 0,
+                                noPercent: element.LaySize1 ?? 0,
+                                yesRate: element.BackPrice1 ?? 0,
+                                yesPercent: element.BackSize1 ?? 0,
+                                status:
+                                  element?.GameStatus &&
                                     element?.GameStatus !== ""
-                                      ? element?.GameStatus
-                                      : "active",
-                                  matchId: currentMatch?.id,
-                                }
+                                    ? element?.GameStatus
+                                    : "active",
+                                matchId: currentMatch?.id,
+                              }
                               : JSON.parse(element)
                           }
                           profitLossData={allBetsData?.filter(
