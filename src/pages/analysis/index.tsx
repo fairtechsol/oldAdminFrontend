@@ -15,13 +15,13 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { analysisListReset } from "../../store/actions/match/matchAction";
+// import { analysisListReset } from "../../store/actions/match/matchAction";
 import { useDispatch } from "react-redux";
 import { Constants } from "../../utils/Constants";
 import { toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAnalysisList } from "../../store/actions/match/multipleMatchAction";
-import { socketService } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -79,20 +79,21 @@ const Analysis = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    if (success) {
-      if (analysisList && analysisList?.matches?.length > 0) {
+    try {
+      if (success && socket?.connected) {
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
         socketService.match.matchAdded(getMatchListService);
       }
-      dispatch(analysisListReset());
+      return () => {
+        socketService.match.matchResultDeclaredOff(getMatchListService);
+        socketService.match.matchResultUnDeclaredOff(getMatchListService);
+        socketService.match.matchAdded(getMatchListService);
+      };
+    } catch (error) {
+      console.log(error);
     }
-    return () => {
-      socketService.match.matchResultDeclaredOff(getMatchListService);
-      socketService.match.matchResultUnDeclaredOff(getMatchListService);
-      socketService.match.matchAdded(getMatchListService);
-    };
-  }, [success]);
+  }, [success, socket?.connected]);
 
   return (
     <>
