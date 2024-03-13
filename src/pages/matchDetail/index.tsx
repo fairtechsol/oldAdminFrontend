@@ -13,7 +13,7 @@ import {
   // betDataFromSocket,
   getMatchDetail,
   getPlacedBets,
-  matchListReset,
+  getUserProfitLoss,
   removeRunAmount,
   // updateBalance,
   updateBetsPlaced,
@@ -182,9 +182,10 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
     if (state?.matchId) {
       dispatch(getMatchDetail(state?.matchId));
+      dispatch(getUserProfitLoss(state?.matchId));
       dispatch(resetSessionProfitLoss());
       dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
@@ -192,7 +193,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (success) {
+      if (success && profileDetail?.roleName) {
         socketService.match.joinMatchRoom(
           state?.matchId,
           profileDetail?.roleName
@@ -210,37 +211,35 @@ const MatchDetail = () => {
         socketService.match.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
-        dispatch(matchListReset());
+        // dispatch(matchListReset());
+        return () => {
+          socketService.match.leaveMatchRoom(state?.matchId);
+          socketService.match.getMatchRatesOff(
+            state?.matchId,
+            updateMatchDetailToRedux
+          );
+          socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
+          socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
+          socketService.match.matchResultDeclaredOff(matchResultDeclared);
+          socketService.match.matchDeleteBetOff(matchDeleteBet);
+          socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
+          socketService.match.sessionResultOff(handleSessionResultDeclare);
+          socketService.match.sessionResultUnDeclareOff(
+            handleSessionResultUnDeclare
+          );
+        };
       }
     } catch (e) {
       console.log(e);
     }
-  }, [success]);
-
-  useEffect(() => {
-    return () => {
-      socketService.match.leaveMatchRoom(state?.matchId);
-      socketService.match.getMatchRatesOff(
-        state?.matchId,
-        updateMatchDetailToRedux
-      );
-      socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
-      socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
-      socketService.match.matchResultDeclaredOff(matchResultDeclared);
-      socketService.match.matchDeleteBetOff(matchDeleteBet);
-      socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
-      socketService.match.sessionResultOff(handleSessionResultDeclare);
-      socketService.match.sessionResultUnDeclareOff(
-        handleSessionResultUnDeclare
-      );
-    };
-  }, []);
+  }, [success, profileDetail?.roleName]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         if (state?.matchId) {
           dispatch(getMatchDetail(state?.matchId));
+          dispatch(getUserProfitLoss(state?.matchId));
           dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
       } else if (document.visibilityState === "hidden") {
@@ -248,6 +247,15 @@ const MatchDetail = () => {
         socketService.match.getMatchRatesOff(
           state?.matchId,
           updateMatchDetailToRedux
+        );
+        socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
+        socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
+        socketService.match.matchResultDeclaredOff(matchResultDeclared);
+        socketService.match.matchDeleteBetOff(matchDeleteBet);
+        socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
+        socketService.match.sessionResultOff(handleSessionResultDeclare);
+        socketService.match.sessionResultUnDeclareOff(
+          handleSessionResultUnDeclare
         );
       }
     };
@@ -396,7 +404,15 @@ const MatchDetail = () => {
               <SessionMarket
                 title={"Quick Session Market"}
                 allBetsData={Array.from(
-                  new Set(matchDetail?.profitLossDataSession)
+                  matchDetail?.profitLossDataSession.reduce(
+                    (acc: any, obj: any) =>
+                      acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                    new Set()
+                  ),
+                  (id) =>
+                    matchDetail?.profitLossDataSession.find(
+                      (obj: any) => obj.id === id
+                    )
                 )}
                 currentMatch={matchDetail}
                 sessionData={matchDetail?.sessionBettings?.filter(
@@ -413,7 +429,15 @@ const MatchDetail = () => {
               <SessionMarket
                 title={"Session Market"}
                 allBetsData={Array.from(
-                  new Set(matchDetail?.profitLossDataSession)
+                  matchDetail?.profitLossDataSession.reduce(
+                    (acc: any, obj: any) =>
+                      acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                    new Set()
+                  ),
+                  (id) =>
+                    matchDetail?.profitLossDataSession.find(
+                      (obj: any) => obj.id === id
+                    )
                 )}
                 currentMatch={matchDetail}
                 sessionData={matchDetail?.apiSession}
@@ -508,7 +532,18 @@ const MatchDetail = () => {
           {placedBets?.length > 0 && (
             <Box sx={{ mt: 0 }}>
               <FullAllBets
-                IObets={placedBets.length > 0 ? placedBets : []}
+                IObets={
+                  placedBets.length > 0
+                    ? Array.from(
+                        placedBets.reduce(
+                          (acc: any, obj: any) =>
+                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                          new Set()
+                        ),
+                        (id) => placedBets.find((obj: any) => obj.id === id)
+                      )
+                    : []
+                }
                 mode={mode}
                 tag={false}
                 setSelectedBetData={setSelectedBetData}
@@ -557,7 +592,17 @@ const MatchDetail = () => {
               )?.length > 0 && (
                 <SessionMarket
                   title={"Quick Session Market"}
-                  allBetsData={matchDetail?.profitLossDataSession}
+                  allBetsData={Array.from(
+                    matchDetail?.profitLossDataSession.reduce(
+                      (acc: any, obj: any) =>
+                        acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                      new Set()
+                    ),
+                    (id) =>
+                      matchDetail?.profitLossDataSession.find(
+                        (obj: any) => obj.id === id
+                      )
+                  )}
                   currentMatch={matchDetail}
                   sessionExposer={"0.00"}
                   sessionData={matchDetail?.sessionBettings?.filter(
@@ -571,7 +616,17 @@ const MatchDetail = () => {
               matchDetail?.apiSession?.length > 0 && (
                 <SessionMarket
                   title={"Session Market"}
-                  allBetsData={matchDetail?.profitLossDataSession}
+                  allBetsData={Array.from(
+                    matchDetail?.profitLossDataSession.reduce(
+                      (acc: any, obj: any) =>
+                        acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                      new Set()
+                    ),
+                    (id) =>
+                      matchDetail?.profitLossDataSession.find(
+                        (obj: any) => obj.id === id
+                      )
+                  )}
                   currentMatch={matchDetail}
                   sessionExposer={"0.00"}
                   sessionData={matchDetail?.apiSession}

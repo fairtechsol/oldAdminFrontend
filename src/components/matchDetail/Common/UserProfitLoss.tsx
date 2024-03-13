@@ -8,16 +8,28 @@ import {
 import Divider from "../../Inplay/Divider";
 import UserProfitLossListComp from "./UserProfitLossListComp";
 import { Refresh } from "../../../assets";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useEffect } from "react";
+import { getUserProfitLoss } from "../../../store/actions/match/matchAction";
+import { useDispatch } from "react-redux";
 
 const UserProfitLoss = (props: any) => {
-  const { title, setShowUserProfitLoss, single, matchDetail } = props;
+  const { title, matchData, setShowUserProfitLoss, single, matchDetail } =
+    props;
   const theme = useTheme();
+  const dispatch: AppDispatch = useDispatch();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const userProfitLoss: any = {
-    teamA: "India",
-    teamB: "Australia",
-    childProfitLoss: [],
-  };
+
+  const { userProfitLossData } = useSelector(
+    (state: RootState) => state.match.userProfitLoss
+  );
+
+  useEffect(() => {
+    if (matchData?.matchId !== undefined) {
+      dispatch(getUserProfitLoss(matchData?.matchId));
+    }
+  }, [matchData?.matchId]);
 
   return (
     <>
@@ -200,11 +212,10 @@ const UserProfitLoss = (props: any) => {
                     },
                     color: "black",
                     fontWeight: "600",
-                    lineHeight: "0.9"
+                    lineHeight: "0.9",
                   }}
-                  
                 >
-                  {matchDetail?.teamA}
+                  {matchDetail?.teamA || matchData?.teamA}
                 </Typography>
               </Box>
               <Box
@@ -230,13 +241,13 @@ const UserProfitLoss = (props: any) => {
                     },
                     color: "black",
                     fontWeight: "600",
-                    lineHeight: "0.9"
+                    lineHeight: "0.9",
                   }}
                 >
-                  {matchDetail?.teamB}
+                  {matchDetail?.teamB || matchData?.teamB}
                 </Typography>
               </Box>
-              {matchDetail?.teamC && (
+              {(matchDetail?.teamC || matchData?.teamC) && (
                 <>
                   <Box
                     sx={{
@@ -261,10 +272,10 @@ const UserProfitLoss = (props: any) => {
                         fontSize: "12px",
                         color: "black",
                         fontWeight: "600",
-                        lineHeight: "0.9"
+                        lineHeight: "0.9",
                       }}
                     >
-                      {matchDetail?.teamC}
+                      {matchDetail?.teamC || matchData?.teamC}
                     </Typography>
                   </Box>
                 </>
@@ -280,11 +291,11 @@ const UserProfitLoss = (props: any) => {
               position: "relative",
             }}
           >
-            {userProfitLoss?.childProfitLoss?.length > 0 &&
-              userProfitLoss?.childProfitLoss?.map((element: any) => {
+            {userProfitLossData?.length > 0 &&
+              userProfitLossData?.map((element: any, index: number) => {
                 return (
                   <Box
-                    key={element?.id}
+                    key={index}
                     sx={{
                       width: "100%",
                       display: element?.betStatus === 2 ? "none" : "block",
@@ -293,7 +304,9 @@ const UserProfitLoss = (props: any) => {
                     <UserProfitLossListComp
                       key={element?.id}
                       element={element}
-                      showTeamC={userProfitLoss?.teamC ? true : false}
+                      showTeamC={
+                        matchDetail?.teamC || matchData?.teamC ? true : false
+                      }
                     />
                     <Divider />
                   </Box>

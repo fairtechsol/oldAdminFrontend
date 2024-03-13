@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, Button } from "@mui/material";
 import { useState } from "react";
-import {  AppDispatch, RootState } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import ListHeader from "./ListHeader";
 import { useSelector } from "react-redux";
@@ -9,12 +9,13 @@ import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
 import SearchInput from "../Common/SearchInput";
 import { Constants } from "../../utils/Constants";
-import { getTotalBalance, handleModelActions } from "../../store/actions/user/userAction";
+import {
+  getTotalBalance,
+  handleModelActions,
+} from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
 
-const AccountListTable = ({
-  endpoint,
-}: any) => {
+const AccountListTable = ({ endpoint }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const dispatch: AppDispatch = useDispatch();
@@ -22,18 +23,18 @@ const AccountListTable = ({
   const { userModalList } = useSelector(
     (state: RootState) => state.user.userList
   );
-  const { totalBalance ,userElement} = useSelector(
+  const { totalBalance, userElement } = useSelector(
     (state: RootState) => state.user.userList
   );
   const handleModal = () => {
     dispatch(getTotalBalance());
     dispatch(
       handleModelActions({
-        url:'',
-        userId: '',
-        roleName: '',
+        url: "",
+        userId: "",
+        roleName: "",
         domain: "",
-        openModal:false,
+        openModal: false,
       })
     );
   };
@@ -43,7 +44,7 @@ const AccountListTable = ({
         sx={[
           {
             marginX: "0.5%",
-            width: { mobile: "96%", laptop: "90%", tablet: "96%" },
+            width: { xs: "96%", lg: "90%", md: "96%" },
             minHeight: "200px",
             borderRadius: "10px",
             borderBottomRightRadius: "0px",

@@ -32,6 +32,7 @@ export const ApiConstants = {
     TOTAL_SESSION_PROFITLOSS: "user/total/session/profitLoss",
     TOTAL_BALANCE: "user/child/totalBalance",
     RUN_AMOUNT: "bet/session/profitLoss",
+    PROFIT_LOSS: "/user/profitLossData"
   },
   SUPERADMIN: {
     ADD: "/superadmin/add",
@@ -41,6 +42,7 @@ export const ApiConstants = {
     EXPOSURE_LIMIT: "/superadmin/update/exposurelimit",
     CREDIT_REFERRENCE: "/superadmin/update/creditreferrence",
     UPDATE_BALANCE: "/superadmin/update/balance",
+    USER_PROFIT_LOSS: "/superadmin/user/profitLossData",
   },
   WALLET: {
     BALANCEUPDATE: "wallet/update/balance",
