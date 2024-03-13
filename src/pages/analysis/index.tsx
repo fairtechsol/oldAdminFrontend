@@ -81,19 +81,25 @@ const Analysis = () => {
   useEffect(() => {
     try {
       if (success && socket?.connected) {
+        socketService.match.matchResultDeclaredOff(getMatchListService);
+        socketService.match.matchResultUnDeclaredOff(getMatchListService);
+        socketService.match.matchAdded(getMatchListService);
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
         socketService.match.matchAdded(getMatchListService);
       }
-      return () => {
-        socketService.match.matchResultDeclaredOff(getMatchListService);
-        socketService.match.matchResultUnDeclaredOff(getMatchListService);
-        socketService.match.matchAdded(getMatchListService);
-      };
     } catch (error) {
       console.log(error);
     }
   }, [success, socket?.connected]);
+
+  useEffect(() => {
+    return () => {
+      socketService.match.matchResultDeclaredOff(getMatchListService);
+      socketService.match.matchResultUnDeclaredOff(getMatchListService);
+      socketService.match.matchAdded(getMatchListService);
+    };
+  }, []);
 
   return (
     <>

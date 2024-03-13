@@ -71,6 +71,9 @@ const Inplay = () => {
           matchListInplay?.matches?.length > 0 &&
           profileDetail?.roleName
         ) {
+          socketService.match.matchResultDeclaredOff(getMatchListService);
+          socketService.match.matchResultUnDeclaredOff(getMatchListService);
+          socketService.match.matchAddedOff(getMatchListService);
           matchListInplay?.matches?.map((item: any) => {
             socketService.match.joinMatchRoom(
               item?.id,
@@ -97,7 +100,7 @@ const Inplay = () => {
       socketService.match.matchResultUnDeclaredOff(getMatchListService);
       socketService.match.matchAddedOff(getMatchListService);
     };
-  }, [matchListInplay?.matches?.length, profileDetail?.roleName]);
+  }, []);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -106,7 +109,6 @@ const Inplay = () => {
         getMatchListService();
       } else if (document.visibilityState === "hidden") {
         matchListInplay?.matches?.map((item: any) => {
-          socketService.match.leaveMatchRoom(item?.id);
           socketService.match.getMatchRatesOff(
             item?.id,
             updateMatchDetailToRedux

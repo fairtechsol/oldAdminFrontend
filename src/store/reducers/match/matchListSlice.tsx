@@ -185,7 +185,7 @@ const matchListSlice = createSlice({
         const { bets, betId, profitLoss } = action.payload;
         if (bets?.length > 0 && state?.matchDetail?.id === bets[0].matchId) {
           const updatedProfitLossDataSession =
-            state.matchDetail?.profitLossDataSession.map((item: any) => {
+            state.matchDetail?.profitLossDataSession?.map((item: any) => {
               console.log(item);
               if (betId === item?.betId) {
                 return {
@@ -222,7 +222,7 @@ const matchListSlice = createSlice({
             ...state.matchDetail,
             profitLossDataSession: Array.from(
               new Set([
-                ...state.matchDetail.profitLossDataSession,
+                ...state.matchDetail?.profitLossDataSession,
                 {
                   betId: betId,
                   maxLoss: profitLossData.maxLoss,
@@ -238,7 +238,7 @@ const matchListSlice = createSlice({
 
         if (
           !state.betPlaceData.some(
-            (item: any) => item.betPlaced.placedBet.betId === betId
+            (item: any) => item.betPlaced?.placedBet?.betId === betId
           )
         ) {
           state.betPlaceData = [...state.betPlaceData, action.payload];
@@ -304,7 +304,7 @@ const matchListSlice = createSlice({
         const { matchId, betId } = action.payload;
         if (state?.matchDetail?.id === matchId) {
           const updatedProfitLossDataSession =
-            state.matchDetail?.profitLossDataSession.filter(
+            state.matchDetail?.profitLossDataSession?.filter(
               (item: any) => betId !== item?.betId
             );
 
