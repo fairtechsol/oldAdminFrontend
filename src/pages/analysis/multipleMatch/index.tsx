@@ -46,6 +46,13 @@ const MultipleMatch = ({}) => {
   );
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
+  const [storedMatchData, setStoredMatchData] = useState({
+    matchId: "",
+    teamA: "",
+    teamB: "",
+    teamC: "",
+  });
+  const [showUserProfitLoss, setShowUserProfitLoss] = useState(false);
   const [selectedBetData, setSelectedBetData] = useState([]);
   const [currentOdds] = useState<any>(null);
   const { multipleMatchDetail, success } = useSelector(
@@ -150,6 +157,22 @@ const MultipleMatch = ({}) => {
     if (state?.matchIds.includes(event?.matchId)) {
       dispatch(updatePlacedbets(event));
       dispatch(updateMaxLossForDeleteBetForMultiMatch(event));
+    }
+  };
+
+  const handleClicked = (item: any) => {
+    try {
+      setStoredMatchData(() => {
+        return {
+          matchId: item?.matchId,
+          teamA: item?.teamA,
+          teamB: item?.teamB,
+          teamC: item?.teamC,
+        };
+      });
+      setShowUserProfitLoss(true);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -302,7 +325,12 @@ const MultipleMatch = ({}) => {
                                 <Button
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    // handleClicked(item?.id);
+                                    handleClicked({
+                                      matchId: item?.id,
+                                      teamA: item?.teamA,
+                                      teamB: item?.teamB,
+                                      teamC: item?.teamC,
+                                    });
                                   }}
                                   sx={{
                                     backgroundColor: "#F8C851",
@@ -544,7 +572,17 @@ const MultipleMatch = ({}) => {
                               </Box>
                               <FullAllBets
                                 tag={false}
-                                IObets={placedBets.filter(
+                                IObets={Array.from(
+                                  placedBets.reduce(
+                                    (acc: any, obj: any) =>
+                                      acc.has(obj.id)
+                                        ? acc
+                                        : acc.add(obj.id) && acc,
+                                    new Set()
+                                  ),
+                                  (id) =>
+                                    placedBets.find((obj: any) => obj.id === id)
+                                ).filter(
                                   (bet: any) =>
                                     (bet?.match?.id || bet?.matchId) ===
                                     item?.id
@@ -576,7 +614,14 @@ const MultipleMatch = ({}) => {
                             >
                               {item?.teamA} V/S {item?.teamB}
                               <Button
-                                // onClick={() => handleClicked(item?.id)}
+                                onClick={() =>
+                                  handleClicked({
+                                    matchId: item?.id,
+                                    teamA: item?.teamA,
+                                    teamB: item?.teamB,
+                                    teamC: item?.teamC,
+                                  })
+                                }
                                 sx={{
                                   backgroundColor: "#F8C851",
                                   fontSize: "10px",
@@ -809,7 +854,17 @@ const MultipleMatch = ({}) => {
                               )}
                             <FullAllBets
                               tag={false}
-                              IObets={placedBets.filter(
+                              IObets={Array.from(
+                                placedBets.reduce(
+                                  (acc: any, obj: any) =>
+                                    acc.has(obj.id)
+                                      ? acc
+                                      : acc.add(obj.id) && acc,
+                                  new Set()
+                                ),
+                                (id) =>
+                                  placedBets.find((obj: any) => obj.id === id)
+                              ).filter(
                                 (bet: any) =>
                                   (bet?.match?.id || bet?.matchId) === item?.id
                               )}
@@ -825,7 +880,7 @@ const MultipleMatch = ({}) => {
             </Box>
           </Box>
           <ModalMUI
-            open={false}
+            open={showUserProfitLoss}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -847,8 +902,8 @@ const MultipleMatch = ({}) => {
               >
                 <UserProfitLoss
                   title={"User Profit Loss"}
-                  //   matchId={storedMatchid}
-                  //   setShowUserProfitLoss={setShowUserProfitLoss}
+                  matchData={storedMatchData}
+                  setShowUserProfitLoss={setShowUserProfitLoss}
                   single={"multiple"}
                 />
               </Box>
@@ -909,7 +964,14 @@ const MultipleMatch = ({}) => {
                         >
                           {item?.teamA} V/S {item?.teamB}
                           <Button
-                            // onClick={() => handleClicked(item?.id)}
+                            onClick={() =>
+                              handleClicked({
+                                matchId: item?.id,
+                                teamA: item?.teamA,
+                                teamB: item?.teamB,
+                                teamC: item?.teamC,
+                              })
+                            }
                             sx={{
                               backgroundColor: "#F8C851",
                               fontSize: "10px",
@@ -1120,7 +1182,14 @@ const MultipleMatch = ({}) => {
                           )}
                         <FullAllBets
                           tag={false}
-                          IObets={placedBets.filter(
+                          IObets={Array.from(
+                            placedBets.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                              new Set()
+                            ),
+                            (id) => placedBets.find((obj: any) => obj.id === id)
+                          ).filter(
                             (bet: any) =>
                               (bet?.match?.id || bet?.matchId) === item?.id
                           )}
@@ -1134,7 +1203,7 @@ const MultipleMatch = ({}) => {
             </Box>
           </Box>
           <ModalMUI
-            open={false}
+            open={showUserProfitLoss}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
@@ -1156,8 +1225,8 @@ const MultipleMatch = ({}) => {
               >
                 <UserProfitLoss
                   title={"User Profit Loss"}
-                  //   matchId={storedMatchid}
-                  //   setShowUserProfitLoss={setShowUserProfitLoss}
+                  matchData={storedMatchData}
+                  setShowUserProfitLoss={setShowUserProfitLoss}
                   single={"multiple"}
                 />
               </Box>

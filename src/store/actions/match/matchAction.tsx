@@ -149,7 +149,7 @@ export const getUserProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.SUPERADMIN.USER_PROFIT_LOSS}/${requestData?.matchId}`
+        `${ApiConstants.USER.PROFIT_LOSS}/${requestData}`
       );
       if (resp?.data) {
         return resp?.data;
