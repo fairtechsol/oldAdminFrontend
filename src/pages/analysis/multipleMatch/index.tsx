@@ -217,6 +217,7 @@ const MultipleMatch = ({}) => {
       if (document.visibilityState === "visible") {
         if (state?.matchIds) {
           dispatch(getMultipleMatchDetail(state?.matchIds));
+          dispatch(resetSessionProfitLoss());
           dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         }
       } else if (document.visibilityState === "hidden") {

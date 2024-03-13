@@ -132,34 +132,34 @@ export const Constants = {
 
 // use below baseUrl for testing build
 
-export const baseUrls = {
-  socket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.apiBasePath}`
-      : `${Constants.localPath}`,
-  thirdParty:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.thirdParty}`
-      : `${Constants.localPathThird}`,
-  expertSocket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.expertPath}`
-      : `${Constants.localPathExpert}`,
-};
-
-// use below baseUrl for live build
-
 // export const baseUrls = {
 //   socket:
 //     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePathLive}`
+//       ? `${Constants.apiBasePath}`
 //       : `${Constants.localPath}`,
 //   thirdParty:
 //     process.env.NODE_ENV === "production"
-//       ? `${Constants.thirdPartyLive}`
+//       ? `${Constants.thirdParty}`
 //       : `${Constants.localPathThird}`,
 //   expertSocket:
 //     process.env.NODE_ENV === "production"
-//       ? `${Constants.expertPathLive}`
+//       ? `${Constants.expertPath}`
 //       : `${Constants.localPathExpert}`,
 // };
+
+// use below baseUrl for live build
+
+export const baseUrls = {
+  socket:
+    process.env.NODE_ENV === "production"
+      ? `${Constants.apiBasePathLive}`
+      : `${Constants.localPath}`,
+  thirdParty:
+    process.env.NODE_ENV === "production"
+      ? `${Constants.thirdPartyLive}`
+      : `${Constants.localPathThird}`,
+  expertSocket:
+    process.env.NODE_ENV === "production"
+      ? `${Constants.expertPathLive}`
+      : `${Constants.localPathExpert}`,
+};
