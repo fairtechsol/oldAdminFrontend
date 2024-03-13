@@ -63,9 +63,8 @@ const Header = () => {
       cursor: "pointer",
     },
     RenderLogoCompStyleImg: {
-      height: { lg: "45px", xs: "30px" },
+      height: { lg: "4rem", xs: "3rem" },
       width: "100%",
-      marginTop: "12px",
       marginLeft: { lg: "20px", xs: "10px" },
     },
     BoxCont1sub1ButtonHead1boxStyle: {
