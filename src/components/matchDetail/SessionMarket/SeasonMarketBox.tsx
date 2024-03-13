@@ -52,9 +52,10 @@ const SeasonMarketBox = (props: any) => {
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "14px", md: "11px", xs: "10px" },
+              fontSize: { lg: "12px", md: "11px", xs: "10px" },
               marginLeft: "7px",
               fontWeight: "600",
+              lineHeight:'10px'
             }}
           >
             {newData?.name ?? newData?.RunnerName}
@@ -62,7 +63,7 @@ const SeasonMarketBox = (props: any) => {
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "12px", md: "10px", xs: "9px" },
+              fontSize: { lg: "9px", md: "9px", xs: "9px" },
               marginLeft: "7px",
               fontWeight: "600",
             }}
