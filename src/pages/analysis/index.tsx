@@ -265,9 +265,8 @@ const Analysis = () => {
                   Constants.pageLimit
               )}
               color="primary"
-              onChange={(e: any, value: number) => {
+              onChange={(_, value: number) => {
                 setCurrentPage(value);
-                console.log(e);
               }}
             />
           </>

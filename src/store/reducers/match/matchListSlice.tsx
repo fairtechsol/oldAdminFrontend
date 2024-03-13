@@ -218,18 +218,19 @@ const matchListSlice = createSlice({
       .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
         const { betId, matchId, profitLossData } = action.payload;
         if (state?.matchDetail?.id === matchId) {
-          state.matchDetail.profitLossDataSession = Array.from(
-            new Set([
-              ...state.matchDetail.profitLossDataSession,
-              {
-                betId: betId,
-                maxLoss: profitLossData
-                  .maxLoss,
-                totalBet: profitLossData.totalBet,
-              },
-            ])
-          );
-          
+          state.matchDetail = {
+            ...state.matchDetail,
+            profitLossDataSession: Array.from(
+              new Set([
+                ...state.matchDetail.profitLossDataSession,
+                {
+                  betId: betId,
+                  maxLoss: profitLossData.maxLoss,
+                  totalBet: profitLossData.totalBet,
+                },
+              ])
+            ),
+          };
         }
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {
@@ -253,7 +254,9 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {
         const { userRedisObj, jobData } = action.payload;
-        if (["tiedMatch2", "tiedMatch1"].includes(jobData?.newBet?.marketType)) {
+        if (
+          ["tiedMatch2", "tiedMatch1"].includes(jobData?.newBet?.marketType)
+        ) {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             yesRateTie: userRedisObj[jobData?.teamArateRedisKey],
@@ -298,16 +301,18 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(amountupdate.fulfilled, (state, action) => {
-        const { matchId, betId} = action.payload;
+        const { matchId, betId } = action.payload;
         if (state?.matchDetail?.id === matchId) {
-          const updatedProfitLossDataSession = state.matchDetail?.profitLossDataSession
-            .filter((item: any) => betId !== item?.betId);
-        
+          const updatedProfitLossDataSession =
+            state.matchDetail?.profitLossDataSession.filter(
+              (item: any) => betId !== item?.betId
+            );
+
           state.matchDetail = {
             ...state.matchDetail,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        }else {
+        } else {
           return state.matchDetail;
         }
       });

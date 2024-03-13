@@ -41,6 +41,7 @@ export const ApiConstants = {
     EXPOSURE_LIMIT: "/superadmin/update/exposurelimit",
     CREDIT_REFERRENCE: "/superadmin/update/creditreferrence",
     UPDATE_BALANCE: "/superadmin/update/balance",
+    USER_PROFIT_LOSS: "/superadmin/user/profitLossData",
   },
   WALLET: {
     BALANCEUPDATE: "wallet/update/balance",

@@ -144,6 +144,23 @@ export const getCompetitionMatches = createAsyncThunk<any, any>(
   }
 );
 
+export const getUserProfitLoss = createAsyncThunk<any, any>(
+  "get/userProfitLoss",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.SUPERADMIN.USER_PROFIT_LOSS}/${requestData?.matchId}`
+      );
+      if (resp?.data) {
+        return resp?.data;
+      }
+    } catch (error) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const AllBetDelete = createAsyncThunk<any, any>(
   "bet/allbet",
   async (requestData, thunkApi) => {

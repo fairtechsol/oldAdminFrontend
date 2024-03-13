@@ -417,7 +417,17 @@ const MultipleMatch = ({}) => {
                                 <SessionMarket
                                   title={"Quick Session Market"}
                                   allBetsData={Array.from(
-                                    new Set(item?.profitLossDataSession)
+                                    item?.profitLossDataSession.reduce(
+                                      (acc: any, obj: any) =>
+                                        acc.has(obj.id)
+                                          ? acc
+                                          : acc.add(obj.id) && acc,
+                                      new Set()
+                                    ),
+                                    (id) =>
+                                      item?.profitLossDataSession.find(
+                                        (obj: any) => obj.id === id
+                                      )
                                   )}
                                   // match={"multiple"}
                                   //   currentOdds={currentOdds}
@@ -442,7 +452,17 @@ const MultipleMatch = ({}) => {
                                 <SessionMarket
                                   title={"Session Market"}
                                   allBetsData={Array.from(
-                                    new Set(item?.profitLossDataSession)
+                                    item?.profitLossDataSession.reduce(
+                                      (acc: any, obj: any) =>
+                                        acc.has(obj.id)
+                                          ? acc
+                                          : acc.add(obj.id) && acc,
+                                      new Set()
+                                    ),
+                                    (id) =>
+                                      item?.profitLossDataSession.find(
+                                        (obj: any) => obj.id === id
+                                      )
                                   )}
                                   match={"multiple"}
                                   //   currentOdds={currentOdds}
@@ -705,7 +725,17 @@ const MultipleMatch = ({}) => {
                               <SessionMarket
                                 title={"Quick Session Market"}
                                 allBetsData={Array.from(
-                                  new Set(item?.profitLossDataSession)
+                                  item?.profitLossDataSession.reduce(
+                                    (acc: any, obj: any) =>
+                                      acc.has(obj.id)
+                                        ? acc
+                                        : acc.add(obj.id) && acc,
+                                    new Set()
+                                  ),
+                                  (id) =>
+                                    item?.profitLossDataSession.find(
+                                      (obj: any) => obj.id === id
+                                    )
                                 )}
                                 sessionData={item?.sessionBettings}
                                 currentMatch={item}
@@ -719,7 +749,17 @@ const MultipleMatch = ({}) => {
                               <SessionMarket
                                 title={"Session Market"}
                                 allBetsData={Array.from(
-                                  new Set(item?.profitLossDataSession)
+                                  item?.profitLossDataSession.reduce(
+                                    (acc: any, obj: any) =>
+                                      acc.has(obj.id)
+                                        ? acc
+                                        : acc.add(obj.id) && acc,
+                                    new Set()
+                                  ),
+                                  (id) =>
+                                    item?.profitLossDataSession.find(
+                                      (obj: any) => obj.id === id
+                                    )
                                 )}
                                 match={"multiple"}
                                 currentMatch={item}
@@ -987,7 +1027,17 @@ const MultipleMatch = ({}) => {
                           <SessionMarket
                             title={"Quick Session Market"}
                             allBetsData={Array.from(
-                              new Set(item?.profitLossDataSession)
+                              item?.profitLossDataSession.reduce(
+                                (acc: any, obj: any) =>
+                                  acc.has(obj.id)
+                                    ? acc
+                                    : acc.add(obj.id) && acc,
+                                new Set()
+                              ),
+                              (id) =>
+                                item?.profitLossDataSession.find(
+                                  (obj: any) => obj.id === id
+                                )
                             )}
                             // match={"multiple"}
                             currentMatch={item}
@@ -1007,7 +1057,17 @@ const MultipleMatch = ({}) => {
                           <SessionMarket
                             title={"Session Market"}
                             allBetsData={Array.from(
-                              new Set(item?.profitLossDataSession)
+                              item?.profitLossDataSession.reduce(
+                                (acc: any, obj: any) =>
+                                  acc.has(obj.id)
+                                    ? acc
+                                    : acc.add(obj.id) && acc,
+                                new Set()
+                              ),
+                              (id) =>
+                                item?.profitLossDataSession.find(
+                                  (obj: any) => obj.id === id
+                                )
                             )}
                             match={"multiple"}
                             currentMatch={item}
