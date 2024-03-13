@@ -83,7 +83,7 @@ const Analysis = () => {
       if (success && socket?.connected) {
         socketService.match.matchResultDeclaredOff(getMatchListService);
         socketService.match.matchResultUnDeclaredOff(getMatchListService);
-        socketService.match.matchAdded(getMatchListService);
+        socketService.match.matchAddedOff(getMatchListService);
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
         socketService.match.matchAdded(getMatchListService);
@@ -97,7 +97,7 @@ const Analysis = () => {
     return () => {
       socketService.match.matchResultDeclaredOff(getMatchListService);
       socketService.match.matchResultUnDeclaredOff(getMatchListService);
-      socketService.match.matchAdded(getMatchListService);
+      socketService.match.matchAddedOff(getMatchListService);
     };
   }, []);
 
