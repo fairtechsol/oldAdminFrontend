@@ -9,6 +9,7 @@ import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { updateMatchListRates } from "../../store/actions/match/matchAction";
 import { socketService } from "../../socketManager";
+import { formatToINR } from "../../helper";
 
 const MatchComponent = (props: MatchComponentInterface) => {
   const { onClick, top, blur, match } = props;
@@ -288,8 +289,8 @@ const MatchComponent = (props: MatchComponentInterface) => {
                   marginLeft: "7px",
                 }}
               >
-                MIN: {Math.floor(match?.matchOdds[0]?.minBet)} MAX:{" "}
-                {Math.floor(match?.matchOdds[0]?.maxBet)}
+                MIN: {formatToINR(Math.floor(match?.matchOdds[0]?.minBet))} MAX:{" "}
+                {formatToINR(Math.floor(match?.matchOdds[0]?.maxBet))}
               </Typography>
             </Box>
             <Box
