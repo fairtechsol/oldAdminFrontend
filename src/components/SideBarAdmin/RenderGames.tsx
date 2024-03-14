@@ -3,13 +3,27 @@ import MainBox from "./MainBox";
 import RenderEvents from "./RenderEvents";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { getCompetitionList } from "../../store/actions/match/matchAction";
+import {
+  getCompetitionList,
+  resetCompetitionDates,
+  resetCompetitionMatches,
+  resetcompetitionList,
+} from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 
-const RenderGames = ({ games, handleDrawerToggle, colors }: any) => {
+const RenderGames = ({
+  games,
+  handleDrawerToggle,
+  colors,
+  selected,
+  setSelected,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [selected, setSelected] = useState(false);
+  const [selectedCompetitionId, setSelectedCompetitionId] = useState({
+    value: false,
+    competitionId: "",
+  });
 
   const { competitionList } = useSelector(
     (state: RootState) => state.match.sideBarList
@@ -19,8 +33,19 @@ const RenderGames = ({ games, handleDrawerToggle, colors }: any) => {
     <Box
       onClick={(event: React.SyntheticEvent) => {
         event.stopPropagation();
-        dispatch(getCompetitionList(games?.value));
-        setSelected(!selected);
+        if (selected?.matchType !== games?.value) {
+          setSelected({ value: true, matchType: games?.value });
+          dispatch(getCompetitionList(games?.value));
+          dispatch(resetCompetitionDates());
+          dispatch(resetCompetitionMatches());
+          setSelectedCompetitionId({
+            value: false,
+            competitionId: "",
+          });
+        } else {
+          setSelected({ value: false, matchType: "" });
+          dispatch(resetcompetitionList());
+        }
       }}
       sx={{
         width: "100%",
@@ -31,13 +56,14 @@ const RenderGames = ({ games, handleDrawerToggle, colors }: any) => {
     >
       <MainBox
         sub={games?.sub}
-        selected={selected}
-        under={true}
+        selected={selected?.value}
+        under={selected?.matchType === games?.value}
         color={colors[1]}
         width={90}
-        title={games.title}
+        title={games?.title}
       />
-      {selected &&
+      {selected?.value &&
+        selected?.matchType === games?.value &&
         competitionList.length > 0 &&
         competitionList?.map((item: any) => {
           return (
@@ -46,6 +72,8 @@ const RenderGames = ({ games, handleDrawerToggle, colors }: any) => {
               handleDrawerToggle={handleDrawerToggle}
               i={item}
               colors={colors}
+              selectedCompetitionId={selectedCompetitionId}
+              setSelectedCompetitionId={setSelectedCompetitionId}
             />
           );
         })}
