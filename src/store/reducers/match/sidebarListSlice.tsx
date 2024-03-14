@@ -4,6 +4,9 @@ import {
   getCompetitionDates,
   getCompetitionList,
   getCompetitionMatches,
+  resetCompetitionDates,
+  resetCompetitionMatches,
+  resetcompetitionList,
 } from "../../actions/match/matchAction";
 
 interface InitialState {
@@ -87,6 +90,15 @@ const sidebarListSlice = createSlice({
       .addCase(getCompetitionMatches.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(resetcompetitionList, (state) => {
+        return { ...state, competitionList: [] };
+      })
+      .addCase(resetCompetitionDates, (state) => {
+        return { ...state, competitionDates: [] };
+      })
+      .addCase(resetCompetitionMatches, (state) => {
+        return { ...state, competitionMatches: [] };
       });
   },
 });

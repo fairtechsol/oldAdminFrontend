@@ -18,7 +18,7 @@ const MainBox = (props: any) => {
         alignSelf: "flex-end",
         marginBottom: ".5vh",
         marginRight: "3px",
-        opacity: selected && under ? 1 : 0.8,
+        opacity: selected?.value && under ? 1 : 0.8,
         "&:hover": {
           cursor: "pointer",
           background: color,
@@ -69,7 +69,8 @@ const MainBox = (props: any) => {
             style={{
               width: "15px",
               height: "8px",
-              transform: selected && under ? "rotate(0deg)" : "rotate(180deg)",
+              transform:
+                selected?.value && under ? "rotate(0deg)" : "rotate(180deg)",
             }}
             src={ARROWDROPDOWN}
           />

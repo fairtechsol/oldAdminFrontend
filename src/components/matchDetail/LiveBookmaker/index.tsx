@@ -4,6 +4,7 @@ import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import SmallBox from "../MatchOdds/SmallBox";
 import Divider from "../../Inplay/Divider";
 import BoxComponent from "./BoxComponent";
+import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 
 const LiveBookmaker = (props: any) => {
   const {
@@ -18,6 +19,8 @@ const LiveBookmaker = (props: any) => {
     maxBet,
     showBox,
     upcoming,
+    handleBlock,
+    handleHide,
   } = props;
 
   const [visible, setVisible] = useState(true);
@@ -36,6 +39,10 @@ const LiveBookmaker = (props: any) => {
 
   const handleLock = (data: any) => {
     return data?.ex?.availableToLay?.length > 0 ? false : true;
+  };
+
+  const onSubmit = (value: any) => {
+    handleBlock(value, !locked, "BOOKMAKER");
   };
   return (
     <Box
@@ -348,12 +355,12 @@ const LiveBookmaker = (props: any) => {
             zIndex: 999,
           }}
         >
-          {/* <UnlockComponent
+          <UnlockComponent
             unlock={locked}
             title={(locked ? "Unlock " : "Lock ") + "Bookmaker Market"}
             handleHide={handleHide}
             onSubmit={onSubmit}
-          /> */}
+          />
         </Box>
       )}
     </Box>

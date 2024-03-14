@@ -282,3 +282,6 @@ export const updatePlacedbets = createAsyncThunk<any, any>(
 
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");
+export const resetcompetitionList = createAction("competitionList/reset");
+export const resetCompetitionDates = createAction("competitionDates/reset");
+export const resetCompetitionMatches = createAction("competitionMatches/reset");
