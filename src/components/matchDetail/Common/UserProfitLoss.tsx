@@ -85,7 +85,7 @@ const UserProfitLoss = (props: any) => {
               <img
                 onClick={(event) => {
                   event.preventDefault();
-                  //   getChildProfitLoss(matchId);
+                  dispatch(getUserProfitLoss(matchData?.matchId));
                 }}
                 src={Refresh}
                 style={{
@@ -132,7 +132,7 @@ const UserProfitLoss = (props: any) => {
             ) : (
               <img
                 onClick={() => {
-                  //   getChildProfitLoss(matchId);
+                  dispatch(getUserProfitLoss(matchDetail?.id));
                 }}
                 src={Refresh}
                 style={{
