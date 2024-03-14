@@ -41,7 +41,7 @@ const Login = () => {
     },
   });
 
-  const { handleSubmit, touched, errors, isSubmitting, setSubmitting } = formik;
+  const { handleSubmit, touched, errors, setSubmitting } = formik;
 
   useEffect(() => {
     if (success) {

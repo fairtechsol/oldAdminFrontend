@@ -63,12 +63,12 @@ const SeasonMarketBox = (props: any) => {
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "9px", md: "9px", xs: "9px" },
+              fontSize: { lg: "9px", md: "9px", xs: "8px" },
               marginLeft: "7px",
-              fontWeight: "600",
+              fontWeight: "500",
             }}
           >
-           MAX: {newData?.maxBet ?? newData?.max}
+           max: {newData?.maxBet ?? newData?.max}
           </Typography>
           </Typography>
           
