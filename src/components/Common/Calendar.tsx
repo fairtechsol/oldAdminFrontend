@@ -14,6 +14,7 @@ const Calendar = (props: any) => {
     pickerStyles,
     startDate,
     setStartDate,
+    limit
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -47,6 +48,7 @@ const Calendar = (props: any) => {
           }}
           {...DatePickerProps}
           customInput={<Box sx={[{ width: "10vw" }]}></Box>}
+          minDate={limit ?? limit}
         />
       </Box>
       <Box

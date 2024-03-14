@@ -101,6 +101,7 @@ const ProfitLossHeader = (props: any) => {
                 startDate={endDate}
                 setStartDate={setEndDate}
                 sx={{ width: "50%" }}
+                limit={startDate}
               />
             </Box>
             <Box sx={{ width: "10px" }}></Box>
