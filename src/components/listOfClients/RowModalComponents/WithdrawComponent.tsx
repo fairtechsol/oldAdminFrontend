@@ -433,7 +433,7 @@ const WithdrawComponent = (props: any) => {
                   />
                   {touched.transactionPassword &&
                     errors.transactionPassword && (
-                      <p style={{ color: "#fa1e1e" }}>
+                      <p style={{ color: "#fa1e1e", lineHeight: "0.8" }}>
                         {errors.transactionPassword as string}
                       </p>
                     )}
