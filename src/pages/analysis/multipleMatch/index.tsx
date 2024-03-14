@@ -460,19 +460,23 @@ const MultipleMatch = ({}) => {
                               {item?.manualSessionActive && (
                                 <SessionMarket
                                   title={"Quick Session Market"}
-                                  allBetsData={Array.from(
-                                    item?.profitLossDataSession?.reduce(
-                                      (acc: any, obj: any) =>
-                                        acc.has(obj.id)
-                                          ? acc
-                                          : acc.add(obj.id) && acc,
-                                      new Set()
-                                    ),
-                                    (id) =>
-                                      item?.profitLossDataSession?.find(
-                                        (obj: any) => obj.id === id
-                                      )
-                                  )}
+                                  allBetsData={
+                                    item?.profitLossDataSession
+                                      ? Array.from(
+                                          item?.profitLossDataSession?.reduce(
+                                            (acc: any, obj: any) =>
+                                              acc.has(obj.id)
+                                                ? acc
+                                                : acc.add(obj.id) && acc,
+                                            new Set()
+                                          ),
+                                          (id) =>
+                                            item?.profitLossDataSession?.find(
+                                              (obj: any) => obj.id === id
+                                            )
+                                        )
+                                      : []
+                                  }
                                   // match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={QuicksessionData}
@@ -495,19 +499,23 @@ const MultipleMatch = ({}) => {
                               {item?.apiSessionActive && (
                                 <SessionMarket
                                   title={"Session Market"}
-                                  allBetsData={Array.from(
-                                    item?.profitLossDataSession?.reduce(
-                                      (acc: any, obj: any) =>
-                                        acc.has(obj.id)
-                                          ? acc
-                                          : acc.add(obj.id) && acc,
-                                      new Set()
-                                    ),
-                                    (id) =>
-                                      item?.profitLossDataSession?.find(
-                                        (obj: any) => obj.id === id
-                                      )
-                                  )}
+                                  allBetsData={
+                                    item?.profitLossDataSession
+                                      ? Array.from(
+                                          item?.profitLossDataSession?.reduce(
+                                            (acc: any, obj: any) =>
+                                              acc.has(obj.id)
+                                                ? acc
+                                                : acc.add(obj.id) && acc,
+                                            new Set()
+                                          ),
+                                          (id) =>
+                                            item?.profitLossDataSession?.find(
+                                              (obj: any) => obj.id === id
+                                            )
+                                        )
+                                      : []
+                                  }
                                   match={"multiple"}
                                   //   currentOdds={currentOdds}
                                   sessionData={item?.apiSession}
@@ -785,19 +793,23 @@ const MultipleMatch = ({}) => {
                             {item?.apiSessionActive && (
                               <SessionMarket
                                 title={"Quick Session Market"}
-                                allBetsData={Array.from(
-                                  item?.profitLossDataSession?.reduce(
-                                    (acc: any, obj: any) =>
-                                      acc.has(obj.id)
-                                        ? acc
-                                        : acc.add(obj.id) && acc,
-                                    new Set()
-                                  ),
-                                  (id) =>
-                                    item?.profitLossDataSession?.find(
-                                      (obj: any) => obj.id === id
-                                    )
-                                )}
+                                allBetsData={
+                                  item?.profitLossDataSession
+                                    ? Array.from(
+                                        item?.profitLossDataSession?.reduce(
+                                          (acc: any, obj: any) =>
+                                            acc.has(obj.id)
+                                              ? acc
+                                              : acc.add(obj.id) && acc,
+                                          new Set()
+                                        ),
+                                        (id) =>
+                                          item?.profitLossDataSession?.find(
+                                            (obj: any) => obj.id === id
+                                          )
+                                      )
+                                    : []
+                                }
                                 sessionData={item?.sessionBettings}
                                 currentMatch={item}
                                 sessionOffline={item?.sessionOffline}
@@ -809,19 +821,23 @@ const MultipleMatch = ({}) => {
                             {item?.manualSessionActive && (
                               <SessionMarket
                                 title={"Session Market"}
-                                allBetsData={Array.from(
-                                  item?.profitLossDataSession?.reduce(
-                                    (acc: any, obj: any) =>
-                                      acc.has(obj.id)
-                                        ? acc
-                                        : acc.add(obj.id) && acc,
-                                    new Set()
-                                  ),
-                                  (id) =>
-                                    item?.profitLossDataSession?.find(
-                                      (obj: any) => obj.id === id
-                                    )
-                                )}
+                                allBetsData={
+                                  item?.profitLossDataSession
+                                    ? Array.from(
+                                        item?.profitLossDataSession?.reduce(
+                                          (acc: any, obj: any) =>
+                                            acc.has(obj.id)
+                                              ? acc
+                                              : acc.add(obj.id) && acc,
+                                          new Set()
+                                        ),
+                                        (id) =>
+                                          item?.profitLossDataSession?.find(
+                                            (obj: any) => obj.id === id
+                                          )
+                                      )
+                                    : []
+                                }
                                 match={"multiple"}
                                 currentMatch={item}
                                 sessionData={item?.apiSession}
@@ -1104,19 +1120,23 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Quick Session Market"}
-                            allBetsData={Array.from(
-                              item?.profitLossDataSession?.reduce(
-                                (acc: any, obj: any) =>
-                                  acc.has(obj.id)
-                                    ? acc
-                                    : acc.add(obj.id) && acc,
-                                new Set()
-                              ),
-                              (id) =>
-                                item?.profitLossDataSession?.find(
-                                  (obj: any) => obj.id === id
-                                )
-                            )}
+                            allBetsData={
+                              item?.profitLossDataSession
+                                ? Array.from(
+                                    item?.profitLossDataSession?.reduce(
+                                      (acc: any, obj: any) =>
+                                        acc.has(obj.id)
+                                          ? acc
+                                          : acc.add(obj.id) && acc,
+                                      new Set()
+                                    ),
+                                    (id) =>
+                                      item?.profitLossDataSession?.find(
+                                        (obj: any) => obj.id === id
+                                      )
+                                  )
+                                : []
+                            }
                             // match={"multiple"}
                             currentMatch={item}
                             sessionData={QuicksessionData}
@@ -1134,19 +1154,23 @@ const MultipleMatch = ({}) => {
                         {item?.apiSessionActive && (
                           <SessionMarket
                             title={"Session Market"}
-                            allBetsData={Array.from(
-                              item?.profitLossDataSession?.reduce(
-                                (acc: any, obj: any) =>
-                                  acc.has(obj.id)
-                                    ? acc
-                                    : acc.add(obj.id) && acc,
-                                new Set()
-                              ),
-                              (id) =>
-                                item?.profitLossDataSession?.find(
-                                  (obj: any) => obj.id === id
-                                )
-                            )}
+                            allBetsData={
+                              item?.profitLossDataSession
+                                ? Array.from(
+                                    item?.profitLossDataSession?.reduce(
+                                      (acc: any, obj: any) =>
+                                        acc.has(obj.id)
+                                          ? acc
+                                          : acc.add(obj.id) && acc,
+                                      new Set()
+                                    ),
+                                    (id) =>
+                                      item?.profitLossDataSession?.find(
+                                        (obj: any) => obj.id === id
+                                      )
+                                  )
+                                : []
+                            }
                             match={"multiple"}
                             currentMatch={item}
                             sessionData={item?.apiSession}

@@ -4,13 +4,26 @@ import { Box } from "@mui/material";
 import RenderDates from "./RenderDates";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { getCompetitionDates } from "../../store/actions/match/matchAction";
+import {
+  getCompetitionDates,
+  resetCompetitionDates,
+  resetCompetitionMatches,
+} from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
 
 const RenderEvents = (props: any) => {
-  const { i, handleDrawerToggle, colors } = props;
+  const {
+    i,
+    handleDrawerToggle,
+    colors,
+    selectedCompetitionId,
+    setSelectedCompetitionId,
+  } = props;
   const dispatch: AppDispatch = useDispatch();
-  const [selected, setSelected] = useState(false);
+  const [selectedCompetitionDate, setSelectedCompertitionDate] = useState({
+    value: false,
+    startdate: "",
+  });
 
   const { competitionDates } = useSelector(
     (state: RootState) => state.match.sideBarList
@@ -20,8 +33,21 @@ const RenderEvents = (props: any) => {
     <Box
       onClick={(event: React.SyntheticEvent) => {
         event.stopPropagation();
-        dispatch(getCompetitionDates(i?.competitionId));
-        setSelected(!selected);
+        if (
+          selectedCompetitionId?.competitionId !== i?.competitionId &&
+          i?.competitionId !== ""
+        ) {
+          setSelectedCompetitionId({
+            value: true,
+            competitionId: i?.competitionId,
+          });
+          dispatch(getCompetitionDates(i?.competitionId));
+          dispatch(resetCompetitionMatches());
+          setSelectedCompertitionDate({ value: false, startdate: "" });
+        } else {
+          setSelectedCompetitionId({ value: false, competitionId: "" });
+          dispatch(resetCompetitionDates());
+        }
       }}
       sx={{
         width: "100%",
@@ -32,13 +58,17 @@ const RenderEvents = (props: any) => {
     >
       <MainBox
         sub={i?.sub}
-        selected={selected}
-        under={true}
+        selected={selectedCompetitionId?.value}
+        under={
+          selectedCompetitionId?.competitionId === i?.competitionId &&
+          i?.competitionId !== ""
+        }
         color={colors[0]}
         width={85}
         title={i?.competitionName}
       />
-      {selected &&
+      {selectedCompetitionId?.value &&
+        selectedCompetitionId?.competitionId === i?.competitionId &&
         competitionDates.length > 0 &&
         competitionDates?.map((dates: any, index: any) => {
           return (
@@ -47,7 +77,9 @@ const RenderEvents = (props: any) => {
               i={dates}
               key={index}
               colors={colors}
-              competitionId={i.competitionId}
+              competitionId={i?.competitionId}
+              selectedCompetitionDate={selectedCompetitionDate}
+              setSelectedCompertitionDate={setSelectedCompertitionDate}
             />
           );
         })}

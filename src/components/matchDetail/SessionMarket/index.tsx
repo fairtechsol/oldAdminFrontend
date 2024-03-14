@@ -5,6 +5,7 @@ import Divider from "../../Inplay/Divider";
 import SeasonMarketBox from "./SeasonMarketBox";
 import { useState } from "react";
 import { customSort } from "../../../helper";
+import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 
 const SessionMarket = (props: any) => {
   const theme = useTheme();
@@ -20,8 +21,14 @@ const SessionMarket = (props: any) => {
     sessionData,
     allBetsData,
     currentMatch,
+    handleBlock,
+    handleHide,
   } = props;
   const [visible, setVisible] = useState(true);
+
+  const onSubmit = (value: any) => {
+    handleBlock(value, !locked, "SESSION");
+  };
 
   return (
     <>
@@ -142,9 +149,15 @@ const SessionMarket = (props: any) => {
                     let total = Number(acc) + Number(bet?.maxLoss);
                     return Number(total)?.toFixed(2);
                   }, 0)} */}
-                  {new Intl.NumberFormat("en-IN").format(parseFloat(allBetsData?.reduce((acc: number, bet: any) => {
-                    return acc + (Number(bet?.maxLoss) || 0);
-                  }, 0).toFixed(2)))}
+                  {new Intl.NumberFormat("en-IN").format(
+                    parseFloat(
+                      allBetsData
+                        ?.reduce((acc: number, bet: any) => {
+                          return acc + (Number(bet?.maxLoss) || 0);
+                        }, 0)
+                        .toFixed(2)
+                    )
+                  )}
                 </Typography>
               </Box>
             </Box>
@@ -200,7 +213,7 @@ const SessionMarket = (props: any) => {
                       marginLeft: "7px",
                     }}
                   >
-                    MIN: {min} 
+                    MIN: {min}
                     {/* MAX:
                     {max} */}
                   </Typography>
@@ -333,18 +346,18 @@ const SessionMarket = (props: any) => {
                           newData={
                             title === "Session Market"
                               ? {
-                                ...element,
-                                noRate: element.LayPrice1 ?? 0,
-                                noPercent: element.LaySize1 ?? 0,
-                                yesRate: element.BackPrice1 ?? 0,
-                                yesPercent: element.BackSize1 ?? 0,
-                                status:
-                                  element?.GameStatus &&
+                                  ...element,
+                                  noRate: element.LayPrice1 ?? 0,
+                                  noPercent: element.LaySize1 ?? 0,
+                                  yesRate: element.BackPrice1 ?? 0,
+                                  yesPercent: element.BackSize1 ?? 0,
+                                  status:
+                                    element?.GameStatus &&
                                     element?.GameStatus !== ""
-                                    ? element?.GameStatus
-                                    : "active",
-                                matchId: currentMatch?.id,
-                              }
+                                      ? element?.GameStatus
+                                      : "active",
+                                  matchId: currentMatch?.id,
+                                }
                               : JSON.parse(element)
                           }
                           profitLossData={allBetsData?.filter(
@@ -373,12 +386,12 @@ const SessionMarket = (props: any) => {
                   zIndex: 999,
                 }}
               >
-                {/* <UnlockComponent
+                <UnlockComponent
                   unlock={locked}
                   title={(locked ? "Unlock " : "Lock ") + title}
                   handleHide={handleHide}
                   onSubmit={onSubmit}
-                /> */}
+                />
               </Box>
             )}
             {showUnlock && (
@@ -393,12 +406,12 @@ const SessionMarket = (props: any) => {
                   zIndex: 999,
                 }}
               >
-                {/* <UnlockComponent
+                <UnlockComponent
                   unlock={locked}
                   title={(locked ? "Unlock " : "Lock ") + title}
                   handleHide={handleHide}
                   onSubmit={onSubmit}
-                /> */}
+                />
               </Box>
             )}
           </Box>

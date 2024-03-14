@@ -15,6 +15,9 @@ const Analysis = Loadable(lazy(() => import("../pages/analysis")));
 const Reports = Loadable(lazy(() => import("../pages/reports")));
 const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
 const WalletSettings = Loadable(lazy(() => import("../pages/walletSettings")));
+const LockMatchScreen = Loadable(
+  lazy(() => import("../pages/lockMatchDetail"))
+);
 const ProfitLossReport = Loadable(
   lazy(() => import("../pages/reports/ProfitLoss"))
 );
@@ -38,7 +41,7 @@ const MainRoutes = {
     },
     {
       path: Constants.AdminMainPaths.match,
-      element: <MatchDetail />,
+      element: <LockMatchScreen />,
     },
     {
       path: Constants.AdminMainPaths.liveMarket,
