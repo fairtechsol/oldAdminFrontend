@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import ModalMUI from "@mui/material/Modal";
 import { useFormik } from "formik";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +46,7 @@ const AddAccount = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(true);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -1188,8 +1189,11 @@ const AddAccount = () => {
             </Box>
           </Box>
         </form>
-      </Box>}
-      {showModal && (
+        <ModalMUI
+          open={showModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
         <CustomModal
           modalTitle={`User Added sucessfully`}
           setShowModal={setShowModal}
@@ -1198,7 +1202,9 @@ const AddAccount = () => {
           functionDispatch={() => {}}
           navigateTo={`${Constants.oldAdmin}list_of_clients`}
         />
-      )}
+          </ModalMUI>
+      </Box>}
+    
     </>
   );
 };
