@@ -193,21 +193,15 @@ const MultipleMatch = ({}) => {
     try {
       if (success && profileDetail?.roleName) {
         state?.matchIds?.map((item: any) => {
-          socketService.match.getMatchRatesOff(item, updateMatchDetailToRedux);
+          socketService.match.getMatchRatesOff(item);
         });
-        socketService.match.userSessionBetPlacedOff(setMultiSessionBetsPlaced);
-        socketService.match.userMatchBetPlacedOff(setMultiMatchBetsPlaced);
-        socketService.match.matchResultDeclaredOff(matchMultiResultDeclared);
-        socketService.match.matchDeleteBetOff(handleMultiMatchDeleteBet);
-        socketService.match.sessionDeleteBetOff(
-          handleMultiMatchSessionDeleteBet
-        );
-        socketService.match.sessionResultOff(
-          handleMultiMatchSessionResultDeclare
-        );
-        socketService.match.sessionResultUnDeclareOff(
-          handleMultiMatchSessionResultUnDeclare
-        );
+        socketService.match.userSessionBetPlacedOff();
+        socketService.match.userMatchBetPlacedOff();
+        socketService.match.matchResultDeclaredOff();
+        socketService.match.matchDeleteBetOff();
+        socketService.match.sessionDeleteBetOff();
+        socketService.match.sessionResultOff();
+        socketService.match.sessionResultUnDeclareOff();
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });
@@ -236,19 +230,15 @@ const MultipleMatch = ({}) => {
         socketService.match.leaveMatchRoom(item);
       });
       state?.matchIds?.map((item: any) => {
-        socketService.match.getMatchRatesOff(item, updateMatchDetailToRedux);
+        socketService.match.getMatchRatesOff(item);
       });
-      socketService.match.userSessionBetPlacedOff(setMultiSessionBetsPlaced);
-      socketService.match.userMatchBetPlacedOff(setMultiMatchBetsPlaced);
-      socketService.match.matchResultDeclaredOff(matchMultiResultDeclared);
-      socketService.match.matchDeleteBetOff(handleMultiMatchDeleteBet);
-      socketService.match.sessionDeleteBetOff(handleMultiMatchSessionDeleteBet);
-      socketService.match.sessionResultOff(
-        handleMultiMatchSessionResultDeclare
-      );
-      socketService.match.sessionResultUnDeclareOff(
-        handleMultiMatchSessionResultUnDeclare
-      );
+      socketService.match.userSessionBetPlacedOff();
+      socketService.match.userMatchBetPlacedOff();
+      socketService.match.matchResultDeclaredOff();
+      socketService.match.matchDeleteBetOff();
+      socketService.match.sessionDeleteBetOff();
+      socketService.match.sessionResultOff();
+      socketService.match.sessionResultUnDeclareOff();
     };
   }, []);
 
@@ -265,7 +255,7 @@ const MultipleMatch = ({}) => {
           socketService.match.leaveMatchRoom(item);
         });
         state?.matchIds?.map((item: any) => {
-          socketService.match.getMatchRatesOff(item, updateMatchDetailToRedux);
+          socketService.match.getMatchRatesOff(item);
         });
       }
     };
@@ -1102,8 +1092,12 @@ const MultipleMatch = ({}) => {
                         {item?.bookmaker?.isActive && (
                           <LiveBookmaker
                             currentMatch={item}
-                            minBet={formatToINR(Math.floor(item?.bookmaker?.minBet))}
-                            maxBet={formatToINR(Math.floor(item?.bookmaker?.maxBet))}
+                            minBet={formatToINR(
+                              Math.floor(item?.bookmaker?.minBet)
+                            )}
+                            maxBet={formatToINR(
+                              Math.floor(item?.bookmaker?.maxBet)
+                            )}
                             bookmakerLive={item?.bookmakerLive}
                             data={
                               item?.bookmaker?.runners?.length > 0
@@ -1148,8 +1142,12 @@ const MultipleMatch = ({}) => {
                             typeOfBet={"Manual Tied Match"}
                             currentMatch={item}
                             session={"manualBookMaker"}
-                            minBet={formatToINR(Math.floor(item?.manualTiedMatch?.minBet))}
-                            maxBet={formatToINR(Math.floor(item?.manualTiedMatch?.maxBet))}
+                            minBet={formatToINR(
+                              Math.floor(item?.manualTiedMatch?.minBet)
+                            )}
+                            maxBet={formatToINR(
+                              Math.floor(item?.manualTiedMatch?.maxBet)
+                            )}
                             matchOddsData={item?.manualTiedMatch}
                           />
                         )}

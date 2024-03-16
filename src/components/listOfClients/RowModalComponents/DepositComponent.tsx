@@ -93,10 +93,9 @@ const DepositComponent = (props: any) => {
     (state: RootState) => state.user.userList
   );
 
-
   const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat('en-IN', {
-      currency: 'INR'
+    const formatter = new Intl.NumberFormat("en-IN", {
+      currency: "INR",
     });
     return formatter.format(amount);
   };
@@ -104,16 +103,14 @@ const DepositComponent = (props: any) => {
   const checkHandleChange = (event: any) => {
     let value = 0;
     if (event.target.value != "") {
-
-      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ""));
     }
-    
-    formik.setFieldValue("amount",value);
+
+    formik.setFieldValue("amount", value);
     onChangeAmount(value, element?.id, "deposite");
     // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
     // setChexckValue(event.target.value);
   };
-
 
   useEffect(() => {
     if (success) {
@@ -179,6 +176,7 @@ const DepositComponent = (props: any) => {
               showPass={showPass}
               onCancel={() => {
                 setSelected();
+                onChangeAmount(0, element?.id, "deposite");
               }}
               initialBalance={initialBalance}
               backgroundColor={backgroundColor}
@@ -267,7 +265,9 @@ const DepositComponent = (props: any) => {
                     required={true}
                     id="amount"
                     name="amount"
-                    value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
+                    value={formatIndianCurrency(
+                      parseFloat(formik.values.amount?.toString())
+                    )}
                     variant="standard"
                     InputProps={{
                       placeholder: "Type Amount...",
@@ -325,7 +325,9 @@ const DepositComponent = (props: any) => {
                   }}
                 >
                   <TextField
-                    value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(initialBalance || 0)}
+                    value={new Intl.NumberFormat("en-IN", {
+                      currency: "INR",
+                    }).format(initialBalance || 0)}
                     sx={{ width: "100%", height: "45px" }}
                     variant="standard"
                     InputProps={{
@@ -425,11 +427,12 @@ const DepositComponent = (props: any) => {
                       },
                     }}
                   />
-                 {touched.transactionPassword && errors.transactionPassword && (
-                  <p style={{ color: "#fa1e1e", lineHeight: "0.8" }}>
-                    {errors.transactionPassword as string}
-                  </p>
-                )}
+                  {touched.transactionPassword &&
+                    errors.transactionPassword && (
+                      <p style={{ color: "#fa1e1e", lineHeight: "0.8" }}>
+                        {errors.transactionPassword as string}
+                      </p>
+                    )}
                   <Box
                     onClick={() => {
                       setShowPass(!showPass);
@@ -525,6 +528,7 @@ const DepositComponent = (props: any) => {
                   isSelected={true}
                   onClick={() => {
                     setSelected();
+                    onChangeAmount(0, element?.id, "deposite");
                   }}
                   title={"Cancel"}
                 />
@@ -568,6 +572,10 @@ const DepositComponent = (props: any) => {
                     background: "#E32A2A",
                     border: "0px",
                     height: "35px",
+                  }}
+                  onClick={() => {
+                    setSelected();
+                    onChangeAmount(0, element?.id, "deposite");
                   }}
                   isSelected={true}
                   title={"Cancel"}

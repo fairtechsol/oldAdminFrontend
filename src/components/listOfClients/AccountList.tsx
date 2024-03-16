@@ -2,7 +2,11 @@ import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AccountListDataInterface } from "../../interface/listOfClients";
-import { getTotalBalance, getUserList, handleModelActions } from "../../store/actions/user/userAction";
+import {
+  getTotalBalance,
+  getUserList,
+  handleModelActions,
+} from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { ApiConstants, Constants } from "../../utils/Constants";
 import Pagination from "../Common/Pagination";
@@ -20,20 +24,22 @@ const AccountList = (endpoint: any) => {
   const loading = false;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { userList } = useSelector((state: RootState) => state.user.userList);
-  const { totalBalance,openModal } = useSelector((state: RootState) => state.user.userList);
+  const { totalBalance, openModal } = useSelector(
+    (state: RootState) => state.user.userList
+  );
 
   useEffect(() => {
     dispatch(getUserList({ currentPage: currentPage, url: endpoint }));
-    dispatch(getTotalBalance())
+    dispatch(getTotalBalance());
   }, [currentPage]);
   const handleModalClose = () => {
     dispatch(
       handleModelActions({
-        url:'',
-        userId: '',
-        roleName: '',
+        url: "",
+        userId: "",
+        roleName: "",
         domain: "",
-        openModal:false,
+        openModal: false,
       })
     );
   };
@@ -148,28 +154,25 @@ const AccountList = (endpoint: any) => {
             )}
             setCurrentPage={setCurrentPage}
           />
-           <ModalMUI
-        open={openModal}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            // flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <AccountListTable
-            endpoint={ApiConstants.USER.LIST}
-          />
-        </Box>
-      </ModalMUI>
-
+          <ModalMUI
+            open={openModal}
+            onClose={handleModalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                // flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <AccountListTable endpoint={ApiConstants.USER.LIST} />
+            </Box>
+          </ModalMUI>
         </>
       )}
     </>

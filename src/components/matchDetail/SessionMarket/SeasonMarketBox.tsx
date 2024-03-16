@@ -68,7 +68,7 @@ const SeasonMarketBox = (props: any) => {
                 fontWeight: "500",
               }}
             >
-              max: {formatToINR(newData?.maxBet) ?? formatToINR(newData?.max)}
+              max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
           </Typography>
         </Box>

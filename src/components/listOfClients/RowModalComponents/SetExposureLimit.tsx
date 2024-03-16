@@ -323,6 +323,7 @@ const SetExposureLimit = (props: any) => {
               isSelected={true}
               onClick={() => {
                 setSelected();
+                onChangeAmount(0, element?.id, "exposure");
               }}
               title={"Cancel"}
             />

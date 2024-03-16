@@ -58,8 +58,8 @@ const WithdrawComponent = (props: any) => {
   const dispatch: AppDispatch = useDispatch();
 
   const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat('en-IN', {
-      currency: 'INR'
+    const formatter = new Intl.NumberFormat("en-IN", {
+      currency: "INR",
     });
     return formatter.format(amount);
   };
@@ -67,11 +67,10 @@ const WithdrawComponent = (props: any) => {
   const checkHandleChange = (event: any) => {
     let value = 0;
     if (event.target.value != "") {
-
-      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ""));
     }
-    
-    formik.setFieldValue("amount",value);
+
+    formik.setFieldValue("amount", value);
     onChangeAmount(value, element?.id, "withdraw");
     // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
     // setChexckValue(event.target.value);
@@ -177,6 +176,7 @@ const WithdrawComponent = (props: any) => {
               showPass={showPass}
               onCancel={() => {
                 setSelected();
+                onChangeAmount(0, element?.id, "withdraw");
               }}
               initialBalance={initialBalance}
               backgroundColor={backgroundColor}
@@ -270,7 +270,9 @@ const WithdrawComponent = (props: any) => {
                     name="amount"
                     // onKeyDown={handleKeyDown}
                     // value={withDrawObj.amount}
-                    value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
+                    value={formatIndianCurrency(
+                      parseFloat(formik.values.amount?.toString())
+                    )}
                     variant="standard"
                     InputProps={{
                       placeholder: "Type Amount...",
@@ -284,7 +286,7 @@ const WithdrawComponent = (props: any) => {
                         fontWeight: "600",
                         color: "white",
                       },
-                    }} 
+                    }}
                     onChange={(e: any) => checkHandleChange(e)}
                   />
                 </Box>
@@ -330,7 +332,9 @@ const WithdrawComponent = (props: any) => {
                   }}
                 >
                   <TextField
-                    value={new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(initialBalance || 0)}
+                    value={new Intl.NumberFormat("en-IN", {
+                      currency: "INR",
+                    }).format(initialBalance || 0)}
                     sx={{ width: "100%", height: "45px" }}
                     variant="standard"
                     InputProps={{
@@ -533,6 +537,7 @@ const WithdrawComponent = (props: any) => {
                   isSelected={true}
                   onClick={() => {
                     setSelected();
+                    onChangeAmount(0, element?.id, "withdraw");
                   }}
                   title={"Cancel"}
                 />
@@ -580,6 +585,7 @@ const WithdrawComponent = (props: any) => {
                   isSelected={true}
                   onClick={() => {
                     setSelected();
+                    onChangeAmount(0, element?.id, "withdraw");
                   }}
                   title={"Cancel"}
                 />

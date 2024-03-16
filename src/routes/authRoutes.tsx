@@ -3,7 +3,8 @@ import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 
-const AuthLayout = Loadable(lazy(() => import("../layout/auth")));
+import AuthLayout from "../layout/auth";
+
 const Login = Loadable(lazy(() => import("../pages/auth/login")));
 const ChangePassword = Loadable(lazy(() => import("../pages/changePassword")));
 

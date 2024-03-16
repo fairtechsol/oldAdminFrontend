@@ -4,7 +4,8 @@ import MultipleMatch from "../pages/analysis/multipleMatch";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 
-const MainLayout = Loadable(lazy(() => import("../layout/main")));
+import MainLayout from "../layout/main";
+
 const ListOfClients = Loadable(lazy(() => import("../pages/listOfClients")));
 const ChangePassword = Loadable(lazy(() => import("../pages/changePassword")));
 const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
