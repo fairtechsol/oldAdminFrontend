@@ -74,7 +74,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
   useEffect(() => {
     socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
     return () => {
-      socketService.match.getMatchRatesOff(match?.id, setMatchOddRatesInRedux);
+      socketService.match.getMatchRatesOff(match?.id);
     };
   }, []);
 

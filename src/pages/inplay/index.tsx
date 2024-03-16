@@ -8,13 +8,12 @@ import {
 } from "@mui/material";
 import Loader from "../../components/Loader";
 import MatchComponent from "../../components/Inplay/MatchComponent";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   getMatchListInplay,
   matchListReset,
-  updateMatchRates,
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
@@ -24,7 +23,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const Inplay = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const { state } = useLocation();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const useStyles = makeStyles({
     whiteTextPagination: {
@@ -53,15 +51,6 @@ const Inplay = () => {
   const getMatchListService = () => {
     dispatch(getMatchListInplay({ currentPage: currentPage }));
   };
-  const updateMatchDetailToRedux = (event: any) => {
-    try {
-      if (state?.matchId === event?.id) {
-        dispatch(updateMatchRates(event));
-      } else return;
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(() => {
     try {
@@ -71,9 +60,9 @@ const Inplay = () => {
           matchListInplay?.matches?.length > 0 &&
           profileDetail?.roleName
         ) {
-          socketService.match.matchResultDeclaredOff(getMatchListService);
-          socketService.match.matchResultUnDeclaredOff(getMatchListService);
-          socketService.match.matchAddedOff(getMatchListService);
+          socketService.match.matchResultDeclaredOff();
+          socketService.match.matchResultUnDeclaredOff();
+          socketService.match.matchAddedOff();
           matchListInplay?.matches?.map((item: any) => {
             socketService.match.joinMatchRoom(
               item?.id,
@@ -96,9 +85,9 @@ const Inplay = () => {
       matchListInplay?.matches?.map((item: any) => {
         socketService.match.leaveMatchRoom(item?.id);
       });
-      socketService.match.matchResultDeclaredOff(getMatchListService);
-      socketService.match.matchResultUnDeclaredOff(getMatchListService);
-      socketService.match.matchAddedOff(getMatchListService);
+      socketService.match.matchResultDeclaredOff();
+      socketService.match.matchResultUnDeclaredOff();
+      socketService.match.matchAddedOff();
     };
   }, []);
 
@@ -109,10 +98,7 @@ const Inplay = () => {
         getMatchListService();
       } else if (document.visibilityState === "hidden") {
         matchListInplay?.matches?.map((item: any) => {
-          socketService.match.getMatchRatesOff(
-            item?.id,
-            updateMatchDetailToRedux
-          );
+          socketService.match.getMatchRatesOff(item?.id);
         });
       }
     };

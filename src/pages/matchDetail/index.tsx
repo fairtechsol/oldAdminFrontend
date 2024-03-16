@@ -196,19 +196,14 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       if (success && profileDetail?.roleName) {
-        socketService.match.getMatchRatesOff(
-          state?.matchId,
-          updateMatchDetailToRedux
-        );
-        socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
-        socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
-        socketService.match.matchResultDeclaredOff(matchResultDeclared);
-        socketService.match.matchDeleteBetOff(matchDeleteBet);
-        socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
-        socketService.match.sessionResultOff(handleSessionResultDeclare);
-        socketService.match.sessionResultUnDeclareOff(
-          handleSessionResultUnDeclare
-        );
+        socketService.match.getMatchRatesOff(state?.matchId);
+        socketService.match.userSessionBetPlacedOff();
+        socketService.match.userMatchBetPlacedOff();
+        socketService.match.matchResultDeclaredOff();
+        socketService.match.matchDeleteBetOff();
+        socketService.match.sessionDeleteBetOff();
+        socketService.match.sessionResultOff();
+        socketService.match.sessionResultUnDeclareOff();
         socketService.match.joinMatchRoom(
           state?.matchId,
           profileDetail?.roleName
@@ -236,19 +231,14 @@ const MatchDetail = () => {
   useEffect(() => {
     return () => {
       socketService.match.leaveMatchRoom(state?.matchId);
-      socketService.match.getMatchRatesOff(
-        state?.matchId,
-        updateMatchDetailToRedux
-      );
-      socketService.match.userSessionBetPlacedOff(setSessionBetsPlaced);
-      socketService.match.userMatchBetPlacedOff(setMatchBetsPlaced);
-      socketService.match.matchResultDeclaredOff(matchResultDeclared);
-      socketService.match.matchDeleteBetOff(matchDeleteBet);
-      socketService.match.sessionDeleteBetOff(handleSessionDeleteBet);
-      socketService.match.sessionResultOff(handleSessionResultDeclare);
-      socketService.match.sessionResultUnDeclareOff(
-        handleSessionResultUnDeclare
-      );
+      socketService.match.getMatchRatesOff(state?.matchId);
+      socketService.match.userSessionBetPlacedOff();
+      socketService.match.userMatchBetPlacedOff();
+      socketService.match.matchResultDeclaredOff();
+      socketService.match.matchDeleteBetOff();
+      socketService.match.sessionDeleteBetOff();
+      socketService.match.sessionResultOff();
+      socketService.match.sessionResultUnDeclareOff();
       dispatch(resetUserProfitLoss());
     };
   }, []);
@@ -262,10 +252,7 @@ const MatchDetail = () => {
           dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
       } else if (document.visibilityState === "hidden") {
-        socketService.match.getMatchRatesOff(
-          state?.matchId,
-          updateMatchDetailToRedux
-        );
+        socketService.match.getMatchRatesOff(state?.matchId);
       }
     };
 
