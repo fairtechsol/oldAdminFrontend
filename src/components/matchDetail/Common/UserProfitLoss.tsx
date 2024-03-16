@@ -11,7 +11,10 @@ import { Refresh } from "../../../assets";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useEffect } from "react";
-import { getUserProfitLoss } from "../../../store/actions/match/matchAction";
+import {
+  getUserProfitLoss,
+  resetUserProfitLoss,
+} from "../../../store/actions/match/matchAction";
 import { useDispatch } from "react-redux";
 
 const UserProfitLoss = (props: any) => {
@@ -125,6 +128,7 @@ const UserProfitLoss = (props: any) => {
                 }}
                 onClick={() => {
                   setShowUserProfitLoss(false);
+                  dispatch(resetUserProfitLoss());
                 }}
               >
                 &times;

@@ -15,6 +15,7 @@ import {
   getPlacedBets,
   getUserProfitLoss,
   removeRunAmount,
+  resetUserProfitLoss,
   // updateBalance,
   updateBetsPlaced,
   updateMatchRates,
@@ -248,6 +249,7 @@ const MatchDetail = () => {
       socketService.match.sessionResultUnDeclareOff(
         handleSessionResultUnDeclare
       );
+      dispatch(resetUserProfitLoss());
     };
   }, []);
 

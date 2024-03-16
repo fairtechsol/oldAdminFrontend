@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserProfitLoss } from "../../actions/match/matchAction";
+import {
+  getUserProfitLoss,
+  resetUserProfitLoss,
+} from "../../actions/match/matchAction";
 
 interface InitialState {
   userProfitLossData: any;
@@ -24,7 +27,6 @@ const userProfitLoss = createSlice({
       .addCase(getUserProfitLoss.pending, (state) => {
         state.loading = false;
         state.success = false;
-        state.userProfitLossData = [];
         state.error = null;
       })
       .addCase(getUserProfitLoss.fulfilled, (state, action) => {
@@ -35,6 +37,9 @@ const userProfitLoss = createSlice({
       .addCase(getUserProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(resetUserProfitLoss, (state) => {
+        return { ...state, userProfitLossData: [] };
       });
   },
 });

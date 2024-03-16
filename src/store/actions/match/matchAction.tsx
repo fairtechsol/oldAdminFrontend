@@ -285,3 +285,4 @@ export const analysisListReset = createAction("analysisList/reset");
 export const resetcompetitionList = createAction("competitionList/reset");
 export const resetCompetitionDates = createAction("competitionDates/reset");
 export const resetCompetitionMatches = createAction("competitionMatches/reset");
+export const resetUserProfitLoss = createAction("userProfitLoss/reset");
