@@ -186,6 +186,7 @@ const Analysis = () => {
                   onClick={() => {
                     setMode("0");
                     setSelected([]);
+                    setMatchIds([]);
                   }}
                   title={"Cancel"}
                 />
@@ -204,8 +205,11 @@ const Analysis = () => {
                         return;
                       }
                     }
-                    if (selected) setMode("0");
-                    setSelected([]);
+                    if (selected) {
+                      setMode("0");
+                      setSelected([]);
+                      setMatchIds([]);
+                    }
                     if (max == "3") {
                       navigate(
                         `${Constants.oldAdmin}market_analysis/multiple_Match`,
