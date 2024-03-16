@@ -472,14 +472,14 @@ const MultipleMatch = ({}) => {
                                       ? Array.from(
                                           item?.profitLossDataSession?.reduce(
                                             (acc: any, obj: any) =>
-                                              acc.has(obj.id)
+                                              acc.has(obj.betId)
                                                 ? acc
-                                                : acc.add(obj.id) && acc,
+                                                : acc.add(obj.betId) && acc,
                                             new Set()
                                           ),
                                           (id) =>
                                             item?.profitLossDataSession?.find(
-                                              (obj: any) => obj.id === id
+                                              (obj: any) => obj.betId === id
                                             )
                                         )
                                       : []
@@ -511,14 +511,14 @@ const MultipleMatch = ({}) => {
                                       ? Array.from(
                                           item?.profitLossDataSession?.reduce(
                                             (acc: any, obj: any) =>
-                                              acc.has(obj.id)
+                                              acc.has(obj.betId)
                                                 ? acc
-                                                : acc.add(obj.id) && acc,
+                                                : acc.add(obj.betId) && acc,
                                             new Set()
                                           ),
                                           (id) =>
                                             item?.profitLossDataSession?.find(
-                                              (obj: any) => obj.id === id
+                                              (obj: any) => obj.betId === id
                                             )
                                         )
                                       : []
@@ -817,14 +817,14 @@ const MultipleMatch = ({}) => {
                                     ? Array.from(
                                         item?.profitLossDataSession?.reduce(
                                           (acc: any, obj: any) =>
-                                            acc.has(obj.id)
+                                            acc.has(obj.betId)
                                               ? acc
-                                              : acc.add(obj.id) && acc,
+                                              : acc.add(obj.betId) && acc,
                                           new Set()
                                         ),
                                         (id) =>
                                           item?.profitLossDataSession?.find(
-                                            (obj: any) => obj.id === id
+                                            (obj: any) => obj.betId === id
                                           )
                                       )
                                     : []
@@ -845,14 +845,14 @@ const MultipleMatch = ({}) => {
                                     ? Array.from(
                                         item?.profitLossDataSession?.reduce(
                                           (acc: any, obj: any) =>
-                                            acc.has(obj.id)
+                                            acc.has(obj.betId)
                                               ? acc
-                                              : acc.add(obj.id) && acc,
+                                              : acc.add(obj.betId) && acc,
                                           new Set()
                                         ),
                                         (id) =>
                                           item?.profitLossDataSession?.find(
-                                            (obj: any) => obj.id === id
+                                            (obj: any) => obj.betId === id
                                           )
                                       )
                                     : []
@@ -1160,14 +1160,14 @@ const MultipleMatch = ({}) => {
                                 ? Array.from(
                                     item?.profitLossDataSession?.reduce(
                                       (acc: any, obj: any) =>
-                                        acc.has(obj.id)
+                                        acc.has(obj.betId)
                                           ? acc
-                                          : acc.add(obj.id) && acc,
+                                          : acc.add(obj.betId) && acc,
                                       new Set()
                                     ),
                                     (id) =>
                                       item?.profitLossDataSession?.find(
-                                        (obj: any) => obj.id === id
+                                        (obj: any) => obj.betId === id
                                       )
                                   )
                                 : []
@@ -1194,14 +1194,14 @@ const MultipleMatch = ({}) => {
                                 ? Array.from(
                                     item?.profitLossDataSession?.reduce(
                                       (acc: any, obj: any) =>
-                                        acc.has(obj.id)
+                                        acc.has(obj.betId)
                                           ? acc
-                                          : acc.add(obj.id) && acc,
+                                          : acc.add(obj.betId) && acc,
                                       new Set()
                                     ),
                                     (id) =>
                                       item?.profitLossDataSession?.find(
-                                        (obj: any) => obj.id === id
+                                        (obj: any) => obj.betId === id
                                       )
                                   )
                                 : []
