@@ -556,7 +556,7 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={data?.rate || data?.amount}
+            data={data?.amount}
             header={header}
             width={"50%"}
             boxWidth="40%"
