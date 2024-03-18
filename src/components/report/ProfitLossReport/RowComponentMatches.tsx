@@ -170,9 +170,12 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getTotalBetProfitLoss({ matchId: item?.matchId ,
-                searchId: userData?.id ? userData?.id : ""
-               }));
+              dispatch(
+                getTotalBetProfitLoss({
+                  matchId: item?.matchId,
+                  searchId: userData?.id ? userData?.id : "",
+                })
+              );
             }
           }}
           sx={{
@@ -230,10 +233,16 @@ const RowComponentMatches = ({
               {Number(item?.rateProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item?.rateProfitLoss).toFixed(2)}
+                  {Number(item?.rateProfitLoss).toFixed(2)}{" "}
+                  {`(Total Deduction: 
+                  ${Number(item?.totalDeduction)})`}
                 </>
               ) : (
-                Number(item?.rateProfitLoss).toFixed(2)
+                <>
+                  {Number(item?.rateProfitLoss).toFixed(2)}{" "}
+                  {`(Total Deduction: 
+                  ${Number(item?.totalDeduction)})`}
+                </>
               )}{" "}
             </Typography>
             <StyledImage
@@ -268,9 +277,12 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getSessionProfitLoss({ 
-                matchId: item?.matchId ,
-                searchId:userData?.id }));
+              dispatch(
+                getSessionProfitLoss({
+                  matchId: item?.matchId,
+                  searchId: userData?.id,
+                })
+              );
             }
           }}
           sx={{
@@ -423,11 +435,11 @@ const RowComponentMatches = ({
                       }}
                     >
                       <SessionBetSeperate
-                       allBetsData={
-                        totalBetProfitLoss
-                          ? Array.from(new Set(totalBetProfitLoss))
-                          : []
-                      }
+                        allBetsData={
+                          totalBetProfitLoss
+                            ? Array.from(new Set(totalBetProfitLoss))
+                            : []
+                        }
                         betHistory={false}
                         // placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
