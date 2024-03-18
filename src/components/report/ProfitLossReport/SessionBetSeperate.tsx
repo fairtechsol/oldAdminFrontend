@@ -394,6 +394,7 @@ const RowComponent = ({ header, data }: any) => {
       minute: "numeric",
       second: "numeric",
       hour12: true,
+      timeZone: "Asia/Kolkata",
     });
     return timeString;
   };

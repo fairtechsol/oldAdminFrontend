@@ -212,12 +212,12 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
         >
-          {moment(data?.createdAt).format("DD-MM-YYYY")}
+          {moment.utc(data?.createdAt).utcOffset('+05:30').format("DD-MM-YYYY")}
         </Typography>
         <Typography
           sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
         >
-          {moment(data?.createdAt).format("HH:mm:ss A")}
+          {moment.utc(data?.createdAt).utcOffset('+05:30').format("HH:mm:ss A")}
         </Typography>
       </Box>
       <Box
