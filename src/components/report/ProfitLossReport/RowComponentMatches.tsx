@@ -423,8 +423,13 @@ const RowComponentMatches = ({
                       }}
                     >
                       <SessionBetSeperate
+                       allBetsData={
+                        totalBetProfitLoss
+                          ? Array.from(new Set(totalBetProfitLoss))
+                          : []
+                      }
                         betHistory={false}
-                        placedBets={totalBetProfitLoss && totalBetProfitLoss}
+                        // placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}
                       />
