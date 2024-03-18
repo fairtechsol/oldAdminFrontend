@@ -235,13 +235,13 @@ const RowComponentMatches = ({
                   <span style={{ visibility: "hidden" }}>-</span>
                   {Number(item?.rateProfitLoss).toFixed(2)}{" "}
                   {`(Total Deduction: 
-                  ${Number(item?.totalDeduction)})`}
+                  ${Number(item?.totalDeduction) || 0})`}
                 </>
               ) : (
                 <>
                   {Number(item?.rateProfitLoss).toFixed(2)}{" "}
                   {`(Total Deduction: 
-                  ${Number(item?.totalDeduction)})`}
+                  ${Number(item?.totalDeduction) || 0})`}
                 </>
               )}{" "}
             </Typography>
