@@ -102,10 +102,16 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             {Number(item?.totalLoss) >= 0 ? (
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
-                {Number(item?.totalLoss).toFixed(2)}
+                {Number(item?.totalLoss).toFixed(2)}{" "}
+                {`(Total Deduction: 
+                  ${Number(item?.totalDeduction)})`}
               </>
             ) : (
-              Number(item?.totalLoss).toFixed(2)
+              <>
+                {Number(item?.totalLoss).toFixed(2)}{" "}
+                {`(Total Deduction: 
+                  ${Number(item?.totalDeduction)})`}
+              </>
             )}{" "}
           </Typography>
         </Box>
