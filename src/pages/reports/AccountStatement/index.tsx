@@ -146,7 +146,7 @@ const AccountStatement = () => {
                     profit={true}
                     fContainerStyle={{ background: "#0B4F26" }}
                     fTextStyle={{ color: "white" }}
-                    date={moment(item?.createdAt)}
+                    date={item?.createdAt}
                     description={item?.description}
                     closing={item?.closingBalance}
                     transType={item?.transType}
