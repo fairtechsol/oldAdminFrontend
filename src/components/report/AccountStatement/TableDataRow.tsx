@@ -63,7 +63,7 @@ const TableDataRow = (props: any) => {
             fTextStyle,
           ]}
         >
-          {moment(date).format("DD-MM-YYYY HH:mm:ss")}
+          {moment.utc(date).utcOffset('+05:30').format("DD-MM-YYYY HH:mm:ss")}
         </Typography>
       </Box>
       <Box
