@@ -434,7 +434,32 @@ const MatchDetail = () => {
                 max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
               />
             )}
-
+          {sessionProLoss?.length > 0 && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                gap: "1px",
+                rowGap: "5px",
+                height: "440px",
+                overflow: "scroll",
+                marginTop: "1.25vw",
+              }}
+            >
+              {sessionProLoss.map((v: any) => {
+                return (
+                  <RunsBox
+                    key={v?.id}
+                    item={v}
+                    currentOdd={
+                      currentOdds?.betId === v?.id ? currentOdds : null
+                    }
+                  />
+                );
+              })}
+            </Box>
+          )}
           {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (
@@ -551,13 +576,13 @@ const MatchDetail = () => {
                 IObets={
                   placedBets.length > 0
                     ? Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      )
+                      placedBets.reduce(
+                        (acc: any, obj: any) =>
+                          acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                        new Set()
+                      ),
+                      (id) => placedBets.find((obj: any) => obj.id === id)
+                    )
                     : []
                 }
                 mode={mode}
