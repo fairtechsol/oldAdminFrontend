@@ -191,7 +191,7 @@ const MatchDetail = () => {
       dispatch(resetSessionProfitLoss());
       dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
-  }, []);
+  }, [state?.matchId]);
 
   useEffect(() => {
     try {
