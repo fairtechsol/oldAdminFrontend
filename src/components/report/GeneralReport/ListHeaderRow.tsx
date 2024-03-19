@@ -3,7 +3,7 @@ import SearchInput from "../../Common/SearchInput";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import { ApiConstants } from "../../../utils/Constants";
 
-const ListHeaderRow = ({ getLimitEntries }: any) => {
+const ListHeaderRow = ({ getLimitEntries, setCurrentPage }: any) => {
   return (
     <Box
       sx={{
@@ -29,6 +29,7 @@ const ListHeaderRow = ({ getLimitEntries }: any) => {
         width={"100%"}
         placeholder={"Search..."}
         endpoint={ApiConstants.USER.LIST}
+        setCurrentPage={setCurrentPage}
       />
     </Box>
   );

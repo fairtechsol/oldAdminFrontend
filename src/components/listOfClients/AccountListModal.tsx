@@ -89,6 +89,7 @@ const AccountListTable = ({ endpoint }: any) => {
               endpoint={endpoint}
               userId={userElement?.id}
               roleName={userElement?.roleName}
+              setCurrentPage={setCurrentPage}
             />
             <Button
               sx={{ color: "", fontSize: "30px" }}
