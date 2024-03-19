@@ -104,8 +104,8 @@ const TableDataRow = (props: any) => {
           paddingLeft: "10px",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
-              ? "#FFB5B5"
-              : "#A7DCFF",
+              ? "#A7DCFF"
+              : "#FFB5B5",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -124,8 +124,8 @@ const TableDataRow = (props: any) => {
           paddingLeft: "6px",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
-              ? "#FFB5B5"
-              : "#A7DCFF",
+              ? "#A7DCFF"
+              : "#FFB5B5",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -143,8 +143,8 @@ const TableDataRow = (props: any) => {
           display: "flex",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
-              ? "#FFB5B5"
-              : "#A7DCFF",
+              ? "#A7DCFF"
+              : "#FFB5B5",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -164,8 +164,8 @@ const TableDataRow = (props: any) => {
           justifyContent: "center",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
-              ? "#FFB5B5"
-              : "#A7DCFF",
+              ? "#A7DCFF"
+              : "#FFB5B5",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
@@ -184,8 +184,8 @@ const TableDataRow = (props: any) => {
           paddingLeft: "10px",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
-              ? "#FFB5B5"
-              : "#A7DCFF",
+              ? "#A7DCFF"
+              : "#FFB5B5",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",

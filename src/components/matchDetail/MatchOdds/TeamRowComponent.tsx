@@ -110,7 +110,7 @@ const TeamRowComponent = (props: any) => {
                   height: "40px",
                   display: "flex",
                   width: {
-                    xs: "61%",
+                    xs: "60.5%",
                     lg: "10.17vw",
                     desktop: "10.17vw",
                     desktop2XL: "10.12vw",
