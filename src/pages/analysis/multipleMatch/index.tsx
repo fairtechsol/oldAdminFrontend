@@ -20,6 +20,7 @@ import {
   analysisListReset,
   getPlacedBets,
   removeRunAmount,
+  setCurrentOdd,
   updateBetsPlaced,
   updateMultipleMatchDetail,
   updatePlacedbets,
@@ -55,7 +56,7 @@ const MultipleMatch = ({}) => {
   });
   const [showUserProfitLoss, setShowUserProfitLoss] = useState(false);
   const [selectedBetData, setSelectedBetData] = useState([]);
-  const [currentOdds] = useState<any>(null);
+  const { currentOdd } = useSelector((state: RootState) => state.match.matchList);
   const { multipleMatchDetail, success } = useSelector(
     (state: RootState) => state.match.analysisList
   );
@@ -71,7 +72,7 @@ const MultipleMatch = ({}) => {
   };
 
   const setMultiSessionBetsPlaced = (event: any) => {
-    try {
+        try {
       if (state?.matchIds.includes(event?.jobData?.placedBet?.matchId)) {
         dispatch(
           updateBetsPlaced({
@@ -84,12 +85,19 @@ const MultipleMatch = ({}) => {
         );
         dispatch(updateProfitLoss(event));
         dispatch(updateMaxLossForBetForMultipleMatch(event));
+         dispatch(
+          setCurrentOdd({
+            matchId: event?.jobData?.betPlaceObject?.betPlacedData?.matchId,
+            betId: event?.jobData?.betPlaceObject?.betPlacedData?.betId,
+            odds: event?.jobData?.betPlaceObject?.betPlacedData?.odds,
+          })
+        );
       }
     } catch (error) {
       console.log(error);
     }
   };
-
+ 
   const setMultiMatchBetsPlaced = (event: any) => {
     try {
       if (state?.matchIds.includes(event?.jobData?.newBet?.matchId)) {
@@ -104,7 +112,7 @@ const MultipleMatch = ({}) => {
           })
         );
         dispatch(updateTeamRatesOfMultipleMatch(event));
-      }
+             }
     } catch (error) {
       console.log(error);
     }
@@ -485,7 +493,7 @@ const MultipleMatch = ({}) => {
                                       : []
                                   }
                                   // match={"multiple"}
-                                  //   currentOdds={currentOdds}
+                                  //   currentOdd={currentOdd}
                                   sessionData={QuicksessionData}
                                   currentMatch={item}
                                   data={[]}
@@ -524,7 +532,7 @@ const MultipleMatch = ({}) => {
                                       : []
                                   }
                                   match={"multiple"}
-                                  //   currentOdds={currentOdds}
+                                  //   currentOdd={currentOdd}
                                   sessionData={item?.apiSession}
                                   currentMatch={item}
                                   data={[]}
@@ -567,8 +575,8 @@ const MultipleMatch = ({}) => {
                                             key={v?.id}
                                             item={v}
                                             currentOdd={
-                                              currentOdds?.betId === v?.id
-                                                ? currentOdds
+                                              currentOdd?.betId === v?.id
+                                                ? currentOdd
                                                 : null
                                             }
                                           />
@@ -894,8 +902,8 @@ const MultipleMatch = ({}) => {
                                           key={v?.id}
                                           item={v}
                                           currentOdd={
-                                            currentOdds?.betId === v?.id
-                                              ? currentOdds
+                                            currentOdd?.betId === v?.id
+                                              ? currentOdd
                                               : null
                                           }
                                         />
@@ -1175,7 +1183,7 @@ const MultipleMatch = ({}) => {
                             // match={"multiple"}
                             currentMatch={item}
                             sessionData={QuicksessionData}
-                            // currentOdds={currentOdds}
+                            // currentOdd={currentOdd}
                             sessionOffline={item?.sessionOffline}
                             // sessionExposer={manualSessionHttp?.sessionExposure}
                             sessionBets={sessionBetsData?.length}
@@ -1209,7 +1217,7 @@ const MultipleMatch = ({}) => {
                             match={"multiple"}
                             currentMatch={item}
                             sessionData={item?.apiSession}
-                            // currentOdds={currentOdds}
+                            // currentOdd={currentOdd}
                             sessionOffline={item?.sessionOffline}
                             // sessionExposer={manualSessionHttp?.sessionExposure}
                             sessionBets={sessionBetsData?.length}
@@ -1246,8 +1254,8 @@ const MultipleMatch = ({}) => {
                                       key={v?.id}
                                       item={v}
                                       currentOdd={
-                                        currentOdds?.betId === v?.id
-                                          ? currentOdds
+                                        currentOdd?.betId === v?.id
+                                          ? currentOdd
                                           : null
                                       }
                                     />

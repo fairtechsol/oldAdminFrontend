@@ -17,7 +17,7 @@ import {
   removeRunAmount,
   resetBetSessionProfitLossGraph,
   resetUserProfitLoss,
-  // updateBalance,
+  setCurrentOdd,
   updateBetsPlaced,
   updateMatchRates,
   updateMaxLossForBet,
@@ -56,7 +56,7 @@ const MatchDetail = () => {
     (state: RootState) => state.match.bets
   );
 
-  const [currentOdds] = useState<any>(null);
+  const { currentOdd } = useSelector((state: RootState) => state.match.matchList);
 
   const handleDeleteBet = (value: any) => {
     try {
@@ -133,6 +133,13 @@ const MatchDetail = () => {
         // dispatch(betDataFromSocket(event));
         dispatch(updateProfitLoss(event));
         dispatch(updateMaxLossForBet(event));
+        dispatch(
+          setCurrentOdd({
+            matchId: event?.jobData?.placedBet?.matchId,
+            betId: event?.jobData?.placedBet?.betId,
+            odds: event?.jobData?.placedBet?.odds,
+          })
+        );
       }
     } catch (e) {
       console.log(e);
@@ -486,7 +493,7 @@ const MatchDetail = () => {
                     key={v?.id}
                     item={v}
                     currentOdd={
-                      currentOdds?.betId === v?.id ? currentOdds : null
+                      currentOdd?.betId === v?.id ? currentOdd : null
                     }
                   />
                 );
@@ -721,7 +728,7 @@ const MatchDetail = () => {
                       key={v?.id}
                       item={v}
                       currentOdd={
-                        currentOdds?.betId === v?.id ? currentOdds : null
+                        currentOdd?.betId === v?.id ? currentOdd : null
                       }
                     />
                   );

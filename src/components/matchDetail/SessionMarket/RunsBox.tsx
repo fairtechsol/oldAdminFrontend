@@ -7,7 +7,7 @@ import { getSessionProfitLossMatchDetailFilter } from "../../../store/actions/ma
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 
-const RunsBox = ({ item, currentOdds }: any) => {
+const RunsBox = ({ item, currentOdd }: any) => {
   const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -32,12 +32,12 @@ const RunsBox = ({ item, currentOdds }: any) => {
   };
 
   useEffect(() => {
-    if (currentOdds && currentOdds?.betId === item?.id) {
+    if (currentOdd && currentOdd?.betId === item?.id) {
       setTimeout(() => {
-        scrollToElement(`${item?.id}_${currentOdds?.odds}`);
+        scrollToElement(`${item?.id}_${currentOdd?.odds}`);
       }, 500);
     }
-  }, [currentOdds, item?.id]);
+  }, [currentOdd, item?.id]);
 
   return (
     <Box
