@@ -134,7 +134,7 @@ const TableDataRow = (props: any) => {
         <Typography
           sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "600", color: "#575757" }}
         >
-          {data?.marketType}
+          {data?.bettingName ?? data?.marketType}
         </Typography>
       </Box>
       <Box
