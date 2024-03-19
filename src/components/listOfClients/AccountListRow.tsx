@@ -168,7 +168,13 @@ const AccountListRow = (props: AccountListRowInterface) => {
   //     })
   //   );
   // };
-
+  const handleClearValue=()=>{
+    setDepositeValue(0)
+    setWithdrawValue(0)
+    setCreditValue(0)
+    setExposureValue(0)
+    setLockValue(null)
+  }
   const formattedCRValue =
     typeOfAmount === "credit" && creditValue > 0
       ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
@@ -257,6 +263,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
               onClick={() => {
                 setShowUserModal((prev) => !prev);
                 setSelected(null);
+                handleClearValue()
               }}
               src={
                 fContainerStyle.background == "#F8C851" ? DownGIcon : DownIcon
@@ -497,7 +504,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                 )
               : new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
                   element?.exposureLimit || 0
-                )}
+                )} 
           </Typography>
         </Box>
         <Box
