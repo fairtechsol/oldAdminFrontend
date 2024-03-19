@@ -29,7 +29,10 @@ const SearchInput = (props: any) => {
     pageLimit,
     fromDate,
     toDate,
+    userId,
+    roleName,
     setCurrentPage,
+    getUserListModal,
   } = props;
 
   const theme = useTheme();
@@ -81,6 +84,20 @@ const SearchInput = (props: any) => {
                 : "user.userName",
           })
         );
+      } else if (searchFor === "userModalList") {
+        getUserListModal({
+          userName: value,
+          currentPage: 1,
+          url: endpoint,
+          userId: userId,
+          roleName: roleName,
+          searchBy:
+            endpoint === "/expert/list"
+              ? value
+                ? "userName"
+                : ""
+              : "user.userName",
+        });
       } else if (searchFor === "currentBets") {
         dispatch(
           getCurrentBets({
