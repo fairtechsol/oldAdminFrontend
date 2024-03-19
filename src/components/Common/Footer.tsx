@@ -20,7 +20,7 @@ const Footer = (props: PaginationInterface) => {
           fontWeight: "600",
         }}
       >
-        Showing 1 to {pages}
+        Showing  {currentPage} to {pages}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Box
@@ -33,6 +33,7 @@ const Footer = (props: PaginationInterface) => {
             alignItems: "center",
             borderRadius: "5px",
             cursor: "pointer",
+            opacity: currentPage === 1 ? 0.5 : 1,
           }}
           onClick={() => {
             setCurrentPage(+currentPage - 1 === 0 ? 1 : +currentPage - 1);
@@ -78,6 +79,7 @@ const Footer = (props: PaginationInterface) => {
             justifyContent: "center",
             alignItems: "center",
             cursor: "pointer",
+            opacity: currentPage === pages ? 0.5 : 1,
           }}
           onClick={() => {
             setCurrentPage(+currentPage === pages ? pages : +currentPage + 1);

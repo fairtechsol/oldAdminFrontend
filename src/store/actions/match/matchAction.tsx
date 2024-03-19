@@ -280,6 +280,13 @@ export const updatePlacedbets = createAsyncThunk<any, any>(
   }
 );
 
+export const setCurrentOdd = createAsyncThunk<any, any>(
+  "update/currentOdd",
+  async (requestData) => {
+    return requestData;
+  }
+);
+
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");
 export const resetcompetitionList = createAction("competitionList/reset");

@@ -13,6 +13,7 @@ import {
   updateMaxLossForDeleteBet,
   updateTeamRates,
   updateTeamRatesOnDelete,
+  setCurrentOdd,
 } from "../../actions/match/matchAction";
 
 interface InitialState {
@@ -24,6 +25,7 @@ interface InitialState {
   getProfile: any;
   matchDetails: any;
   betPlaceData: any;
+  currentOdd: any;
 }
 
 const initialState: InitialState = {
@@ -35,6 +37,7 @@ const initialState: InitialState = {
   matchDetails: null,
   betPlaceData: [],
   getProfile: null,
+  currentOdd: null,
 };
 
 const matchListSlice = createSlice({
@@ -315,6 +318,9 @@ const matchListSlice = createSlice({
         } else {
           return state.matchDetail;
         }
+      })
+      .addCase(setCurrentOdd.fulfilled, (state, action) => {
+        state.currentOdd = action.payload;
       });
   },
 });
