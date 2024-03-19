@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import Loadable from "../utils/loadable";
 import MultipleMatch from "../pages/analysis/multipleMatch";
 import { Navigate } from "react-router-dom";
@@ -6,31 +5,23 @@ import { Constants } from "../utils/Constants";
 
 import MainLayout from "../layout/main";
 
-const ListOfClients = Loadable(lazy(() => import("../pages/listOfClients")));
-const ChangePassword = Loadable(lazy(() => import("../pages/changePassword")));
-const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
-const Inplay = Loadable(lazy(() => import("../pages/inplay")));
-const AddAccount = Loadable(lazy(() => import("../pages/addAccount")));
-const EditAccount = Loadable(lazy(() => import("../pages/editAccount")));
-const Analysis = Loadable(lazy(() => import("../pages/analysis")));
-const Reports = Loadable(lazy(() => import("../pages/reports")));
-const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
-const WalletSettings = Loadable(lazy(() => import("../pages/walletSettings")));
-const LockMatchScreen = Loadable(
-  lazy(() => import("../pages/lockMatchDetail"))
-);
-const ProfitLossReport = Loadable(
-  lazy(() => import("../pages/reports/ProfitLoss"))
-);
+const ListOfClients = Loadable(() => import("../pages/listOfClients"));
+const ChangePassword = Loadable(() => import("../pages/changePassword"));
+const MyAccount = Loadable(() => import("../pages/myAccount"));
+const Inplay = Loadable(() => import("../pages/inplay"));
+const AddAccount = Loadable(() => import("../pages/addAccount"));
+const EditAccount = Loadable(() => import("../pages/editAccount"));
+const Analysis = Loadable(() => import("../pages/analysis"));
+const Reports = Loadable(() => import("../pages/reports"));
+const MatchDetail = Loadable(() => import("../pages/matchDetail"));
+const WalletSettings = Loadable(() => import("../pages/walletSettings"));
+const LockMatchScreen = Loadable(() => import("../pages/lockMatchDetail"));
+const ProfitLossReport = Loadable(() => import("../pages/reports/ProfitLoss"));
 const AccountStatement = Loadable(
-  lazy(() => import("../pages/reports/AccountStatement"))
+  () => import("../pages/reports/AccountStatement")
 );
-const CurrentBets = Loadable(
-  lazy(() => import("../pages/reports/CurrentBets"))
-);
-const GeneralReport = Loadable(
-  lazy(() => import("../pages/reports/GeneralReport"))
-);
+const CurrentBets = Loadable(() => import("../pages/reports/CurrentBets"));
+const GeneralReport = Loadable(() => import("../pages/reports/GeneralReport"));
 
 const MainRoutes = {
   path: Constants.AdminMainPaths.root,

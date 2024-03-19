@@ -15,6 +15,7 @@ import {
   getPlacedBets,
   getUserProfitLoss,
   removeRunAmount,
+  resetBetSessionProfitLossGraph,
   resetUserProfitLoss,
   // updateBalance,
   updateBetsPlaced,
@@ -189,9 +190,10 @@ const MatchDetail = () => {
       dispatch(getMatchDetail(state?.matchId));
       dispatch(getUserProfitLoss(state?.matchId));
       dispatch(resetSessionProfitLoss());
+      dispatch(resetBetSessionProfitLossGraph());
       dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
-  }, []);
+  }, [state?.matchId]);
 
   useEffect(() => {
     try {
@@ -240,6 +242,7 @@ const MatchDetail = () => {
       socketService.match.sessionResultOff();
       socketService.match.sessionResultUnDeclareOff();
       dispatch(resetUserProfitLoss());
+      dispatch(resetBetSessionProfitLossGraph());
     };
   }, []);
 

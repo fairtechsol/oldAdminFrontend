@@ -4,6 +4,7 @@ import {
   getSessionProLoss,
   getSessionProfitLossMatchDetailFilter,
   removeRunAmount,
+  resetBetSessionProfitLossGraph,
   updateBetsPlaced,
   updatePlacedbets,
   updateProfitLoss,
@@ -143,6 +144,9 @@ const betsSlice = createSlice({
           );
           state.sessionProLoss = updatedSessionProLoss;
         }
+      })
+      .addCase(resetBetSessionProfitLossGraph, (state) => {
+        return { ...state, sessionProLoss: [] };
       });
   },
 });

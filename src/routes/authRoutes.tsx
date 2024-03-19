@@ -1,12 +1,11 @@
-import { lazy } from "react";
 import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 
 import AuthLayout from "../layout/auth";
 
-const Login = Loadable(lazy(() => import("../pages/auth/login")));
-const ChangePassword = Loadable(lazy(() => import("../pages/changePassword")));
+const Login = Loadable(() => import("../pages/auth/login"));
+const ChangePassword = Loadable(() => import("../pages/changePassword"));
 
 const AuthRoutes = {
   path: Constants.AdminAuthPaths.root,
