@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { InputInterface } from "../../interface/common";
+import { numberInputOnWheelPreventChange } from "../../helper";
 
 const Input: React.FC<InputInterface> = (props: any) => {
   const {
@@ -78,6 +79,7 @@ const Input: React.FC<InputInterface> = (props: any) => {
           required={required}
           name={name}
           onBlur={onBlur}
+          onWheel={numberInputOnWheelPreventChange}
           error={error}
           InputProps={{
             autoComplete: "new-password",
