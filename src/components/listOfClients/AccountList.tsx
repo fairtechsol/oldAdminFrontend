@@ -77,6 +77,7 @@ const AccountList = (endpoint: any) => {
               endpoint={ApiConstants.USER.LIST}
               searchFor={"userList"}
               downloadPdfExcel={true}
+              setCurrentPage={setCurrentPage}
             />
             <Box sx={{ overflowX: "auto" }}>
               <Box

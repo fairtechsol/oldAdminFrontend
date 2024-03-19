@@ -33,6 +33,7 @@ const ListHeaderRow = ({ getLimitEntries, setPageLimit, pageLimit, setCurrentPag
         width={"100%"}
         searchFor={"currentBets"}
         placeholder={"Search..."}
+        setCurrentPage={setCurrentPage}
       />
     </Box>
   );
