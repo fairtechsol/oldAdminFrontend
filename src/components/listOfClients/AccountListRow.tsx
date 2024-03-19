@@ -10,13 +10,6 @@ import RowModalComponents from "./RowModalComponents";
 import { Modal } from "../Common/Modal";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
 import { ApiConstants, Constants } from "../../utils/Constants";
-import {
-  getModalUserList,
-  getTotalBalance,
-  handleModelActions,
-} from "../../store/actions/user/userAction";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
 import AccountListModal from "./AccountListModal";
 
 const AccountListRow = (props: AccountListRowInterface) => {
@@ -34,9 +27,6 @@ const AccountListRow = (props: AccountListRowInterface) => {
   } = props;
 
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-
-  const [currentPage] = useState<number>(1);
   const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
   const [showModalMessage, setShowModalMessage] = useState("No data found");
