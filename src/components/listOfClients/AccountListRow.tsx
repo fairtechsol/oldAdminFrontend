@@ -17,6 +17,7 @@ import {
 } from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
+import AccountListModal from "./AccountListModal";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -39,6 +40,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
   const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
   const [showModalMessage, setShowModalMessage] = useState("No data found");
+  const [showSubUsers, setSubSusers] = useState({
+    value: false,
+    id: "",
+    title: "",
+  });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selected, setSelected] = useState(null);
   const [depositeValue, setDepositeValue] = useState(0);
@@ -147,31 +153,31 @@ const AccountListRow = (props: AccountListRowInterface) => {
   const formattedPLValue = new Intl.NumberFormat("en-IN", {
     currency: "INR",
   }).format(calculateProfitLoss());
-  const handleModal = () => {
-    dispatch(
-      handleModelActions({
-        url: ApiConstants.USER.LIST,
-        userId: element?.id,
-        roleName: element?.roleName,
-        openModal: true,
-        title: element?.userName,
-      })
-    );
-    dispatch(
-      getTotalBalance({
-        userId: element?.id,
-        roleName: element?.roleName,
-      })
-    );
-    dispatch(
-      getModalUserList({
-        currentPage: currentPage,
-        url: ApiConstants.USER.LIST,
-        userId: element?.id,
-        roleName: element?.roleName,
-      })
-    );
-  };
+  // const handleModal = () => {
+  //   dispatch(
+  //     handleModelActions({
+  //       url: ApiConstants.USER.LIST,
+  //       userId: element?.id,
+  //       roleName: element?.roleName,
+  //       openModal: true,
+  //       title: element?.userName,
+  //     })
+  //   );
+  //   dispatch(
+  //     getTotalBalance({
+  //       userId: element?.id,
+  //       roleName: element?.roleName,
+  //     })
+  //   );
+  //   dispatch(
+  //     getModalUserList({
+  //       currentPage: currentPage,
+  //       url: ApiConstants.USER.LIST,
+  //       userId: element?.id,
+  //       roleName: element?.roleName,
+  //     })
+  //   );
+  // };
 
   const formattedCRValue =
     typeOfAmount === "credit" && creditValue > 0
@@ -217,7 +223,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
             onClick={(e: any) => {
               e.stopPropagation();
               if (!["user", "expert"].includes(element?.roleName)) {
-                handleModal();
+                setSubSusers({
+                  value: true,
+                  id: element?.id,
+                  title: element?.userName,
+                });
               } else {
                 return false;
               }
@@ -778,6 +788,34 @@ const AccountListRow = (props: AccountListRowInterface) => {
             id={showCommissionReport?.id}
             show={showCommissionReport?.value}
             setShow={setShowCommissionReport}
+          />
+        </Box>
+      </ModalMUI>
+      <ModalMUI
+        open={showSubUsers?.value}
+        onClose={() => {
+          setSubSusers({ value: false, id: "", title: "" });
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AccountListModal
+            endpoint={ApiConstants.USER.LIST}
+            id={showSubUsers?.id}
+            show={showSubUsers?.value}
+            setShow={setSubSusers}
+            title={showSubUsers?.title}
+            element={element}
+            // handleExport={handleExport}
           />
         </Box>
       </ModalMUI>

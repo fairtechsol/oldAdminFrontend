@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, Button } from "@mui/material";
-import { useState } from "react";
-import { AppDispatch, RootState } from "../../store/store";
+import { useEffect, useState } from "react";
+import { RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import ListHeader from "./ListHeader";
 import { useSelector } from "react-redux";
@@ -8,36 +8,64 @@ import Pagination from "../Common/Pagination";
 import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
 import SearchInput from "../Common/SearchInput";
-import { Constants } from "../../utils/Constants";
-import {
-  getTotalBalance,
-  handleModelActions,
-} from "../../store/actions/user/userAction";
-import { useDispatch } from "react-redux";
+import { ApiConstants, Constants } from "../../utils/Constants";
+import service from "../../service";
 
-const AccountListTable = ({ endpoint }: any) => {
+const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
+  const [newData, setNewData] = useState([]);
+  const [newTotalBalance, setNewTotalBalance] = useState(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const dispatch: AppDispatch = useDispatch();
   // console.log(domain, "title", title, id);
   const { userModalList } = useSelector(
     (state: RootState) => state.user.userList
   );
-  const { totalBalance, userElement } = useSelector(
-    (state: RootState) => state.user.userList
-  );
-  const handleModal = () => {
-    dispatch(getTotalBalance());
-    dispatch(
-      handleModelActions({
-        url: "",
-        userId: "",
-        roleName: "",
-        domain: "",
-        openModal: false,
-      })
-    );
+  const getUserList = async ({
+    userName,
+    currentPage,
+    userId,
+    roleName,
+    searchBy,
+  }: any) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.LIST}?userId=${userId}&searchBy=${searchBy}&keyword=${userName}&roleName=${roleName}&page=${currentPage}&limit=${Constants.pageLimit}`
+      );
+      if (resp) {
+        setNewData(resp?.data?.list);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
   };
+
+  const getTotalBalance = async ({ userId, roleName }: any) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.TOTAL_BALANCE}?userId=${userId}&roleName=${roleName}`
+      );
+      if (resp) {
+        setNewTotalBalance(resp?.data);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getTotalBalance({
+      userId: id,
+      roleName: element?.roleName,
+    });
+    getUserList({
+      userId: element?.id,
+      searchBy: "",
+      roleName: element?.roleName,
+      userName: "",
+      currentPage: currentPage,
+    });
+  }, [id]);
+  
   return (
     <>
       <Box
@@ -64,14 +92,11 @@ const AccountListTable = ({ endpoint }: any) => {
           }}
         >
           <ListHeader
-            id={userElement?.id}
-            title={userElement?.title}
+            id={id}
+            title={title}
             searchFor={"userList"}
             downloadPdfExcel={true}
-            // getListOfUser={getListOfUser}
-            // setPageCount={setPageCount}
-            // matchesMobile={matchesMobile}
-            // handleExport={handleExport}
+            endpoint={ApiConstants.USER.LIST}
           />
           <Box
             sx={{
@@ -87,14 +112,15 @@ const AccountListTable = ({ endpoint }: any) => {
               show={true}
               searchFor={"userModalList"}
               endpoint={endpoint}
-              userId={userElement?.id}
-              roleName={userElement?.roleName}
+              userId={id}
+              roleName={element?.roleName}
               setCurrentPage={setCurrentPage}
+              getUserListModal={getUserList}
             />
             <Button
               sx={{ color: "", fontSize: "30px" }}
               onClick={() => {
-                handleModal();
+                setShow({ value: false, id: "", title: "" });
               }}
             >
               &times;
@@ -105,8 +131,8 @@ const AccountListTable = ({ endpoint }: any) => {
         <Box sx={{ overflowX: "auto", maxHeight: "60vh" }}>
           <Box sx={{ display: matchesBreakPoint ? "inline-block" : "block" }}>
             <ListHeaderRow />
-            <SubHeaderListRow data={totalBalance} />
-            {userModalList?.list?.map((element: any, i: any) => {
+            <SubHeaderListRow data={newTotalBalance} />
+            {newData?.map((element: any, i: any) => {
               if (i % 2 === 0) {
                 return (
                   <AccountListRow
@@ -120,6 +146,7 @@ const AccountListTable = ({ endpoint }: any) => {
                     fContainerStyle={{ background: "#0B4F26" }}
                     fTextStyle={{ color: "white" }}
                     element={element}
+                    show={true}
                     // currentPage={currentPage}
                   />
                 );
@@ -137,6 +164,7 @@ const AccountListTable = ({ endpoint }: any) => {
                     fContainerStyle={{ background: "#F8C851" }}
                     fTextStyle={{ color: "#0B4F26" }}
                     element={element}
+                    show={true}
                     // getListOfUser={getListOfUser}
                     // currentPage={currentPage}
                   />

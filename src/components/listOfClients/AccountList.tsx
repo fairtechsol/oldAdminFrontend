@@ -5,7 +5,6 @@ import { AccountListDataInterface } from "../../interface/listOfClients";
 import {
   getTotalBalance,
   getUserList,
-  handleModelActions,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { ApiConstants, Constants } from "../../utils/Constants";
@@ -15,8 +14,6 @@ import AccountListRow from "./AccountListRow";
 import HeaderRow from "./HeaderRow";
 import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
-import AccountListTable from "./AccountListModal";
-import ModalMUI from "@mui/material/Modal";
 
 const AccountList = (endpoint: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
@@ -24,7 +21,7 @@ const AccountList = (endpoint: any) => {
   const loading = false;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { userList } = useSelector((state: RootState) => state.user.userList);
-  const { totalBalance, openModal } = useSelector(
+  const { totalBalance } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -32,17 +29,6 @@ const AccountList = (endpoint: any) => {
     dispatch(getUserList({ currentPage: currentPage, url: endpoint }));
     dispatch(getTotalBalance());
   }, [currentPage]);
-  const handleModalClose = () => {
-    dispatch(
-      handleModelActions({
-        url: "",
-        userId: "",
-        roleName: "",
-        domain: "",
-        openModal: false,
-      })
-    );
-  };
   return (
     <>
       {loading ? (
@@ -155,25 +141,6 @@ const AccountList = (endpoint: any) => {
             )}
             setCurrentPage={setCurrentPage}
           />
-          <ModalMUI
-            open={openModal}
-            onClose={handleModalClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                // flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <AccountListTable endpoint={ApiConstants.USER.LIST} />
-            </Box>
-          </ModalMUI>
         </>
       )}
     </>
