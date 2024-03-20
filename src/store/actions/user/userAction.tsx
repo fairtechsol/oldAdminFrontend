@@ -255,7 +255,12 @@ export const getUsersProfile = createAsyncThunk(
     try {
       const resp = await service.get(`${ApiConstants.USER.PROFILE}`);
       if (resp) {
-        return resp?.data[0][0];
+        if (resp?.data[0][0]?.loginAt === null) {
+          window.location.replace("/admin/login");
+          sessionStorage.clear();
+        } else {
+          return resp?.data[0][0];
+        }
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -306,6 +311,21 @@ export const handleSettleCommission = createAsyncThunk<any, any>(
         `${ApiConstants.USER.COMMISSION_SETTLEMENT}`,
         requestData
       );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      throw thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
+export const handleDeleteUser = createAsyncThunk<any, any>(
+  "deleteUser/userList",
+  async (id, thunkApi) => {
+    try {
+      const resp = await service.delete(`${ApiConstants.USER.DELETE}/${id}`);
       if (resp) {
         return resp?.data;
       }
