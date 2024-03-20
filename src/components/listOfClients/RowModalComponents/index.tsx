@@ -15,9 +15,12 @@ import {
   getTotalBalance,
   getUserList,
   getUsersProfile,
+  handleDeleteUser,
   handleSettleCommission,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
+import StyledImage from "../../Common/StyledImages";
+import { DeleteIcon } from "../../../assets";
 
 const RowModalComponents = (props: any) => {
   const { element, selected, setSelected, backgroundColor, onValueChange } =
@@ -25,6 +28,7 @@ const RowModalComponents = (props: any) => {
   const dispatch: AppDispatch = useDispatch();
 
   const [settlementModal, setSettlementModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -332,6 +336,26 @@ const RowModalComponents = (props: any) => {
             labelStyle={{}}
             isSelected={selected == 5}
           />
+          <BoxButton
+            color={"#E32A2A"}
+            deleteBtn={true}
+            onClick={() => {
+              setShowDeleteModal((prev: boolean) => !prev);
+            }}
+            containerStyle={{
+              marginLeft: { lg: "10px", xs: "0" },
+              flex: 1,
+              borderColor: "white",
+            }}
+            title={"Delete User"}
+            titleStyle={{
+              fontSize: { xs: "12px" },
+            }}
+            icon={
+              <StyledImage src={DeleteIcon} sx={classes.BoxButtonStyledImage} />
+            }
+            // containerStyle={classes.BoxButtonContStyle}
+          />
           <Dialog
             open={settlementModal}
             onClose={() => setSettlementModal((prev: boolean) => !prev)}
@@ -359,6 +383,31 @@ const RowModalComponents = (props: any) => {
                 }}
               >
                 Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={showDeleteModal}
+            onClose={() => setShowDeleteModal((prev: boolean) => !prev)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are you sure want to delete this user?"}
+            </DialogTitle>
+            <DialogActions>
+              <Button
+                onClick={() => setShowDeleteModal((prev: boolean) => !prev)}
+              >
+                Cancel
+              </Button>
+              <Button
+                sx={{ color: "#E32A2A" }}
+                onClick={() => {
+                  dispatch(handleDeleteUser(element?.id));
+                }}
+              >
+                Delete
               </Button>
             </DialogActions>
           </Dialog>

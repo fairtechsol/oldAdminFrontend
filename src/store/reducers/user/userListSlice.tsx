@@ -7,6 +7,7 @@ import {
   getSearchClientList,
   getTotalBalance,
   getUserList,
+  handleDeleteUser,
   handleExport,
   handleModelActions,
   handleSettleCommission,
@@ -24,9 +25,9 @@ interface InitialState {
   loading: boolean;
   error: any;
   totalBalance: any;
-  userModalList:any;
-  openModal:boolean;
-  userElement:any;
+  userModalList: any;
+  openModal: boolean;
+  userElement: any;
   searchUserList: any;
 }
 
@@ -40,8 +41,8 @@ const initialState: InitialState = {
   searchUserList: [],
   totalBalance: null,
   userModalList: null,
-  openModal:false,
-  userElement:null,
+  openModal: false,
+  userElement: null,
 };
 
 export const userList = createSlice({
@@ -86,15 +87,15 @@ export const userList = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(handleModelActions.fulfilled, (state, action) => {
-        const {openModal,domain} = action.payload
+        const { openModal, domain } = action.payload;
         state.openModal = openModal;
         let obj = {
-          roleName : action.payload.roleName,
+          roleName: action.payload.roleName,
           id: action.payload.userId,
-          domain : domain,
-          title: action.payload.title
-        }
-        state.userElement=obj
+          domain: domain,
+          title: action.payload.title,
+        };
+        state.userElement = obj;
         state.loading = false;
       })
       .addCase(changeAmmountUser.pending, (state) => {
@@ -166,6 +167,18 @@ export const userList = createSlice({
         state.loading = false;
       })
       .addCase(handleSettleCommission.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(handleDeleteUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(handleDeleteUser.fulfilled, (state) => {
+        state.success = true;
+        state.loading = false;
+      })
+      .addCase(handleDeleteUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
