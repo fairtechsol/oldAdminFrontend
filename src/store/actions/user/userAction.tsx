@@ -553,7 +553,7 @@ export const getSearchClientList = createAsyncThunk<
 >("user/clientList", async (requestData, thunkApi) => {
   try {
     const resp = await service.get(
-      `${ApiConstants.USER.ALREADY_SEARCHLIST}?userName=${requestData?.userName}&createdBy:${requestData?.createdBy}`
+      `${ApiConstants.USER.ALREADY_SEARCHLIST}?userName=${requestData?.userName}`
     );
     if (resp) {
       return resp?.data;

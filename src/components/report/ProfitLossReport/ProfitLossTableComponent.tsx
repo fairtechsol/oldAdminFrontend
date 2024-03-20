@@ -21,7 +21,7 @@ const ProfitLossTableComponent = (props: any) => {
     setShow,
     show,
     endDate,
-    startDate
+    startDate,
   } = props;
   const [event, setEvent] = useState("");
   const dispatch: AppDispatch = useDispatch();
@@ -37,7 +37,6 @@ const ProfitLossTableComponent = (props: any) => {
     betId: "",
     sessionBet: false,
   });
-
 
   const getHandleReport = (eventType: any) => {
     setEvent(eventType);
@@ -61,9 +60,9 @@ const ProfitLossTableComponent = (props: any) => {
       dispatch(
         getMatchWiseProfitLoss({
           type: eventType,
-          searchId:userData?.id,
-          startDate:startDate,
-          endDate:endDate
+          searchId: userData?.id,
+          startDate: startDate,
+          endDate: endDate,
         })
       );
     }
@@ -86,8 +85,7 @@ const ProfitLossTableComponent = (props: any) => {
     });
   };
 
-  return (
-    eventData?.length > 0 ?
+  return eventData?.length > 0 ? (
     <Box>
       {eventData?.map((item: any, index: any) => {
         return (
@@ -129,20 +127,21 @@ const ProfitLossTableComponent = (props: any) => {
           // callPage={callPage}
         />
       )}
-    </Box>:
-      <Box>
-        <Typography
-          sx={{
-            color: "#fff",
-            textAlign: "center",
-            fontSize: { lg: "16px", xs: "10px" },
-            fontWeight: "600",
-            margin: "1rem",
-          }}
-        >
-          No Matching Records Found
-        </Typography>
-      </Box>
+    </Box>
+  ) : (
+    <Box>
+      <Typography
+        sx={{
+          color: "#fff",
+          textAlign: "center",
+          fontSize: { lg: "16px", xs: "10px" },
+          fontWeight: "600",
+          margin: "1rem",
+        }}
+      >
+        No Matching Records Found
+      </Typography>
+    </Box>
   );
 };
 
