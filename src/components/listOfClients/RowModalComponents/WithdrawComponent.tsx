@@ -63,18 +63,61 @@ const WithdrawComponent = (props: any) => {
     });
     return formatter.format(amount);
   };
+  const numberWithCommas = (numString: any) => {
+    // console.log('numString',numString)
+    let stringWithoutCommas = numString?.replace(/,/g, '');
+    // console.log('stringWithoutCommas', stringWithoutCommas)
+    if (!stringWithoutCommas?.includes('.')) {
+      if (stringWithoutCommas?.length > 3) {
+        let mainArray = stringWithoutCommas.slice(0, -3);
+        let lastThreeDigitsArray = stringWithoutCommas.slice(-3);
+        let reversedStr = mainArray.split('').reverse().join('');
+        let result = '';
 
-  const checkHandleChange = (event: any) => {
-    let value = 0;
-    if (event.target.value != "") {
-      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ""));
+        for (let i = 0; i < reversedStr.length; i += 2) {
+          result += reversedStr.substr(i, 2) + ',';
+        }
+        result = result.slice(0, -1); // Remove the last comma
+        let reversedStr1 = result.split('').reverse().join('');
+        // console.log(reversedStr1,' jnknk ',reversedStr);
+        return reversedStr1+','+lastThreeDigitsArray;
+      }
     }
 
-    formik.setFieldValue("amount", value);
-    onChangeAmount(value, element?.id, "withdraw");
-    // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
-    // setChexckValue(event.target.value);
   };
+  const checkHandleChange = (event: any) => {
+    let value = (event.target.value).toString();
+    if (event.target.value != "") {
+      value =event.target.value.replace(/[^\w\s.]/gi, "");
+    }
+    if (value.includes('.')) {
+      let parts = value.split('.');
+      
+      // If the fractional part has more than two digits, truncate it
+      if (parts[1].length > 2) {
+          parts[1] = parts[1].substring(0, 2);
+          value = parts.join('.');
+      }
+  }
+    formik.setFieldValue("amount",value);
+    onChangeAmount(parseFloat(value), element?.id, "deposite");
+  };
+  document.getElementById("amount")?.addEventListener("keypress", (event) => {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    const caretPos = input.selectionStart;
+
+    
+    const allowedCharacters = /[0-9.]/;
+
+    // If the entered character is not allowed, or the decimal point is already present and the cursor is after the second digit of the fractional part, prevent typing
+    if (
+        !allowedCharacters.test(event.key) ||
+        (value.includes('.') && value.substring(value.indexOf('.') + 1).length >= 2 && caretPos !== null && caretPos > value.indexOf('.') + 2)
+    ) {
+        event.preventDefault();
+    }
+});
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -83,7 +126,7 @@ const WithdrawComponent = (props: any) => {
       let payload;
       if (isWallet) {
         payload = {
-          amount: values.amount,
+          amount: parseFloat(values.amount),
           transactionPassword: values.transactionPassword,
           remark: values.remark,
           transactionType: "withDraw",
@@ -91,7 +134,7 @@ const WithdrawComponent = (props: any) => {
       } else {
         payload = {
           userId: element?.id,
-          amount: values.amount,
+          amount: parseFloat(values.amount),
           transactionPassword: values.transactionPassword,
           remark: values.remark,
           transactionType: "withDraw",
@@ -270,8 +313,8 @@ const WithdrawComponent = (props: any) => {
                     name="amount"
                     // onKeyDown={handleKeyDown}
                     // value={withDrawObj.amount}
-                    value={formatIndianCurrency(
-                      parseFloat(formik.values.amount?.toString())
+                    value={numberWithCommas(
+                      formik.values.amount?.toString()
                     )}
                     variant="standard"
                     InputProps={{
