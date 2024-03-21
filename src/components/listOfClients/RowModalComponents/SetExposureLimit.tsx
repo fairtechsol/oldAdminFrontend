@@ -16,6 +16,7 @@ import {
 import { AppDispatch, RootState } from "../../../store/store";
 import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
+import { formatToINR } from "../../../helper";
 
 const initialValues: any = {
   userId: "",
@@ -97,13 +98,6 @@ const SetExposureLimit = (props: any) => {
     onChangeAmount(formik.values.amount, element?.id, "exposure");
   }, [formik.values.amount, onChangeAmount]);
 
-  const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat('en-IN', {
-      currency: 'INR'
-    });
-    return formatter.format(amount);
-  };
-
   const checkHandleChange = (event: any) => {
     let value = 0;
     if (event.target.value != "") {
@@ -162,7 +156,7 @@ const SetExposureLimit = (props: any) => {
                 required={true}
                 id="amount"
                 name="amount"
-               value={formatIndianCurrency(parseFloat(formik.values.amount?.toString()))}
+               value={formatToINR(parseFloat(formik.values.amount?.toString()))}
                 onChange={(e: any) => checkHandleChange(e)}
                 variant="standard"
                 InputProps={{

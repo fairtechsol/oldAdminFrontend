@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
+import { formatToINR } from "../../../helper";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
   return (
@@ -102,15 +103,19 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             {Number(item?.totalLoss) >= 0 ? (
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
-                {Number(item?.totalLoss).toFixed(2)}{" "}
+                {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
                 {`(Total Deduction: 
-                  ${Number(item?.totalDeduction) || 0})`}
+                  ${formatToINR(
+                    Number(item?.totalDeduction).toFixed(2) || 0
+                  )})`}
               </>
             ) : (
               <>
-                {Number(item?.totalLoss).toFixed(2)}{" "}
+                {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
                 {`(Total Deduction: 
-                  ${Number(item?.totalDeduction) || 0})`}
+                  ${formatToINR(
+                    Number(item?.totalDeduction).toFixed(2) || 0
+                  )})`}
               </>
             )}{" "}
           </Typography>

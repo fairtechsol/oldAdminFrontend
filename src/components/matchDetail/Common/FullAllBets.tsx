@@ -5,6 +5,7 @@ import moment from "moment";
 import { CHECK } from "../../../assets";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { formatToINR } from "../../../helper";
 
 const FullAllBets = (props: any) => {
   const { tag, mode, IObets, selectedBetData, setSelectedBetData } = props;
@@ -106,7 +107,7 @@ const FullAllBets = (props: any) => {
               deletedReason: v?.deleteReason,
             },
             {
-              name: v?.amount || v?.stake,
+              name: formatToINR(v?.amount || v?.stake),
               color: "black",
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
@@ -114,19 +115,21 @@ const FullAllBets = (props: any) => {
               deletedReason: v?.deleteReason,
             },
             {
-              name: v?.myStake ? v?.myStake : (v?.amount * partnership) / 100,
+              name: formatToINR(
+                v?.myStake ? v?.myStake : (v?.amount * partnership) / 100
+              ),
               color: "white",
               background: "#0B4F26",
               deletedReason: v?.deleteReason,
             },
             {
-              name: moment.utc(v?.createdAt).utcOffset('+05:30').format("LTS"),
+              name: moment.utc(v?.createdAt).utcOffset("+05:30").format("LTS"),
               color: "black",
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
                 : "rgb(255, 146, 146)",
               time: true,
-              date: moment.utc(v?.createdAt).utcOffset('+05:30').format("L"),
+              date: moment.utc(v?.createdAt).utcOffset("+05:30").format("L"),
               deletedReason: v?.deleteReason,
             },
           ],
@@ -387,7 +390,8 @@ const FullAllBets = (props: any) => {
                             }}
                           >
                             Bet{" "}
-                            <span style={{ color: "#e41b23" }}>deleted</span> due to {i?.values[0]?.deletedReason}
+                            <span style={{ color: "#e41b23" }}>deleted</span>{" "}
+                            due to {i?.values[0]?.deletedReason}
                           </Typography>
                         </Box>
                       </Box>

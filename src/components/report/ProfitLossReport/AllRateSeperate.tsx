@@ -2,6 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
+import { formatToINR } from "../../../helper";
 
 const AllRateSeperate = ({
   profit,
@@ -345,10 +346,10 @@ const AllRateSeperate = ({
                             {Number(i.totalLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(i.totalLoss).toFixed(2)}
+                                {formatToINR(Number(i.totalLoss).toFixed(2))}
                               </>
                             ) : (
-                              Number(i.totalLoss).toFixed(2)
+                              formatToINR(Number(i.totalLoss).toFixed(2))
                             )}
                             {/* {Number(i?.totalLoss).toFixed(2) || ""} */}
                           </Typography>
@@ -384,7 +385,7 @@ const AllRateSeperate = ({
                             height: { lg: "20px", xs: "14px" },
                             marginRight: "5px",
                           }}
-                            src={DeleteIcon}
+                          src={DeleteIcon}
                         />
                         <Typography
                           sx={{
@@ -557,7 +558,7 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={data?.amount}
+            data={formatToINR(data?.amount)}
             header={header}
             width={"50%"}
             boxWidth="40%"
