@@ -29,7 +29,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
   }: any) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.LIST}?userId=${userId}&searchBy=${searchBy}&keyword=${userName}&roleName=${roleName}&page=${currentPage}&limit=${Constants.pageLimit}`
+        `${ApiConstants.USER.LIST}?userId=${userId}&searchBy=${searchBy}&keyword=${userName}&roleName=${roleName}&page=${currentPage}&limit=${Constants.pageLimit}&sort=user.userName:ASC`
       );
       if (resp) {
         setNewData(resp?.data?.list);
@@ -65,7 +65,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
       currentPage: currentPage,
     });
   }, [id]);
-  
+
   return (
     <>
       <Box
