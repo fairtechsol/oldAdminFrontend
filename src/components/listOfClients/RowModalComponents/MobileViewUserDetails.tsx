@@ -19,8 +19,57 @@ const MobileViewUserDetails = (props: any) => {
     element,
     elementToUDM,
     titleBackgroundColor,
-    currentUser,
+    type,
   } = props;
+  const formatIndianCurrency = (amount: number) => {
+    const formatter = new Intl.NumberFormat("en-IN", {
+      currency: "INR",
+    });
+    return formatter.format(amount);
+  };
+
+  const numberWithCommas = (numString: any) => {
+    // console.log('numString',numString)
+        let stringWithoutCommas = numString?.replace(/,/g, '');
+    // console.log('stringWithoutCommas', stringWithoutCommas)
+    if (!stringWithoutCommas?.includes('.')) {
+      if (stringWithoutCommas?.length > 3) {
+        let mainArray = stringWithoutCommas.slice(0, -3);
+        let lastThreeDigitsArray = stringWithoutCommas.slice(-3);
+        let reversedStr = mainArray.split('').reverse().join('');
+        let result = '';
+
+        for (let i = 0; i < reversedStr.length; i += 2) {
+          result += reversedStr.substr(i, 2) + ',';
+        }
+        result = result.slice(0, -1); // Remove the last comma
+        let reversedStr1 = result.split('').reverse().join('');
+        // console.log(reversedStr1,' jnknk ',reversedStr);
+        return reversedStr1+','+lastThreeDigitsArray;
+      }else{
+        let data = stringWithoutCommas?.replace(/,/g, '');
+        return data;
+      }
+    }else{
+      let parts = stringWithoutCommas.split('.');
+      if(parts[0]?.length > 3){
+      let mainArray = parts[0].slice(0, -3);
+        let lastThreeDigitsArray = parts[0].slice(-3);
+        let reversedStr = mainArray.split('').reverse().join('');
+        let result = '';
+        for (let i = 0; i < reversedStr.length; i += 2) {
+            result += reversedStr.substr(i, 2) + ',';
+          }
+          result = result.slice(0, -1); // Remove the last comma
+          let reversedStr1 = result.split('').reverse().join('');
+        // console.log(reversedStr1,' jnknk ',reversedStr);
+        return reversedStr1+','+lastThreeDigitsArray+'.'+parts[1];
+    }else{
+      let data = stringWithoutCommas?.replace(/,/g, '');
+      return data;
+    }
+    }
+  };
 
   return (
     <Box
@@ -138,12 +187,12 @@ const MobileViewUserDetails = (props: any) => {
                   marginLeft: "5px",
                 }}
               >
-                {currentUser?.userName}
+                {elementToUDM?.userName}
               </Typography>
             </Box>
             <Box
               sx={{
-                background: Number(profit_loss) >= 0 ? "#27AC1E" : "#E32A2A",
+                background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
                 width: "30%",
                 height: "45px",
                 borderRadius: "5px",
@@ -161,7 +210,7 @@ const MobileViewUserDetails = (props: any) => {
                   alignItems: "center",
                 }}
               >
-                {currentUser?.current_balance}
+                {formatIndianCurrency(parseFloat(elementToUDM?.balance))}
               </Typography>
             </Box>
 
@@ -178,7 +227,7 @@ const MobileViewUserDetails = (props: any) => {
               }}
             >
               <TextField
-                value={initialBalance || 0}
+                value={formatIndianCurrency(parseFloat(initialBalance)) || 0}
                 sx={{ width: "100%", height: "45px" }}
                 variant="standard"
                 InputProps={{
@@ -242,7 +291,7 @@ const MobileViewUserDetails = (props: any) => {
             </Box>
             <Box
               sx={{
-                background: Number(profit_loss) >= 0 ? "#27AC1E" : "#E32A2A",
+                background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
                 width: "30%",
                 height: "45px",
                 borderRadius: "5px",
@@ -260,12 +309,11 @@ const MobileViewUserDetails = (props: any) => {
                   alignItems: "center",
                 }}
               >
-                {element?.available_balance
-                  ? element?.available_balance.toFixed(2)
+                {elementToUDM?.availableBalance
+                  ? formatIndianCurrency(parseFloat(elementToUDM?.availableBalance.toFixed(2)))
                   : "00"}
               </Typography>
             </Box>
-
             <Box
               sx={{
                 width: "30%",
@@ -280,8 +328,8 @@ const MobileViewUserDetails = (props: any) => {
             >
               <TextField
                 value={
-                  elementToUDM?.available_balance
-                    ? elementToUDM?.available_balance.toFixed(2)
+                  elementToUDM?.availableBalance
+                    ? formatIndianCurrency(type === 'deposite' ? parseFloat(elementToUDM?.availableBalance.toFixed(2)) + parseFloat(value.amount ? value.amount : 0) :  parseFloat(elementToUDM?.availableBalance.toFixed(2)) - parseFloat(value.amount ? value.amount : 0))
                     : "00"
                 }
                 sx={{ width: "100%", height: "45px" }}
@@ -338,7 +386,7 @@ const MobileViewUserDetails = (props: any) => {
           </Box>
           <Box
             sx={{
-              background: Number(profit_loss) >= 0 ? "#27AC1E" : "#E32A2A",
+              background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
               width: "30%",
               height: "45px",
               borderRadius: "5px",
@@ -357,7 +405,7 @@ const MobileViewUserDetails = (props: any) => {
               }}
             >
               {" "}
-              {element?.profit_loss}
+              {formatIndianCurrency(parseFloat(elementToUDM?.userBal?.profitLoss))}
             </Typography>
           </Box>
           <Box
@@ -373,7 +421,7 @@ const MobileViewUserDetails = (props: any) => {
             }}
           >
             <TextField
-              value={profit_loss || 0}
+              value={formatIndianCurrency(type === 'deposite' ? parseFloat(elementToUDM?.userBal?.profitLoss) + parseFloat(value.amount ? value.amount : 0) : parseFloat(elementToUDM?.userBal?.profitLoss) - parseFloat(value.amount ? value.amount : 0)) || 0}
               sx={{ width: "100%", height: "45px" }}
               variant="standard"
               InputProps={{
@@ -439,8 +487,8 @@ const MobileViewUserDetails = (props: any) => {
               required={true}
               id="amount"
               name="amount"
-              value={value.amount}
-              onChange={onChange}
+              value={numberWithCommas(value.amount?.toString())}
+             onChange={(e: any) => onChange(e,'amount')}
               variant="standard"
               InputProps={{
                 placeholder: "Type Amount...",
@@ -454,7 +502,7 @@ const MobileViewUserDetails = (props: any) => {
                   color: "white",
                 },
               }}
-              type={"Number"}
+              // type={"Number"}
             />
           </Box>
         </Box>
@@ -512,7 +560,7 @@ const MobileViewUserDetails = (props: any) => {
               id="remark"
               name="remark"
               value={value.remark}
-              onChange={onChange}
+              onChange={(e: any) => onChange(e,'remark')}
               rows={4}
               sx={{ width: "100%", minHeight: "40px" }}
               multiline={true}
@@ -585,7 +633,7 @@ const MobileViewUserDetails = (props: any) => {
               id="transactionPassword"
               name="transactionPassword"
               value={value.transactionPassword}
-              onChange={onChange}
+              onChange={(e: any) => onChange(e,'pass')}
               sx={{ width: "100%", height: "45px" }}
               variant="standard"
               InputProps={{

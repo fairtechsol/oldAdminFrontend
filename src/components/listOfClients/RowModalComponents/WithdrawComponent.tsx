@@ -57,12 +57,7 @@ const WithdrawComponent = (props: any) => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat("en-IN", {
-      currency: "INR",
-    });
-    return formatter.format(amount);
-  };
+  
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
     let stringWithoutCommas = numString?.replace(/,/g, '');
@@ -127,8 +122,8 @@ const WithdrawComponent = (props: any) => {
     const value = input.value;
     const caretPos = input.selectionStart;
 
-
-    const allowedCharacters = /[0-9.]/;
+    
+    const allowedCharacters = !formik.values.amount && formik.values.amount.includes('.') ?  /[0-9]/ :  /[0-9.]/;
 
     // If the entered character is not allowed, or the decimal point is already present and the cursor is after the second digit of the fractional part, prevent typing
     if (
@@ -211,7 +206,15 @@ const WithdrawComponent = (props: any) => {
       );
     }
   }, [formik.values.amount, onChangeAmount]);
-
+  const handleValueChange=(v:any , type:string)=>{
+    if(type === 'amount'){
+      checkHandleChange(v)
+    }else if(type === 'pass'){
+      formik.setFieldValue("transactionPassword",v.target.value);
+    }else if(type === 'remark'){
+      formik.setFieldValue("remark",v.target.value);
+    }
+  }
   return (
     <>
       {matchesMobile && matchesTablet ? (
@@ -228,13 +231,13 @@ const WithdrawComponent = (props: any) => {
         >
           <form onSubmit={handleSubmit}>
             <MobileViewUserDetails
-              elementToUDM={elementToUDM}
-              userName={elementToUDM?.userName}
+              elementToUDM={element}
+              userName={element?.userName}
               title={"Withdraw Amount"}
               setSelected={setSelected}
               selected={selected}
               value={formik.values}
-              onChange={formik.handleChange}
+              onChange={handleValueChange}
               setShowPass={setShowPass}
               showPass={showPass}
               onCancel={() => {
@@ -245,6 +248,7 @@ const WithdrawComponent = (props: any) => {
               backgroundColor={backgroundColor}
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
+              type='withdraw'
             />
           </form>
         </ModalMUI>
