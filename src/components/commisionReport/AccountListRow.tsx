@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { formatToINR } from "../../helper";
 
 const AccountListRow = ({
   containerStyle,
@@ -10,20 +11,21 @@ const AccountListRow = ({
 }: any) => {
   const prevElement = {
     name: element?.matchName,
-    commissionAmount: element?.commissionAmount,
+    commissionAmount: formatToINR(element?.commissionAmount),
     commissionType:
       element?.betType === "NO" || element?.betType === "YES"
         ? "Session"
         : "Match",
     betType: element?.betType,
-    stack: element?.stake,
+    stack: formatToINR(element?.stake),
     odds: element?.odds,
     isActive: element?.isActive,
     teamBet: element?.teamName,
     createAt: element?.date,
     myCommission:
-      ((+element?.commissionAmount || 0) * element?.partnerShip) / 100 +
-      `(${element?.partnerShip}%)`,
+      formatToINR(
+        ((+element?.commissionAmount || 0) * element?.partnerShip) / 100
+      ) + `(${element?.partnerShip}%)`,
     userName: element?.userName,
   };
   const [elementToUDM, setElementToUDM] = useState(prevElement);

@@ -13,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import SessionBetSeperate from "./SessionBetSeperate";
 import AllRateSeperate from "./AllRateSeperate";
+import { formatToINR } from "../../../helper";
 
 const RowComponentMatches = ({
   item,
@@ -233,15 +234,21 @@ const RowComponentMatches = ({
               {Number(item?.rateProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item?.rateProfitLoss).toFixed(2)}{" "}
+                  {formatToINR(
+                    Number(item?.rateProfitLoss || 0).toFixed(2)
+                  )}{" "}
                   {`(Total Deduction: 
-                  ${Number(item?.totalDeduction) || 0})`}
+                  ${formatToINR(
+                    Number(item?.totalDeduction || 0).toFixed(2)
+                  )})`}
                 </>
               ) : (
                 <>
-                  {Number(item?.rateProfitLoss).toFixed(2)}{" "}
+                  {formatToINR(Number(item?.rateProfitLoss || 0).toFixed(2))}{" "}
                   {`(Total Deduction: 
-                  ${Number(item?.totalDeduction) || 0})`}
+                  ${formatToINR(
+                    Number(item?.totalDeduction || 0).toFixed(2)
+                  )})`}
                 </>
               )}{" "}
             </Typography>
@@ -339,10 +346,10 @@ const RowComponentMatches = ({
               {Number(item?.sessionProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item?.sessionProfitLoss).toFixed(2)}
+                  {formatToINR(Number(item?.sessionProfitLoss || 0).toFixed(2))}
                 </>
               ) : (
-                Number(item?.sessionProfitLoss).toFixed(2)
+                formatToINR(Number(item?.sessionProfitLoss || 0).toFixed(2))
               )}
             </Typography>
             <StyledImage
