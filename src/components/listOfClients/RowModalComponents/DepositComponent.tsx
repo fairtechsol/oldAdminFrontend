@@ -93,12 +93,6 @@ const DepositComponent = (props: any) => {
     (state: RootState) => state.user.userList
   );
 
-  const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat("en-IN", {
-      currency: "INR",
-    });
-    return formatter.format(amount);
-  };
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
         let stringWithoutCommas = numString?.replace(/,/g, '');
