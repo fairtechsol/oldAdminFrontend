@@ -27,7 +27,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 const initialValues: any = {
   userId: "",
-  amount: 0,
+  amount: '',
   transactionPassword: "",
   remark: "",
   transactionType: "withDraw",
@@ -121,18 +121,28 @@ const WithdrawComponent = (props: any) => {
     const input = event.target as HTMLInputElement;
     const value = input.value;
     const caretPos = input.selectionStart;
-
+  
+   
+    let allowedCharacters;
     
-    const allowedCharacters = !formik.values.amount && formik.values.amount.includes('.') ?  /[0-9]/ :  /[0-9.]/;
-
-    // If the entered character is not allowed, or the decimal point is already present and the cursor is after the second digit of the fractional part, prevent typing
+    if (value === '' || !value.includes('.')) {
+        allowedCharacters = /[0-9.]/;
+    } else {
+        allowedCharacters = /[0-9]/;
+    }
+  
     if (
         !allowedCharacters.test(event.key) ||
-        (value.includes('.') && value.substring(value.indexOf('.') + 1).length >= 2 && caretPos !== null && caretPos > value.indexOf('.') + 2)
+        (value.includes('.') && value.substring(value.indexOf('.') + 1).length >= 2 && caretPos !== null && caretPos > value.indexOf('.') + 1) // Corrected the condition here
     ) {
-        event.preventDefault();
+      event.preventDefault();
     }
-});
+  
+    // Allow entering decimal point again if the value is cleared (e.g., using backspace)
+    if (event.key === '.' && value === '') {
+        return;
+    }
+  });
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -345,7 +355,7 @@ const WithdrawComponent = (props: any) => {
                       placeholder: "Type Amount...",
                       disableUnderline: true,
                       autoFocus: true,
-                      autoComplete: "new-password",
+                      autoComplete: "off",
                       inputProps: { min: "0", step: "1" },
                       style: {
                         fontSize: "15px",
