@@ -7,7 +7,6 @@ const MobileViewUserDetails = (props: any) => {
   const {
     value,
     onChange,
-    profit_loss,
     setShowPass,
     showPass,
     onCancel,
@@ -16,7 +15,6 @@ const MobileViewUserDetails = (props: any) => {
     loading,
     title,
     userName,
-    element,
     elementToUDM,
     titleBackgroundColor,
     type,
@@ -30,44 +28,44 @@ const MobileViewUserDetails = (props: any) => {
 
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
-        let stringWithoutCommas = numString?.replace(/,/g, '');
+    let stringWithoutCommas = numString?.replace(/,/g, "");
     // console.log('stringWithoutCommas', stringWithoutCommas)
-    if (!stringWithoutCommas?.includes('.')) {
+    if (!stringWithoutCommas?.includes(".")) {
       if (stringWithoutCommas?.length > 3) {
         let mainArray = stringWithoutCommas.slice(0, -3);
         let lastThreeDigitsArray = stringWithoutCommas.slice(-3);
-        let reversedStr = mainArray.split('').reverse().join('');
-        let result = '';
+        let reversedStr = mainArray.split("").reverse().join("");
+        let result = "";
 
         for (let i = 0; i < reversedStr.length; i += 2) {
-          result += reversedStr.substr(i, 2) + ',';
+          result += reversedStr.substr(i, 2) + ",";
         }
         result = result.slice(0, -1); // Remove the last comma
-        let reversedStr1 = result.split('').reverse().join('');
+        let reversedStr1 = result.split("").reverse().join("");
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray;
-      }else{
-        let data = stringWithoutCommas?.replace(/,/g, '');
+        return reversedStr1 + "," + lastThreeDigitsArray;
+      } else {
+        let data = stringWithoutCommas?.replace(/,/g, "");
         return data;
       }
-    }else{
-      let parts = stringWithoutCommas.split('.');
-      if(parts[0]?.length > 3){
-      let mainArray = parts[0].slice(0, -3);
+    } else {
+      let parts = stringWithoutCommas.split(".");
+      if (parts[0]?.length > 3) {
+        let mainArray = parts[0].slice(0, -3);
         let lastThreeDigitsArray = parts[0].slice(-3);
-        let reversedStr = mainArray.split('').reverse().join('');
-        let result = '';
+        let reversedStr = mainArray.split("").reverse().join("");
+        let result = "";
         for (let i = 0; i < reversedStr.length; i += 2) {
-            result += reversedStr.substr(i, 2) + ',';
-          }
-          result = result.slice(0, -1); // Remove the last comma
-          let reversedStr1 = result.split('').reverse().join('');
+          result += reversedStr.substr(i, 2) + ",";
+        }
+        result = result.slice(0, -1); // Remove the last comma
+        let reversedStr1 = result.split("").reverse().join("");
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray+'.'+parts[1];
-    }else{
-      let data = stringWithoutCommas?.replace(/,/g, '');
-      return data;
-    }
+        return reversedStr1 + "," + lastThreeDigitsArray + "." + parts[1];
+      } else {
+        let data = stringWithoutCommas?.replace(/,/g, "");
+        return data;
+      }
     }
   };
 
@@ -192,7 +190,10 @@ const MobileViewUserDetails = (props: any) => {
             </Box>
             <Box
               sx={{
-                background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
+                background:
+                  Number(elementToUDM?.userBal?.profitLoss) >= 0
+                    ? "#27AC1E"
+                    : "#E32A2A",
                 width: "30%",
                 height: "45px",
                 borderRadius: "5px",
@@ -291,7 +292,10 @@ const MobileViewUserDetails = (props: any) => {
             </Box>
             <Box
               sx={{
-                background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
+                background:
+                  Number(elementToUDM?.userBal?.profitLoss) >= 0
+                    ? "#27AC1E"
+                    : "#E32A2A",
                 width: "30%",
                 height: "45px",
                 borderRadius: "5px",
@@ -310,7 +314,9 @@ const MobileViewUserDetails = (props: any) => {
                 }}
               >
                 {elementToUDM?.availableBalance
-                  ? formatIndianCurrency(parseFloat(elementToUDM?.availableBalance.toFixed(2)))
+                  ? formatIndianCurrency(
+                      parseFloat(elementToUDM?.availableBalance.toFixed(2))
+                    )
                   : "00"}
               </Typography>
             </Box>
@@ -329,7 +335,15 @@ const MobileViewUserDetails = (props: any) => {
               <TextField
                 value={
                   elementToUDM?.availableBalance
-                    ? formatIndianCurrency(type === 'deposite' ? parseFloat(elementToUDM?.availableBalance.toFixed(2)) + parseFloat(value.amount ? value.amount : 0) :  parseFloat(elementToUDM?.availableBalance.toFixed(2)) - parseFloat(value.amount ? value.amount : 0))
+                    ? formatIndianCurrency(
+                        type === "deposite"
+                          ? parseFloat(
+                              elementToUDM?.availableBalance.toFixed(2)
+                            ) + parseFloat(value.amount ? value.amount : 0)
+                          : parseFloat(
+                              elementToUDM?.availableBalance.toFixed(2)
+                            ) - parseFloat(value.amount ? value.amount : 0)
+                      )
                     : "00"
                 }
                 sx={{ width: "100%", height: "45px" }}
@@ -386,7 +400,10 @@ const MobileViewUserDetails = (props: any) => {
           </Box>
           <Box
             sx={{
-              background: Number(elementToUDM?.userBal?.profitLoss) >= 0 ? "#27AC1E" : "#E32A2A",
+              background:
+                Number(elementToUDM?.userBal?.profitLoss) >= 0
+                  ? "#27AC1E"
+                  : "#E32A2A",
               width: "30%",
               height: "45px",
               borderRadius: "5px",
@@ -405,7 +422,9 @@ const MobileViewUserDetails = (props: any) => {
               }}
             >
               {" "}
-              {formatIndianCurrency(parseFloat(elementToUDM?.userBal?.profitLoss))}
+              {formatIndianCurrency(
+                parseFloat(elementToUDM?.userBal?.profitLoss)
+              )}
             </Typography>
           </Box>
           <Box
@@ -421,7 +440,15 @@ const MobileViewUserDetails = (props: any) => {
             }}
           >
             <TextField
-              value={formatIndianCurrency(type === 'deposite' ? parseFloat(elementToUDM?.userBal?.profitLoss) + parseFloat(value.amount ? value.amount : 0) : parseFloat(elementToUDM?.userBal?.profitLoss) - parseFloat(value.amount ? value.amount : 0)) || 0}
+              value={
+                formatIndianCurrency(
+                  type === "deposite"
+                    ? parseFloat(elementToUDM?.userBal?.profitLoss) +
+                        parseFloat(value.amount ? value.amount : 0)
+                    : parseFloat(elementToUDM?.userBal?.profitLoss) -
+                        parseFloat(value.amount ? value.amount : 0)
+                ) || 0
+              }
               sx={{ width: "100%", height: "45px" }}
               variant="standard"
               InputProps={{
@@ -488,7 +515,7 @@ const MobileViewUserDetails = (props: any) => {
               id="amount"
               name="amount"
               value={numberWithCommas(value.amount?.toString())}
-             onChange={(e: any) => onChange(e,'amount')}
+              onChange={(e: any) => onChange(e, "amount")}
               variant="standard"
               InputProps={{
                 placeholder: "Type Amount...",
@@ -560,7 +587,7 @@ const MobileViewUserDetails = (props: any) => {
               id="remark"
               name="remark"
               value={value.remark}
-              onChange={(e: any) => onChange(e,'remark')}
+              onChange={(e: any) => onChange(e, "remark")}
               rows={4}
               sx={{ width: "100%", minHeight: "40px" }}
               multiline={true}
@@ -633,7 +660,7 @@ const MobileViewUserDetails = (props: any) => {
               id="transactionPassword"
               name="transactionPassword"
               value={value.transactionPassword}
-              onChange={(e: any) => onChange(e,'pass')}
+              onChange={(e: any) => onChange(e, "pass")}
               sx={{ width: "100%", height: "45px" }}
               variant="standard"
               InputProps={{

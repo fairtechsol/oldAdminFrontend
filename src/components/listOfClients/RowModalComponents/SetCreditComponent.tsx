@@ -15,6 +15,7 @@ import {
 import { AppDispatch, RootState } from "../../../store/store";
 import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
+import { formatToINR } from "../../../helper";
 
 const initialValues: any = {
   userId: "",
@@ -100,13 +101,6 @@ const SetCreditComponent = (props: any) => {
     onChangeAmount(formik.values.amount, element?.id, "credit");
   }, [formik.values.amount, onChangeAmount]);
 
-  const formatIndianCurrency = (amount: number) => {
-    const formatter = new Intl.NumberFormat("en-IN", {
-      currency: "INR",
-    });
-    return formatter.format(amount);
-  };
-
   const checkHandleChange = (event: any) => {
     let value = 0;
     if (event.target.value != "") {
@@ -160,7 +154,7 @@ const SetCreditComponent = (props: any) => {
                 required={true}
                 name={"amount"}
                 id={"amount"}
-                value={formatIndianCurrency(
+                value={formatToINR(
                   parseFloat(formik.values.amount?.toString())
                 )}
                 onChange={(e: any) => checkHandleChange(e)}

@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { formatToINR } from "../../../helper";
 
 const TableDataRow = (props: any) => {
   const { containerStyle, data, fContainerStyle, fTextStyle, index } = props;
@@ -59,7 +60,15 @@ const TableDataRow = (props: any) => {
           fContainerStyle,
         ]}
       >
-        <Typography sx={[{ fontSize: { xs: "8px", md: "9px", lg: "12px" }, fontWeight: "600" }, fTextStyle]}>
+        <Typography
+          sx={[
+            {
+              fontSize: { xs: "8px", md: "9px", lg: "12px" },
+              fontWeight: "600",
+            },
+            fTextStyle,
+          ]}
+        >
           {data?.eventType}
         </Typography>
       </Box>
@@ -75,7 +84,11 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "600", color: "black" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "600",
+            color: "black",
+          }}
         >
           {data?.eventName}
         </Typography>
@@ -92,7 +105,11 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "600", color: "black" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "600",
+            color: "black",
+          }}
         >
           {data?.user?.userName}
         </Typography>
@@ -112,7 +129,12 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "600", lineHeight: "0.9", color: "#575757" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "600",
+            lineHeight: "0.9",
+            color: "#575757",
+          }}
         >
           {data?.teamName}
         </Typography>
@@ -132,7 +154,11 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "600", color: "#575757" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "600",
+            color: "#575757",
+          }}
         >
           {data?.bettingName ?? data?.marketType}
         </Typography>
@@ -152,7 +178,11 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+          }}
         >
           {data?.odds}
         </Typography>
@@ -192,9 +222,14 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757" , lineHeight: "0.9"}}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+            lineHeight: "0.9",
+          }}
         >
-          {data?.amount}
+          {formatToINR(data?.amount)}
         </Typography>
       </Box>
       <Box
@@ -210,14 +245,24 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+            lineHeight: "0.9",
+          }}
         >
-          {moment.utc(data?.createdAt).utcOffset('+05:30').format("DD-MM-YYYY")}
+          {moment.utc(data?.createdAt).utcOffset("+05:30").format("DD-MM-YYYY")}
         </Typography>
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+            lineHeight: "0.9",
+          }}
         >
-          {moment.utc(data?.createdAt).utcOffset('+05:30').format("HH:mm:ss A")}
+          {moment.utc(data?.createdAt).utcOffset("+05:30").format("HH:mm:ss A")}
         </Typography>
       </Box>
       <Box
@@ -233,12 +278,22 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: { xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+            lineHeight: "0.9",
+          }}
         >
           {moment(data?.match?.startAt).format("DD-MM-YYYY")}
         </Typography>
         <Typography
-          sx={{ fontSize:{ xs: "9px", md: "9px", lg: "12px" }, fontWeight: "700", color: "#575757", lineHeight: "0.9" }}
+          sx={{
+            fontSize: { xs: "9px", md: "9px", lg: "12px" },
+            fontWeight: "700",
+            color: "#575757",
+            lineHeight: "0.9",
+          }}
         >
           {moment(data?.match?.startAt).format("HH:mm A")}
         </Typography>

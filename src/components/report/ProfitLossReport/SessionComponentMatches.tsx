@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
 import { useSelector } from "react-redux";
 import SessionBetSeperate from "./SessionBetSeperate";
+import { formatToINR } from "../../../helper";
 
 const SessionComponentMatches = ({
   item,
@@ -190,10 +191,10 @@ const SessionComponentMatches = ({
               {Number(item.totalLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item.totalLoss).toFixed(2)}
+                  {formatToINR(Number(item.totalLoss).toFixed(2))}
                 </>
               ) : (
-                Number(item.totalLoss).toFixed(2)
+                formatToINR(Number(item.totalLoss).toFixed(2))
               )}
               {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>

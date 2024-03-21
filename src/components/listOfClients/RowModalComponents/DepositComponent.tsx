@@ -40,7 +40,6 @@ const DepositComponent = (props: any) => {
     walletAccountDetail,
     element,
     backgroundColor,
-    elementToUDM,
     setSelected,
     selected,
     titleBackgroundColor,
@@ -93,65 +92,64 @@ const DepositComponent = (props: any) => {
     (state: RootState) => state.user.userList
   );
 
-  
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
-        let stringWithoutCommas = numString?.replace(/,/g, '');
+    let stringWithoutCommas = numString?.replace(/,/g, "");
     // console.log('stringWithoutCommas', stringWithoutCommas)
-    if (!stringWithoutCommas?.includes('.')) {
+    if (!stringWithoutCommas?.includes(".")) {
       if (stringWithoutCommas?.length > 3) {
         let mainArray = stringWithoutCommas.slice(0, -3);
         let lastThreeDigitsArray = stringWithoutCommas.slice(-3);
-        let reversedStr = mainArray.split('').reverse().join('');
-        let result = '';
+        let reversedStr = mainArray.split("").reverse().join("");
+        let result = "";
 
         for (let i = 0; i < reversedStr.length; i += 2) {
-          result += reversedStr.substr(i, 2) + ',';
+          result += reversedStr.substr(i, 2) + ",";
         }
         result = result.slice(0, -1); // Remove the last comma
-        let reversedStr1 = result.split('').reverse().join('');
+        let reversedStr1 = result.split("").reverse().join("");
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray;
-      }else{
-        let data = stringWithoutCommas?.replace(/,/g, '');
+        return reversedStr1 + "," + lastThreeDigitsArray;
+      } else {
+        let data = stringWithoutCommas?.replace(/,/g, "");
         return data;
       }
-    }else{
-      let parts = stringWithoutCommas.split('.');
-      if(parts[0]?.length > 3){
-      let mainArray = parts[0].slice(0, -3);
+    } else {
+      let parts = stringWithoutCommas.split(".");
+      if (parts[0]?.length > 3) {
+        let mainArray = parts[0].slice(0, -3);
         let lastThreeDigitsArray = parts[0].slice(-3);
-        let reversedStr = mainArray.split('').reverse().join('');
-        let result = '';
+        let reversedStr = mainArray.split("").reverse().join("");
+        let result = "";
         for (let i = 0; i < reversedStr.length; i += 2) {
-            result += reversedStr.substr(i, 2) + ',';
-          }
-          result = result.slice(0, -1); // Remove the last comma
-          let reversedStr1 = result.split('').reverse().join('');
+          result += reversedStr.substr(i, 2) + ",";
+        }
+        result = result.slice(0, -1); // Remove the last comma
+        let reversedStr1 = result.split("").reverse().join("");
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray+'.'+parts[1];
-    }else{
-      let data = stringWithoutCommas?.replace(/,/g, '');
-      return data;
-    }
+        return reversedStr1 + "," + lastThreeDigitsArray + "." + parts[1];
+      } else {
+        let data = stringWithoutCommas?.replace(/,/g, "");
+        return data;
+      }
     }
   };
- 
+
   const checkHandleChange = (event: any) => {
-    let value = (event.target.value).toString();
+    let value = event.target.value.toString();
     if (event.target.value != "") {
-      value =event.target.value.replace(/[^\w\s.]/gi, "");
+      value = event.target.value.replace(/[^\w\s.]/gi, "");
     }
-    if (value.includes('.')) {
-      let parts = value.split('.');
-      
+    if (value.includes(".")) {
+      let parts = value.split(".");
+
       // If the fractional part has more than two digits, truncate it
       if (parts[1].length > 2) {
-          parts[1] = parts[1].substring(0, 2);
-          value = parts.join('.');
+        parts[1] = parts[1].substring(0, 2);
+        value = parts.join(".");
       }
-  }
-    formik.setFieldValue("amount",value);
+    }
+    formik.setFieldValue("amount", value);
     onChangeAmount(parseFloat(value), element?.id, "deposite");
   };
   document.getElementById("amount")?.addEventListener("keypress", (event) => {
@@ -216,15 +214,15 @@ const DepositComponent = (props: any) => {
       );
     }
   }, [formik.values.amount, onChangeAmount]);
-  const handleValueChange=(v:any , type:string)=>{
-    if(type === 'amount'){
-      checkHandleChange(v)
-    }else if(type === 'pass'){
-      formik.setFieldValue("transactionPassword",v.target.value);
-    }else if(type === 'remark'){
-      formik.setFieldValue("remark",v.target.value);
+  const handleValueChange = (v: any, type: string) => {
+    if (type === "amount") {
+      checkHandleChange(v);
+    } else if (type === "pass") {
+      formik.setFieldValue("transactionPassword", v.target.value);
+    } else if (type === "remark") {
+      formik.setFieldValue("remark", v.target.value);
     }
-  }
+  };
   return (
     <>
       {matchesMobile && matchesTablet ? (
@@ -258,7 +256,7 @@ const DepositComponent = (props: any) => {
               backgroundColor={backgroundColor}
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
-              type='deposite'
+              type="deposite"
             />
           </form>
         </ModalMUI>
@@ -342,9 +340,7 @@ const DepositComponent = (props: any) => {
                     required={true}
                     id="amount"
                     name="amount"
-                    value={numberWithCommas(
-                      formik.values.amount?.toString()
-                    )}
+                    value={numberWithCommas(formik.values.amount?.toString())}
                     variant="standard"
                     InputProps={{
                       placeholder: "Type Amount...",
@@ -504,12 +500,6 @@ const DepositComponent = (props: any) => {
                       },
                     }}
                   />
-                  {touched.transactionPassword &&
-                    errors.transactionPassword && (
-                      <p style={{ color: "#fa1e1e", lineHeight: "0.8" }}>
-                        {errors.transactionPassword as string}
-                      </p>
-                    )}
                   <Box
                     onClick={() => {
                       setShowPass(!showPass);
@@ -522,6 +512,12 @@ const DepositComponent = (props: any) => {
                   </Box>
                 </Box>
               </Box>
+              {touched.transactionPassword &&
+                errors.transactionPassword && (
+                  <p style={{ color: "#fa1e1e", lineHeight: "0.8", display: "flex", justifyContent: "flex-end" }}>
+                    {errors.transactionPassword as string}
+                  </p>
+                )}
             </Box>
 
             <Box

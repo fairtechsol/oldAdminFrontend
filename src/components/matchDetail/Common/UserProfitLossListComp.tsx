@@ -1,6 +1,7 @@
 import SeperateBox from "../MatchOdds/SeperateBox";
 import { Box, Typography } from "@mui/material";
 import Divider from "../../Inplay/Divider";
+import { formatToINR } from "../../../helper";
 
 const UserProfitLossListComp = (props: any) => {
   const { element, showTeamC } = props;
@@ -48,8 +49,8 @@ const UserProfitLossListComp = (props: any) => {
         >
           <>
             <SeperateBox
-              value={element?.teamRateA ?? "N/A"}
-              value2={element?.percentTeamRateA ?? "N/A"}
+              value={formatToINR(element?.teamRateA || 0) ?? "N/A"}
+              value2={formatToINR(element?.percentTeamRateA || 0) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -57,8 +58,8 @@ const UserProfitLossListComp = (props: any) => {
               sx={{ width: "3px", display: "flex", background: "#ffffff" }}
             ></Box>
             <SeperateBox
-              value={element?.teamRateB ?? "N/A"}
-              value2={element?.percentTeamRateB ?? "N/A"}
+              value={formatToINR(element?.teamRateB || 0) ?? "N/A"}
+              value2={formatToINR(element?.percentTeamRateB || 0) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -72,8 +73,8 @@ const UserProfitLossListComp = (props: any) => {
                   }}
                 ></Box>
                 <SeperateBox
-                  value={element?.teamRateC ?? "N/A"}
-                  value2={element?.percentTeamRateC ?? "N/A"}
+                  value={formatToINR(element?.teamRateC || 0) ?? "N/A"}
+                  value2={formatToINR(element?.percentTeamRateC || 0) ?? "N/A"}
                   color={"#ffffff"}
                   width={10}
                 />
