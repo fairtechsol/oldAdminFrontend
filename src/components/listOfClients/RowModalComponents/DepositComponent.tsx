@@ -101,7 +101,7 @@ const DepositComponent = (props: any) => {
   };
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
-    let stringWithoutCommas = numString?.replace(/,/g, '');
+        let stringWithoutCommas = numString?.replace(/,/g, '');
     // console.log('stringWithoutCommas', stringWithoutCommas)
     if (!stringWithoutCommas?.includes('.')) {
       if (stringWithoutCommas?.length > 3) {
@@ -117,9 +117,29 @@ const DepositComponent = (props: any) => {
         let reversedStr1 = result.split('').reverse().join('');
         // console.log(reversedStr1,' jnknk ',reversedStr);
         return reversedStr1+','+lastThreeDigitsArray;
+      }else{
+        let data = stringWithoutCommas?.replace(/,/g, '');
+        return data;
       }
+    }else{
+      let parts = stringWithoutCommas.split('.');
+      if(parts[0]?.length > 3){
+      let mainArray = parts[0].slice(0, -3);
+        let lastThreeDigitsArray = parts[0].slice(-3);
+        let reversedStr = mainArray.split('').reverse().join('');
+        let result = '';
+        for (let i = 0; i < reversedStr.length; i += 2) {
+            result += reversedStr.substr(i, 2) + ',';
+          }
+          result = result.slice(0, -1); // Remove the last comma
+          let reversedStr1 = result.split('').reverse().join('');
+        // console.log(reversedStr1,' jnknk ',reversedStr);
+        return reversedStr1+','+lastThreeDigitsArray+'.'+parts[1];
+    }else{
+      let data = stringWithoutCommas?.replace(/,/g, '');
+      return data;
     }
-
+    }
   };
  
   const checkHandleChange = (event: any) => {
