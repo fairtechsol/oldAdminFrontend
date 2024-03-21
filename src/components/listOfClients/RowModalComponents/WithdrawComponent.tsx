@@ -65,7 +65,7 @@ const WithdrawComponent = (props: any) => {
   };
   const numberWithCommas = (numString: any) => {
     // console.log('numString',numString)
-        let stringWithoutCommas = numString?.replace(/,/g, '');
+    let stringWithoutCommas = numString?.replace(/,/g, '');
     // console.log('stringWithoutCommas', stringWithoutCommas)
     if (!stringWithoutCommas?.includes('.')) {
       if (stringWithoutCommas?.length > 3) {
@@ -80,46 +80,46 @@ const WithdrawComponent = (props: any) => {
         result = result.slice(0, -1); // Remove the last comma
         let reversedStr1 = result.split('').reverse().join('');
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray;
-      }else{
+        return reversedStr1 + ',' + lastThreeDigitsArray;
+      } else {
         let data = stringWithoutCommas?.replace(/,/g, '');
         return data;
       }
-    }else{
+    } else {
       let parts = stringWithoutCommas.split('.');
-      if(parts[0]?.length > 3){
-      let mainArray = parts[0].slice(0, -3);
+      if (parts[0]?.length > 3) {
+        let mainArray = parts[0].slice(0, -3);
         let lastThreeDigitsArray = parts[0].slice(-3);
         let reversedStr = mainArray.split('').reverse().join('');
         let result = '';
         for (let i = 0; i < reversedStr.length; i += 2) {
-            result += reversedStr.substr(i, 2) + ',';
-          }
-          result = result.slice(0, -1); // Remove the last comma
-          let reversedStr1 = result.split('').reverse().join('');
+          result += reversedStr.substr(i, 2) + ',';
+        }
+        result = result.slice(0, -1); // Remove the last comma
+        let reversedStr1 = result.split('').reverse().join('');
         // console.log(reversedStr1,' jnknk ',reversedStr);
-        return reversedStr1+','+lastThreeDigitsArray+'.'+parts[1];
-    }else{
-      let data = stringWithoutCommas?.replace(/,/g, '');
-      return data;
-    }
+        return reversedStr1 + ',' + lastThreeDigitsArray + '.' + parts[1];
+      } else {
+        let data = stringWithoutCommas?.replace(/,/g, '');
+        return data;
+      }
     }
   };
   const checkHandleChange = (event: any) => {
     let value = (event.target.value).toString();
     if (event.target.value != "") {
-      value =event.target.value.replace(/[^\w\s.]/gi, "");
+      value = event.target.value.replace(/[^\w\s.]/gi, "");
     }
     if (value.includes('.')) {
       let parts = value.split('.');
-      
+
       // If the fractional part has more than two digits, truncate it
       if (parts[1].length > 2) {
-          parts[1] = parts[1].substring(0, 2);
-          value = parts.join('.');
+        parts[1] = parts[1].substring(0, 2);
+        value = parts.join('.');
       }
-  }
-    formik.setFieldValue("amount",value);
+    }
+    formik.setFieldValue("amount", value);
     onChangeAmount(parseFloat(value), element?.id, "deposite");
   };
   document.getElementById("amount")?.addEventListener("keypress", (event) => {
@@ -127,17 +127,17 @@ const WithdrawComponent = (props: any) => {
     const value = input.value;
     const caretPos = input.selectionStart;
 
-    
+
     const allowedCharacters = /[0-9.]/;
 
     // If the entered character is not allowed, or the decimal point is already present and the cursor is after the second digit of the fractional part, prevent typing
     if (
-        !allowedCharacters.test(event.key) ||
-        (value.includes('.') && value.substring(value.indexOf('.') + 1).length >= 2 && caretPos !== null && caretPos > value.indexOf('.') + 2)
+      !allowedCharacters.test(event.key) ||
+      (value.includes('.') && value.substring(value.indexOf('.') + 1).length >= 2 && caretPos !== null && caretPos > value.indexOf('.') + 2)
     ) {
-        event.preventDefault();
+      event.preventDefault();
     }
-});
+  });
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -498,12 +498,6 @@ const WithdrawComponent = (props: any) => {
                       },
                     }}
                   />
-                  {touched.transactionPassword &&
-                    errors.transactionPassword && (
-                      <p style={{ color: "#fa1e1e", lineHeight: "0.8" }}>
-                        {errors.transactionPassword as string}
-                      </p>
-                    )}
                   <Box
                     onClick={() => {
                       setShowPass(!showPass);
@@ -516,6 +510,12 @@ const WithdrawComponent = (props: any) => {
                   </Box>
                 </Box>
               </Box>
+              {touched.transactionPassword &&
+                errors.transactionPassword && (
+                  <p style={{ color: "#fa1e1e", lineHeight: "0.8", display: "flex", justifyContent: "flex-end" }}>
+                    {errors.transactionPassword as string}
+                  </p>
+                )}
             </Box>
 
             <Box
