@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import RowHeaderMatches from "./RowHeaderMatches";
 import { useState } from "react";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
-import RowComponentMatches from "./RowComponentMatches";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
 import Footer from "../../Common/Footer";
+import RowComponentMatches from "./RowComponentMatches";
+import RowHeaderMatches from "./RowHeaderMatches";
 
 const ProfitLossTableComponent = (props: any) => {
   const {
@@ -22,6 +21,8 @@ const ProfitLossTableComponent = (props: any) => {
     show,
     endDate,
     startDate,
+    userProfitLoss,
+    getUserProfitLoss,
   } = props;
   const [event, setEvent] = useState("");
   const dispatch: AppDispatch = useDispatch();
@@ -79,7 +80,7 @@ const ProfitLossTableComponent = (props: any) => {
   const getBetReport = (value: any) => {
     setSelectedId({
       type: value?.type,
-      id: value?.match_id,
+      id: value?.matchId,
       betId: value?.betId,
       sessionBet: value?.sessionBet,
     });
@@ -113,6 +114,8 @@ const ProfitLossTableComponent = (props: any) => {
                 sessionBetData={sessionBetData}
                 sessionBets={sessionBets}
                 getBetReport={getBetReport}
+                userProfitLoss={userProfitLoss}
+                getUserProfitLoss={getUserProfitLoss}
               />
             );
           })}

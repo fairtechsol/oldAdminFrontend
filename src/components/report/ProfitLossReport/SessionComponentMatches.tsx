@@ -1,13 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
-import SessionBetSeperate from "./SessionBetSeperate";
 import { formatToINR } from "../../../helper";
+import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../../store/store";
+import StyledImage from "../../Common/StyledImages";
+import SessionBetSeperate from "./SessionBetSeperate";
 
 const SessionComponentMatches = ({
   item,
@@ -38,7 +37,7 @@ const SessionComponentMatches = ({
             setShowSessionBets(true);
             getBetReport({
               eventType: item?.eventType,
-              match_id: item?.matchid || item?.matchId || matchId,
+              matchId: item?.matchid || item?.matchId || matchId,
               userId: userId,
               type: "session_bet",
               betId: item?.betId,

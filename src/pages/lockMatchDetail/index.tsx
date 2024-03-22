@@ -25,8 +25,8 @@ import {
   updateTeamRates,
   updateTeamRatesOnDelete,
 } from "../../store/actions/match/matchAction";
-import { AppDispatch, RootState } from "../../store/store";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
+import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 const LockMatchScreen = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -53,7 +53,7 @@ const LockMatchScreen = () => {
     try {
       let type = typeOfBet.toUpperCase();
       let payload = {
-        match_id: state?.matchId,
+        matchId: state?.matchId,
         marketType: type,
         marketLock: locked,
         adminTransPassword: value,
