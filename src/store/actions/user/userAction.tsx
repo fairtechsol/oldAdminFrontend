@@ -544,6 +544,23 @@ export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getTotalBetProfitLossForModal = createAsyncThunk<any, any>(
+  "/totalBetProfitLossForModal",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getSessionProfitLoss = createAsyncThunk<any, any>(
   "/sessionProfitLoss",
   async (requestData, thunkApi) => {

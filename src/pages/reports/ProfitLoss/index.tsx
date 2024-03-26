@@ -1,15 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
-import { useEffect, useState,useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import moment from "moment";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
-import { getSearchClientList, getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
+import {
+  getSearchClientList,
+  getUserTotalProfitLoss,
+} from "../../../store/actions/user/userAction";
 import { updateUserSearchId } from "../../../store/actions/reports";
 import { debounce } from "lodash";
+import service from "../../../service";
 interface FilterObject {
-  userId?: any; 
+  userId?: any;
   startDate?: string;
   endDate?: string;
 }
@@ -22,6 +26,7 @@ const ProfitLossReport = () => {
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
   const [show, setShow] = useState(false);
+  const [userProfitLoss, setUserProfitLoss] = useState([]);
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -29,27 +34,26 @@ const ProfitLossReport = () => {
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
-const { searchUserList } = useSelector(
+  const { searchUserList } = useSelector(
     (state: RootState) => state.user.userList
   );
   const handleClick = () => {
     try {
       setShow(false);
-      let filter : FilterObject = {};
+      let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
-        filter['userId'] = search?.id;
-       
+        filter["userId"] = search?.id;
       }
       if (startDate && endDate) {
-        filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
-        filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+        filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+        filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
       } else {
         if (startDate) {
-          filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+          filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
         }
         if (endDate) {
-          filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+          filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
         }
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
@@ -67,6 +71,20 @@ const { searchUserList } = useSelector(
       );
     }, 500);
   }, []);
+
+  const getUserProfitLoss = async (matchId: string) => {
+    try {
+      let payload = {
+        matchId: matchId,
+      };
+      const { data } = await service.post(`/user/userwise/profitLoss`, payload);
+      if (data) {
+        setUserProfitLoss(data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -117,6 +135,8 @@ const { searchUserList } = useSelector(
           currentPage={currentPage}
           pageCount={pageCount}
           setCurrentPage={setCurrentPage}
+          userProfitLoss={userProfitLoss}
+          getUserProfitLoss={getUserProfitLoss}
         />
       </Box>
     </div>

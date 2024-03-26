@@ -32,7 +32,8 @@ export const ApiConstants = {
     TOTAL_SESSION_PROFITLOSS: "user/total/session/profitLoss",
     TOTAL_BALANCE: "user/child/totalBalance",
     RUN_AMOUNT: "bet/session/profitLoss",
-    PROFIT_LOSS: "/user/profitLossData"
+    PROFIT_LOSS: "/user/profitLossData",
+    DELETE: "user/delete",
   },
   SUPERADMIN: {
     ADD: "/superadmin/add",

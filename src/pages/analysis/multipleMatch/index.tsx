@@ -15,6 +15,7 @@ import LiveBookmaker from "../../../components/matchDetail/LiveBookmaker";
 import MatchOdds from "../../../components/matchDetail/MatchOdds";
 import SessionMarket from "../../../components/matchDetail/SessionMarket";
 import RunsBox from "../../../components/matchDetail/SessionMarket/RunsBox";
+import { formatToINR } from "../../../helper";
 import { socketService } from "../../../socketManager";
 import {
   analysisListReset,
@@ -37,7 +38,6 @@ import {
 } from "../../../store/actions/match/multipleMatchAction";
 import { resetSessionProfitLoss } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
-import { formatToINR } from "../../../helper";
 
 const MultipleMatch = ({}) => {
   const theme = useTheme();
@@ -56,7 +56,9 @@ const MultipleMatch = ({}) => {
   });
   const [showUserProfitLoss, setShowUserProfitLoss] = useState(false);
   const [selectedBetData, setSelectedBetData] = useState([]);
-  const { currentOdd } = useSelector((state: RootState) => state.match.matchList);
+  const { currentOdd } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
   const { multipleMatchDetail, success } = useSelector(
     (state: RootState) => state.match.analysisList
   );
@@ -72,7 +74,7 @@ const MultipleMatch = ({}) => {
   };
 
   const setMultiSessionBetsPlaced = (event: any) => {
-        try {
+    try {
       if (state?.matchIds.includes(event?.jobData?.placedBet?.matchId)) {
         dispatch(
           updateBetsPlaced({
@@ -85,7 +87,7 @@ const MultipleMatch = ({}) => {
         );
         dispatch(updateProfitLoss(event));
         dispatch(updateMaxLossForBetForMultipleMatch(event));
-         dispatch(
+        dispatch(
           setCurrentOdd({
             matchId: event?.jobData?.betPlaceObject?.betPlacedData?.matchId,
             betId: event?.jobData?.betPlaceObject?.betPlacedData?.betId,
@@ -97,7 +99,7 @@ const MultipleMatch = ({}) => {
       console.log(error);
     }
   };
- 
+
   const setMultiMatchBetsPlaced = (event: any) => {
     try {
       if (state?.matchIds.includes(event?.jobData?.newBet?.matchId)) {
@@ -112,7 +114,7 @@ const MultipleMatch = ({}) => {
           })
         );
         dispatch(updateTeamRatesOfMultipleMatch(event));
-             }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -297,7 +299,7 @@ const MultipleMatch = ({}) => {
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any, index: any) => {
                   let sessionBetsData = sessionBets?.filter(
-                    (element: any) => element?.match_id === item?.id
+                    (element: any) => element?.matchId === item?.id
                   );
 
                   const QuicksessionData = item?.sessionBettings
@@ -993,7 +995,7 @@ const MultipleMatch = ({}) => {
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any) => {
                   let sessionBetsData = sessionBets?.filter(
-                    (element: any) => element?.match_id === item?.id
+                    (element: any) => element?.matchId === item?.id
                   );
 
                   const QuicksessionData = item?.sessionBettings

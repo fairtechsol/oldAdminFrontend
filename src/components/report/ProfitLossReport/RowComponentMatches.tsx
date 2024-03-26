@@ -1,19 +1,19 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { memo, useState } from "react";
-import { ARROW_UP, ARROWDOWN, ArrowDown } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import SessionComponentMatches from "./SessionComponentMatches";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
+import { formatToINR } from "../../../helper";
 import {
   getSessionProfitLoss,
   getTotalBetProfitLoss,
 } from "../../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
-import SessionBetSeperate from "./SessionBetSeperate";
+import { AppDispatch, RootState } from "../../../store/store";
+import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "./AllRateSeperate";
-import { formatToINR } from "../../../helper";
+import AllUserListSeparate from "./AllUserListSeperate";
+import SessionBetSeperate from "./SessionBetSeperate";
+import SessionComponentMatches from "./SessionComponentMatches";
 
 const RowComponentMatches = ({
   item,
@@ -23,6 +23,8 @@ const RowComponentMatches = ({
   sessionBetData,
   getBetReport,
   user,
+  userProfitLoss,
+  getUserProfitLoss,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -36,12 +38,48 @@ const RowComponentMatches = ({
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
   const [showSessionBets, setShowSessionBets] = useState(false);
+  const [showListOfUsers, setShowListOfUsers] = useState(false);
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box
         onClick={(e) => {
           e.stopPropagation();
+          if (selectedId?.id === item?.matchId) {
+            if (showListOfUsers) {
+              setShowListOfUsers((prev) => !prev);
+              getBetReport({
+                eventType: "",
+                matchId: "",
+                type: "users_list",
+                betId: "",
+                sessionBet: false,
+              });
+            } else {
+              getUserProfitLoss(item?.matchId);
+              getBetReport({
+                eventType: item?.eventType,
+                matchId: item?.matchId,
+                type: "users_list",
+                betId: "",
+                sessionBet: false,
+              });
+              setShowListOfUsers((prev) => !prev);
+            }
+          } else {
+            setShowListOfUsers(true);
+            setShowBets(false);
+            setShowSessions(false);
+            setShowSessionBets(false);
+            getUserProfitLoss(item?.matchId);
+            getBetReport({
+              eventType: item?.eventType,
+              matchId: item?.matchId,
+              type: "users_list",
+              betId: "",
+              sessionBet: false,
+            });
+          }
         }}
         sx={{
           width: "100%",
@@ -128,14 +166,14 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          {user === "admin" && (
+          {true && (
             <StyledImage
               src={ArrowDown}
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
                 transform:
-                  selectedId?.id === item?.matchId
+                  selectedId?.id === item?.matchId && showListOfUsers
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
@@ -163,10 +201,11 @@ const RowComponentMatches = ({
             ) {
               setShowBets((prev) => !prev);
             } else {
+              setShowListOfUsers(false);
               setShowBets(true);
               getBetReport({
                 eventType: item?.eventType,
-                match_id: item?.matchId,
+                matchId: item?.matchId,
                 type: "all_bet",
                 betId: "",
                 sessionBet: false,
@@ -275,11 +314,13 @@ const RowComponentMatches = ({
               selectedId?.type === "session_bet"
             ) {
               setShowSessions((prev) => !prev);
+              setShowListOfUsers(false);
             } else {
+              setShowListOfUsers(false);
               setShowSessions(true);
               getBetReport({
                 eventType: item?.eventType,
-                match_id: item?.matchId,
+                matchId: item?.matchId,
                 type: "session_bet",
                 betId: "",
                 sessionBet: false,
@@ -370,6 +411,49 @@ const RowComponentMatches = ({
       </Box>
       {selectedId?.id === item?.matchId && (
         <>
+          {showListOfUsers && (
+            <>
+              <Box
+                sx={{
+                  width: { xs: "100%", lg: "99%" },
+                  marginTop: { xs: ".25vh" },
+                  marginLeft: { lg: "1%" },
+                  display: "flex",
+                  flexDirection: { lg: "row", xs: "column" },
+                }}
+              >
+                <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "100%", md: "100%" },
+                      // maxHeight: "51vh",
+                      overflow: "hidden",
+                      // overflowY: "auto",
+                      marginY: { xs: ".2vh", lg: "1vh" },
+                      padding: 0.2,
+                    }}
+                  >
+                    {userProfitLoss?.map((profitLoss: any, index: any) => {
+                      return (
+                        <AllUserListSeparate
+                          key={index}
+                          item={profitLoss}
+                          index={index + 1}
+                          matchId={item?.matchId}
+                          userId={item?.userId}
+                          showListOfUsers={showListOfUsers}
+                          getBetReport={getBetReport}
+                          sessionBetData={sessionBetData}
+                          bet1Data={betData}
+                          user={user}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Box>
+              </Box>
+            </>
+          )}
           {selectedId?.type === "all_bet" && showBets && (
             <>
               <Box
