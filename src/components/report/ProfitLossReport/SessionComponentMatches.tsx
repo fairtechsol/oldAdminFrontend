@@ -3,7 +3,10 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
 import { formatToINR } from "../../../helper";
-import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
+import {
+  getTotalBetProfitLoss,
+  getTotalBetProfitLossForModal,
+} from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import SessionBetSeperate from "./SessionBetSeperate";
@@ -17,6 +20,7 @@ const SessionComponentMatches = ({
   getBetReport,
   selectedId,
   matchId,
+  user,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -35,22 +39,35 @@ const SessionComponentMatches = ({
             setShowSessionBets((prev: any) => !prev);
           } else {
             setShowSessionBets(true);
-            getBetReport({
-              eventType: item?.eventType,
-              matchId: item?.matchid || item?.matchId || matchId,
-              userId: userId,
-              type: "session_bet",
-              betId: item?.betId,
-              sessionBet: true,
-            });
-            dispatch(
-              getTotalBetProfitLoss({
-                betId: item?.betId,
+
+            if (user) {
+              dispatch(
+                getTotalBetProfitLossForModal({
+                  betId: item?.betId,
+                  matchId: item?.matchid || item?.matchId || matchId,
+                  isSession: true,
+                  searchId: userData?.id,
+                  user,
+                })
+              );
+            } else {
+              getBetReport({
+                eventType: item?.eventType,
                 matchId: item?.matchid || item?.matchId || matchId,
-                isSession: true,
-                searchId: userData?.id,
-              })
-            );
+                userId: userId,
+                type: "session_bet",
+                betId: item?.betId,
+                sessionBet: true,
+              });
+              dispatch(
+                getTotalBetProfitLoss({
+                  betId: item?.betId,
+                  matchId: item?.matchid || item?.matchId || matchId,
+                  isSession: true,
+                  searchId: userData?.id,
+                })
+              );
+            }
           }
         }}
         sx={{

@@ -86,65 +86,69 @@ const ProfitLossTableComponent = (props: any) => {
     });
   };
 
-  return eventData?.length > 0 ? (
-    <Box>
-      {eventData?.map((item: any, index: any) => {
-        return (
-          <>
-            <RowHeaderMatches
-              key={index}
-              item={item}
-              index={index}
-              getHandleReport={getHandleReport}
-              show={show}
-            />
-          </>
-        );
-      })}
-      <Box>
-        {show &&
-          matchWiseProfitLoss?.map((item: any, index: number) => {
+  return (
+    <>
+      {eventData?.length > 0 ? (
+        <Box>
+          {eventData?.map((item: any, index: any) => {
             return (
-              <RowComponentMatches
-                key={index}
-                item={item}
-                index={index + 1}
-                selectedId={selectedId}
-                betData={betData}
-                sessionBetData={sessionBetData}
-                sessionBets={sessionBets}
-                getBetReport={getBetReport}
-                userProfitLoss={userProfitLoss}
-                getUserProfitLoss={getUserProfitLoss}
-              />
+              <>
+                <RowHeaderMatches
+                  key={index}
+                  item={item}
+                  index={index}
+                  getHandleReport={getHandleReport}
+                  show={show}
+                />
+              </>
             );
           })}
-      </Box>
+          <Box>
+            {show &&
+              matchWiseProfitLoss?.map((item: any, index: number) => {
+                return (
+                  <RowComponentMatches
+                    key={index}
+                    item={item}
+                    index={index + 1}
+                    selectedId={selectedId}
+                    betData={betData}
+                    sessionBetData={sessionBetData}
+                    sessionBets={sessionBets}
+                    getBetReport={getBetReport}
+                    userProfitLoss={userProfitLoss}
+                    getUserProfitLoss={getUserProfitLoss}
+                  />
+                );
+              })}
+          </Box>
 
-      {show && (
-        <Footer
-          getListOfUser={() => handleReport(event)}
-          setCurrentPage={() => {}}
-          currentPage={currentPage}
-          pages={pageCount}
-          // callPage={callPage}
-        />
+          {show && (
+            <Footer
+              getListOfUser={() => handleReport(event)}
+              setCurrentPage={() => {}}
+              currentPage={currentPage}
+              pages={pageCount}
+              // callPage={callPage}
+            />
+          )}
+        </Box>
+      ) : (
+        <Box>
+          <Typography
+            sx={{
+              color: "#fff",
+              textAlign: "center",
+              fontSize: { lg: "16px", xs: "10px" },
+              fontWeight: "600",
+              margin: "1rem",
+            }}
+          >
+            No Matching Records Found
+          </Typography>
+        </Box>
       )}
-    </Box>
-  ) : (
-    <Box>
-      <Typography
-        sx={{
-          color: "#fff",
-          textAlign: "center",
-          fontSize: { lg: "16px", xs: "10px" },
-          fontWeight: "600",
-          margin: "1rem",
-        }}
-      >
-        No Matching Records Found
-      </Typography>
-    </Box>
+    </>
   );
 };
 

@@ -46,9 +46,31 @@ const RowComponentMatches = ({
         onClick={(e) => {
           e.stopPropagation();
           if (selectedId?.id === item?.matchId) {
-            setShowListOfUsers((prev) => !prev);
+            if (showListOfUsers) {
+              setShowListOfUsers((prev) => !prev);
+              getBetReport({
+                eventType: "",
+                matchId: "",
+                type: "users_list",
+                betId: "",
+                sessionBet: false,
+              });
+            } else {
+              getUserProfitLoss(item?.matchId);
+              getBetReport({
+                eventType: item?.eventType,
+                matchId: item?.matchId,
+                type: "users_list",
+                betId: "",
+                sessionBet: false,
+              });
+              setShowListOfUsers((prev) => !prev);
+            }
           } else {
             setShowListOfUsers(true);
+            setShowBets(false);
+            setShowSessions(false);
+            setShowSessionBets(false);
             getUserProfitLoss(item?.matchId);
             getBetReport({
               eventType: item?.eventType,
@@ -179,6 +201,7 @@ const RowComponentMatches = ({
             ) {
               setShowBets((prev) => !prev);
             } else {
+              setShowListOfUsers(false);
               setShowBets(true);
               getBetReport({
                 eventType: item?.eventType,
@@ -291,7 +314,9 @@ const RowComponentMatches = ({
               selectedId?.type === "session_bet"
             ) {
               setShowSessions((prev) => !prev);
+              setShowListOfUsers(false);
             } else {
+              setShowListOfUsers(false);
               setShowSessions(true);
               getBetReport({
                 eventType: item?.eventType,

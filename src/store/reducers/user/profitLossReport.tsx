@@ -3,14 +3,16 @@ import {
   getMatchWiseProfitLoss,
   getSessionProfitLoss,
   getTotalBetProfitLoss,
+  getTotalBetProfitLossForModal,
   getUserTotalProfitLoss,
 } from "../../actions/user/userAction";
 
 interface InitialState {
-  matchWiseProfitLoss: [];
-  userTotalProfitLoss: [];
-  totalBetProfitLoss: [];
-  totalSessionProfitLoss: [];
+  matchWiseProfitLoss: any;
+  userTotalProfitLoss: any;
+  totalBetProfitLoss: any;
+  totalSessionProfitLoss: any;
+  totalBetProfitLossModal: any;
   success: boolean;
   loading: boolean;
   error: any;
@@ -20,6 +22,7 @@ const initialState: InitialState = {
   matchWiseProfitLoss: [],
   userTotalProfitLoss: [],
   totalBetProfitLoss: [],
+  totalBetProfitLossModal: [],
   totalSessionProfitLoss: [],
   loading: false,
   success: false,
@@ -71,6 +74,20 @@ const profitLossReportSlice = createSlice({
         state.totalBetProfitLoss = action.payload;
       })
       .addCase(getTotalBetProfitLoss.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getTotalBetProfitLossForModal.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.totalBetProfitLossModal = [];
+      })
+      .addCase(getTotalBetProfitLossForModal.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.totalBetProfitLossModal = action.payload;
+      })
+      .addCase(getTotalBetProfitLossForModal.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

@@ -9,24 +9,26 @@ import AllRateSeperate from "./AllRateSeperate";
 import ChildUserList from "./ChildUserList";
 import SessionBetSeperate from "./SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
+import { ApiConstants } from "../../../utils/Constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const AllUserListSeparate = ({
   item,
   index,
   getBetReport,
-  showListOfUsers,
   sessionBetData,
   selectedId,
   matchId,
   bet1Data,
-  activeUser,
   sessionBets,
-  user,
-  userId,
 }: any) => {
   const theme = useTheme();
+
+  const { totalBetProfitLossModal } = useSelector(
+    (state: RootState) => state.user.profitLoss
+  );
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const [showSessionResultList, setShowSessionResultList] = useState(false);
   const [showChildUserList, setShowChildUserList] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [betData, setBetData] = useState([]);
@@ -34,7 +36,6 @@ const AllUserListSeparate = ({
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
   const [showSessionBets, setShowSessionBets] = useState(false);
-  const [childUserReport, setChildUserReport] = useState<any>(null);
 
   const [showSubUsers, setSubSusers] = useState({
     value: false,
@@ -42,144 +43,46 @@ const AllUserListSeparate = ({
     roleName: item?.roleName,
   });
 
-  const getBetAndSessionData = async () => {
+  const getBetDataForChildUser = async (props: any) => {
     try {
       let payload = {
-        userId: item?.userId,
-        matchId: matchId,
-      };
-      let payload2 = {
-        gameType: item?.eventType,
-        userId: item?.userId,
-        matchId: matchId,
-        sessionBet: true,
+        matchId: props?.matchId,
+        user: props?.user,
+        searchId: props?.searchId,
       };
       const resp = await service.post(
-        `/betting/getResultBetProfitLoss`,
+        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
         payload
       );
-
-      const resp2 = await service.post(
-        `/betting/getResultBetProfitLoss`,
-        payload2
-      );
-      const newData = resp?.data?.data?.filter(
-        (v: any) => v.sessionBet !== true
-      );
-      const newData1 = resp2?.data?.data?.filter(
-        (v: any) => v.sessionBet === true
-      );
-
-      setBetData(
-        newData?.map((v: any) => ({
-          id: v.id,
-          isActive: true,
-          createAt: v.createAt,
-          updateAt: v.createAt,
-          createdBy: null,
-          deletedAt: null,
-          user_id: null,
-          matchId: v.matchId,
-          bet_id: v.bet_id,
-          result: "pending",
-          team_bet: v.team_bet || v.teamBet,
-          odds: v.odds,
-          win_amount: null,
-          loss_amount: null,
-          bet_type: v.betType,
-          country: null,
-          ip_address: null,
-          rate: null,
-          marketType: v.marketType,
-          myProfitLoss: v.myProfitLoss,
-          amount: v.amount,
-          deleted_reason: v.deleted_reason,
-          username: v.username,
-        }))
-      );
-      setSessionData(
-        newData1?.map((v: any) => ({
-          id: v.id,
-          isActive: true,
-          createAt: v.createAt,
-          updateAt: v.createAt,
-          createdBy: null,
-          deletedAt: null,
-          user_id: null,
-          matchId: v.matchId,
-          bet_id: v.bet_id,
-          result: "pending",
-          team_bet: v.team_bet || v.teamBet,
-          odds: v.odds,
-          win_amount: null,
-          loss_amount: null,
-          bet_type: v.betType,
-          country: null,
-          ip_address: null,
-          rate: null,
-          marketType: v.marketType,
-          myProfitLoss: v.myProfitLoss,
-          amount: v.amount,
-          deleted_reason: v.deleted_reason,
-          username: v.username,
-        }))
-      );
-    } catch (e) {
-      console.log(e);
+      if (resp) {
+        setBetData(resp?.data);
+      }
+    } catch (error: any) {
+      console.log(error);
     }
   };
-
-  const getChildUserReport = async () => {
+  const getSessionDataForChildUser = async (props: any) => {
     try {
-      const { eventType, userId } = item;
-      const payload = {
-        gameType: eventType,
-        userId,
-        matchId: matchId,
+      let payload = {
+        matchId: props?.matchId,
+        user: props?.user,
+        searchId: props?.searchId,
       };
-      const { data } = await service.post(`/betting/profitLossReport`, payload);
-      setChildUserReport(data?.data[0][0]);
-    } catch (e) {
-      console.log(e);
+      const resp = await service.post(
+        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
+        payload
+      );
+      if (resp) {
+        setSessionData(resp?.data);
+      }
+    } catch (error: any) {
+      console.log(error);
     }
   };
 
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
-        // onClick={() => {
-        //   if (!["user"].includes(item?.roleName)) {
-        //     if (showSubUsers?.value && showSubUsers?.id === item?.userId) {
-        //       setSubSusers({
-        //         ...showSubUsers,
-        //         value: false,
-        //         id: "",
-        //       });
-        //       setShowChildUserList(false);
-        //     } else {
-        //       setSubSusers({
-        //         ...showSubUsers,
-        //         value: true,
-        //         id: item?.userId,
-        //       });
-        //       setShowChildUserList(true);
-        //     }
-        //   } else {
-        //     if (showSessionResultList) {
-        //       setShowSessionResultList((prev) => !prev);
-        //     } else {
-        //       getBetAndSessionData();
-        //       setShowSessionResultList(true);
-        //     }
-        //   }
-        //   // if (item?.roleName !== "user") {
-        //   //   setShowChildUserList(true);
-        //   //   setSelectedUserId(item?.userId);
-        //   // } else if (item?.roleName === "user") {
-        //   //   setShowSessionResultList((prev) => !prev);
-        //   //   setSelectedUserId(item?.userId);
-        //   // }
-        // }}
         sx={{
           width: "100%",
           height: "45px",
@@ -201,7 +104,7 @@ const AllUserListSeparate = ({
           <Typography
             sx={{ fontSize: "14px", color: "white", fontWeight: "600" }}
           >
-            {"0" + index}
+            {index > 9 ? index : "0" + index}
           </Typography>
         </Box>
         <Box
@@ -236,7 +139,6 @@ const AllUserListSeparate = ({
             onClick={(e) => {
               e.stopPropagation();
               setShowModal((prev) => !prev);
-              getChildUserReport();
             }}
             sx={{
               flexDirection: "row",
@@ -280,13 +182,6 @@ const AllUserListSeparate = ({
                       id: item?.userId,
                     });
                     setShowChildUserList(true);
-                  }
-                } else {
-                  if (showSessionResultList) {
-                    setShowSessionResultList((prev) => !prev);
-                  } else {
-                    getBetAndSessionData();
-                    setShowSessionResultList(true);
                   }
                 }
               }}
@@ -513,7 +408,7 @@ const AllUserListSeparate = ({
                   >
                     <Box
                       sx={{
-                        width: { xs: "40%", lg: "60%" },
+                        width: { xs: "50%", lg: "60%" },
                         position: "relative",
                         height: "100%",
                         paddingY: "4px",
@@ -526,9 +421,6 @@ const AllUserListSeparate = ({
                       }}
                     >
                       <Box
-                        // onClick={() => {
-                        //   setShowModal((prev) => !prev);
-                        // }}
                         sx={{
                           flexDirection: "row",
                           display: "flex",
@@ -562,22 +454,27 @@ const AllUserListSeparate = ({
                             setShowSessions(false);
                           }
                           setShowBets((prev) => !prev);
-                          getBetReport({
-                            eventType: item?.eventType,
-                            matchId: matchId,
-                            userId: item?.userId,
-                            type: "all_bet",
-                            betId: "",
-                            sessionBet: false,
+                          // getBetReport({
+                          //   eventType: item?.eventType,
+                          //   matchId: matchId,
+                          //   userId: item?.userId,
+                          //   type: "all_bet",
+                          //   betId: "",
+                          //   sessionBet: false,
+                          // });
+                          getBetDataForChildUser({
+                            matchId,
+                            user: {
+                              id: item?.userId,
+                              roleName: item?.roleName,
+                            },
+                            searchId: "",
                           });
                         }
-                        // }
                       }}
                       sx={{
                         background:
-                          childUserReport?.rateProfitLoss > 0
-                            ? "#27AC1E"
-                            : "#E32A2A",
+                          item?.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
                         paddingX: "2px",
                         width: { xs: "25%", lg: "30%" },
                         height: "100%",
@@ -606,11 +503,7 @@ const AllUserListSeparate = ({
                           Rate Profit/Loss
                         </Typography>
                         <StyledImage
-                          src={
-                            childUserReport?.rateProfitLoss > 0
-                              ? ARROW_UP
-                              : ARROWDOWN
-                          }
+                          src={item?.rateProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
                           sx={{
                             width: { lg: "25px", xs: "15px" },
                             height: { lg: "12px", xs: "8px" },
@@ -631,16 +524,14 @@ const AllUserListSeparate = ({
                             color: "white",
                           }}
                         >
-                          {childUserReport?.rateProfitLoss ? (
-                            Number(childUserReport?.rateProfitLoss) >= 0 ? (
+                          {item?.rateProfitLoss ? (
+                            Number(item?.rateProfitLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(
-                                  childUserReport?.rateProfitLoss
-                                ).toFixed(2)}
+                                {Number(item?.rateProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              Number(childUserReport?.rateProfitLoss).toFixed(2)
+                              Number(item?.rateProfitLoss).toFixed(2)
                             )
                           ) : (
                             0.0
@@ -651,12 +542,9 @@ const AllUserListSeparate = ({
                           sx={{
                             width: { lg: "20px", xs: "10px" },
                             height: { lg: "10px", xs: "6px" },
-                            transform:
-                              showSubUsers?.id === item?.userId &&
-                              selectedId?.type === "all_bet" &&
-                              showBets
-                                ? "rotate(180deg)"
-                                : "rotate(0deg)",
+                            transform: showBets
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
                           }}
                         />
                       </Box>
@@ -674,22 +562,27 @@ const AllUserListSeparate = ({
                             setShowSessionBets(false);
                           }
                           setShowSessions((prev) => !prev);
-                          getBetReport({
-                            eventType: item?.eventType,
-                            matchId: matchId,
-                            userId: item?.userId,
-                            type: "session_bet",
-                            betId: "",
-                            sessionBet: false,
+                          // getBetReport({
+                          //   eventType: item?.eventType,
+                          //   matchId: matchId,
+                          //   userId: item?.userId,
+                          //   type: "session_bet",
+                          //   betId: "",
+                          //   sessionBet: false,
+                          // });
+                          getSessionDataForChildUser({
+                            matchId,
+                            user: {
+                              id: item?.userId,
+                              roleName: item?.roleName,
+                            },
+                            searchId: "",
                           });
                         }
-                        // }
                       }}
                       sx={{
                         background:
-                          childUserReport?.sessionProfitLoss > 0
-                            ? "#27AC1E"
-                            : "#E32A2A",
+                          item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
                         paddingX: "2px",
                         width: { xs: "25%", lg: "30%" },
                         height: "100%",
@@ -719,9 +612,7 @@ const AllUserListSeparate = ({
                         </Typography>
                         <StyledImage
                           src={
-                            childUserReport?.sessionProfitLoss > 0
-                              ? ARROW_UP
-                              : ARROWDOWN
+                            item?.sessionProfitLoss > 0 ? ARROW_UP : ARROWDOWN
                           }
                           sx={{
                             width: { lg: "25px", xs: "15px" },
@@ -743,18 +634,14 @@ const AllUserListSeparate = ({
                             color: "white",
                           }}
                         >
-                          {childUserReport?.rateProfitLoss ? (
-                            Number(childUserReport?.sessionProfitLoss) >= 0 ? (
+                          {item?.rateProfitLoss ? (
+                            Number(item?.sessionProfitLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(
-                                  childUserReport?.sessionProfitLoss
-                                ).toFixed(2)}
+                                {Number(item?.sessionProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              Number(
-                                childUserReport?.sessionProfitLoss
-                              ).toFixed(2)
+                              Number(item?.sessionProfitLoss).toFixed(2)
                             )
                           ) : (
                             0.0
@@ -765,12 +652,9 @@ const AllUserListSeparate = ({
                           sx={{
                             width: { lg: "20px", xs: "10px" },
                             height: { lg: "10px", xs: "6px" },
-                            transform:
-                              showSubUsers?.id === item?.userId &&
-                              selectedId?.type === "session_bet" &&
-                              showSessions
-                                ? "rotate(180deg)"
-                                : "rotate(0deg)",
+                            transform: showSessions
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
                           }}
                         />
                       </Box>
@@ -791,8 +675,8 @@ const AllUserListSeparate = ({
                         >
                           <AllRateSeperate
                             betHistory={false}
-                            count={bet1Data?.length}
-                            allBetsData={bet1Data}
+                            count={betData?.length}
+                            allBetsData={betData}
                             profit
                           />
                         </Box>
@@ -824,12 +708,12 @@ const AllUserListSeparate = ({
                               padding: 0.2,
                             }}
                           >
-                            {sessionBets?.length > 0 &&
-                              sessionBets?.map((item1: any, index: any) => {
+                            {sessionData?.length > 0 &&
+                              sessionData?.map((item1: any, index: any) => {
                                 return (
                                   <SessionComponentMatches
                                     key={index}
-                                    item={item1}
+                                    item={{ ...item1, matchId: item?.matchId }}
                                     index={index + 1}
                                     userId={item?.userId}
                                     showSessionBets={showSessionBets}
@@ -837,6 +721,10 @@ const AllUserListSeparate = ({
                                     getBetReport={getBetReport}
                                     selectedId={selectedId}
                                     sessionBetData={sessionBetData}
+                                    user={{
+                                      id: item?.userId,
+                                      roleName: item?.roleName,
+                                    }}
                                   />
                                 );
                               })}
@@ -855,7 +743,13 @@ const AllUserListSeparate = ({
                               >
                                 <SessionBetSeperate
                                   betHistory={false}
-                                  allBetsData={sessionBetData}
+                                  allBetsData={
+                                    totalBetProfitLossModal
+                                      ? Array.from(
+                                          new Set(totalBetProfitLossModal)
+                                        )
+                                      : []
+                                  }
                                   profit
                                   isArrow={true}
                                 />
@@ -909,55 +803,6 @@ const AllUserListSeparate = ({
             </Box>
           </Box>
         </>
-      )}
-
-      {showSessionResultList && item?.roleName === "user" && (
-        <Box
-          sx={{
-            width: { xs: "100%", lg: "99%" },
-            marginTop: { xs: ".25vh" },
-            marginLeft: { lg: "1%" },
-            display: "flex",
-            flexDirection: { lg: "row", xs: "column" },
-          }}
-        >
-          <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
-            <Box
-              sx={{
-                width: { xs: "50%", lg: "50%", md: "50%" },
-                maxHeight: "51vh",
-                overflow: "hidden",
-                // overflowY: "auto",
-                marginY: { xs: ".2vh", lg: "1vh" },
-                padding: 0.2,
-              }}
-            >
-              <AllRateSeperate
-                betHistory={false}
-                allBetsData={betData}
-                profit
-                isArrow={true}
-              />
-            </Box>
-            <Box
-              sx={{
-                width: { xs: "50%", lg: "50%", md: "50%" },
-                maxHeight: "51vh",
-                overflow: "hidden",
-                // overflowY: "auto",
-                marginY: { xs: ".2vh", lg: "1vh" },
-                padding: 0.2,
-              }}
-            >
-              <SessionBetSeperate
-                betHistory={false}
-                allBetsData={sessionData}
-                profit
-                isArrow={true}
-              />
-            </Box>
-          </Box>
-        </Box>
       )}
     </Box>
   );

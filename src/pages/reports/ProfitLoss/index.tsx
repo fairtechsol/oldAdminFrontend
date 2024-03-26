@@ -80,12 +80,6 @@ const ProfitLossReport = () => {
       const { data } = await service.post(`/user/userwise/profitLoss`, payload);
       if (data) {
         setUserProfitLoss(data);
-        // setPageCount(
-        //   Math.ceil(
-        //     parseInt(data?.data?.totalCount ? data.data?.totalCount : 1) /
-        //       pageLimit
-        //   )
-        // );
       }
     } catch (e) {
       console.log(e);

@@ -180,7 +180,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {formatToINR(data?.totalcomission || 0)}
+          {formatToINR(data?.totalcommission || 0)}
         </Typography>
       </Box>
       <Box
