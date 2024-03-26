@@ -44,6 +44,7 @@ const DepositComponent = (props: any) => {
     selected,
     titleBackgroundColor,
     onChangeAmount,
+    currentPage
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -174,7 +175,7 @@ const DepositComponent = (props: any) => {
       } else {
         dispatch(
           getUserList({
-            currentPage: 1,
+            currentPage: currentPage,
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
@@ -236,6 +237,7 @@ const DepositComponent = (props: any) => {
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
               type="deposite"
+              currentPage={currentPage}
             />
           </form>
         </ModalMUI>

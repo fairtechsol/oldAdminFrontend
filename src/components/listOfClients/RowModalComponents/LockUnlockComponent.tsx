@@ -29,6 +29,7 @@ const LockUnlockComponent = (props: any) => {
     endpoint,
     isWallet,
     onChangeAmount,
+    currentPage
   } = props;
 
   let elementLockUnlockObj1 = {
@@ -87,7 +88,7 @@ const LockUnlockComponent = (props: any) => {
       } else {
         dispatch(
           getUserList({
-            currentPage: 1,
+            currentPage: currentPage,
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );

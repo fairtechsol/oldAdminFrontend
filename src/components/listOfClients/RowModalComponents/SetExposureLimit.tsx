@@ -33,6 +33,7 @@ const SetExposureLimit = (props: any) => {
     endpoint,
     isWallet,
     onChangeAmount,
+    currentPage
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -81,7 +82,7 @@ const SetExposureLimit = (props: any) => {
       } else {
         dispatch(
           getUserList({
-            currentPage: 1,
+            currentPage: currentPage,
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
