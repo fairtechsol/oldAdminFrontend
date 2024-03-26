@@ -23,7 +23,7 @@ import StyledImage from "../../Common/StyledImages";
 import { DeleteIcon } from "../../../assets";
 
 const RowModalComponents = (props: any) => {
-  const { element, selected, setSelected, backgroundColor, onValueChange } =
+  const { element, selected, setSelected, backgroundColor, onValueChange,currentPage } =
     props;
   const dispatch: AppDispatch = useDispatch();
 
@@ -80,7 +80,7 @@ const RowModalComponents = (props: any) => {
       setSettlementModal(false);
       dispatch(
         getUserList({
-          currentPage: 1,
+          currentPage: currentPage,
           url: { endpoint: ApiConstants.USER.LIST },
         })
       );
@@ -122,6 +122,7 @@ const RowModalComponents = (props: any) => {
               }}
               titleBackgroundColor="#27AC1E"
               onChangeAmount={handleAmountChange}
+              currentPage={currentPage}
             />
           )}
           {selected == 1 && (
@@ -139,6 +140,7 @@ const RowModalComponents = (props: any) => {
               }}
               backgroundColor={backgroundColor}
               onChangeAmount={handleAmountChange}
+              currentPage={currentPage}
             />
           )}
           {selected == 2 && (
@@ -155,6 +157,7 @@ const RowModalComponents = (props: any) => {
               }}
               backgroundColor={backgroundColor}
               onChangeAmount={handleAmountChange}
+              currentPage={currentPage}
             />
           )}
           {selected == 3 && (
@@ -170,6 +173,7 @@ const RowModalComponents = (props: any) => {
                 setSelected(null);
               }}
               backgroundColor={backgroundColor}
+              currentPage={currentPage}
             />
           )}
           {selected == 5 && (
@@ -186,6 +190,7 @@ const RowModalComponents = (props: any) => {
               }}
               backgroundColor={backgroundColor}
               onChangeAmount={handleAmountChange}
+              currentPage={currentPage}
             />
           )}
           {selected == 4 && (
@@ -202,6 +207,7 @@ const RowModalComponents = (props: any) => {
               }}
               backgroundColor={backgroundColor}
               onChangeAmount={handleAmountChange}
+              currentPage={currentPage}
             />
           )}
         </Box>

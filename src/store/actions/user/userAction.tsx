@@ -82,6 +82,7 @@ export const getMyAccountDetails = createAsyncThunk<any>(
 export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   "user/list",
   async (requestData, thunkApi) => {
+    console.log(requestData?.currentPage, "data")
     try {
       const resp = await service.get(
         `${requestData?.url?.endpoint}?searchBy=${
