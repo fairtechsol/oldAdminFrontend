@@ -107,6 +107,7 @@ const AccountList = (endpoint: any) => {
                               fTextStyle={{ color: "white" }}
                               element={element}
                               show={false}
+                              currentPage={currentPage}
                             />
                           );
                         } else {
@@ -123,6 +124,7 @@ const AccountList = (endpoint: any) => {
                               fTextStyle={{ color: "#0B4F26" }}
                               element={element}
                               show={false}
+                              currentPage={currentPage}
                             />
                           );
                         }

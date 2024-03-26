@@ -34,6 +34,7 @@ const SetCreditComponent = (props: any) => {
     element,
     endpoint,
     onChangeAmount,
+    currentPage
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -83,7 +84,7 @@ const SetCreditComponent = (props: any) => {
       } else {
         dispatch(
           getUserList({
-            currentPage: 1,
+            currentPage: currentPage,
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );

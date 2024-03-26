@@ -25,6 +25,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
     showCReport,
     showUserDetails,
     show,
+    currentPage
   } = props;
 
   const navigate = useNavigate();
@@ -771,6 +772,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
               setShowSuccessModal={setShowSuccessModal}
               setShowModalMessage={setShowModalMessage}
               onValueChange={handleAmountChange}
+              currentPage={currentPage}
             />
           </Box>
         </Box>
@@ -799,6 +801,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
             id={showCommissionReport?.id}
             show={showCommissionReport?.value}
             setShow={setShowCommissionReport}
+            currentPage={currentPage}
           />
         </Box>
       </ModalMUI>
@@ -827,6 +830,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
             title={showSubUsers?.title}
             element={element}
             // handleExport={handleExport}
+            currentPage={currentPage}
           />
         </Box>
       </ModalMUI>

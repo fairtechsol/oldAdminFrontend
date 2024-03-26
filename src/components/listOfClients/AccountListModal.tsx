@@ -147,7 +147,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
                     fTextStyle={{ color: "white" }}
                     element={element}
                     show={true}
-                    // currentPage={currentPage}
+                    currentPage={currentPage}
                   />
                 );
               } else {
@@ -166,7 +166,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
                     element={element}
                     show={true}
                     // getListOfUser={getListOfUser}
-                    // currentPage={currentPage}
+                    currentPage={currentPage}
                   />
                 );
               }
