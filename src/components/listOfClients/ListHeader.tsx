@@ -47,7 +47,14 @@ const ListHeader = ({ id, endpoint, downloadPdfExcel, title }: any) => {
                 src={Excel}
                 sx={{ height: "25px" }}
                 onClick={() =>
-                  dispatch(handleExport({ endPoint: endpoint, type: "excel", userId: id }))
+                  dispatch(
+                    handleExport({
+                      endPoint: endpoint,
+                      type: "excel",
+                      userId: id,
+                      name: title,
+                    })
+                  )
                 }
               />
             </Box>
@@ -67,7 +74,14 @@ const ListHeader = ({ id, endpoint, downloadPdfExcel, title }: any) => {
                 src={Pdf}
                 sx={{ height: "25px" }}
                 onClick={() =>
-                  dispatch(handleExport({ endPoint: endpoint, type: "pdf", userId: id }))
+                  dispatch(
+                    handleExport({
+                      endPoint: endpoint,
+                      type: "pdf",
+                      userId: id,
+                      name: title,
+                    })
+                  )
                 }
               />
             </Box>

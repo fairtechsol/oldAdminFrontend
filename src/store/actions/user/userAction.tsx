@@ -475,7 +475,9 @@ export const handleExport = createAsyncThunk<any, any>(
       // Create an <a> element and trigger the download
       const link = document.createElement("a");
       link.href = url;
-      link.download = "temp";
+      link.download = requestData?.name
+        ? `${requestData?.name}`.replace(/[^\w\s]/g, "_")
+        : "Client_List";
       link.click();
       // Clean up by revoking the URL
       window.URL.revokeObjectURL(url);
