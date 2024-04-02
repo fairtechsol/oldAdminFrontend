@@ -10,19 +10,16 @@ import RowHeaderMatches from "./RowHeaderMatches";
 const ProfitLossTableComponent = (props: any) => {
   const {
     eventData,
-    betData,
-    sessionBetData,
-    handleReport,
     currentPage,
     pageCount,
-    // setCurrentPage,
-    sessionBets,
     setShow,
     show,
     endDate,
     startDate,
     userProfitLoss,
     getUserProfitLoss,
+    setCurrentPage,
+    handleReport,
   } = props;
   const [event, setEvent] = useState("");
   const dispatch: AppDispatch = useDispatch();
@@ -97,8 +94,8 @@ const ProfitLossTableComponent = (props: any) => {
                   key={index}
                   item={item}
                   index={index}
-                  getHandleReport={getHandleReport}
                   show={show}
+                  getHandleReport={getHandleReport}
                 />
               </>
             );
@@ -112,9 +109,6 @@ const ProfitLossTableComponent = (props: any) => {
                     item={item}
                     index={index + 1}
                     selectedId={selectedId}
-                    betData={betData}
-                    sessionBetData={sessionBetData}
-                    sessionBets={sessionBets}
                     getBetReport={getBetReport}
                     userProfitLoss={userProfitLoss}
                     getUserProfitLoss={getUserProfitLoss}
@@ -126,7 +120,7 @@ const ProfitLossTableComponent = (props: any) => {
           {show && (
             <Footer
               getListOfUser={() => handleReport(event)}
-              setCurrentPage={() => {}}
+              setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               pages={pageCount}
               // callPage={callPage}

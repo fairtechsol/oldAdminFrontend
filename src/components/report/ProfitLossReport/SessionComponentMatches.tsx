@@ -37,9 +37,30 @@ const SessionComponentMatches = ({
         onClick={() => {
           if (selectedId?.betId === item?.betId) {
             setShowSessionBets((prev: any) => !prev);
+            if (!showSessionBets) {
+              if (user) {
+                dispatch(
+                  getTotalBetProfitLossForModal({
+                    betId: item?.betId,
+                    matchId: item?.matchid || item?.matchId || matchId,
+                    isSession: true,
+                    searchId: userData?.id,
+                    user,
+                  })
+                );
+              } else {
+                dispatch(
+                  getTotalBetProfitLoss({
+                    betId: item?.betId,
+                    matchId: item?.matchid || item?.matchId || matchId,
+                    isSession: true,
+                    searchId: userData?.id,
+                  })
+                );
+              }
+            }
           } else {
             setShowSessionBets(true);
-
             if (user) {
               dispatch(
                 getTotalBetProfitLossForModal({

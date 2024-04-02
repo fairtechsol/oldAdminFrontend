@@ -246,7 +246,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.win >= 0 ? +item?.win : 0}
+              {+item?.totalLoss >= 0 ? +item?.totalLoss : 0}
             </Typography>
           </Box>
         </Box>
@@ -298,7 +298,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.loss < 0 ? +item?.loss : 0}
+              {+item?.totalLoss < 0 ? +item?.totalLoss : 0}
             </Typography>
           </Box>
         </Box>
