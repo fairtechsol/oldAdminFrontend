@@ -44,7 +44,7 @@ const RowComponentMatches = ({
           e.stopPropagation();
           if (selectedId?.id === item?.matchId) {
             if (showListOfUsers) {
-              // setShowListOfUsers((prev) => !prev);
+              setShowListOfUsers((prev) => !prev);
               getBetReport({
                 eventType: "",
                 matchId: "",
@@ -53,7 +53,7 @@ const RowComponentMatches = ({
                 sessionBet: false,
               });
             } else {
-              // getUserProfitLoss(item?.matchId);
+              getUserProfitLoss(item?.matchId);
               getBetReport({
                 eventType: item?.eventType,
                 matchId: item?.matchId,
@@ -61,14 +61,14 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              // setShowListOfUsers((prev) => !prev);
+              setShowListOfUsers((prev) => !prev);
             }
           } else {
-            // setShowListOfUsers(true);
+            setShowListOfUsers(true);
             setShowBets(false);
             setShowSessions(false);
             setShowSessionBets(false);
-            // getUserProfitLoss(item?.matchId);
+            getUserProfitLoss(item?.matchId);
             getBetReport({
               eventType: item?.eventType,
               matchId: item?.matchId,
@@ -163,7 +163,7 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          {false && (
+          {true && (
             <StyledImage
               src={ArrowDown}
               sx={{
