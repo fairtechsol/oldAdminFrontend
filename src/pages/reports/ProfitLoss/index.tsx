@@ -76,6 +76,7 @@ const ProfitLossReport = () => {
     try {
       let payload = {
         matchId: matchId,
+        searchId: search?.id ? search?.id : "",
       };
       const { data } = await service.post(`/user/userwise/profitLoss`, payload);
       if (data) {

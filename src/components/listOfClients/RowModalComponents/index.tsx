@@ -23,8 +23,15 @@ import StyledImage from "../../Common/StyledImages";
 import { DeleteIcon } from "../../../assets";
 
 const RowModalComponents = (props: any) => {
-  const { element, selected, setSelected, backgroundColor, onValueChange,currentPage } =
-    props;
+  const {
+    element,
+    selected,
+    setSelected,
+    backgroundColor,
+    onValueChange,
+    currentPage,
+    setShowUserModal,
+  } = props;
   const dispatch: AppDispatch = useDispatch();
 
   const [settlementModal, setSettlementModal] = useState(false);
@@ -84,6 +91,7 @@ const RowModalComponents = (props: any) => {
           url: { endpoint: ApiConstants.USER.LIST },
         })
       );
+      setShowUserModal(false);
       dispatch(getTotalBalance());
       dispatch(getUsersProfile());
       dispatch(userListSuccessReset());

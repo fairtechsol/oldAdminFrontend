@@ -19,10 +19,7 @@ const RowComponentMatches = ({
   item,
   index,
   selectedId,
-  betData,
-  sessionBetData,
   getBetReport,
-  user,
   userProfitLoss,
   getUserProfitLoss,
 }: any) => {
@@ -443,9 +440,8 @@ const RowComponentMatches = ({
                           userId={item?.userId}
                           showListOfUsers={showListOfUsers}
                           getBetReport={getBetReport}
-                          sessionBetData={sessionBetData}
-                          bet1Data={betData}
-                          user={user}
+                          // sessionBetData={sessionBetData}
+                          // bet1Data={betData}
                         />
                       );
                     })}
@@ -467,7 +463,7 @@ const RowComponentMatches = ({
               >
                 <AllRateSeperate
                   betHistory={false}
-                  count={betData?.length}
+                  // count={betData?.length}
                   allBetsData={totalBetProfitLoss && totalBetProfitLoss}
                   profit
                 />
@@ -508,7 +504,7 @@ const RowComponentMatches = ({
                           setShowSessionBets={setShowSessionBets}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          sessionBetData={sessionBetData}
+                          // sessionBetData={sessionBetData}
                         />
                       );
                     })}

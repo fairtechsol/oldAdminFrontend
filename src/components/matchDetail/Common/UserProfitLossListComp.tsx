@@ -49,8 +49,8 @@ const UserProfitLossListComp = (props: any) => {
         >
           <>
             <SeperateBox
-              value={formatToINR(element?.teamRateA || 0) ?? "N/A"}
-              value2={formatToINR(element?.percentTeamRateA || 0) ?? "N/A"}
+              value2={formatToINR(element?.teamRateA || 0) ?? "N/A"}
+              value={formatToINR(element?.percentTeamRateA || 0) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -58,8 +58,8 @@ const UserProfitLossListComp = (props: any) => {
               sx={{ width: "3px", display: "flex", background: "#ffffff" }}
             ></Box>
             <SeperateBox
-              value={formatToINR(element?.teamRateB || 0) ?? "N/A"}
-              value2={formatToINR(element?.percentTeamRateB || 0) ?? "N/A"}
+              value2={formatToINR(element?.teamRateB || 0) ?? "N/A"}
+              value={formatToINR(element?.percentTeamRateB || 0) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -73,8 +73,8 @@ const UserProfitLossListComp = (props: any) => {
                   }}
                 ></Box>
                 <SeperateBox
-                  value={formatToINR(element?.teamRateC || 0) ?? "N/A"}
-                  value2={formatToINR(element?.percentTeamRateC || 0) ?? "N/A"}
+                  value2={formatToINR(element?.teamRateC || 0) ?? "N/A"}
+                  value={formatToINR(element?.percentTeamRateC || 0) ?? "N/A"}
                   color={"#ffffff"}
                   width={10}
                 />

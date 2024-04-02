@@ -28,6 +28,9 @@ const AllUserListSeparate = ({
   const { totalBetProfitLossModal } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
+  const { userData } = useSelector(
+    (state: RootState) => state.report.reportList
+  );
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [showChildUserList, setShowChildUserList] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -48,7 +51,7 @@ const AllUserListSeparate = ({
       let payload = {
         matchId: props?.matchId,
         user: props?.user,
-        searchId: props?.searchId,
+        searchId: userData?.id ? userData?.id : "",
       };
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
@@ -66,7 +69,7 @@ const AllUserListSeparate = ({
       let payload = {
         matchId: props?.matchId,
         user: props?.user,
-        searchId: props?.searchId,
+        searchId: userData?.id ? userData?.id : "",
       };
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
@@ -246,7 +249,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.win >= 0 ? +item?.win : 0}
+              {+item?.totalLoss >= 0 ? +item?.totalLoss : 0}
             </Typography>
           </Box>
         </Box>
@@ -298,7 +301,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.loss < 0 ? +item?.loss : 0}
+              {+item?.totalLoss < 0 ? +item?.totalLoss : 0}
             </Typography>
           </Box>
         </Box>
