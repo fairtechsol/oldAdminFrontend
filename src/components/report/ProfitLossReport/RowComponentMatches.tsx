@@ -440,6 +440,7 @@ const RowComponentMatches = ({
                           userId={item?.userId}
                           showListOfUsers={showListOfUsers}
                           getBetReport={getBetReport}
+                          selectedId={selectedId}
                           // sessionBetData={sessionBetData}
                           // bet1Data={betData}
                         />
