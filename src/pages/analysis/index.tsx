@@ -83,9 +83,13 @@ const Analysis = () => {
       if (success && socket?.connected) {
         socketService.match.matchResultDeclaredOff();
         socketService.match.matchResultUnDeclaredOff();
+        socketService.match.declaredMatchResultAllUserOff();
+        socketService.match.unDeclaredMatchResultAllUserOff();
         socketService.match.matchAddedOff();
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
+        socketService.match.declaredMatchResultAllUser(getMatchListService);
+        socketService.match.unDeclaredMatchResultAllUser(getMatchListService);
         socketService.match.matchAdded(getMatchListService);
       }
     } catch (error) {
@@ -97,6 +101,8 @@ const Analysis = () => {
     return () => {
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
+      socketService.match.declaredMatchResultAllUserOff();
+      socketService.match.unDeclaredMatchResultAllUserOff();
       socketService.match.matchAddedOff();
     };
   }, []);

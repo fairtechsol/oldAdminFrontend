@@ -28,6 +28,12 @@ export const matchSocketService = {
   matchResultUnDeclared: (callback: any) => {
     socket.on("matchResultUnDeclare", callback);
   },
+  declaredMatchResultAllUser: (callback: any) => {
+    socket.on("matchResultDeclareAllUser", callback);
+  },
+  unDeclaredMatchResultAllUser: (callback: any) => {
+    socket.on("matchResultUnDeclareAllUser", callback);
+  },
   matchDeleteBet: (callback: any) => {
     socket.on("matchDeleteBet", callback);
   },
@@ -69,6 +75,12 @@ export const matchSocketService = {
   },
   matchResultUnDeclaredOff: () => {
     socket.off("matchResultUnDeclare");
+  },
+  declaredMatchResultAllUserOff: () => {
+    socket.on("matchResultDeclareAllUser");
+  },
+  unDeclaredMatchResultAllUserOff: () => {
+    socket.on("matchResultUnDeclareAllUser");
   },
   matchDeleteBetOff: () => {
     socket.off("matchDeleteBet");
