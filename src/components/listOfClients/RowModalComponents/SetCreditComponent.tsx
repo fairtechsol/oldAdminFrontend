@@ -155,6 +155,7 @@ const SetCreditComponent = (props: any) => {
                 required={true}
                 name={"amount"}
                 id={"amount"}
+                type="tel"
                 value={formatToINR(
                   parseFloat(formik.values.amount?.toString())
                 )}
