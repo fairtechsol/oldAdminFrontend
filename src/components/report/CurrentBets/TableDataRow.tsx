@@ -88,6 +88,7 @@ const TableDataRow = (props: any) => {
             fontSize: { xs: "9px", md: "9px", lg: "12px" },
             fontWeight: "600",
             color: "black",
+            lineHeight: "0.9"
           }}
         >
           {data?.eventName}
@@ -202,7 +203,7 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: "12px", fontWeight: "700", color: "#575757" }}
+          sx={{ fontSize: {lg:"12px", xs:"9px"}, fontWeight: "700", color: "#575757" }}
         >
           {data?.betType}
         </Typography>

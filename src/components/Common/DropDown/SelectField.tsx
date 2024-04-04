@@ -12,11 +12,8 @@ const SelectField = ({
 }: any) => {
 
   const getMenuPlacement = (id:any) => {
-    if (id === 'sessionCommission') {
-      return 'top';
-    } else {
-      return 'bottom';
-    }
+    const topIds = ['sessionCommission', 'matchCommission', 'matchCommissionType'];
+    return topIds.includes(id) ? 'top' : 'bottom';
   };
 
   const customStyles = {
@@ -59,7 +56,7 @@ const SelectField = ({
       {/* <InputLabel sx={[{}, titleStyle]} htmlFor={props.name}>
         {label}
       </Label> */}
-      <Select {...props} styles={customStyles} menuPlacement={getMenuPlacement(id)}/>
+      <Select isSearchable={ false } {...props} styles={customStyles} menuPlacement={getMenuPlacement(id)}/>
       {touched && error ? <div style={{ color: "red" }}>{error}</div> : null}
     </Box>
   );
