@@ -514,6 +514,7 @@ const MobileViewUserDetails = (props: any) => {
               required={true}
               id="amount"
               name="amount"
+              type="tel"
               value={numberWithCommas(value.amount?.toString())}
               onChange={(e: any) => onChange(e, "amount")}
               variant="standard"

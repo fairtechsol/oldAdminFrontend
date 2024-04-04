@@ -157,6 +157,7 @@ const SetExposureLimit = (props: any) => {
                 required={true}
                 id="amount"
                 name="amount"
+                type="tel"
                value={formatToINR(parseFloat(formik.values.amount?.toString()))}
                 onChange={(e: any) => checkHandleChange(e)}
                 variant="standard"

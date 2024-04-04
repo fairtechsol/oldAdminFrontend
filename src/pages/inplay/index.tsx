@@ -62,6 +62,8 @@ const Inplay = () => {
         ) {
           socketService.match.matchResultDeclaredOff();
           socketService.match.matchResultUnDeclaredOff();
+          socketService.match.declaredMatchResultAllUserOff();
+          socketService.match.unDeclaredMatchResultAllUserOff();
           socketService.match.matchAddedOff();
           matchListInplay?.matches?.map((item: any) => {
             socketService.match.joinMatchRoom(
@@ -71,6 +73,8 @@ const Inplay = () => {
           });
           socketService.match.matchResultDeclared(getMatchListService);
           socketService.match.matchResultUnDeclared(getMatchListService);
+          socketService.match.declaredMatchResultAllUser(getMatchListService);
+          socketService.match.unDeclaredMatchResultAllUser(getMatchListService);
           socketService.match.matchAdded(getMatchListService);
         }
         dispatch(matchListReset());
@@ -87,6 +91,8 @@ const Inplay = () => {
       });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
+      socketService.match.declaredMatchResultAllUserOff();
+      socketService.match.unDeclaredMatchResultAllUserOff();
       socketService.match.matchAddedOff();
     };
   }, []);

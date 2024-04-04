@@ -208,6 +208,7 @@ const MultipleMatch = ({}) => {
         socketService.match.userSessionBetPlacedOff();
         socketService.match.userMatchBetPlacedOff();
         socketService.match.matchResultDeclaredOff();
+        socketService.match.declaredMatchResultAllUserOff();
         socketService.match.matchDeleteBetOff();
         socketService.match.sessionDeleteBetOff();
         socketService.match.sessionResultOff();
@@ -221,6 +222,7 @@ const MultipleMatch = ({}) => {
         socketService.match.userSessionBetPlaced(setMultiSessionBetsPlaced);
         socketService.match.userMatchBetPlaced(setMultiMatchBetsPlaced);
         socketService.match.matchResultDeclared(matchMultiResultDeclared);
+        socketService.match.declaredMatchResultAllUser(matchMultiResultDeclared);
         socketService.match.matchDeleteBet(handleMultiMatchDeleteBet);
         socketService.match.sessionDeleteBet(handleMultiMatchSessionDeleteBet);
         socketService.match.sessionResult(handleMultiMatchSessionResultDeclare);
@@ -245,6 +247,7 @@ const MultipleMatch = ({}) => {
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();
       socketService.match.matchResultDeclaredOff();
+      socketService.match.declaredMatchResultAllUserOff();
       socketService.match.matchDeleteBetOff();
       socketService.match.sessionDeleteBetOff();
       socketService.match.sessionResultOff();

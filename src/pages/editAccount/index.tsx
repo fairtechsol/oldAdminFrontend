@@ -500,6 +500,7 @@ const EditAccount = () => {
                     inputContainerStyle={{
                       ...inputContainerStyle,
                       height: { lg: "45px", xs: "36px" },
+                      backgroundColor: "#DEDEDE",
                     }}
                     disabled={state?.id ? true : false}
                     placeholder={"Username (Required)"}
@@ -532,6 +533,7 @@ const EditAccount = () => {
                     inputContainerStyle={{
                       ...inputContainerStyle,
                       height: { lg: "45px", xs: "36px" },
+                      backgroundColor: "#DEDEDE",
                     }}
                     disabled={state?.id ? true : false}
                     title={"User Password*"}
@@ -566,6 +568,7 @@ const EditAccount = () => {
                     inputContainerStyle={{
                       ...inputContainerStyle,
                       height: { lg: "45px", xs: "36px" },
+                      backgroundColor: "#DEDEDE",
                     }}
                     disabled={state?.id ? true : false}
                     title={"Confirm User Password*"}
@@ -772,7 +775,7 @@ const EditAccount = () => {
                   gridColumnGap: "10px",
                 }}
               >
-                <Box sx={{ mt: -1 }}>
+                <Box sx={{ mt: 1 }}>
                   <SelectField
                     containerStyle={containerStyles}
                     titleStyle={titleStyles}
@@ -871,6 +874,7 @@ const EditAccount = () => {
                       inputContainerStyle={{
                         ...inputContainerStyle,
                         height: { lg: "45px", xs: "36px" },
+                        backgroundColor: "#DEDEDE",
                       }}
                       disabled={state?.id ? true : false}
                       title={"Credit Reference*"}
@@ -922,9 +926,10 @@ const EditAccount = () => {
                     <Input
                       inputContainerStyle={{
                         ...inputContainerStyle,
-                        backgroundColor:
-                          formik.values?.roleName?.value === "user" &&
-                          "#DEDEDE",
+                        // backgroundColor:
+                        //   formik.values?.roleName?.value === "user" &&
+                        //   "#DEDEDE",
+                        backgroundColor: "#DEDEDE",
                         height: { lg: "45px", xs: "36px" },
                       }}
                       containerStyle={{
