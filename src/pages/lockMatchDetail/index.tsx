@@ -256,6 +256,7 @@ const LockMatchScreen = () => {
         socketService.match.userSessionBetPlacedOff();
         socketService.match.userMatchBetPlacedOff();
         socketService.match.matchResultDeclaredOff();
+        socketService.match.declaredMatchResultAllUserOff();
         socketService.match.matchDeleteBetOff();
         socketService.match.sessionDeleteBetOff();
         socketService.match.sessionResultOff();
@@ -269,6 +270,7 @@ const LockMatchScreen = () => {
           updateMatchDetailToRedux
         );
         socketService.match.matchResultDeclared(matchResultDeclared);
+        socketService.match.declaredMatchResultAllUser(matchResultDeclared);
         socketService.match.matchDeleteBet(matchDeleteBet);
         socketService.match.sessionDeleteBet(handleSessionDeleteBet);
         socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
@@ -291,6 +293,7 @@ const LockMatchScreen = () => {
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();
       socketService.match.matchResultDeclaredOff();
+      socketService.match.declaredMatchResultAllUserOff();
       socketService.match.matchDeleteBetOff();
       socketService.match.sessionDeleteBetOff();
       socketService.match.sessionResultOff();
