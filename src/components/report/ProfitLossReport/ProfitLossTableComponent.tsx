@@ -1,11 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import Footer from "../../Common/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
+import { Constants } from "../../../utils/Constants";
 
 const ProfitLossTableComponent = (props: any) => {
   const {
@@ -61,18 +62,13 @@ const ProfitLossTableComponent = (props: any) => {
           searchId: userData?.id,
           startDate: startDate,
           endDate: endDate,
+          page: currentPage,
+          limit: 2,
         })
       );
     }
     setShow(!show);
   };
-
-  // function callPage(val: any) {
-  //   // setCurrentPage(setProfitLossReportPage(parseInt(val)));
-  //   setCurrentPage(parseInt(val));
-
-  //   handleReport(event, parseInt(val));
-  // }
 
   const getBetReport = (value: any) => {
     setSelectedId({
@@ -82,6 +78,19 @@ const ProfitLossTableComponent = (props: any) => {
       sessionBet: value?.sessionBet,
     });
   };
+
+  useEffect(() => {
+    dispatch(
+      getMatchWiseProfitLoss({
+        type: event,
+        searchId: userData?.id,
+        startDate: startDate,
+        endDate: endDate,
+        page: currentPage,
+        limit: Constants.pageLimit,
+      })
+    );
+  }, [currentPage]);
 
   return (
     <>

@@ -21,21 +21,27 @@ const SessionComponentMatches = ({
   selectedId,
   matchId,
   user,
+  selectedChildBetId,
+  setSelectedChildBetId,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
-  const { totalBetProfitLoss } = useSelector(
+  const { totalBetProfitLoss, totalBetProfitLossModal } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
   const { userData } = useSelector(
     (state: RootState) => state.report.reportList
   );
+
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
         onClick={() => {
-          if (selectedId?.betId === item?.betId) {
+          if (
+            selectedId?.betId === item?.betId ||
+            selectedChildBetId === item?.betId
+          ) {
             setShowSessionBets((prev: any) => !prev);
             if (!showSessionBets) {
               if (user) {
@@ -48,6 +54,7 @@ const SessionComponentMatches = ({
                     user,
                   })
                 );
+                setSelectedChildBetId(item?.betId);
               } else {
                 dispatch(
                   getTotalBetProfitLoss({
@@ -71,6 +78,7 @@ const SessionComponentMatches = ({
                   user,
                 })
               );
+              setSelectedChildBetId(item?.betId);
             } else {
               getBetReport({
                 eventType: item?.eventType,
@@ -241,7 +249,9 @@ const SessionComponentMatches = ({
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
                 transform:
-                  selectedId?.betId === item?.betId && showSessionBets
+                  (selectedId?.betId === item?.betId ||
+                    selectedChildBetId === item?.betId) &&
+                  showSessionBets
                     ? "rotate(90deg)"
                     : "rotate(270deg)",
               }}
@@ -249,14 +259,19 @@ const SessionComponentMatches = ({
           </Box>
         </Box>
       </Box>
-      {selectedId?.betId === item?.betId &&
+      {(selectedId?.betId === item?.betId ||
+        selectedChildBetId === item?.betId) &&
         matchesMobile &&
         showSessionBets && (
           <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
             <SessionBetSeperate
               betHistory={false}
               allBetsData={
-                totalBetProfitLoss
+                user
+                  ? totalBetProfitLossModal
+                    ? Array.from(new Set(totalBetProfitLossModal))
+                    : []
+                  : totalBetProfitLoss
                   ? Array.from(new Set(totalBetProfitLoss))
                   : []
               }

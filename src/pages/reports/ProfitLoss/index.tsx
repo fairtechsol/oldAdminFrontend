@@ -21,7 +21,7 @@ const ProfitLossReport = () => {
   const dispatch: AppDispatch = useDispatch();
   // const [pageLimit] = useState(10);
   const [pageCount] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<any>("");
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
@@ -96,6 +96,7 @@ const ProfitLossReport = () => {
       console.log(e);
     }
   }, [search]);
+
   useEffect(() => {
     dispatch(getUserTotalProfitLoss({ filter: "" }));
   }, []);

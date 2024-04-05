@@ -36,6 +36,7 @@ const AllUserListSeparate = ({
   const [showModal, setShowModal] = useState(false);
   const [betData, setBetData] = useState([]);
   const [sessionData, setSessionData] = useState([]);
+  const [selectedChildBetId, setSelectedChildBetId] = useState("");
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
   const [showSessionBets, setShowSessionBets] = useState(false);
@@ -116,7 +117,7 @@ const AllUserListSeparate = ({
             position: "relative",
             height: "100%",
             paddingY: "4px",
-            alignItems: { lg: "center", xs: "flex-end" },
+            alignItems: "center",
             display: "flex",
             paddingX: "10px",
             background: "#0B4F26",
@@ -728,11 +729,16 @@ const AllUserListSeparate = ({
                                       id: item?.userId,
                                       roleName: item?.roleName,
                                     }}
+                                    selectedChildBetId={selectedChildBetId}
+                                    setSelectedChildBetId={
+                                      setSelectedChildBetId
+                                    }
                                   />
                                 );
                               })}
                           </Box>
-                          {selectedId?.betId !== "" &&
+                          {(selectedId?.betId !== "" ||
+                            selectedChildBetId !== "") &&
                             !matchesMobile &&
                             showSessionBets && (
                               <Box
