@@ -265,6 +265,7 @@ const MatchDetail = () => {
           dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
       } else if (document.visibilityState === "hidden") {
+        socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(state?.matchId);
       }
     };
