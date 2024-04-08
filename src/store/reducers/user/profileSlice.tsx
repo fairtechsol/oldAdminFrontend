@@ -101,10 +101,11 @@ const profileSlice = createSlice({
         };
       })
       .addCase(profileReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       })
       .addCase(changePasswordReset, (state) => {
-        return { ...state, success: false, transactionPassword: "" };
+        state.success = false;
+        state.transactionPassword = "";
       });
   },
 });

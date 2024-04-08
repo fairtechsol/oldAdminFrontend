@@ -22,7 +22,7 @@ interface InitialState {
   loading: boolean;
   success: boolean;
   error: any;
-  userData:any;
+  userData: any;
 }
 
 const initialState: InitialState = {
@@ -35,7 +35,7 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
-  userData:{},
+  userData: {},
 };
 
 const profitLossReportSlice = createSlice({
@@ -131,13 +131,13 @@ const profitLossReportSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(resetDomainProfitLoss, (state) => {
-        return { ...state, domainProfitLossList: [] };
+        state.domainProfitLossList = [];
       })
       .addCase(resetSessionProfitLoss, (state) => {
-        return { ...state, sessionProfitLossList: [] };
+        state.sessionProfitLossList = [];
       })
       .addCase(resetBetProfitLoss, (state) => {
-        return { ...state, betProfitLossList: [] };
+        state.betProfitLossList = [];
       })
       .addCase(updateUserSearchId.fulfilled, (state, action) => {
         state.success = true;

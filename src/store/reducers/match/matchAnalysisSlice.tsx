@@ -317,7 +317,7 @@ const analysisListSlice = createSlice({
         }
       )
       .addCase(analysisListReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       });
   },
 });

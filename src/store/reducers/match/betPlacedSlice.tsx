@@ -146,7 +146,7 @@ const betsSlice = createSlice({
         }
       })
       .addCase(resetBetSessionProfitLossGraph, (state) => {
-        return { ...state, sessionProLoss: [] };
+        state.sessionProLoss = [];
       });
   },
 });
