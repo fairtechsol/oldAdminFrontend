@@ -2,15 +2,15 @@ import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import BackgroundLayout from "../../components/Common/BackgroundLayout";
+import { socketService } from "../../socketManager";
 import {
   getUsersProfile,
   marqueeNotification,
   updateBalanceOfLoggedUser,
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
-import Header from "./header";
-import { socketService } from "../../socketManager";
 import { Constants } from "../../utils/Constants";
+import Header from "./header";
 
 const MainLayout = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    if (!sessionStorage.getItem("userToken")) {
+    if (!sessionStorage.getItem("jwtAdmin")) {
       navigate(`${Constants.oldAdmin}login`);
       sessionStorage.clear();
     } else {
@@ -31,7 +31,7 @@ const MainLayout = () => {
   }, []);
 
   useEffect(() => {
-    if (sessionStorage.getItem("userToken")) {
+    if (sessionStorage.getItem("jwtAdmin")) {
       socketService.connect();
       socketService.auth.logout();
       socketService.match.updateUserBalance(updateUserBalance);
@@ -39,7 +39,7 @@ const MainLayout = () => {
     return () => {
       socketService.disconnect();
     };
-  }, [sessionStorage.getItem("userToken")]);
+  }, [sessionStorage.getItem("jwtAdmin")]);
 
   return (
     <>
