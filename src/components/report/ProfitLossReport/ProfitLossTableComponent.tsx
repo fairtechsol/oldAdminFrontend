@@ -62,8 +62,8 @@ const ProfitLossTableComponent = (props: any) => {
           searchId: userData?.id,
           startDate: startDate,
           endDate: endDate,
-          page: currentPage,
-          limit: 2,
+          page: 1,
+          limit: Constants.pageLimit,
         })
       );
     }

@@ -18,7 +18,7 @@ export const login = createAsyncThunk<any, LoginData>(
         requestData
       );
       const { token } = data;
-      sessionStorage.setItem("userToken", token);
+      sessionStorage.setItem("jwtAdmin", token);
       return data;
     } catch (error) {
       const err = error as AxiosError;

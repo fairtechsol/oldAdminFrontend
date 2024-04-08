@@ -1,7 +1,7 @@
 import io from "socket.io-client";
+import { Constants, baseUrls } from "../utils/Constants";
 import { authSocketService } from "./authSocket";
 import { matchSocketService } from "./matchDetailService";
-import { Constants, baseUrls } from "../utils/Constants";
 
 export let socket: any = null;
 export let thirdParty: any = null;
@@ -10,7 +10,7 @@ export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
     transports: [`${Constants.WEBSOCKET}`],
     auth: {
-      token: `${sessionStorage.getItem("userToken")}`,
+      token: `${sessionStorage.getItem("jwtAdmin")}`,
     },
   });
   thirdParty = io(baseUrls.thirdParty, {
@@ -20,7 +20,7 @@ export const initialiseSocket = () => {
         : `${Constants.WEBSOCKET}`,
     ],
     auth: {
-      token: `${sessionStorage.getItem("userToken")}`,
+      token: `${sessionStorage.getItem("jwtAdmin")}`,
     },
   });
 };
@@ -28,7 +28,7 @@ export const initialiseSocket = () => {
 // export const socket = io(baseUrls.socket, {
 //   transports: ["websocket"],
 //   auth: {
-//     token: `${sessionStorage.getItem("userToken")}`,
+//     token: `${sessionStorage.getItem("jwtAdmin")}`,
 //   },
 // });
 

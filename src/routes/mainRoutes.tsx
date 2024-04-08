@@ -28,6 +28,10 @@ const MainRoutes = {
   element: <MainLayout />,
   children: [
     {
+      index: true,
+      element: <Navigate to={Constants.AdminMainPaths.listOfClients} replace />,
+    },
+    {
       path: Constants.AdminMainPaths.listOfClients,
       element: <ListOfClients />,
     },

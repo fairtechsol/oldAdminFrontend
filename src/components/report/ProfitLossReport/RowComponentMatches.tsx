@@ -127,7 +127,7 @@ const RowComponentMatches = ({
               right: 5,
             }}
           >
-            ({moment(item?.matchDate).format("DD-MM-YYYY")})
+            ({moment(item?.startAt).format("DD-MM-YYYY")})
           </Typography>
 
           <Box
