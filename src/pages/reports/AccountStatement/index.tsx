@@ -27,28 +27,59 @@ const AccountStatement = () => {
     (state: RootState) => state.user.reportList
   );
 
-  useEffect(() => {
-    if (profileDetail) {
+  const getAccountStatementOnLoad = () => {
+    try {
       let filter = "";
       if (fromDate && toDate) {
         filter += `&createdAt=between${moment(fromDate)?.format(
           "YYYY-MM-DD"
-        )}|${moment(toDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
+        )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
       } else if (fromDate) {
         filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
       } else if (toDate) {
         filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
       }
+      setCurrentPage(1);
       dispatch(
         getAccountStatement({
           id: profileDetail?.id,
-          page: currentPage,
+          page: 1,
           pageLimit: pageLimit,
+          filter: filter,
           keyword: searchValue,
           searchBy: "description,user.userName,actionByUser.userName",
-          filter,
         })
       );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    try {
+      if (profileDetail) {
+        let filter = "";
+        if (fromDate && toDate) {
+          filter += `&createdAt=between${moment(fromDate)?.format(
+            "YYYY-MM-DD"
+          )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
+        } else if (fromDate) {
+          filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
+        } else if (toDate) {
+          filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
+        }
+        dispatch(
+          getAccountStatement({
+            id: profileDetail?.id,
+            page: currentPage,
+            pageLimit: pageLimit,
+            keyword: searchValue,
+            searchBy: "description,user.userName,actionByUser.userName",
+            filter,
+          })
+        );
+      }
+    } catch (error) {
+      console.error(error);
     }
   }, [profileDetail, currentPage, pageLimit]);
 
@@ -59,33 +90,7 @@ const AccountStatement = () => {
           <YellowHeader
             fromDate={fromDate}
             toDate={toDate}
-            getAccountStatement={() => {
-              let filter = "";
-              if (fromDate && toDate) {
-                filter += `&createdAt=between${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}|${moment(toDate.add(1, "days"))?.format("YYYY-MM-DD")}`;
-              } else if (fromDate) {
-                filter += `&createdAt=gte${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              } else if (toDate) {
-                filter += `&createdAt=lte${moment(toDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              }
-              setCurrentPage(1);
-              dispatch(
-                getAccountStatement({
-                  id: profileDetail?.id,
-                  page: 1,
-                  pageLimit: pageLimit,
-                  filter: filter,
-                  keyword: searchValue,
-                  searchBy: "description,user.userName,actionByUser.userName",
-                })
-              );
-            }}
+            getAccountStatement={getAccountStatementOnLoad}
             setToDate={setToDate}
             setFromDate={setFromDate}
           />
@@ -138,35 +143,39 @@ const AccountStatement = () => {
             <>
               <Box sx={{ overflowX: "scroll", width: "100%" }}>
                 <TableHeaderList />
-                {accountStatement?.transactions?.length > 0 ? accountStatement?.transactions?.map((item: any) => (
-                  <TableDataRow
-                    key={item?.id}
-                    index={item?.id}
-                    containerStyle={{ background: "#FFE094" }}
-                    profit={true}
-                    fContainerStyle={{ background: "#0B4F26" }}
-                    fTextStyle={{ color: "white" }}
-                    date={item?.createdAt}
-                    description={item?.description}
-                    closing={item?.closingBalance}
-                    transType={item?.transType}
-                    amount={item?.amount}
-                    fromuserName={item?.actionByUser?.userName}
-                    touserName={item?.user?.userName}
-                  />
-                )) : <Box>
-                <Typography
-                  sx={{
-                    color: "#000",
-                    textAlign: "center",
-                    fontSize: { lg: "16px", xs: "10px" },
-                    fontWeight: "600",
-                    margin: "1rem",
-                  }}
-                >
-                  No Matching Records Found
-                </Typography>
-              </Box>}
+                {accountStatement?.transactions?.length > 0 ? (
+                  accountStatement?.transactions?.map((item: any) => (
+                    <TableDataRow
+                      key={item?.id}
+                      index={item?.id}
+                      containerStyle={{ background: "#FFE094" }}
+                      profit={true}
+                      fContainerStyle={{ background: "#0B4F26" }}
+                      fTextStyle={{ color: "white" }}
+                      date={item?.createdAt}
+                      description={item?.description}
+                      closing={item?.closingBalance}
+                      transType={item?.transType}
+                      amount={item?.amount}
+                      fromuserName={item?.actionByUser?.userName}
+                      touserName={item?.user?.userName}
+                    />
+                  ))
+                ) : (
+                  <Box>
+                    <Typography
+                      sx={{
+                        color: "#000",
+                        textAlign: "center",
+                        fontSize: { lg: "16px", xs: "10px" },
+                        fontWeight: "600",
+                        margin: "1rem",
+                      }}
+                    >
+                      No Matching Records Found
+                    </Typography>
+                  </Box>
+                )}
               </Box>
               <Pagination
                 currentPage={currentPage}
