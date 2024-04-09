@@ -137,6 +137,7 @@ const ProfitLossTableComponent = (props: any) => {
                     getBetReport={getBetReport}
                     userProfitLoss={userProfitLoss}
                     getUserProfitLoss={getUserProfitLoss}
+                    currentPage={currentPage}
                   />
                 );
               })}

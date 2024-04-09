@@ -3,9 +3,17 @@ import moment from "moment";
 import { formatToINR } from "../../../helper";
 
 const TableDataRow = (props: any) => {
-  const { containerStyle, data, fContainerStyle, fTextStyle, index } = props;
+  const {
+    containerStyle,
+    data,
+    fContainerStyle,
+    fTextStyle,
+    index,
+    currentPage,
+    pageLimit,
+  } = props;
   let flag = index % 2 != 0;
-  let no = (index + 1).toString();
+  let no = (index + 1 + pageLimit * (currentPage - 1)).toString();
   return (
     <Box
       sx={[
@@ -88,7 +96,7 @@ const TableDataRow = (props: any) => {
             fontSize: { xs: "9px", md: "9px", lg: "12px" },
             fontWeight: "600",
             color: "black",
-            lineHeight: "0.9"
+            lineHeight: "0.9",
           }}
         >
           {data?.eventName}
@@ -203,7 +211,11 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography
-          sx={{ fontSize: {lg:"12px", xs:"9px"}, fontWeight: "700", color: "#575757" }}
+          sx={{
+            fontSize: { lg: "12px", xs: "9px" },
+            fontWeight: "700",
+            color: "#575757",
+          }}
         >
           {data?.betType}
         </Typography>
