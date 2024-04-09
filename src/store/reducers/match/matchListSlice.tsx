@@ -102,16 +102,12 @@ const matchListSlice = createSlice({
               ],
             };
 
-            return {
-              ...state,
-              matchListInplay: {
-                ...state.matchListInplay,
-                matches: updatedMatchlist,
-              },
+            state.matchListInplay = {
+              ...state.matchListInplay,
+              matches: updatedMatchlist,
             };
           }
         }
-        return state;
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
@@ -139,7 +135,7 @@ const matchListSlice = createSlice({
         };
       })
       .addCase(matchListReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.getProfile = {
@@ -180,8 +176,6 @@ const matchListSlice = createSlice({
             ...state.matchDetail,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetail;
         }
       })
       .addCase(updateMaxLossForDeleteBet.fulfilled, (state, action) => {
@@ -214,8 +208,6 @@ const matchListSlice = createSlice({
             ...state.matchDetail,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetail;
         }
       })
       .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
@@ -315,8 +307,6 @@ const matchListSlice = createSlice({
             ...state.matchDetail,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetail;
         }
       })
       .addCase(setCurrentOdd.fulfilled, (state, action) => {

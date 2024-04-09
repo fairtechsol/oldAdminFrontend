@@ -39,7 +39,7 @@ const userProfitLoss = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(resetUserProfitLoss, (state) => {
-        return { ...state, userProfitLossData: [] };
+        state.userProfitLossData = [];
       });
   },
 });

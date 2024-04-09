@@ -197,7 +197,7 @@ export const userList = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(userListSuccessReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       })
       .addCase(getTotalBalance.pending, (state) => {
         state.loading = true;

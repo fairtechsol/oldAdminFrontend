@@ -92,13 +92,13 @@ const sidebarListSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(resetcompetitionList, (state) => {
-        return { ...state, competitionList: [] };
+        state.competitionList = [];
       })
       .addCase(resetCompetitionDates, (state) => {
-        return { ...state, competitionDates: [] };
+        state.competitionDates = [];
       })
       .addCase(resetCompetitionMatches, (state) => {
-        return { ...state, competitionMatches: [] };
+        state.competitionMatches = [];
       });
   },
 });

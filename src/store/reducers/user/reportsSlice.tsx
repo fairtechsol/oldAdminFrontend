@@ -54,7 +54,7 @@ export const reportSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(resetAccountStatement, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       });
   },
 });
