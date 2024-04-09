@@ -25,7 +25,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
     showCReport,
     showUserDetails,
     show,
-    currentPage
+    currentPage,
   } = props;
 
   const navigate = useNavigate();
@@ -518,7 +518,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                   Number(exposureValue)
                 )
               : new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                  element?.exposureLimit || 0
+                  +element?.exposureLimit ? element?.exposureLimit : 0
                 )}
           </Typography>
         </Box>
