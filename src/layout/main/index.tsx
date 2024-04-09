@@ -31,14 +31,18 @@ const MainLayout = () => {
   }, []);
 
   useEffect(() => {
-    if (sessionStorage.getItem("jwtAdmin")) {
-      socketService.connect();
-      socketService.auth.logout();
-      socketService.match.updateUserBalance(updateUserBalance);
+    try {
+      if (sessionStorage.getItem("jwtAdmin")) {
+        socketService.connect();
+        socketService.auth.logout();
+        socketService.match.updateUserBalance(updateUserBalance);
+        return () => {
+          socketService.disconnect();
+        };
+      }
+    } catch (error) {
+      console.error(error);
     }
-    return () => {
-      socketService.disconnect();
-    };
   }, [sessionStorage.getItem("jwtAdmin")]);
 
   return (
