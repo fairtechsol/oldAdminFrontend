@@ -125,7 +125,7 @@ const AllUserListSeparate = ({
             justifyContent: "space-between",
           }}
         >
-          <Typography
+          {/* <Typography
             sx={{
               fontSize: { lg: "0px", xs: "10px" },
               color: "white",
@@ -137,7 +137,7 @@ const AllUserListSeparate = ({
             }}
           >
             ({moment(item?.betDate).format("DD-MM-YYYY")})
-          </Typography>
+          </Typography> */}
 
           <Box
             onClick={(e) => {

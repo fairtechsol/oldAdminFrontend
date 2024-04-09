@@ -72,6 +72,8 @@ const BetsList = (props: any) => {
                 profit={true}
                 fContainerStyle={{ background: "#0B4F26" }}
                 fTextStyle={{ color: "white" }}
+                currentPage={currentPage}
+                pageLimit={pageLimit}
               />
             );
           })}
@@ -90,9 +92,7 @@ const BetsList = (props: any) => {
           currentPage={currentPage}
           // pages={+(betHistory?.length / pageLimit)}/// giving Nan
           pages={Math.ceil(
-            parseInt(
-              betHistory?.length ? betHistory?.length : 1
-            ) / pageLimit
+            parseInt(betHistory?.length ? betHistory?.length : 1) / pageLimit
           )}
           setCurrentPage={setCurrentPage}
         />

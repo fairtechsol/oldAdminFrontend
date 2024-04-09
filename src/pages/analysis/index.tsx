@@ -200,14 +200,17 @@ const Analysis = () => {
                   onClick={() => {
                     if (max == "2") {
                       if (selected.length != 2) {
+                        toast.error("Select 2 matches");
                         return;
                       }
                     } else if (max == "3") {
                       if (selected.length != 3) {
+                        toast.error("Select 3 matches");
                         return;
                       }
                     } else if (max == "4") {
                       if (selected.length != 4) {
+                        toast.error("Select 4 matches");
                         return;
                       }
                     }
