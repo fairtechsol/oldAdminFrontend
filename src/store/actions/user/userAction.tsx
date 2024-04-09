@@ -506,7 +506,7 @@ export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
         requestData
       );
       if (resp) {
-        return resp?.data?.result;
+        return { result: resp?.data?.result, count: resp?.data?.count };
       }
     } catch (error: any) {
       const err = error as AxiosError;
