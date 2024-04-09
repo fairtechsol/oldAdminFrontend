@@ -14,6 +14,7 @@ import AllRateSeperate from "./AllRateSeperate";
 import AllUserListSeparate from "./AllUserListSeperate";
 import SessionBetSeperate from "./SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
+import { Constants } from "../../../utils/Constants";
 
 const RowComponentMatches = ({
   item,
@@ -22,6 +23,7 @@ const RowComponentMatches = ({
   getBetReport,
   userProfitLoss,
   getUserProfitLoss,
+  currentPage
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -99,7 +101,7 @@ const RowComponentMatches = ({
           <Typography
             sx={{ fontSize: "14px", color: "white", fontWeight: "600" }}
           >
-            {0 + index}
+            {0 + index + Constants.pageLimit * (currentPage - 1)}
           </Typography>
         </Box>
         <Box
