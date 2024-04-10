@@ -7,6 +7,7 @@ import Footer from "../../Common/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
 import { Constants } from "../../../utils/Constants";
+import moment from "moment";
 
 const ProfitLossTableComponent = (props: any) => {
   const {
@@ -57,8 +58,8 @@ const ProfitLossTableComponent = (props: any) => {
         getMatchWiseProfitLoss({
           type: eventType,
           searchId: userData?.id,
-          startDate: startDate,
-          endDate: endDate,
+          startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+          endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
           page: 1,
           limit: Constants.pageLimit,
         })

@@ -1,6 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import moment from "moment";
 import { memo, useState } from "react";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
 import service from "../../../service";
