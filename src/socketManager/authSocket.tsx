@@ -11,7 +11,7 @@ const toastOptions = {
 
 export const authSocketService = {
   logout: () => {
-    socket.on("logoutUserForce", (event: any) => {
+    socket?.on("logoutUserForce", (event: any) => {
       toast.error(event?.message, toastOptions);
       sessionStorage.clear();
       window.location.replace(`${Constants.oldAdmin}login`);
