@@ -1,10 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography,useMediaQuery } from "@mui/material";
 import { memo } from "react";
 import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import { formatToINR } from "../../../helper";
+import theme from "../../../theme";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
+
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
       onClick={() => getHandleReport(item?.eventType)}
@@ -98,13 +101,14 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
               fontSize: { lg: "14px", xs: "10px" },
               fontWeight: "700",
               color: "white",
+              lineHeight: "0.9"
             }}
           >
             {Number(item?.totalLoss) >= 0 ? (
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
                 {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
-                {`(Total Deduction: 
+                {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}
                   ${formatToINR(
                     Number(item?.totalDeduction).toFixed(2) || 0
                   )})`}
@@ -112,7 +116,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             ) : (
               <>
                 {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
-                {`(Total Deduction: 
+                {`(${matchesMobile ? "TD(1%)" : "Total Deduction"} 
                   ${formatToINR(
                     Number(item?.totalDeduction).toFixed(2) || 0
                   )})`}

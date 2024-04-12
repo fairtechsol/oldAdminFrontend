@@ -45,10 +45,11 @@ const BetsList = (props: any) => {
             md: "10px 10px 0 0",
           },
           border: "2px solid white",
+          backgroundColor: "white",
         },
-        (theme: any) => ({
-          backgroundImage: `${theme.palette.primary.headerGradient}`,
-        }),
+        // (theme: any) => ({
+        //   backgroundImage: `${theme.palette.primary.headerGradient}`,
+        // }),
       ]}
     >
       <ListHeaderRow
@@ -58,7 +59,7 @@ const BetsList = (props: any) => {
         setCurrentPage={setCurrentPage}
       />
 
-      <Box sx={{ overflowX: "scroll" }}>
+      <Box sx={{ overflowX: "auto",}}>
         <TableHeaderList />
 
         {currentPageData &&

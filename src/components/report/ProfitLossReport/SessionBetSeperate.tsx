@@ -144,7 +144,7 @@ const SessionBetSeperate = ({
                       color: "white",
                     }}
                   >
-                    {"Profit/Loss"}
+                    {"P/L"}
                   </Typography>
                 </Box>
               )}
@@ -507,14 +507,13 @@ const SingleBox = ({
         >
           {time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
         <Typography
           sx={{
             maxHeight: "1em",
-            overflow: "hidden",
+            overflow: "visible",
             lineHeight: 1,
             fontWeight: "600",
-            fontSize: { lg: "12px", xs: "10px" },
+            fontSize: { lg: "12px", xs: "9px" },
             color: "black",
             textAlign: "center",
           }}
