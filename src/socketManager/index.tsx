@@ -36,15 +36,15 @@ export const socketService = {
   connect: () => {
     initialiseSocket();
     // Connect to the socket server
-    socket.connect();
-    thirdParty.connect();
+    socket?.connect();
+    thirdParty?.connect();
     // expertSocket.connect();
   },
 
   disconnect: () => {
     // Disconnect from the socket server
-    socket.disconnect();
-    thirdParty.disconnect();
+    socket?.disconnect();
+    thirdParty?.disconnect();
     // expertSocket.disconnect();
   },
   auth: { ...authSocketService },
