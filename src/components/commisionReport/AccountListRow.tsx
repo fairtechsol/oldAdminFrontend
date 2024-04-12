@@ -47,6 +47,8 @@ const AccountListRow = ({
             height: "45px",
             position: "absolute",
             display: "flex",
+            width: "auto",
+            overflowX: "auto"
           }}
         />
       )}
@@ -168,7 +170,7 @@ const AccountListRow = ({
           }}
         >
           <Typography
-            sx={[{ fontSize: "12px", fontWeight: "600" }, fTextStyle]}
+            sx={[{ fontSize: "12px", fontWeight: "600", lineHeight: "0.9" }, fTextStyle]}
           >
             {/* {elementToUDM.teamBet} */}
             {elementToUDM?.createAt

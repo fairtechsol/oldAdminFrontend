@@ -19,12 +19,11 @@ const TableDataRow = (props: any) => {
       sx={[
         {
           display: "flex",
-          height: "45px",
+          // height: "45px",
           background: "#0B4F26",
           alignItems: "center",
-          overflow: "hidden",
-          borderBottom: "2px solid white",
-        },
+          borderBottom: "1px solid white",
+                  },
         containerStyle,
       ]}
     >
@@ -32,6 +31,7 @@ const TableDataRow = (props: any) => {
         sx={[
           {
             width: "5%",
+            minWidth: "70px",
             justifyContent: "center",
             display: "flex",
             alignItems: "center",
@@ -58,6 +58,7 @@ const TableDataRow = (props: any) => {
         sx={[
           {
             width: "10%",
+            minWidth: "100px",
             display: "flex",
             paddingLeft: "10px",
             paddingRight: "10px",
@@ -83,6 +84,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "10%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           background: flag ? "#ECECEC" : "#FFE094",
@@ -105,6 +107,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "10%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           background: flag ? "#ECECEC" : "#FFE094",
@@ -126,6 +129,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "10%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           background:
@@ -151,6 +155,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "10%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "6px",
           background:
@@ -175,6 +180,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "7%",
+          minWidth: "100px",
           display: "flex",
           background:
             data?.betType === "YES" || data?.betType === "BACK"
@@ -199,6 +205,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "8%",
+          minWidth: "100px",
           display: "flex",
           justifyContent: "center",
           background:
@@ -223,6 +230,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "8%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           background:
@@ -248,6 +256,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "11%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           flexDirection: "column",
@@ -281,6 +290,7 @@ const TableDataRow = (props: any) => {
       <Box
         sx={{
           width: "11%",
+          minWidth: "100px",
           display: "flex",
           paddingLeft: "10px",
           flexDirection: "column",

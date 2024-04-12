@@ -176,7 +176,7 @@ const AllRateSeperate = ({
                       color: "white",
                     }}
                   >
-                    {"Profit/Loss"}
+                    {matchesMobile ? "P/L" : "Profit Loss"}
                   </Typography>
                 </Box>
               )}
@@ -522,6 +522,7 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
+            boxWidth="90%"
             // data={
             //   data?.marketType == "MANUAL BOOKMAKER"
             //     ? "Quick Bookmaker"
@@ -535,7 +536,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data?.username || data?.userName || data?.user?.userName}
             header={header}
-            boxWidth="100%"
+            boxWidth="91%"
           />
           <SingleBox
             color={getColor()}
@@ -543,25 +544,25 @@ const RowComponent = ({ header, data }: any) => {
             up={true}
             header={header}
             time={getTime(data.createdAt)}
+            boxWidth="91%"
           />
           <SingleBox
             color={getColor()}
             data={data?.bet_type || data?.betType}
             header={header}
-            boxWidth="50%"
+            boxWidth="46%"
           />
           <SingleBox
             color={getColor()}
             data={data?.odds}
             header={header}
-            boxWidth="50%"
+            boxWidth="46%"
           />
           <SingleBox
             color={getColor()}
             data={formatToINR(data?.amount)}
             header={header}
-            width={"50%"}
-            boxWidth="40%"
+            boxWidth="35%"
           />
         </>
       )}
@@ -720,7 +721,7 @@ const SingleBox = ({
     first ? (
       <Box
         sx={{
-          width: width ? width : "100%",
+          width: boxWidth,
           height: "40px",
           background: "#F1C550",
           // marginX: { xs: "0.5px", lg: "0.5px" },
@@ -760,7 +761,7 @@ const SingleBox = ({
     ) : up ? (
       <Box
         sx={{
-          width: "100%",
+          width: "91%",
           height: "40px",
           flexDirection: "column",
           background: color,

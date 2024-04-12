@@ -244,7 +244,7 @@ const RowComponentMatches = ({
                 color: "white",
               }}
             >
-              Rate Profit/Loss
+              Rate {matchesMobile ? "P/L" : "Profit/Loss"}
             </Typography>
             <StyledImage
               src={item.rateProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
@@ -266,6 +266,7 @@ const RowComponentMatches = ({
                 fontSize: { xs: "10px", lg: "14px" },
                 fontWeight: "700",
                 color: "white",
+                lineHeight: "0.9"
               }}
             >
               {" "}
@@ -275,7 +276,7 @@ const RowComponentMatches = ({
                   {formatToINR(
                     Number(item?.rateProfitLoss || 0).toFixed(2)
                   )}{" "}
-                  {`(Total Deduction: 
+                  {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
                   ${formatToINR(
                     Number(item?.totalDeduction || 0).toFixed(2)
                   )})`}
@@ -283,7 +284,7 @@ const RowComponentMatches = ({
               ) : (
                 <>
                   {formatToINR(Number(item?.rateProfitLoss || 0).toFixed(2))}{" "}
-                  {`(Total Deduction: 
+                  {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
                   ${formatToINR(
                     Number(item?.totalDeduction || 0).toFixed(2)
                   )})`}
@@ -359,7 +360,7 @@ const RowComponentMatches = ({
                 color: "white",
               }}
             >
-              Session Profit/Loss
+              Session {matchesMobile ? "P/L" : "Profit/Loss"}
             </Typography>
             <StyledImage
               src={item.sessionProfitLoss > 0 ? ARROW_UP : ARROWDOWN}

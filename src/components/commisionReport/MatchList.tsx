@@ -148,6 +148,7 @@ const MatchList = ({
               marginTop: { xs: ".25vh" },
               marginLeft: { lg: "4%" },
               display: "flex",
+              overflowX: "auto",
               // flexDirection: { lg: "row", xs: "column" },
               flexDirection: { lg: "column", xs: "column" },
             }}

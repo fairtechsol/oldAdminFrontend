@@ -12,7 +12,7 @@ import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
 const SeasonMarketBox = (props: any) => {
-  const { newData, setData, profitLossData } = props;
+  const { newData, setData, profitLossData, index } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -42,10 +42,10 @@ const SeasonMarketBox = (props: any) => {
         <Box
           sx={{
             display: "flex",
-            background: "white",
             height: "38px",
             width: "40%",
             alignItems: "center",
+            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
           }}
         >
           <Typography>
@@ -76,7 +76,7 @@ const SeasonMarketBox = (props: any) => {
           sx={{
             display: "flex",
             position: "relative",
-            background: "white",
+            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
             height: "38px",
             width: { lg: "60%", xs: "80%" },
             justifyContent: "flex-end",
