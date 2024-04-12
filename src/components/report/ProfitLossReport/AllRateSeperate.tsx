@@ -707,16 +707,7 @@ const RowComponent = ({ header, data }: any) => {
 //     </Box>
 //   );
 // };
-const SingleBox = ({
-  data,
-  header,
-  color,
-  up,
-  first,
-  time,
-  width,
-  boxWidth,
-}: any) => {
+const SingleBox = ({ data, header, color, up, first, time, boxWidth }: any) => {
   return !header ? (
     first ? (
       <Box
