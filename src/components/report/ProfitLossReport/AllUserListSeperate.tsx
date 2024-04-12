@@ -11,6 +11,7 @@ import SessionComponentMatches from "./SessionComponentMatches";
 import { ApiConstants } from "../../../utils/Constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { formatToINR } from "../../../helper";
 
 const AllUserListSeparate = ({
   item,
@@ -249,7 +250,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.totalLoss >= 0 ? +item?.totalLoss : 0}
+              {+item?.totalLoss >= 0 ? formatToINR(item?.totalLoss) : 0}
             </Typography>
           </Box>
         </Box>
@@ -301,7 +302,7 @@ const AllUserListSeparate = ({
             <Typography
               sx={{ fontSize: "15px", fontWeight: "700", color: "white" }}
             >
-              {+item?.totalLoss < 0 ? +item?.totalLoss : 0}
+              {+item?.totalLoss < 0 ? formatToINR(item?.totalLoss) : 0}
             </Typography>
           </Box>
         </Box>
@@ -534,7 +535,7 @@ const AllUserListSeparate = ({
                                 {Number(item?.rateProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              Number(item?.rateProfitLoss).toFixed(2)
+                              formatToINR(Number(item?.rateProfitLoss).toFixed(2))
                             )
                           ) : (
                             0.0
@@ -637,14 +638,14 @@ const AllUserListSeparate = ({
                             color: "white",
                           }}
                         >
-                          {item?.rateProfitLoss ? (
+                          {item?.sessionProfitLoss ? (
                             Number(item?.sessionProfitLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
                                 {Number(item?.sessionProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              Number(item?.sessionProfitLoss).toFixed(2)
+                              formatToINR(Number(item?.sessionProfitLoss).toFixed(2))
                             )
                           ) : (
                             0.0

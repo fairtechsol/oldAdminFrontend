@@ -492,8 +492,8 @@ const SingleBox = ({
           height: "40px",
           flexDirection: "column",
           background: "#F8C851",
-          display: {xs: "initial",lg:"flex"},
-          justifyContent:{ lg:"center", xs: "initial"},
+          display: { xs: "initial", lg: "flex" },
+          justifyContent: { lg: "center", xs: "initial" },
         }}
       >
         <Typography
@@ -612,9 +612,10 @@ const SingleBox = ({
       <Typography
         sx={{
           fontWeight: "400",
-          fontSize: "12px",
+          fontSize: "11px",
           color: "white",
           wordWrap: "break-word",
+          lineHeight: "0.9",
         }}
       >
         {data}

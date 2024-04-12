@@ -23,7 +23,7 @@ const RowComponentMatches = ({
   getBetReport,
   userProfitLoss,
   getUserProfitLoss,
-  currentPage
+  currentPage,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -266,7 +266,7 @@ const RowComponentMatches = ({
                 fontSize: { xs: "10px", lg: "14px" },
                 fontWeight: "700",
                 color: "white",
-                lineHeight: "0.9"
+                lineHeight: "0.9",
               }}
             >
               {" "}
@@ -367,7 +367,7 @@ const RowComponentMatches = ({
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
-                marginRight: {xs: "3px"}
+                marginRight: { xs: "3px" },
               }}
             />
           </Box>
@@ -399,7 +399,7 @@ const RowComponentMatches = ({
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
-                marginRight: {xs: "3px"},
+                marginRight: { xs: "3px" },
                 transform:
                   selectedId?.id === item?.matchId &&
                   selectedId?.type === "session_bet" &&
