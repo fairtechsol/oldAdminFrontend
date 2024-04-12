@@ -509,7 +509,7 @@ const SingleBox = ({
         <Typography
           sx={{
             maxHeight: "2em",
-            overflow: "scroll",
+            overflowY: "scroll",
             lineHeight: 1,
             fontWeight: "600",
             fontSize: { lg: "12px", xs: "9px" },
