@@ -367,6 +367,7 @@ const RowComponentMatches = ({
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
+                marginRight: {xs: "3px"}
               }}
             />
           </Box>
@@ -398,6 +399,7 @@ const RowComponentMatches = ({
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
+                marginRight: {xs: "3px"},
                 transform:
                   selectedId?.id === item?.matchId &&
                   selectedId?.type === "session_bet" &&

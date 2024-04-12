@@ -213,7 +213,7 @@ const SessionComponentMatches = ({
                 color: "white",
               }}
             >
-              P/L
+            {matchesMobile ? "P/L" : "Profit/Loss"}
             </Typography>
             <StyledImage
               src={item.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
