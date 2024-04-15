@@ -1,11 +1,13 @@
-import Loadable from "../utils/loadable";
+// import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 
 import AuthLayout from "../layout/auth";
+import Login from "../pages/auth/login";
+import ChangePassword from "../pages/changePassword";
 
-const Login = Loadable(() => import("../pages/auth/login"));
-const ChangePassword = Loadable(() => import("../pages/changePassword"));
+// const Login = Loadable(() => import("../pages/auth/login"));
+// const ChangePassword = Loadable(() => import("../pages/changePassword"));
 
 const AuthRoutes = {
   path: Constants.AdminAuthPaths.root,
