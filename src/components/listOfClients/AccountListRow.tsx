@@ -416,7 +416,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           }}
         >
           <Typography variant="h5">
-            {+element?.userBal?.exposure || 0}
+            {formatToINR(+element?.userBal?.exposure) || 0}
           </Typography>
         </Box>
         <Box
