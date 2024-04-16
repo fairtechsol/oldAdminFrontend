@@ -138,7 +138,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
                     showUserDetails={false}
                     showOptions={true}
                     containerStyle={{ background: "#FFE094" }}
-                    profit={element.profit_loss >= 0}
+                    profit={(+element?.userBal?.profitLoss || 0) >= 0}
                     fContainerStyle={{ background: "#0B4F26" }}
                     fTextStyle={{ color: "white" }}
                     element={element}
@@ -156,7 +156,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
                     showCReport={true}
                     // showChildModal={true}
                     containerStyle={{ background: "#ECECEC" }}
-                    profit={element.profit_loss >= 0}
+                    profit={(+element?.userBal?.profitLoss || 0) >= 0}
                     fContainerStyle={{ background: "#F8C851" }}
                     fTextStyle={{ color: "#0B4F26" }}
                     element={element}
