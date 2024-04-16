@@ -1,9 +1,7 @@
 import { Box, useMediaQuery, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import { RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import ListHeader from "./ListHeader";
-import { useSelector } from "react-redux";
 import Pagination from "../Common/Pagination";
 import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
@@ -14,12 +12,9 @@ import service from "../../service";
 const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
   const [newData, setNewData] = useState([]);
+  const [itemCount, setItmeCount] = useState<any>(0);
   const [newTotalBalance, setNewTotalBalance] = useState(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // console.log(domain, "title", title, id);
-  const { userModalList } = useSelector(
-    (state: RootState) => state.user.userList
-  );
   const getUserList = async ({
     userName,
     currentPage,
@@ -33,6 +28,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
       );
       if (resp) {
         setNewData(resp?.data?.list);
+        setItmeCount(resp?.data?.count);
       }
     } catch (error: any) {
       console.error(error);
@@ -64,7 +60,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
       userName: "",
       currentPage: currentPage,
     });
-  }, [id]);
+  }, [id, currentPage]);
 
   return (
     <>
@@ -176,8 +172,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
         <Pagination
           currentPage={currentPage}
           pages={Math.ceil(
-            parseInt(userModalList?.count ? userModalList?.count : 1) /
-              Constants.pageLimit
+            parseInt(itemCount ? itemCount : 1) / Constants.pageLimit
           )}
           setCurrentPage={setCurrentPage}
         />
