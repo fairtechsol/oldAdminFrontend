@@ -12,7 +12,7 @@ import service from "../../service";
 const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
   const [newData, setNewData] = useState([]);
-  const [itemCount, setItmeCount] = useState<any>(0);
+  const [itemCount, setItemCount] = useState<any>(0);
   const [newTotalBalance, setNewTotalBalance] = useState(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const getUserList = async ({
@@ -28,7 +28,7 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
       );
       if (resp) {
         setNewData(resp?.data?.list);
-        setItmeCount(resp?.data?.count);
+        setItemCount(resp?.data?.count);
       }
     } catch (error: any) {
       console.error(error);
