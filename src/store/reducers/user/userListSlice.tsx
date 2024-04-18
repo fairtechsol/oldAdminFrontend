@@ -184,12 +184,10 @@ export const userList = createSlice({
       })
       .addCase(getAlreadyUserExist.pending, (state) => {
         state.loading = true;
-        state.success = false;
         state.error = null;
       })
       .addCase(getAlreadyUserExist.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
         state.userAlreadyExist = action.payload;
       })
       .addCase(getAlreadyUserExist.rejected, (state, action) => {
@@ -213,12 +211,10 @@ export const userList = createSlice({
       })
       .addCase(getSearchClientList.pending, (state) => {
         state.loading = true;
-        state.success = false;
         state.error = null;
       })
       .addCase(getSearchClientList.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
         state.searchUserList = action.payload;
       })
       .addCase(getSearchClientList.rejected, (state, action) => {
