@@ -1,15 +1,16 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eye, eyeLock } from "../../assets";
 import CustomModal from "../../components/Common/CustomModal";
 import Input from "../../components/login/Input";
 import { changePassword } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import { changePasswordSchema } from "../../utils/Validations";
+import { changePasswordValidation } from "../../utils/Validations";
 import { ApiConstants, Constants } from "../../utils/Constants";
-import { logout } from "../../store/actions/auth/authAction";
+import { checkOldPass, logout } from "../../store/actions/auth/authAction";
+import _, { debounce } from "lodash";
 
 const initialValues: any = {
   oldPassword: "",
@@ -25,10 +26,11 @@ const ChangePassword = (props: any) => {
   const { success, transactionPassword, loading, error } = useSelector(
     (state: RootState) => state.user.profile
   );
+  const { oldPasswordMatched } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: initialValues,
-    validationSchema: changePasswordSchema,
+    validationSchema: changePasswordValidation(oldPasswordMatched),
     onSubmit: (values: any) => {
       dispatch(
         changePassword({
@@ -50,7 +52,17 @@ const ChangePassword = (props: any) => {
       setSubmitting(false);
     }
   }, [loading, error]);
+  const debouncedInputValue = useMemo(() => {
+    return debounce((value) => {
+      dispatch(checkOldPass({'oldPassword':value}));
+    }, 500);
+  }, []);
 
+  const handleOldPass = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    formik.handleChange(e);
+    debouncedInputValue(query);
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -103,7 +115,7 @@ const ChangePassword = (props: any) => {
               name={"oldPassword"}
               type="password"
               value={formik.values.oldPassword}
-              onChange={formik.handleChange}
+              onChange={handleOldPass}
             />
             {touched.oldPassword && errors.oldPassword && (
               <p style={{ color: "#fa1e1e", marginTop: "0" }}>
