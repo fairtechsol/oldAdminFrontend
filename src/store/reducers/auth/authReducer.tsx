@@ -44,7 +44,7 @@ export const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkOldPass.pending, (state) => {
       state.loading = true;
-      state.error = null;
+      state.oldPasswordMatched = false;
     })
     .addCase(checkOldPass.fulfilled, (state, action) => {
       state.loading = false;
