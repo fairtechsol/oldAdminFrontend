@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { authReset, login } from "../../actions/auth/authAction";
+import { authReset, checkOldPass, login } from "../../actions/auth/authAction";
 
 interface InitialState {
   success: boolean;
@@ -8,6 +8,7 @@ interface InitialState {
   isTransPasswordCreated: boolean;
   userRole: string;
   error: any;
+  oldPasswordMatched:boolean;
 }
 
 const initialState: InitialState = {
@@ -17,6 +18,7 @@ const initialState: InitialState = {
   isTransPasswordCreated: false,
   userRole: "",
   error: null,
+  oldPasswordMatched: false,
 };
 
 export const authReducer = createReducer(initialState, (builder) => {
@@ -39,5 +41,18 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(authReset, (state) => {
       state.success = false;
       state.forceChangePassword = false;
+    })
+    .addCase(checkOldPass.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(checkOldPass.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.oldPasswordMatched = action.payload
+    })
+    .addCase(checkOldPass.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action?.error?.message;
     });
 });
