@@ -152,9 +152,6 @@ const MyAccount = () => {
               title={"Down Level Profit/Loss"}
               value={formatToINR(myAccountDetails?.downLevelProfitLoss ?? 0)}
               value2={formatToINR(myAccountDetails?.totalProfitLoss ?? 0)}
-              value3={formatToINR(
-                myAccountDetails?.upperLevelProfitLossPercent ?? 0
-              )}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
