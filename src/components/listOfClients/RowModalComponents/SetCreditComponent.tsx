@@ -16,6 +16,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
 import { formatToINR } from "../../../helper";
+import { toast } from "react-toastify";
 
 const initialValues: any = {
   userId: "",
@@ -34,7 +35,7 @@ const SetCreditComponent = (props: any) => {
     element,
     endpoint,
     onChangeAmount,
-    currentPage
+    currentPage,
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -44,6 +45,20 @@ const SetCreditComponent = (props: any) => {
     initialValues: initialValues,
     validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (values.amount < 0) {
+        toast.error("Credit Reference too low");
+        setSubmitting(false);
+        return;
+      } else if (values.amount > 999999999) {
+        toast.error("Credit Reference Limit Exceed", {
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+        setSubmitting(false);
+        return;
+      }
       let payload;
       if (isWallet) {
         payload = {
