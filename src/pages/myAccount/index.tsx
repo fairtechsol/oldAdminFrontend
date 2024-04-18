@@ -131,7 +131,9 @@ const MyAccount = () => {
             <DataShow
               title={"Upper Level"}
               value={formatToINR(myAccountDetails?.upperLevelBalance ?? 0)}
-              value2={formatToINR(myAccountDetails?.totalProfitLoss ?? 0)}
+              value2={formatToINR(
+                myAccountDetails?.totalProfitLossUpperlevel ?? 0
+              )}
               value3={formatToINR(
                 myAccountDetails?.upperLevelProfitLossPercent ?? 0
               )}
@@ -151,7 +153,9 @@ const MyAccount = () => {
             <DataShow
               title={"Down Level Profit/Loss"}
               value={formatToINR(myAccountDetails?.downLevelProfitLoss ?? 0)}
-              value2={formatToINR(myAccountDetails?.totalProfitLoss ?? 0)}
+              value2={formatToINR(
+                myAccountDetails?.totalProfitLossDownlevel ?? 0
+              )}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
