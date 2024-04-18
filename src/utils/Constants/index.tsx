@@ -2,6 +2,7 @@ export const ApiConstants = {
   AUTH: {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
+    OLD_PASSWORD: "/user/check/oldPassword",
   },
   USER: {
     BALANCEUPDATE: "/balance/update",
