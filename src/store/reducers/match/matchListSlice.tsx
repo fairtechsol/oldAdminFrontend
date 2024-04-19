@@ -53,7 +53,7 @@ const matchListSlice = createSlice({
         state.matchListInplay = null;
       })
       .addCase(getMatchListInplay.fulfilled, (state, action) => {
-        state.matchListInplay = action.payload;
+        state.matchListInplay = action?.payload;
         state.loading = false;
         state.success = true;
       })
@@ -68,7 +68,7 @@ const matchListSlice = createSlice({
         state.matchDetail = null;
       })
       .addCase(getMatchDetail.fulfilled, (state, action) => {
-        state.matchDetail = action.payload;
+        state.matchDetail = action?.payload;
         state.loading = false;
         state.success = true;
       })
@@ -77,20 +77,20 @@ const matchListSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateMatchListRates.fulfilled, (state, action) => {
-        const { id, matchOdd } = action.payload;
+        const { id, matchOdd } = action?.payload;
         if (matchOdd) {
-          const matchListIndex = state.matchListInplay.matches.findIndex(
+          const matchListIndex = state?.matchListInplay?.matches?.findIndex(
             (match: any) => match?.id === id
           );
           if (matchListIndex !== -1) {
             const updatedMatchlist = [...state.matchListInplay.matches];
 
             let matchOdds =
-              state?.matchListInplay.matches[matchListIndex]?.matchOdds &&
-              state?.matchListInplay.matches[matchListIndex]?.matchOdds.length >
+              state?.matchListInplay?.matches[matchListIndex]?.matchOdds &&
+              state?.matchListInplay?.matches[matchListIndex]?.matchOdds?.length >
                 0
-                ? state.matchListInplay.matches[matchListIndex].matchOdds[0]
-                : state.matchListInplay.matches[matchListIndex].matchOdds;
+                ? state?.matchListInplay?.matches[matchListIndex]?.matchOdds[0]
+                : state?.matchListInplay?.matches[matchListIndex]?.matchOdds;
 
             updatedMatchlist[matchListIndex] = {
               ...updatedMatchlist[matchListIndex],
@@ -119,7 +119,7 @@ const matchListSlice = createSlice({
           matchOdd,
           quickbookmaker,
           sessionBettings,
-        } = action.payload;
+        } = action?.payload;
         state.matchDetail = {
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -142,15 +142,15 @@ const matchListSlice = createSlice({
           ...state.getProfile,
           userBal: {
             ...state?.getProfile?.userBal,
-            exposure: action.payload.newUserExposure ?? action.payload.exposure,
+            exposure: action?.payload?.newUserExposure ?? action?.payload?.exposure,
           },
         };
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
-        const { jobData, profitLoss } = action.payload;
+        const { jobData, profitLoss } = action?.payload;
         if (state?.matchDetail?.id === jobData?.placedBet?.matchId) {
           const updatedProfitLossDataSession =
-            state.matchDetail?.profitLossDataSession.map((item: any) => {
+            state?.matchDetail?.profitLossDataSession?.map((item: any) => {
               if (item?.betId === jobData?.placedBet?.betId) {
                 return {
                   ...item,
@@ -161,11 +161,11 @@ const matchListSlice = createSlice({
               return item;
             });
 
-          const betIndex = updatedProfitLossDataSession.findIndex(
+          const betIndex = updatedProfitLossDataSession?.findIndex(
             (item: any) => item?.betId === jobData?.placedBet?.betId
           );
           if (betIndex === -1) {
-            updatedProfitLossDataSession.push({
+            updatedProfitLossDataSession?.push({
               betId: jobData?.placedBet?.betId,
               maxLoss: profitLoss?.maxLoss,
               totalBet: 1,
@@ -179,11 +179,11 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateMaxLossForDeleteBet.fulfilled, (state, action) => {
-        const { bets, betId, profitLoss } = action.payload;
-        if (bets?.length > 0 && state?.matchDetail?.id === bets[0].matchId) {
+        const { bets, betId, profitLoss } = action?.payload;
+        if (bets?.length > 0 && state?.matchDetail?.id === bets[0]?.matchId) {
           const updatedProfitLossDataSession =
-            state.matchDetail?.profitLossDataSession?.map((item: any) => {
-              console.log(item);
+            state?.matchDetail?.profitLossDataSession?.map((item: any) => {
+              // console.log(item);
               if (betId === item?.betId) {
                 return {
                   ...item,
@@ -194,11 +194,11 @@ const matchListSlice = createSlice({
               return item;
             });
 
-          const betIndex = updatedProfitLossDataSession.findIndex(
+          const betIndex = updatedProfitLossDataSession?.findIndex(
             (item: any) => item?.betId === betId
           );
           if (betIndex === -1) {
-            updatedProfitLossDataSession.push({
+            updatedProfitLossDataSession?.push({
               betId: betId,
               maxLoss: profitLoss?.maxLoss,
               totalBet: 1,
@@ -211,7 +211,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
-        const { betId, matchId, profitLossData } = action.payload;
+        const { betId, matchId, profitLossData } = action?.payload;
         if (state?.matchDetail?.id === matchId) {
           state.matchDetail = {
             ...state.matchDetail,
@@ -220,8 +220,8 @@ const matchListSlice = createSlice({
                 ...state.matchDetail?.profitLossDataSession,
                 {
                   betId: betId,
-                  maxLoss: profitLossData.maxLoss,
-                  totalBet: profitLossData.totalBet,
+                  maxLoss: profitLossData?.maxLoss,
+                  totalBet: profitLossData?.totalBet,
                 },
               ])
             ),
@@ -229,26 +229,26 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {
-        const betId = action.payload?.betPlaced?.placedBet?.betId;
+        const betId = action?.payload?.betPlaced?.placedBet?.betId;
 
         if (
           !state.betPlaceData.some(
-            (item: any) => item.betPlaced?.placedBet?.betId === betId
+            (item: any) => item?.betPlaced?.placedBet?.betId === betId
           )
         ) {
-          state.betPlaceData = [...state.betPlaceData, action.payload];
+          state.betPlaceData = [...state.betPlaceData, action?.payload];
         } else {
-          const existingIndex = state.betPlaceData.findIndex(
-            (item: any) => item.betPlaced.placedBet.betId === betId
+          const existingIndex = state?.betPlaceData?.findIndex(
+            (item: any) => item?.betPlaced?.placedBet?.betId === betId
           );
           if (existingIndex !== -1) {
-            let updatedSlice = state.betPlaceData.splice(existingIndex, 1);
-            state.betPlaceData = [...updatedSlice, action.payload];
+            let updatedSlice = state?.betPlaceData?.splice(existingIndex, 1);
+            state.betPlaceData = [...updatedSlice, action?.payload];
           }
         }
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {
-        const { userRedisObj, jobData } = action.payload;
+        const { userRedisObj, jobData } = action?.payload;
         if (
           ["tiedMatch2", "tiedMatch1"].includes(jobData?.newBet?.marketType)
         ) {
@@ -273,33 +273,33 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
-        const { redisObject, matchBetType } = action.payload;
+        const { redisObject, matchBetType } = action?.payload;
         if (matchBetType === "tiedMatch2" || matchBetType === "tiedMatch1") {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
-            yesRateTie: redisObject[action.payload?.teamArateRedisKey],
-            noRateTie: redisObject[action.payload?.teamBrateRedisKey],
+            yesRateTie: redisObject[action?.payload?.teamArateRedisKey],
+            noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
           };
         } else if (matchBetType === "completeMatch") {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
-            yesRateComplete: redisObject[action.payload?.teamArateRedisKey],
-            noRateComplete: redisObject[action.payload?.teamBrateRedisKey],
+            yesRateComplete: redisObject[action?.payload?.teamArateRedisKey],
+            noRateComplete: redisObject[action?.payload?.teamBrateRedisKey],
           };
         } else {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
-            teamARate: redisObject[action.payload?.teamArateRedisKey],
-            teamBRate: redisObject[action.payload?.teamBrateRedisKey],
-            teamCRate: redisObject[action.payload?.teamCrateRedisKey] ?? "",
+            teamARate: redisObject[action?.payload?.teamArateRedisKey],
+            teamBRate: redisObject[action?.payload?.teamBrateRedisKey],
+            teamCRate: redisObject[action?.payload?.teamCrateRedisKey] ?? "",
           };
         }
       })
       .addCase(amountupdate.fulfilled, (state, action) => {
-        const { matchId, betId } = action.payload;
+        const { matchId, betId } = action?.payload;
         if (state?.matchDetail?.id === matchId) {
           const updatedProfitLossDataSession =
-            state.matchDetail?.profitLossDataSession?.filter(
+            state?.matchDetail?.profitLossDataSession?.filter(
               (item: any) => betId !== item?.betId
             );
 
@@ -310,7 +310,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(setCurrentOdd.fulfilled, (state, action) => {
-        state.currentOdd = action.payload;
+        state.currentOdd = action?.payload;
       });
   },
 });

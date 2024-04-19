@@ -42,7 +42,7 @@ const analysisListSlice = createSlice({
         state.error = null;
       })
       .addCase(getAnalysisList.fulfilled, (state, action) => {
-        state.analysisList = action.payload;
+        state.analysisList = action?.payload;
         state.loading = false;
         state.success = true;
       })
@@ -56,7 +56,7 @@ const analysisListSlice = createSlice({
         state.error = null;
       })
       .addCase(getMultipleMatchDetail.fulfilled, (state, action) => {
-        state.multipleMatchDetail = action.payload;
+        state.multipleMatchDetail = action?.payload;
         state.loading = false;
         state.success = true;
       })
@@ -65,9 +65,9 @@ const analysisListSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateMultipleMatchDetail.fulfilled, (state, action) => {
-        state.multipleMatchDetail = state.multipleMatchDetail.map(
+        state.multipleMatchDetail = state?.multipleMatchDetail?.map(
           (match: any) => {
-            if (match?.id === action.payload?.id) {
+            if (match?.id === action?.payload?.id) {
               const {
                 apiSession,
                 apiTiedMatch,
@@ -77,7 +77,7 @@ const analysisListSlice = createSlice({
                 matchOdd,
                 quickbookmaker,
                 sessionBettings,
-              } = action.payload;
+              } = action?.payload;
               return {
                 ...match,
                 apiSession: apiSession,
@@ -98,13 +98,13 @@ const analysisListSlice = createSlice({
       .addCase(
         updateMaxLossForBetForMultipleMatch.fulfilled,
         (state, action) => {
-          const { jobData, profitLoss } = action.payload;
+          const { jobData, profitLoss } = action?.payload;
 
-          state.multipleMatchDetail = state.multipleMatchDetail.map(
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id === jobData?.placedBet?.matchId) {
                 const updatedProfitLossDataSession =
-                  match?.profitLossDataSession.map((item: any) => {
+                  match?.profitLossDataSession?.map((item: any) => {
                     if (item?.betId === jobData?.placedBet?.betId) {
                       return {
                         ...item,
@@ -115,11 +115,11 @@ const analysisListSlice = createSlice({
                     return item;
                   });
 
-                const betIndex = updatedProfitLossDataSession.findIndex(
+                const betIndex = updatedProfitLossDataSession?.findIndex(
                   (item: any) => item?.betId === jobData?.placedBet?.betId
                 );
                 if (betIndex === -1) {
-                  updatedProfitLossDataSession.push({
+                  updatedProfitLossDataSession?.push({
                     betId: jobData?.placedBet?.betId,
                     maxLoss: profitLoss?.maxLoss,
                     totalBet: 1,
@@ -138,9 +138,9 @@ const analysisListSlice = createSlice({
         }
       )
       .addCase(updateTeamRatesOfMultipleMatch.fulfilled, (state, action) => {
-        const { userRedisObj, jobData } = action.payload;
+        const { userRedisObj, jobData } = action?.payload;
 
-        state.multipleMatchDetail = state.multipleMatchDetail.map(
+        state.multipleMatchDetail = state?.multipleMatchDetail?.map(
           (match: any) => {
             if (match?.id === jobData?.matchId) {
               if (
@@ -185,8 +185,8 @@ const analysisListSlice = createSlice({
       .addCase(
         updateMaxLossForBetOnUndeclareForMultipleMatch.fulfilled,
         (state, action) => {
-          const { betId, matchId, profitLossData } = action.payload;
-          state.multipleMatchDetail = state.multipleMatchDetail.map(
+          const { betId, matchId, profitLossData } = action?.payload;
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id === matchId) {
                 const updatedProfitLoss = Array.from(
@@ -211,8 +211,8 @@ const analysisListSlice = createSlice({
       .addCase(
         updateBetDataOnDeclareOfMultipleMatch.fulfilled,
         (state, action) => {
-          const { betId, matchId } = action.payload;
-          state.multipleMatchDetail = state.multipleMatchDetail.map(
+          const { betId, matchId } = action?.payload;
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (matchId === match?.id) {
                 const updatedProfitLossDataSession =
@@ -234,18 +234,18 @@ const analysisListSlice = createSlice({
       .addCase(
         updateTeamRatesOnDeleteForMultiMatch.fulfilled,
         (state, action) => {
-          const { redisObject, matchBetType } = action.payload;
-          state.multipleMatchDetail = state.multipleMatchDetail.map(
+          const { redisObject, matchBetType } = action?.payload;
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
-              if (match?.id === action.payload?.matchId) {
+              if (match?.id === action?.payload?.matchId) {
                 if (["tiedMatch2", "tiedMatch"].includes(matchBetType)) {
                   return {
                     ...match,
                     profitLossDataMatch: {
                       ...match.profitLossDataMatch,
                       yesRateTie:
-                        redisObject[action.payload?.teamArateRedisKey],
-                      noRateTie: redisObject[action.payload?.teamBrateRedisKey],
+                        redisObject[action?.payload?.teamArateRedisKey],
+                      noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
                     },
                   };
                 } else if (["completeMatch"].includes(matchBetType)) {
@@ -254,9 +254,9 @@ const analysisListSlice = createSlice({
                     profitLossDataMatch: {
                       ...match.profitLossDataMatch,
                       yesRateComplete:
-                        redisObject[action.payload?.teamArateRedisKey],
+                        redisObject[action?.payload?.teamArateRedisKey],
                       noRateComplete:
-                        redisObject[action.payload?.teamBrateRedisKey],
+                        redisObject[action?.payload?.teamBrateRedisKey],
                     },
                   };
                 } else {
@@ -264,10 +264,10 @@ const analysisListSlice = createSlice({
                     ...match,
                     profitLossDataMatch: {
                       ...match.profitLossDataMatch,
-                      teamARate: redisObject[action.payload?.teamArateRedisKey],
-                      teamBRate: redisObject[action.payload?.teamBrateRedisKey],
+                      teamARate: redisObject[action?.payload?.teamArateRedisKey],
+                      teamBRate: redisObject[action?.payload?.teamBrateRedisKey],
                       teamCRate:
-                        redisObject[action.payload?.teamCrateRedisKey] ?? "",
+                        redisObject[action?.payload?.teamCrateRedisKey] ?? "",
                     },
                   };
                 }
@@ -279,8 +279,8 @@ const analysisListSlice = createSlice({
       .addCase(
         updateMaxLossForDeleteBetForMultiMatch.fulfilled,
         (state, action) => {
-          const { matchId, betId, profitLoss } = action.payload;
-          state.multipleMatchDetail = state.multipleMatchDetail.map(
+          const { matchId, betId, profitLoss } = action?.payload;
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id === matchId) {
                 const updatedProfitLossDataSession =
@@ -295,11 +295,11 @@ const analysisListSlice = createSlice({
                     return item;
                   });
 
-                const betIndex = updatedProfitLossDataSession.findIndex(
+                const betIndex = updatedProfitLossDataSession?.findIndex(
                   (item: any) => item?.betId === betId
                 );
                 if (betIndex === -1) {
-                  updatedProfitLossDataSession.push({
+                  updatedProfitLossDataSession?.push({
                     betId: betId,
                     maxLoss: profitLoss?.maxLoss,
                     totalBet: 1,
