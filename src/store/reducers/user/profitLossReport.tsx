@@ -46,8 +46,8 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLoss = action.payload?.result;
-        state.matchWiseProfitLossCount = action.payload?.count;
+        state.matchWiseProfitLoss = action?.payload?.result;
+        state.matchWiseProfitLossCount = action?.payload?.count;
       })
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -61,7 +61,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getUserTotalProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.userTotalProfitLoss = action.payload;
+        state.userTotalProfitLoss = action?.payload;
       })
       .addCase(getUserTotalProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -75,7 +75,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLoss = action.payload;
+        state.totalBetProfitLoss = action?.payload;
       })
       .addCase(getTotalBetProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -89,7 +89,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLossForModal.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLossModal = action.payload;
+        state.totalBetProfitLossModal = action?.payload;
       })
       .addCase(getTotalBetProfitLossForModal.rejected, (state, action) => {
         state.loading = false;
@@ -103,7 +103,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalSessionProfitLoss = action.payload;
+        state.totalSessionProfitLoss = action?.payload;
       })
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;

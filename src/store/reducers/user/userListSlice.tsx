@@ -67,7 +67,7 @@ export const userList = createSlice({
         state.error = null;
       })
       .addCase(getUserList.fulfilled, (state, action) => {
-        state.userList = action.payload;
+        state.userList = action?.payload;
         state.loading = false;
       })
       .addCase(getUserList.rejected, (state, action) => {
@@ -79,7 +79,7 @@ export const userList = createSlice({
         state.error = null;
       })
       .addCase(getModalUserList.fulfilled, (state, action) => {
-        state.userModalList = action.payload;
+        state.userModalList = action?.payload;
         state.loading = false;
       })
       .addCase(getModalUserList.rejected, (state, action) => {
@@ -87,13 +87,13 @@ export const userList = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(handleModelActions.fulfilled, (state, action) => {
-        const { openModal, domain } = action.payload;
+        const { openModal, domain } = action?.payload;
         state.openModal = openModal;
         let obj = {
-          roleName: action.payload.roleName,
-          id: action.payload.userId,
+          roleName: action?.payload?.roleName,
+          id: action?.payload?.userId,
           domain: domain,
-          title: action.payload.title,
+          title: action?.payload?.title,
         };
         state.userElement = obj;
         state.loading = false;
@@ -188,7 +188,7 @@ export const userList = createSlice({
       })
       .addCase(getAlreadyUserExist.fulfilled, (state, action) => {
         state.loading = false;
-        state.userAlreadyExist = action.payload;
+        state.userAlreadyExist = action?.payload;
       })
       .addCase(getAlreadyUserExist.rejected, (state, action) => {
         state.loading = false;
@@ -202,7 +202,7 @@ export const userList = createSlice({
         state.error = null;
       })
       .addCase(getTotalBalance.fulfilled, (state, action) => {
-        state.totalBalance = action.payload;
+        state.totalBalance = action?.payload;
         state.loading = false;
       })
       .addCase(getTotalBalance.rejected, (state, action) => {
@@ -215,7 +215,7 @@ export const userList = createSlice({
       })
       .addCase(getSearchClientList.fulfilled, (state, action) => {
         state.loading = false;
-        state.searchUserList = action.payload;
+        state.searchUserList = action?.payload;
       })
       .addCase(getSearchClientList.rejected, (state, action) => {
         state.loading = false;
