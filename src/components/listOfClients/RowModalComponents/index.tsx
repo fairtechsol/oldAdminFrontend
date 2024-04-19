@@ -41,7 +41,9 @@ const RowModalComponents = (props: any) => {
     (state: RootState) => state.user.profile
   );
 
-  const { success } = useSelector((state: RootState) => state.user.userList);
+  const { success, loading } = useSelector(
+    (state: RootState) => state.user.userList
+  );
 
   const classes = {
     mainBox: {
@@ -388,6 +390,9 @@ const RowModalComponents = (props: any) => {
               <Button
                 sx={{ color: "#E32A2A" }}
                 onClick={() => {
+                  if (loading) {
+                    return;
+                  }
                   dispatch(
                     handleSettleCommission({
                       userId: element?.id,
@@ -418,6 +423,9 @@ const RowModalComponents = (props: any) => {
               <Button
                 sx={{ color: "#E32A2A" }}
                 onClick={() => {
+                  if (loading) {
+                    return true;
+                  }
                   dispatch(handleDeleteUser(element?.id));
                 }}
               >

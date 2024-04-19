@@ -163,8 +163,8 @@ export const userList = createSlice({
         state.error = null;
       })
       .addCase(handleSettleCommission.fulfilled, (state) => {
-        state.success = true;
         state.loading = false;
+        state.success = true;
       })
       .addCase(handleSettleCommission.rejected, (state, action) => {
         state.loading = false;
@@ -175,8 +175,8 @@ export const userList = createSlice({
         state.error = null;
       })
       .addCase(handleDeleteUser.fulfilled, (state) => {
-        state.success = true;
         state.loading = false;
+        state.success = true;
       })
       .addCase(handleDeleteUser.rejected, (state, action) => {
         state.loading = false;

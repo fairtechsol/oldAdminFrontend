@@ -29,7 +29,7 @@ const LockUnlockComponent = (props: any) => {
     endpoint,
     isWallet,
     onChangeAmount,
-    currentPage
+    currentPage,
   } = props;
 
   let elementLockUnlockObj1 = {
@@ -53,6 +53,9 @@ const LockUnlockComponent = (props: any) => {
     initialValues: initialValues,
     // validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       const id = element?.id
         ? element?.id
         : walletAccountDetail?.id

@@ -44,7 +44,7 @@ const DepositComponent = (props: any) => {
     selected,
     titleBackgroundColor,
     onChangeAmount,
-    currentPage
+    currentPage,
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -61,6 +61,9 @@ const DepositComponent = (props: any) => {
     initialValues: initialValues,
     validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       let payload;
       if (isWallet) {
         payload = {
