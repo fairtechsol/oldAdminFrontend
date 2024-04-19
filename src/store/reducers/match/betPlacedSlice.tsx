@@ -43,7 +43,7 @@ const betsSlice = createSlice({
       })
       .addCase(getPlacedBets.fulfilled, (state, action) => {
         state.success = true;
-        state.placedBets = action.payload?.rows;
+        state.placedBets = action?.payload?.rows;
         state.loading = false;
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
@@ -51,12 +51,12 @@ const betsSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
-        const { newBet, myStake, userName } = action.payload;
-        const betId = action.payload.betId;
+        const { newBet, myStake, userName } = action?.payload;
+        const betId = action?.payload?.betId;
         const user = {
           userName: userName,
         };
-        if (!state.placedBets.find((item: any) => item.id === betId)) {
+        if (!state?.placedBets?.find((item: any) => item?.id === betId)) {
           newBet.myStake = myStake;
           newBet.user = user;
 
@@ -71,13 +71,13 @@ const betsSlice = createSlice({
       .addCase(getSessionProLoss.fulfilled, (state, action) => {
         state.loadingProLoss = false;
         state.successProLoss = true;
-        const idToAdd = action.payload?.id;
+        const idToAdd = action?.payload?.id;
 
         if (
           idToAdd &&
-          !state.sessionProLoss.some((item: any) => item.id === idToAdd)
+          !state?.sessionProLoss?.some((item: any) => item?.id === idToAdd)
         ) {
-          state.sessionProLoss.push(action.payload);
+          state?.sessionProLoss?.push(action?.payload);
         }
       })
       .addCase(getSessionProLoss.rejected, (state, action) => {
@@ -85,10 +85,10 @@ const betsSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateProfitLoss.fulfilled, (state, action) => {
-        const { jobData, profitLoss } = action.payload;
+        const { jobData, profitLoss } = action?.payload;
         if (jobData?.betPlaceObject?.betPlacedData?.betId) {
-          const updatedSessionProLoss = state.sessionProLoss.map((item: any) =>
-            item?.id === jobData.betPlaceObject.betPlacedData.betId
+          const updatedSessionProLoss = state?.sessionProLoss?.map((item: any) =>
+            item?.id === jobData?.betPlaceObject?.betPlacedData?.betId
               ? {
                   ...item,
 
@@ -104,33 +104,33 @@ const betsSlice = createSlice({
         }
       })
       .addCase(removeRunAmount.fulfilled, (state, action) => {
-        const { betId } = action.payload;
-        state.sessionProLoss = state.sessionProLoss.filter(
+        const { betId } = action?.payload;
+        state.sessionProLoss = state?.sessionProLoss?.filter(
           (item: any) => item?.id !== betId
         );
       })
       .addCase(
         getSessionProfitLossMatchDetailFilter.fulfilled,
         (state, action) => {
-          const idToRemove = action.payload;
-          state.sessionProLoss = state.sessionProLoss.filter(
+          const idToRemove = action?.payload;
+          state.sessionProLoss = state?.sessionProLoss?.filter(
             (item: any) => item?.id !== idToRemove
           );
         }
       )
       .addCase(updatePlacedbets.fulfilled, (state, action) => {
-        const { betPlacedId, deleteReason, profitLoss, betId } = action.payload;
+        const { betPlacedId, deleteReason, profitLoss, betId } = action?.payload;
 
         const updateDeleteReason = (bet: any) => {
-          if (betPlacedId.includes(bet.id)) {
+          if (betPlacedId?.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
           }
           return bet;
         };
-        const updatedBetPlaced = state.placedBets.map(updateDeleteReason);
+        const updatedBetPlaced = state?.placedBets?.map(updateDeleteReason);
         state.placedBets = Array.from(new Set(updatedBetPlaced));
         if (betPlacedId) {
-          const updatedSessionProLoss = state.sessionProLoss.map((item: any) =>
+          const updatedSessionProLoss = state?.sessionProLoss?.map((item: any) =>
             betId === item?.id
               ? {
                   ...item,

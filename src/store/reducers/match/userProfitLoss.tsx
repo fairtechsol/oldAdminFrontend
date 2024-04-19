@@ -32,7 +32,7 @@ const userProfitLoss = createSlice({
       .addCase(getUserProfitLoss.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.userProfitLossData = action.payload;
+        state.userProfitLossData = action?.payload;
       })
       .addCase(getUserProfitLoss.rejected, (state, action) => {
         state.loading = false;
