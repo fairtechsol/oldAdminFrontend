@@ -60,17 +60,7 @@ export const getMyAccountDetails = createAsyncThunk<any>(
       const resp = await service.get(`${ApiConstants.USER.BALANCE}`);
       if (resp) {
         const data = resp?.data?.response;
-        return {
-          userCreditReference: data?.userCreditReference,
-          totalMasterBalance: data?.totalMasterBalance,
-          availableBalance: data?.availableBalance,
-          downLevelOccupyBalance: data?.downLevelOccupyBalance,
-          upperLevelBalance: data?.upperLevelBalance,
-          availableBalanceWithProfitLoss: data?.availableBalanceWithProfitLoss,
-          downLevelCreditReference: data?.downLevelCreditReference,
-          downLevelProfitLoss: data?.downLevelProfitLoss,
-          profitLoss: data?.profitLoss,
-        };
+        return data;
       }
     } catch (error: any) {
       const err = error as AxiosError;

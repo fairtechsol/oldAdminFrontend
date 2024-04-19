@@ -10,7 +10,7 @@ const AccountListRow = ({
   element,
 }: any) => {
   const prevElement = {
-    name: element?.matchName,
+    name: element?.name,
     commissionAmount: formatToINR(element?.commissionAmount),
     commissionType:
       element?.betType === "NO" || element?.betType === "YES"
@@ -48,7 +48,7 @@ const AccountListRow = ({
             position: "absolute",
             display: "flex",
             width: "auto",
-            overflowX: "auto"
+            overflowX: "auto",
           }}
         />
       )}
@@ -170,7 +170,10 @@ const AccountListRow = ({
           }}
         >
           <Typography
-            sx={[{ fontSize: "12px", fontWeight: "600", lineHeight: "0.9" }, fTextStyle]}
+            sx={[
+              { fontSize: "12px", fontWeight: "600", lineHeight: "0.9" },
+              fTextStyle,
+            ]}
           >
             {/* {elementToUDM.teamBet} */}
             {elementToUDM?.createAt
