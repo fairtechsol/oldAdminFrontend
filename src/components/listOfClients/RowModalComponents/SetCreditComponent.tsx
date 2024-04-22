@@ -45,6 +45,9 @@ const SetCreditComponent = (props: any) => {
     initialValues: initialValues,
     validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       if (values.amount < 0) {
         toast.error("Credit Reference too low");
         setSubmitting(false);

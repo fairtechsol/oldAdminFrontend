@@ -38,6 +38,9 @@ const ChangePasswordComponent = (props: any) => {
     initialValues: initialValues,
     validationSchema: userChangePasswordValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       let payload;
       if (walletAccountDetail) {
         payload = {
@@ -96,7 +99,7 @@ const ChangePasswordComponent = (props: any) => {
       dispatch(userListSuccessReset());
     }
     if (error) {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }, [success, error]);
 

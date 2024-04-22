@@ -44,7 +44,7 @@ const WithdrawComponent = (props: any) => {
     setSelected,
     titleBackgroundColor,
     onChangeAmount,
-    currentPage
+    currentPage,
   } = props;
 
   const [showPass, setShowPass] = useState(false);
@@ -122,6 +122,9 @@ const WithdrawComponent = (props: any) => {
     initialValues: initialValues,
     validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       let payload;
       if (isWallet) {
         payload = {
@@ -233,7 +236,7 @@ const WithdrawComponent = (props: any) => {
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
               type="withdraw"
-              currentPage={currentPage} 
+              currentPage={currentPage}
             />
           </form>
         </ModalMUI>

@@ -33,7 +33,7 @@ const SetExposureLimit = (props: any) => {
     endpoint,
     isWallet,
     onChangeAmount,
-    currentPage
+    currentPage,
   } = props;
   const [showPass, setShowPass] = useState(false);
 
@@ -43,6 +43,9 @@ const SetExposureLimit = (props: any) => {
     initialValues: initialValues,
     validationSchema: depositAmountValidations,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       let payload;
       if (isWallet) {
         payload = {
@@ -102,16 +105,14 @@ const SetExposureLimit = (props: any) => {
   const checkHandleChange = (event: any) => {
     let value = 0;
     if (event.target.value != "") {
-
-      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ''));
+      value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ""));
     }
-    
-    formik.setFieldValue("amount",value);
+
+    formik.setFieldValue("amount", value);
     onChangeAmount(value, element?.id, "exposure");
     // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
     // setChexckValue(event.target.value);
   };
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -158,7 +159,9 @@ const SetExposureLimit = (props: any) => {
                 id="amount"
                 name="amount"
                 type="tel"
-               value={formatToINR(parseFloat(formik.values.amount?.toString()))}
+                value={formatToINR(
+                  parseFloat(formik.values.amount?.toString())
+                )}
                 onChange={(e: any) => checkHandleChange(e)}
                 variant="standard"
                 InputProps={{
