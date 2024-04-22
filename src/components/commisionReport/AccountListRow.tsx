@@ -17,7 +17,7 @@ const AccountListRow = ({
         ? "Session"
         : "Match",
     betType: element?.betType,
-    stack: formatToINR(element?.stake),
+    stack: element?.stake && formatToINR(element?.stake),
     odds: element?.odds,
     isActive: element?.isActive,
     teamBet: element?.teamName,
