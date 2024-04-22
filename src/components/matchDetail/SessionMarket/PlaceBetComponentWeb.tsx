@@ -3,10 +3,11 @@ import { UD } from "../../../assets";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 import { getSessionProLoss } from "../../../store/actions/match/matchAction";
+import { handleNumber } from "../../../helper";
 
-const PlaceBetComponentWeb = ({ newData, profitLoss }: any) => {
+const PlaceBetComponentWeb = ({ newData, profitLoss,color }: any) => {
   const dispatch: AppDispatch = useDispatch();
-
+  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <>
       <Box
@@ -74,7 +75,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss }: any) => {
             }}
           >
             {" "}
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
           </Typography>
           <img
             src={UD}

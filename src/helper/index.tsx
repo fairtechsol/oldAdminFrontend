@@ -30,3 +30,23 @@ export const numberInputOnWheelPreventChange = (e: any) => {
   }, 0);
 };
 
+
+export const handleNumber=(num:any,color:any)=>{
+  let amount = num?.toFixed(2);
+  let value;
+
+  if(amount && amount?.includes('.')){
+    value = amount?.split('.')
+  }
+  else{
+    value = amount;
+  }
+  return(
+    value?.length > 0 ? 
+      <>
+       <span style={{color:color}}>{formatToINR(value[0])}.</span>
+       <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
+      </> : null
+  )
+}
+
