@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { getCommissionBetPlaced } from "../../store/actions/reports";
 import { useSelector } from "react-redux";
+import { formatToINR } from "../../helper";
 
 const MatchList = ({
   element,
@@ -127,17 +128,43 @@ const MatchList = ({
               ({moment(element?.matchStartDate).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          <StyledImage
-            src={ArrowDown}
+          <Box
             sx={{
-              width: { lg: "20px", xs: "10px" },
-              height: { lg: "10px", xs: "6px" },
-              transform:
-                showCommisionReport && selectedId?.matchId == element?.matchId
-                  ? "rotate(180deg)"
-                  : "rotate(0deg)",
+              flexDirection: "row",
+              display: "flex",
+              alignItems: "center",
+              marginTop: { xs: "5px", lg: "0" },
+              gap: 2,
             }}
-          />
+          >
+            {element?.amount && (
+              <Typography
+                sx={{
+                  fontSize: { xs: "10px", lg: "15px" },
+                  color: "white",
+                  fontWeight: "600",
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  lineClamp: 2,
+                }}
+              >
+                Total: {formatToINR(element?.amount)}
+              </Typography>
+            )}
+            <StyledImage
+              src={ArrowDown}
+              sx={{
+                width: { lg: "20px", xs: "10px" },
+                height: { lg: "10px", xs: "6px" },
+                transform:
+                  showCommisionReport && selectedId?.matchId == element?.matchId
+                    ? "rotate(180deg)"
+                    : "rotate(0deg)",
+              }}
+            />
+          </Box>
         </Box>
       </Box>
       {showCommisionReport && selectedId?.matchId == element?.matchId && (
@@ -168,29 +195,23 @@ const MatchList = ({
                     showOptions={false}
                     showChildModal={true}
                     containerStyle={{
-                      background:
-                        element?.commissionType === "commission setteled"
-                          ? "#135a2e"
-                          : ["BACK", "YES"].includes(element?.betType)
-                          ? "#B3E0FF"
-                          : ["LAY", "NO"].includes(element?.betType)
-                          ? "#FF9292"
-                          : "#FFE094 ",
+                      filter: element?.settled && "grayscale(0.5)",
+                      background: ["BACK", "YES"].includes(element?.betType)
+                        ? "#B3E0FF"
+                        : ["LAY", "NO"].includes(element?.betType)
+                        ? "#FF9292"
+                        : "#FFE094 ",
                     }}
                     profit={element.profitLoss >= 0}
                     fContainerStyle={{
+                      filter: element?.settled && "grayscale(0.5)",
                       background:
                         element?.commissionType === "session"
                           ? "#319E5B"
-                          : element?.commissionType === "commission setteled"
-                          ? "#135a2e"
                           : "#F1C550",
                     }}
                     fTextStyle={{
-                      color:
-                        ["commission setteled"].includes(
-                          element?.commissionType
-                        ) && "white",
+                      filter: element?.settled && "grayscale(0.5)",
                     }}
                     element={element}
                     // getListOfUser={getListOfUser}
