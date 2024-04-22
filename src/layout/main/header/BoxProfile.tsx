@@ -3,9 +3,10 @@ import StyledImage from "../../../components/Common/StyledImages";
 import { useEffect, useState } from "react";
 import { ArrowDown } from "../../../assets";
 import BoxDropDownMenu from "./BoxDropDownMenu";
+import { handleNumber } from "../../../helper";
 
 const BoxProfile = (props: any) => {
-  const { value, containerStyle, balance } = props;
+  const { value, containerStyle, balance, color } = props;
   const [open, setOpen] = useState(false);
 
   const [anchorEl] = useState(null);
@@ -62,7 +63,7 @@ const BoxProfile = (props: any) => {
               fontWeight: "700",
             }}
           >
-            {balance}
+            {handleNumber(parseFloat(balance), color)}
           </Typography>
         </Box>
         <StyledImage

@@ -12,7 +12,7 @@ export interface BalanceDetails {
 
 export interface DataShowInterface {
   title?: string;
-  value?: string | number;
+  value?: string | any;
   value2?: string | number;
   value3?: string | number;
   containerStyle?: any;

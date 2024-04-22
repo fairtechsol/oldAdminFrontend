@@ -2,10 +2,10 @@ import { Box, Typography,useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
-import { formatToINR } from "../../../helper";
+import { handleNumber } from "../../../helper";
 
 
-const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
+const RowHeaderMatches = ({ item, getHandleReport, show, color }: any) => {
 const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -104,7 +104,7 @@ const theme = useTheme();
               lineHeight: "0.9"
             }}
           >
-            {Number(item?.totalLoss) >= 0 ? (
+            {/* {Number(item?.totalLoss) >= 0 ? (
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
                 {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
@@ -121,7 +121,10 @@ const theme = useTheme();
                     Number(item?.totalDeduction).toFixed(2) || 0
                   )})`}
               </>
-            )}{" "}
+            )}{" "} */}
+                 {handleNumber(parseFloat(item?.totalLoss || 0), color)}{" "}
+                {`${matchesMobile ? "TD(1%)" : "Total Deduction"} : `}
+                {handleNumber(parseFloat(item?.totalDeduction || 0),color)}{" "}
           </Typography>
         </Box>
       </Box>

@@ -2,7 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
-import { formatToINR } from "../../../helper";
+import {  handleNumber } from "../../../helper";
 import {
   getTotalBetProfitLoss,
   getTotalBetProfitLossForModal,
@@ -23,6 +23,7 @@ const SessionComponentMatches = ({
   user,
   selectedChildBetId,
   setSelectedChildBetId,
+  color
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -236,10 +237,10 @@ const SessionComponentMatches = ({
               {Number(item.totalLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {formatToINR(Number(item.totalLoss).toFixed(2))}
+                  {handleNumber(parseFloat(item.totalLoss), color)}
                 </>
               ) : (
-                formatToINR(Number(item.totalLoss).toFixed(2))
+                handleNumber(parseFloat(item.totalLoss), color)
               )}
               {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>

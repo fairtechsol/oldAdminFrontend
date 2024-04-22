@@ -1,11 +1,14 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { handleNumber } from "../../../helper";
 
 const MoneyBox = (props: any) => {
   const { color, rates } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  let val: any = parseFloat(rates).toFixed(2)
+  let val: any = parseFloat(rates);
+
+
   return (
     <Box
       sx={{
@@ -28,7 +31,8 @@ const MoneyBox = (props: any) => {
           color: color,
         }}
       >
-        {new Intl.NumberFormat("en-IN").format(val)}
+          {handleNumber(val, color)}
+        {/* {new Intl.NumberFormat("en-IN").format(val)} */}
       </Typography>
     </Box>
   );
