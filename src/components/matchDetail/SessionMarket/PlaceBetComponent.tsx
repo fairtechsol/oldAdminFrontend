@@ -2,10 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import { getSessionProLoss } from "../../../store/actions/match/matchAction";
+import { handleNumber } from "../../../helper";
 
-const PlaceBetComponent = ({ newData, profitLoss }: any) => {
+const PlaceBetComponent = ({ newData, profitLoss, color }: any) => {
   const dispatch: AppDispatch = useDispatch();
-
+  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <Box
       //   onClick={handleClick}
@@ -79,7 +80,7 @@ const PlaceBetComponent = ({ newData, profitLoss }: any) => {
             }}
           >
             {" "}
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
           </Typography>
         </Box>
       </Box>

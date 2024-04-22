@@ -1,10 +1,10 @@
 import SeperateBox from "../MatchOdds/SeperateBox";
 import { Box, Typography } from "@mui/material";
 import Divider from "../../Inplay/Divider";
-import { formatToINR } from "../../../helper";
+import { handleNumber } from "../../../helper";
 
 const UserProfitLossListComp = (props: any) => {
-  const { element, showTeamC } = props;
+  const { element, showTeamC, color } = props;
   return (
     <>
       <Box
@@ -49,8 +49,8 @@ const UserProfitLossListComp = (props: any) => {
         >
           <>
             <SeperateBox
-              value2={formatToINR(element?.teamRateA || 0) ?? "N/A"}
-              value={formatToINR(element?.percentTeamRateA || 0) ?? "N/A"}
+              value2={handleNumber(parseFloat(element?.teamRateA || 0), color) ?? "N/A"}
+              value={handleNumber(parseFloat(element?.percentTeamRateA || 0), color) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -58,8 +58,8 @@ const UserProfitLossListComp = (props: any) => {
               sx={{ width: "3px", display: "flex", background: "#ffffff" }}
             ></Box>
             <SeperateBox
-              value2={formatToINR(element?.teamRateB || 0) ?? "N/A"}
-              value={formatToINR(element?.percentTeamRateB || 0) ?? "N/A"}
+               value2={handleNumber(parseFloat(element?.teamRateB || 0),color) ?? "N/A"}
+               value={handleNumber(parseFloat(element?.percentTeamRateB || 0),color) ?? "N/A"}
               color={"#ffffff"}
               width={10}
             />
@@ -73,8 +73,8 @@ const UserProfitLossListComp = (props: any) => {
                   }}
                 ></Box>
                 <SeperateBox
-                  value2={formatToINR(element?.teamRateC || 0) ?? "N/A"}
-                  value={formatToINR(element?.percentTeamRateC || 0) ?? "N/A"}
+                     value2={handleNumber(parseFloat(element?.teamRateC || 0),color) ?? "N/A"}
+                     value={handleNumber(parseFloat(element?.percentTeamRateC || 0),color) ?? "N/A"}
                   color={"#ffffff"}
                   width={10}
                 />

@@ -1,7 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { handleNumber } from "../../../helper";
 
 const SmallBox = (props: any) => {
-  const { valueA, valueB } = props;
+  const { valueA, valueB, color} = props;
+
   return (
     <Box
       sx={{
@@ -40,7 +42,8 @@ const SmallBox = (props: any) => {
           }}
         >
           {" "}
-          {valueA < 0 ? ` ${valueA}` : `${valueA}`}{" "}
+          {handleNumber(parseFloat(valueA), color)}
+          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`}{" "} */}
         </Typography>
       </Box>
       <Box
@@ -75,7 +78,7 @@ const SmallBox = (props: any) => {
           }}
         >
           {" "}
-          {valueB < 0 ? ` ${valueB}` : `${valueB}`}{" "}
+          {handleNumber(parseFloat(valueB), color)}
         </Typography>
       </Box>
     </Box>
