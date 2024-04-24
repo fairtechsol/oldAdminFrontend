@@ -47,20 +47,6 @@ const TeamRowComponent = (props: any) => {
             alignItems: "center",
           }}
         >
-          {/* {teamImage !== null && (
-            <>
-              <img
-                src={`${"wallet"}/${teamImage}`}
-                style={{
-                  width: "22px",
-                  height: "25px",
-                  marginLeft: "10px",
-                  backgroundSize: "contains",
-                }}
-                alt={name}
-              />
-            </>
-          )} */}
           <Typography
             sx={{
               color: "black",
@@ -75,22 +61,50 @@ const TeamRowComponent = (props: any) => {
       </Box>
 
       {ballStatus ? (
-        <Box
-          sx={{
-            background: "#000",
-            height: isTeamC ? "125px" : "82px",
-            position: "absolute",
-            right: 0,
-            top: 0,
-            zIndex: 10,
-            width: { lg: "21.5%", xs: "40.5%" },
-            justifyContent: { xs: "center", lg: "center" },
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <img src={BallStart} style={{ width: "113px", height: "32px" }} />
-        </Box>
+        <>
+
+          <Box
+            sx={{
+              height: "40px",
+              display: "flex",
+              width: { lg: "60%", xs: "80%" },
+              justifyContent: { xs: "flex-end", lg: "flex-end" },
+              alignItems: "center",
+            }}
+          >
+            <MoneyBox color={color} rates={rates} />
+          </Box><Box
+            sx={{
+              height: "40px",
+              display: "flex",
+              width: {
+                xs: "80%",
+                lg: "27%",
+                md: "82%"
+
+              },
+              justifyContent: { xs: "flex-end", lg: "flex-end" },
+              alignItems: "center",
+            }}
+          ></Box>
+
+          <Box
+            sx={{
+              background: "#000",
+              height: isTeamC ? "125px" : "82px",
+              position: "absolute",
+              right: 0,
+              top: 0,
+              zIndex: 10,
+              width: { lg: "21.5%", xs: "40.5%" },
+              justifyContent: { xs: "center", lg: "center" },
+              alignItems: "center",
+              display: "flex",
+            }}
+          >
+            <img src={BallStart} style={{ width: "113px", height: "32px" }} />
+          </Box>
+        </>
       ) : (
         <>
           {status ? (

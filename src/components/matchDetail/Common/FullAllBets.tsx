@@ -67,7 +67,7 @@ const FullAllBets = (props: any) => {
                 : v?.marketType === "completeMatch" ||
                 v?.marketType === "tiedMatch2" ||
                 v?.marketType === "tiedMatch1"
-              ? "#30a4f3"
+              ? "#696969"
                 : "#F1C550",
               deletedReason: v?.deleteReason,
               id: v?.id,
@@ -91,7 +91,7 @@ const FullAllBets = (props: any) => {
                 : v?.marketType === "completeMatch" ||
                 v?.marketType === "tiedMatch2" ||
                 v?.marketType === "tiedMatch1"
-              ? "#30a4f3"
+              ? "#696969"
                 
                 : "#F1C550",
               deletedReason: v?.deleteReason,
