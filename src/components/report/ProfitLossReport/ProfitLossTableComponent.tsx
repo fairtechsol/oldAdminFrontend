@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -23,6 +23,7 @@ const ProfitLossTableComponent = (props: any) => {
   } = props;
 
   const dispatch: AppDispatch = useDispatch();
+  const [event, setEvent] = useState("");
   const { matchWiseProfitLoss, matchWiseProfitLossCount } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
@@ -37,6 +38,7 @@ const ProfitLossTableComponent = (props: any) => {
   });
 
   const getHandleReport = (eventType: any) => {
+    setEvent(eventType);
     if (show) {
       setSelectedId((prev) => ({
         ...prev,
@@ -77,37 +79,33 @@ const ProfitLossTableComponent = (props: any) => {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     getMatchWiseProfitLoss({
-  //       type: event,
-  //       searchId: userData?.id,
-  //       startDate: startDate,
-  //       endDate: endDate,
-  //       page: currentPage,
-  //       limit: Constants.pageLimit,
-  //     })
-  //   );
-  // }, [currentPage]);
+  useEffect(() => {
+    dispatch(
+      getMatchWiseProfitLoss({
+        type: event,
+        searchId: userData?.id,
+        startDate: startDate,
+        endDate: endDate,
+        page: currentPage,
+        limit: Constants.pageLimit,
+      })
+    );
+  }, [currentPage]);
 
-  function paginate(array: any, pageNumber: number, pageSize: number) {
-    try {
-      --pageNumber;
-      if (array.length > 0) {
-        const startIndex = pageNumber * pageSize;
-        const endIndex = startIndex + pageSize;
-        return array?.slice(startIndex, endIndex);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  // function paginate(array: any, pageNumber: number, pageSize: number) {
+  //   try {
+  //     --pageNumber;
+  //     if (array.length > 0) {
+  //       const startIndex = pageNumber * pageSize;
+  //       const endIndex = startIndex + pageSize;
+  //       return array?.slice(startIndex, endIndex);
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
-  const currentPageData = paginate(
-    matchWiseProfitLoss,
-    currentPage,
-    Constants.pageLimit
-  );
+  // const currentPageData = paginate(matchWiseProfitLoss, currentPage, 1);
 
   return (
     <>
@@ -128,7 +126,7 @@ const ProfitLossTableComponent = (props: any) => {
           })}
           <Box>
             {show &&
-              currentPageData?.map((item: any, index: number) => {
+              matchWiseProfitLoss?.map((item: any, index: number) => {
                 return (
                   <RowComponentMatches
                     key={index}
