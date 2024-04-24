@@ -41,7 +41,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-            {handleNumber(parseFloat(data?.totalCreditReference), color)}
+            {handleNumber(parseFloat(data?.totalCreditReference || 0.00), color)}
         </Typography>
       </Box>
       <Box
