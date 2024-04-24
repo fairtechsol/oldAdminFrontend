@@ -144,7 +144,7 @@ const analysisListSlice = createSlice({
           (match: any) => {
             if (match?.id === jobData?.matchId) {
               if (
-                ["tiedMatch2", "tiedMatch"].includes(
+                ["tiedMatch2", "tiedMatch1"].includes(
                   jobData?.newBet?.marketType
                 )
               ) {
@@ -238,14 +238,15 @@ const analysisListSlice = createSlice({
           state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id === action?.payload?.matchId) {
-                if (["tiedMatch2", "tiedMatch"].includes(matchBetType)) {
+                if (["tiedMatch2", "tiedMatch1"].includes(matchBetType)) {
                   return {
                     ...match,
                     profitLossDataMatch: {
                       ...match.profitLossDataMatch,
                       yesRateTie:
                         redisObject[action?.payload?.teamArateRedisKey],
-                      noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
+                      noRateTie:
+                        redisObject[action?.payload?.teamBrateRedisKey],
                     },
                   };
                 } else if (["completeMatch"].includes(matchBetType)) {
@@ -264,8 +265,10 @@ const analysisListSlice = createSlice({
                     ...match,
                     profitLossDataMatch: {
                       ...match.profitLossDataMatch,
-                      teamARate: redisObject[action?.payload?.teamArateRedisKey],
-                      teamBRate: redisObject[action?.payload?.teamBrateRedisKey],
+                      teamARate:
+                        redisObject[action?.payload?.teamArateRedisKey],
+                      teamBRate:
+                        redisObject[action?.payload?.teamBrateRedisKey],
                       teamCRate:
                         redisObject[action?.payload?.teamCrateRedisKey] ?? "",
                     },
