@@ -57,9 +57,17 @@ const FullAllBets = (props: any) => {
           values: [
             {
               name: v?.user?.userName,
-              color: ["NO", "YES"].includes(v?.betType) ? "#FFF" : "black",
+              color: ["NO", "YES"].includes(v?.betType) ||
+              v?.marketType === "completeMatch" ||
+              v?.marketType === "tiedMatch2" ||
+              v?.marketType === "tiedMatch1"
+                 ? "#FFF" : "black",
               background: ["NO", "YES"].includes(v?.betType)
-                ? "#319E5B"
+                ? "#319E5B" 
+                : v?.marketType === "completeMatch" ||
+                v?.marketType === "tiedMatch2" ||
+                v?.marketType === "tiedMatch1"
+              ? "#30a4f3"
                 : "#F1C550",
               deletedReason: v?.deleteReason,
               id: v?.id,
@@ -73,9 +81,18 @@ const FullAllBets = (props: any) => {
                 v?.marketType !== "session"
                   ? v?.bettingName ?? v?.marketType
                   : v?.marketType,
-              color: ["NO", "YES"].includes(v?.betType) ? "#FFF" : "black",
+              color: ["NO", "YES"].includes(v?.betType) ||
+              v?.marketType === "completeMatch" ||
+              v?.marketType === "tiedMatch2" ||
+              v?.marketType === "tiedMatch1"
+                 ? "#FFF" : "black",
               background: ["NO", "YES"].includes(v?.betType)
                 ? "#319E5B"
+                : v?.marketType === "completeMatch" ||
+                v?.marketType === "tiedMatch2" ||
+                v?.marketType === "tiedMatch1"
+              ? "#30a4f3"
+                
                 : "#F1C550",
               deletedReason: v?.deleteReason,
             },
