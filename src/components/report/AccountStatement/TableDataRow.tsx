@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { handleNumber } from "../../../helper";
 
 const TableDataRow = (props: any) => {
   const {
@@ -14,6 +15,7 @@ const TableDataRow = (props: any) => {
     fromuserName,
     transType,
     amount,
+    color
   } = props;
 
   // const dateString = date;
@@ -116,7 +118,12 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {new Intl.NumberFormat("en-IN", { currency: "INR" }).format(closing)}
+          {/* {new Intl.NumberFormat("en-IN", { currency: "INR" }).format(closing)} */}
+          {closing !== null
+            ? handleNumber(
+               parseFloat( closing), color
+              )
+            : ""}
         </Typography>
       </Box>
       <Box
