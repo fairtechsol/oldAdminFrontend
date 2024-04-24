@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../Common/StyledImages";
-import { formatToINR, handleNumber } from "../../helper";
+import { handleNumber } from "../../helper";
 
 const SubHeaderListRow = (props: any) => {
-  const { data,color} = props;
+  const { data, color } = props;
   return (
     <Box
       sx={{
@@ -41,7 +41,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-            {handleNumber(parseFloat(data?.totalCreditReference || 0.00), color)}
+          {handleNumber(parseFloat(data?.totalCreditReference || 0), color)}
         </Typography>
       </Box>
       <Box
@@ -57,7 +57,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-             {handleNumber(parseFloat(data?.currBalance || 0), color)}
+          {handleNumber(parseFloat(data?.currBalance || 0), color)}
         </Typography>
       </Box>
       <Box
@@ -145,7 +145,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-         {handleNumber(parseFloat(data?.totalcommission || 0), color)}
+          {handleNumber(parseFloat(data?.totalcommission || 0), color)}
         </Typography>
       </Box>
       <Box
@@ -179,7 +179,6 @@ const SubHeaderListRow = (props: any) => {
         >
           {/* {data?.availablebalancesum} */}
           {handleNumber(parseFloat(data?.availableBalance || 0), color)}
-         
         </Typography>
       </Box>
       <Box
