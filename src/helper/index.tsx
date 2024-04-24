@@ -31,7 +31,7 @@ export const numberInputOnWheelPreventChange = (e: any) => {
 };
 
 export const handleNumber = (num: any, color: any) => {
-  let amount = num?.toFixed(2);
+  let amount = parseFloat(num)?.toFixed(2);
   let value;
 
   if (amount && amount?.includes(".")) {
