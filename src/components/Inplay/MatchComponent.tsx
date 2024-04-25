@@ -8,7 +8,7 @@ import moment from "moment-timezone";
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { updateMatchListRates } from "../../store/actions/match/matchAction";
-import { socketService } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 import { formatToINR } from "../../helper";
 
 const MatchComponent = (props: MatchComponentInterface) => {
@@ -72,11 +72,13 @@ const MatchComponent = (props: MatchComponentInterface) => {
   }, []);
 
   useEffect(() => {
-    socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
-    return () => {
-      socketService.match.getMatchRatesOff(match?.id);
-    };
-  }, []);
+    if (socket) {
+      socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
+      return () => {
+        socketService.match.getMatchRatesOff(match?.id);
+      };
+    }
+  }, [socket]);
 
   return (
     <>

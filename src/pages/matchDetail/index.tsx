@@ -29,7 +29,7 @@ import {
   updateTeamRatesOnDelete,
 } from "../../store/actions/match/matchAction";
 import { useSelector } from "react-redux";
-import { socketService } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import { Constants } from "../../utils/Constants";
@@ -56,7 +56,9 @@ const MatchDetail = () => {
     (state: RootState) => state.match.bets
   );
 
-  const { currentOdd } = useSelector((state: RootState) => state.match.matchList);
+  const { currentOdd } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const handleDeleteBet = (value: any) => {
     try {
@@ -204,7 +206,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (success && profileDetail?.roleName) {
+      if (success && profileDetail?.roleName && socket) {
         socketService.match.getMatchRatesOff(state?.matchId);
         socketService.match.userSessionBetPlacedOff();
         socketService.match.userMatchBetPlacedOff();
@@ -237,7 +239,7 @@ const MatchDetail = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [success, profileDetail?.roleName]);
+  }, [success, profileDetail?.roleName, socket]);
 
   useEffect(() => {
     return () => {
@@ -336,44 +338,6 @@ const MatchDetail = () => {
               showBox={matchDetail?.matchOdd?.activeStatus === "save"}
             />
           )}
-          {matchDetail?.marketCompleteMatch?.isActive && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              typeOfBet={"Market Complete Match"}
-              minBet={formatToINR(
-                Math.floor(matchDetail?.marketCompleteMatch?.minBet)
-              )}
-              maxBet={formatToINR(
-                Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
-              )}
-              data={
-                matchDetail?.marketCompleteMatch?.runners?.length > 0
-                  ? matchDetail?.marketCompleteMatch?.runners
-                  : []
-              }
-              showBox={
-                matchDetail?.marketCompleteMatch?.activeStatus === "save"
-              }
-            />
-          )}
-          {matchDetail?.apiTideMatch?.isActive && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              typeOfBet={"Tied Match"}
-              minBet={formatToINR(
-                Math.floor(matchDetail?.apiTideMatch?.minBet)
-              )}
-              maxBet={formatToINR(
-                Math.floor(matchDetail?.apiTideMatch?.maxBet)
-              )}
-              data={
-                matchDetail?.apiTideMatch?.runners?.length > 0
-                  ? matchDetail?.apiTideMatch?.runners
-                  : []
-              }
-              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
-            />
-          )}
           {matchDetail?.bookmaker?.isActive && (
             <LiveBookmaker
               currentMatch={matchDetail}
@@ -403,6 +367,24 @@ const MatchDetail = () => {
                 />
               );
             })}
+          {matchDetail?.apiTideMatch?.isActive && (
+            <MatchOdds
+              currentMatch={matchDetail}
+              typeOfBet={"Tied Match"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch?.maxBet)
+              )}
+              data={
+                matchDetail?.apiTideMatch?.runners?.length > 0
+                  ? matchDetail?.apiTideMatch?.runners
+                  : []
+              }
+              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+            />
+          )}
           {matchDetail?.manualTiedMatch?.isActive && matchesMobile && (
             <MatchOdds
               typeOfBet={"Manual Tied Match"}
@@ -415,6 +397,26 @@ const MatchDetail = () => {
               maxBet={formatToINR(
                 Math.floor(matchDetail?.manualTiedMatch?.maxBet)
               )}
+            />
+          )}
+          {matchDetail?.marketCompleteMatch?.isActive && (
+            <MatchOdds
+              currentMatch={matchDetail}
+              typeOfBet={"Market Complete Match"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
+              )}
+              data={
+                matchDetail?.marketCompleteMatch?.runners?.length > 0
+                  ? matchDetail?.marketCompleteMatch?.runners
+                  : []
+              }
+              showBox={
+                matchDetail?.marketCompleteMatch?.activeStatus === "save"
+              }
             />
           )}
           <Box sx={{ width: "150px", height: "3px" }}></Box>
@@ -496,9 +498,7 @@ const MatchDetail = () => {
                   <RunsBox
                     key={v?.id}
                     item={v}
-                    currentOdd={
-                      currentOdd?.betId === v?.id ? currentOdd : null
-                    }
+                    currentOdd={currentOdd?.betId === v?.id ? currentOdd : null}
                   />
                 );
               })}
@@ -553,40 +553,6 @@ const MatchDetail = () => {
               </Box>
             )}
             <Box sx={{ width: "2%" }}></Box>
-            {/* <Box
-              onClick={() => {
-                if (mode) {
-                  setVisible(true);
-                } else {
-                  setMode(!mode);
-                }
-              }}
-              sx={{
-                width: "150px",
-                marginY: ".75%",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: "5px",
-                background: "#E32A2A",
-                height: "35px",
-                border: "1.5px solid white",
-                display: "flex",
-                alignSelf: "flex-end",
-                cursor: "pointer",
-              }}
-            >
-              <Typography
-                style={{
-                  fontWeight: "600",
-                  fontSize: "13px",
-                  color: "white",
-                  marginRight: "10px",
-                }}
-              >
-                {!mode ? "Delete Bet" : "Delete"}
-              </Typography>
-              <img src={DeleteIcon} style={{ width: "17px", height: "20px" }} />
-            </Box> */}
           </Box>
           {placedBets?.length > 0 && (
             <Box sx={{ mt: 0 }}>
