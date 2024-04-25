@@ -18,7 +18,7 @@ import {
 import { AppDispatch, RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 import { Constants } from "../../utils/Constants";
-import { socketService } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 import { makeStyles } from "@material-ui/core/styles";
 const Inplay = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const Inplay = () => {
 
   useEffect(() => {
     try {
-      if (success) {
+      if (success && socket) {
         if (
           matchListInplay?.matches &&
           matchListInplay?.matches?.length > 0 &&
@@ -82,7 +82,12 @@ const Inplay = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [matchListInplay?.matches?.length, success, profileDetail?.roleName]);
+  }, [
+    matchListInplay?.matches?.length,
+    success,
+    profileDetail?.roleName,
+    socket,
+  ]);
 
   useEffect(() => {
     return () => {
