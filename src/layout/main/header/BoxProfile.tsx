@@ -63,7 +63,7 @@ const BoxProfile = (props: any) => {
               fontWeight: "700",
             }}
           >
-            {handleNumber(parseFloat(balance), color)}
+            {handleNumber(parseFloat(balance || 0.00), color)}
           </Typography>
         </Box>
         <StyledImage
