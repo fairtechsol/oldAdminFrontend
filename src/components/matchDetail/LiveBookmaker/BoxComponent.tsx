@@ -123,7 +123,7 @@ const BoxComponent = (props: any) => {
                   fontWeight: "400",
                 }}
               >
-                {status === "WINNER" || status === "LOSER" ? status : 'suspended'} 
+                {status ? status : 'suspended'} 
               </Typography>
             </Box>
           </Box>
