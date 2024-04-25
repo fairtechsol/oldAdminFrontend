@@ -123,7 +123,7 @@ const BoxComponent = (props: any) => {
                   fontWeight: "400",
                 }}
               >
-                suspended
+                {status ? status : 'suspended'} 
               </Typography>
             </Box>
           </Box>
