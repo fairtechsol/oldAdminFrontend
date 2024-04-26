@@ -13,8 +13,8 @@ export interface BalanceDetails {
 export interface DataShowInterface {
   title?: string;
   value?: string | any;
-  value2?: string | number;
-  value3?: string | number;
+  value2?: string | number | any;
+  value3?: string | number | any;
   containerStyle?: any;
   valueContainerStyle?: any;
 }

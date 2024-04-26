@@ -52,9 +52,10 @@ const DataShow = (props: DataShowInterface) => {
               textAlign: "center",
             }}
           >
-          {handleNumber(parseFloat(value), 'white')}{value3 && `(${value3}%)`}
+            {handleNumber(parseFloat(value), "white")}
+            {value3 ? `(${value3}%)` : value3 === 0 ? "(0%)" : null}
           </Typography>
-          {value2 && (
+          {value2 ? (
             <Typography
               sx={{
                 fontSize: { lg: "11px", xs: "10px" },
@@ -64,9 +65,9 @@ const DataShow = (props: DataShowInterface) => {
                 fontWeight: "600",
               }}
             >
-              {value2}
+              {handleNumber(parseFloat(value2), "white")}
             </Typography>
-          )}
+          ) : null}
         </Box>
         {/* <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
