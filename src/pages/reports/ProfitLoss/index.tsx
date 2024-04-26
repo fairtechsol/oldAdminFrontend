@@ -13,7 +13,7 @@ import { updateUserSearchId } from "../../../store/actions/reports";
 import { debounce } from "lodash";
 import service from "../../../service";
 interface FilterObject {
-  userId?: any;
+  searchId?: any;
   startDate?: string;
   endDate?: string;
 }
@@ -43,7 +43,7 @@ const ProfitLossReport = () => {
       let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
-        filter["userId"] = search?.id;
+        filter["searchId"] = search?.id;
       }
       if (startDate && endDate) {
         filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");

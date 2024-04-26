@@ -132,38 +132,36 @@ export const Constants = {
   localPathExpert: "http://localhost:6060",
   WEBSOCKET: "websocket",
   POLLING: "polling",
+  PRODUCTION: "production",
+  DEVELOPMENT: "development",
 };
-
-// use below baseUrl for testing build
 
 // export const baseUrls = {
 //   socket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePath}`
-//       : `${Constants.localPath}`,
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? Constants.apiBasePath
+//       : Constants.localPath,
 //   thirdParty:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.thirdParty}`
-//       : `${Constants.localPathThird}`,
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? Constants.thirdParty
+//       : Constants.localPathThird,
 //   expertSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.expertPath}`
-//       : `${Constants.localPathExpert}`,
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? Constants.expertPath
+//       : Constants.localPathExpert,
 // };
-
-// use below baseUrl for live build
 
 export const baseUrls = {
   socket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.apiBasePathLive}`
-      : `${Constants.localPath}`,
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? Constants.apiBasePathLive
+      : Constants.localPath,
   thirdParty:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.thirdPartyLive}`
-      : `${Constants.localPathThird}`,
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? Constants.thirdPartyLive
+      : Constants.localPathThird,
   expertSocket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.expertPathLive}`
-      : `${Constants.localPathExpert}`,
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? Constants.expertPathLive
+      : Constants.localPathExpert,
 };

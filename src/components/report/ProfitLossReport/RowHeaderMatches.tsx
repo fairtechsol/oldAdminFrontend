@@ -1,12 +1,11 @@
-import { Box, Typography,useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import { handleNumber } from "../../../helper";
 
-
 const RowHeaderMatches = ({ item, getHandleReport, show, color }: any) => {
-const theme = useTheme();
+  const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
@@ -101,30 +100,12 @@ const theme = useTheme();
               fontSize: { lg: "14px", xs: "10px" },
               fontWeight: "700",
               color: "white",
-              lineHeight: "0.9"
+              lineHeight: "0.9",
             }}
           >
-            {/* {Number(item?.totalLoss) >= 0 ? (
-              <>
-                <span style={{ visibility: "hidden" }}>-</span>
-                {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
-                {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}
-                  ${formatToINR(
-                    Number(item?.totalDeduction).toFixed(2) || 0
-                  )})`}
-              </>
-            ) : (
-              <>
-                {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
-                {`(${matchesMobile ? "TD(1%)" : "Total Deduction"} 
-                  ${formatToINR(
-                    Number(item?.totalDeduction).toFixed(2) || 0
-                  )})`}
-              </>
-            )}{" "} */}
-                 {handleNumber(parseFloat(item?.totalLoss || 0), color)}{" "}
-                {`${matchesMobile ? "TD(1%)" : "Total Deduction"} : `}
-                {handleNumber(parseFloat(item?.totalDeduction || 0),color)}{" "}
+            {handleNumber(parseFloat(item?.totalLoss || 0), color)}{" "}
+            {`${matchesMobile ? "TD(1%)" : "Total Deduction"} : `}
+            {handleNumber(parseFloat(item?.totalDeduction || 0), color)}{" "}
           </Typography>
         </Box>
       </Box>

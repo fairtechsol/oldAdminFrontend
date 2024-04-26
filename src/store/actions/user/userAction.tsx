@@ -513,7 +513,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
-        return resp?.data?.result;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;

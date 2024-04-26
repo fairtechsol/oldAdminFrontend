@@ -44,7 +44,7 @@ const AllUserListSeparate = ({
   const [showSubUsers, setSubSusers] = useState({
     value: false,
     id: "",
-    roleName: item?.roleName,
+    roleName: "",
   });
 
   const getBetDataForChildUser = async (props: any) => {
@@ -174,16 +174,16 @@ const AllUserListSeparate = ({
                     showSubUsers?.id === item?.userId
                   ) {
                     setSubSusers({
-                      ...showSubUsers,
                       value: false,
                       id: "",
+                      roleName: "",
                     });
                     setShowChildUserList(false);
                   } else {
                     setSubSusers({
-                      ...showSubUsers,
                       value: true,
                       id: item?.userId,
+                      roleName: item?.roleName,
                     });
                     setShowChildUserList(true);
                   }
@@ -535,7 +535,9 @@ const AllUserListSeparate = ({
                                 {Number(item?.rateProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              formatToINR(Number(item?.rateProfitLoss).toFixed(2))
+                              formatToINR(
+                                Number(item?.rateProfitLoss).toFixed(2)
+                              )
                             )
                           ) : (
                             0.0
@@ -645,7 +647,9 @@ const AllUserListSeparate = ({
                                 {Number(item?.sessionProfitLoss).toFixed(2)}
                               </>
                             ) : (
-                              formatToINR(Number(item?.sessionProfitLoss).toFixed(2))
+                              formatToINR(
+                                Number(item?.sessionProfitLoss).toFixed(2)
+                              )
                             )
                           ) : (
                             0.0
