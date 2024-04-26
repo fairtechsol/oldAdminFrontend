@@ -9,22 +9,13 @@ const toastOptions = {
   pauseOnHover: true,
 };
 
-// use below service for testing build
-
-// const service = axios.create({
-//   baseURL:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePath}`
-//       : `${Constants.localPath}`,
-// });
-
-// use below service for live build
-
 const service = axios.create({
   baseURL:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.apiBasePathLive}`
-      : `${Constants.localPath}`,
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? Constants.apiBasePathLive
+      : process.env.NODE_ENV === Constants.DEVELOPMENT
+      ? Constants.apiBasePath
+      : Constants.localPath,
 });
 
 service.defaults.timeout = 100000;
