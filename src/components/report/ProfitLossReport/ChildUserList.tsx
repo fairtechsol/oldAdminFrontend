@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import AllUserListSeparate from "./AllUserListSeperate";
 import service from "../../../service";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../../store/store";
 
 const ChildUserList = ({
   id,
@@ -17,9 +17,9 @@ const ChildUserList = ({
   bet1Data,
 }: any) => {
   const [data1, setData] = useState([]);
-  const { userData } = useSelector(
-    (state: RootState) => state.report.reportList
-  );
+  // const { userData } = useSelector(
+  //   (state: RootState) => state.report.reportList
+  // );
 
   const getChildUserList = async () => {
     try {
@@ -29,7 +29,7 @@ const ChildUserList = ({
           roleName,
         },
         matchId: matchId,
-        searchId: userData?.id ? userData?.id : "",
+        // searchId: userData?.id ? userData?.id : "",
       };
       const { data } = await service.post(`/user/userwise/profitLoss`, payload);
       if (data) {
