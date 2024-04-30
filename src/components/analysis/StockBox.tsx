@@ -4,7 +4,7 @@ import { ARROWUP } from "../../assets";
 import { handleNumber } from "../../helper";
 
 const StockBox = (props: any) => {
-  const { team, value, up, mode, color } = props;
+  const { team, value, up, mode, color, showFixed } = props;
   return (
     <Box
       sx={{
@@ -68,7 +68,7 @@ const StockBox = (props: any) => {
           textAlign: { xs: "center", lg: "center" },
         }}
       >
-        {handleNumber(parseFloat(value), color)}
+        {showFixed ? value : handleNumber(parseFloat(value), color)}
       </Typography>
 
       {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />}
