@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { getMyAccountDetails } from "../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
-import { formatToINR } from "../../helper";
 
 const MyAccount = () => {
   const theme = useTheme();
