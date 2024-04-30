@@ -8,7 +8,7 @@ export const getMatchListInplay = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.INPLAY.MATCHLIST}?page=${requestData?.currentPage}&limit=${Constants.pageLimit}&sort=match.startAt:ASC`
+        `${ApiConstants.INPLAY.MATCHLIST}?page=${requestData?.currentPage}&limit=${Constants.pageLimit}&sort=match.startAt:ASC&match.matchType=cricket`
       );
       if (resp) {
         return resp?.data;
