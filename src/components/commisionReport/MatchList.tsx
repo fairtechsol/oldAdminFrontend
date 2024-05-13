@@ -119,7 +119,7 @@ const MatchList = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: { lg: "10px", xs: "0" },
+                fontSize: { lg: "10px", xs: "10px" },
                 color: "white",
                 marginLeft: "5px",
                 fontWeight: "500",
