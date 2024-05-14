@@ -3,6 +3,7 @@ import { IoCloseCircle } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { changePasswordReset } from "../../../store/actions/user/userAction";
 import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
 
 const CustomModal = ({
   transactionMessage,
@@ -16,8 +17,30 @@ const CustomModal = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, []);
+
+  const handleEnterPress = (e: any) => {
+    debugger;
+    if (e?.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = () => {
+    dispatch(changePasswordReset());
+    setShowModal(false);
+    functionDispatch();
+    navigate(navigateTo);
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <Box
         p={2}
         sx={{
@@ -92,18 +115,15 @@ const CustomModal = ({
                   : modalTitle}
               </Typography>
               <Button
+                type="submit"
+                onKeyDown={handleEnterPress}
+                ref={buttonRef}
                 sx={{
                   backgroundColor: "#004a25",
                   color: "#fff",
                   ":hover": { backgroundColor: "#43ff5f" },
                   display: "flex",
                   justifyContent: "center",
-                }}
-                onClick={() => {
-                  dispatch(changePasswordReset());
-                  setShowModal(false);
-                  functionDispatch();
-                  navigate(navigateTo);
                 }}
               >
                 {buttonMessage}
@@ -112,7 +132,7 @@ const CustomModal = ({
           </Box>
         </Box>
       </Box>
-    </>
+    </form>
   );
 };
 
