@@ -4,6 +4,7 @@ import { analysisListReducer } from "./matchAnalysisSlice";
 import { sidebarListReducer } from "./sidebarListSlice";
 import { betsReducer } from "./betPlacedSlice";
 import { userProfitLossReducer } from "./userProfitLoss";
+import { lockUnlockReducer } from "./lockUnlockSlice";
 
 export const matchReducer = combineReducers({
   matchList: matchListReducer,
@@ -11,4 +12,5 @@ export const matchReducer = combineReducers({
   sideBarList: sidebarListReducer,
   bets: betsReducer,
   userProfitLoss: userProfitLossReducer,
+  lockUnlock: lockUnlockReducer,
 });
