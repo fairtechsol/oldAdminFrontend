@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import LiveBookmaker from "../../components/matchDetail/LiveBookmaker";
 import MatchOdds from "../../components/matchDetail/MatchOdds";
-import service from "../../service";
 import { socket, socketService } from "../../socketManager";
 import {
   amountupdate,
@@ -55,7 +54,7 @@ const LockMatchScreen = () => {
   const [isQuickSessionLock, setIsQuickSessionLock] = useState<any>(false);
   const [isSessionLock, setIsSessionLock] = useState<any>(false);
 
-  const handleBlock = async (value: any, locked: any, typeOfBet: any) => {
+  const handleBlock = async (value: any, _: any, typeOfBet: any) => {
     try {
       let payload = {
         matchId: state?.matchId,
