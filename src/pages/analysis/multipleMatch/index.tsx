@@ -67,8 +67,6 @@ const MultipleMatch = ({}) => {
     (state: RootState) => state.match.bets
   );
 
-  const sessionBets: any = [];
-
   const updateMatchDetailToRedux = (event: any) => {
     dispatch(updateMultipleMatchDetail(event));
   };
@@ -303,9 +301,6 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any, index: any) => {
-                  let sessionBetsData = sessionBets?.filter(
-                    (element: any) => element?.matchId === item?.id
-                  );
 
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
@@ -498,21 +493,8 @@ const MultipleMatch = ({}) => {
                                         )
                                       : []
                                   }
-                                  // match={"multiple"}
-                                  //   currentOdd={currentOdd}
                                   sessionData={QuicksessionData}
                                   currentMatch={item}
-                                  data={[]}
-                                  sessionOffline={item?.sessionOffline}
-                                  //   sessionExposer={
-                                  //     manualSessionHttp?.sessionExposure
-                                  //   }
-                                  sessionBets={sessionBetsData?.length}
-                                  //   setPopData={setPopData}
-                                  //   popData={popData}
-                                  //   sessionData={
-                                  //     manualSessionHttp?.manualSessionRate
-                                  //   }
                                   max={formatToINR(item?.betFairSessionMaxBet)}
                                   min={formatToINR(item?.betFairSessionMinBet)}
                                 />
@@ -537,18 +519,8 @@ const MultipleMatch = ({}) => {
                                         )
                                       : []
                                   }
-                                  match={"multiple"}
-                                  //   currentOdd={currentOdd}
                                   sessionData={item?.apiSession}
                                   currentMatch={item}
-                                  data={[]}
-                                  sessionOffline={item?.sessionOffline}
-                                  //   sessionExposer={
-                                  //     manualSessionHttp?.sessionExposure
-                                  //   }
-                                  sessionBets={sessionBetsData?.length}
-                                  //   setPopData={setPopData}
-                                  //   popData={popData}
                                   max={formatToINR(item?.betFairSessionMaxBet)}
                                   min={formatToINR(item?.betFairSessionMinBet)}
                                 />
@@ -805,8 +777,6 @@ const MultipleMatch = ({}) => {
                                 }
                                 sessionData={item?.sessionBettings}
                                 currentMatch={item}
-                                sessionOffline={item?.sessionOffline}
-                                sessionBets={sessionBetsData?.length}
                                 max={formatToINR(item?.betFairSessionMaxBet)}
                                 min={formatToINR(item?.betFairSessionMinBet)}
                               />
@@ -835,7 +805,6 @@ const MultipleMatch = ({}) => {
                                 currentMatch={item}
                                 sessionData={item?.apiSession}
                                 sessionOffline={item?.sessionOffline}
-                                sessionBets={sessionBetsData?.length}
                                 max={formatToINR(item?.betFairSessionMaxBet)}
                                 min={formatToINR(item?.betFairSessionMaxBet)}
                               />
@@ -958,9 +927,6 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any) => {
-                  let sessionBetsData = sessionBets?.filter(
-                    (element: any) => element?.matchId === item?.id
-                  );
 
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
@@ -1122,16 +1088,8 @@ const MultipleMatch = ({}) => {
                                   )
                                 : []
                             }
-                            // match={"multiple"}
                             currentMatch={item}
                             sessionData={QuicksessionData}
-                            // currentOdd={currentOdd}
-                            sessionOffline={item?.sessionOffline}
-                            // sessionExposer={manualSessionHttp?.sessionExposure}
-                            sessionBets={sessionBetsData?.length}
-                            // sessionData={manualSessionHttp?.manualSessionRate}
-                            // setPopData={setPopData}
-                            // popData={popData}
                             max={formatToINR(item?.betFairSessionMaxBet)}
                             min={formatToINR(item?.betFairSessionMinBet)}
                           />
@@ -1156,15 +1114,8 @@ const MultipleMatch = ({}) => {
                                   )
                                 : []
                             }
-                            match={"multiple"}
                             currentMatch={item}
                             sessionData={item?.apiSession}
-                            // currentOdd={currentOdd}
-                            sessionOffline={item?.sessionOffline}
-                            // sessionExposer={manualSessionHttp?.sessionExposure}
-                            sessionBets={sessionBetsData?.length}
-                            // setPopData={setPopData}
-                            // popData={popData}
                             max={formatToINR(item?.betFairSessionMaxBet)}
                             min={formatToINR(item?.betFairSessionMinBet)}
                           />
