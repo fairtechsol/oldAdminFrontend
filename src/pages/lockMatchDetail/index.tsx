@@ -43,25 +43,22 @@ const LockMatchScreen = () => {
     (state: RootState) => state.match.matchList
   );
 
-  const { childStatus } = useSelector(
+  const { childStatus, statusSuccess } = useSelector(
     (state: RootState) => state.match.lockUnlock
   );
   const { placedBets } = useSelector((state: RootState) => state.match.bets);
   const [mode, setMode] = useState<any>(false);
   const [isMatchLock, setIsMatchLock] = useState<any>(false);
-  const [isBookmakerLock, setIsBookmakerLock] = useState<any>(false);
-  const [_, setIsManualLock] = useState<any>(false);
-  const [isQuickSessionLock, setIsQuickSessionLock] = useState<any>(false);
   const [isSessionLock, setIsSessionLock] = useState<any>(false);
 
-  const handleBlock = async (value: any, _: any, typeOfBet: any) => {
+  const handleBlock = async (value: any, status: any, typeOfBet: any) => {
     try {
       let payload = {
         matchId: state?.matchId,
-        adminTransPassword: value,
+        transactionPassword: value,
         userId: profileDetail?.id,
         type: typeOfBet === "SESSION" ? "session" : "match",
-        block: true,
+        block: status,
         operationToAll: true,
       };
       dispatch(updateUserMatchLock(payload));
@@ -73,22 +70,13 @@ const LockMatchScreen = () => {
   const handleShowLock = async (_: any, type: any) => {
     if (type === "Match Odds") {
       setIsMatchLock(true);
-    } else if (type === "Quick Bookmaker") {
-      setIsManualLock(true);
-    } else if (type === "BOOKMAKER") {
-      setIsBookmakerLock(true);
     } else if (type === "Session Market") {
       setIsSessionLock(true);
-    } else if (type === "Quick Session Market") {
-      setIsQuickSessionLock(true);
     }
   };
   const handleHide = async () => {
     setIsMatchLock(false);
-    setIsManualLock(false);
-    setIsBookmakerLock(false);
     setIsSessionLock(false);
-    setIsQuickSessionLock(false);
   };
 
   const updateMatchDetailToRedux = (event: any) => {
@@ -190,6 +178,15 @@ const LockMatchScreen = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (statusSuccess) {
+      setTimeout(() => {
+        dispatch(getUserDetailsOfLock(state?.matchId));
+      }, 500);
+      handleHide();
+    }
+  }, [statusSuccess]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -353,47 +350,8 @@ const LockMatchScreen = () => {
                   ? matchDetail?.bookmaker?.runners
                   : []
               }
-              blockMatch={true}
+              blockMatch={false}
               locked={childStatus?.allChildMatchDeactive}
-              selft={true}
-              handleBlock={handleBlock}
-              handleHide={handleHide}
-              handleShowLock={handleShowLock}
-              showUnlock={isBookmakerLock}
-            />
-          )}
-
-          {matchDetail?.manualSessionActive && (
-            <SessionMarket
-              allBetsData={
-                matchDetail?.profitLossDataSession
-                  ? Array.from(
-                      matchDetail?.profitLossDataSession?.reduce(
-                        (acc: any, obj: any) =>
-                          acc.has(obj.betId) ? acc : acc.add(obj.betId) && acc,
-                        new Set()
-                      ),
-                      (id) =>
-                        matchDetail?.profitLossDataSession?.find(
-                          (obj: any) => obj.betId === id
-                        )
-                    )
-                  : []
-              }
-              title={"Quick Session Market"}
-              currentMatch={matchDetail}
-              sessionData={matchDetail?.sessionBettings?.filter(
-                (item: any) => !JSON.parse(item).selectionId
-              )}
-              min={matchDetail?.betFairSessionMinBet || 0}
-              max={matchDetail?.betFairSessionMaxBet || 0}
-              blockMatch={true}
-              locked={childStatus?.allChildMatchDeactive}
-              selft={true}
-              handleBlock={handleBlock}
-              handleHide={handleHide}
-              handleShowLock={handleShowLock}
-              showUnlock={isQuickSessionLock}
             />
           )}
           {matchDetail?.apiSessionActive && (
@@ -419,12 +377,41 @@ const LockMatchScreen = () => {
               min={Math.floor(matchDetail?.betFairSessionMinBet)}
               max={Math.floor(matchDetail?.betFairSessionMaxBet)}
               blockMatch={true}
-              locked={childStatus?.allChildMatchDeactive}
+              locked={childStatus?.allChildSessionDeactive}
               selft={true}
               handleBlock={handleBlock}
               handleHide={handleHide}
               handleShowLock={handleShowLock}
               showUnlock={isSessionLock}
+            />
+          )}
+          {matchDetail?.manualSessionActive && (
+            <SessionMarket
+              allBetsData={
+                matchDetail?.profitLossDataSession
+                  ? Array.from(
+                      matchDetail?.profitLossDataSession?.reduce(
+                        (acc: any, obj: any) =>
+                          acc.has(obj.betId) ? acc : acc.add(obj.betId) && acc,
+                        new Set()
+                      ),
+                      (id) =>
+                        matchDetail?.profitLossDataSession?.find(
+                          (obj: any) => obj.betId === id
+                        )
+                    )
+                  : []
+              }
+              title={"Quick Session Market"}
+              currentMatch={matchDetail}
+              sessionData={matchDetail?.sessionBettings?.filter(
+                (item: any) => !JSON.parse(item).selectionId
+              )}
+              min={matchDetail?.betFairSessionMinBet || 0}
+              max={matchDetail?.betFairSessionMaxBet || 0}
+              blockMatch={false}
+              locked={childStatus?.allChildSessionDeactive}
+              selft={true}
             />
           )}
         </Box>

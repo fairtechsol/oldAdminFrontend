@@ -586,26 +586,6 @@ const MatchOdds = (props: any) => {
           </Box>
         </>
       )}
-      {showUnlock && (
-        <Box
-          sx={{
-            position: "absolute",
-            width: { xs: "90%", lg: "100%" },
-            background: "transparent",
-            alignSelf: "center",
-            marginTop: "38px",
-            left: { xs: "10%", lg: "20%" },
-            zIndex: 999,
-          }}
-        >
-          <UnlockComponent
-            unlock={locked}
-            title={(locked ? "Unlock " : "Lock ") + "Manual Bookmaker Market"}
-            handleHide={handleHide}
-            onSubmit={onSubmit}
-          />
-        </Box>
-      )}
 
       {showUnlock && (
         <Box
@@ -621,7 +601,7 @@ const MatchOdds = (props: any) => {
         >
           <UnlockComponent
             unlock={locked}
-            title={(locked ? "Unlock " : "Lock ") + typeOfBet + " Market"}
+            title={(locked ? "Unlock " : "Lock ") + "Match" + " Market"}
             handleHide={handleHide}
             onSubmit={onSubmit}
           />
