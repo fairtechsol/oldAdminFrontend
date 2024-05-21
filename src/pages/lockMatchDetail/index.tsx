@@ -31,6 +31,7 @@ import {
   getUserDetailsOfLock,
   updateUserMatchLock,
 } from "../../store/actions/match/marketLockUnlockAction";
+import { formatToINR } from "../../helper";
 const LockMatchScreen = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
@@ -308,8 +309,8 @@ const LockMatchScreen = () => {
               currentMatch={matchDetail}
               typeOfBet={"Match Odds"}
               showBox={matchDetail?.matchOdd?.activeStatus === "save"}
-              minBet={Math.floor(matchDetail?.matchOdd?.minBet)}
-              maxBet={Math.floor(matchDetail?.matchOdd?.maxBet)}
+              minBet={formatToINR(Math.floor(matchDetail?.matchOdd?.minBet))}
+              maxBet={formatToINR(Math.floor(matchDetail?.matchOdd?.maxBet))}
               data={
                 matchDetail?.matchOdd?.runners?.length > 0
                   ? matchDetail?.matchOdd?.runners
@@ -343,14 +344,54 @@ const LockMatchScreen = () => {
             <LiveBookmaker
               currentMatch={matchDetail}
               showBox={matchDetail?.bookmaker?.activeStatus === "save"}
-              minBet={Math.floor(matchDetail?.bookmaker?.minBet)}
-              maxBet={Math.floor(matchDetail?.bookmaker?.maxBet)}
+              minBet={formatToINR(Math.floor(matchDetail?.bookmaker?.minBet))}
+              maxBet={formatToINR(Math.floor(matchDetail?.bookmaker?.maxBet))}
               data={
                 matchDetail?.bookmaker?.runners?.length > 0
                   ? matchDetail?.bookmaker?.runners
                   : []
               }
               blockMatch={false}
+              locked={childStatus?.allChildMatchDeactive}
+            />
+          )}
+          {matchDetail?.apiTideMatch?.isActive && (
+            <MatchOdds
+              currentMatch={matchDetail}
+              typeOfBet={"Tied Match"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch?.maxBet)
+              )}
+              data={
+                matchDetail?.apiTideMatch?.runners?.length > 0
+                  ? matchDetail?.apiTideMatch?.runners
+                  : []
+              }
+              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+              locked={childStatus?.allChildMatchDeactive}
+            />
+          )}
+          {matchDetail?.marketCompleteMatch?.isActive && (
+            <MatchOdds
+              currentMatch={matchDetail}
+              typeOfBet={"Market Complete Match"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
+              )}
+              data={
+                matchDetail?.marketCompleteMatch?.runners?.length > 0
+                  ? matchDetail?.marketCompleteMatch?.runners
+                  : []
+              }
+              showBox={
+                matchDetail?.marketCompleteMatch?.activeStatus === "save"
+              }
               locked={childStatus?.allChildMatchDeactive}
             />
           )}

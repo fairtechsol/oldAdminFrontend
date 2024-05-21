@@ -115,7 +115,6 @@ const LiveBookmaker = (props: any) => {
           }}
         >
           <SmallBox
-            color={"#FF4D4D"}
             valueA={bookRatioA(
               currentMatch?.profitLossDataMatch?.teamARate,
               currentMatch?.profitLossDataMatch?.teamBRate
