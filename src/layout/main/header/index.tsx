@@ -9,10 +9,12 @@ import AdminEventListing from "./AdminEventListing";
 import BoxProfile from "./BoxProfile";
 import MobileSideBar from "./MobileSideBar";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -33,7 +35,7 @@ const Header = () => {
         // flex: "1",
         width: "100%",
         minHeight: { lg: 60, md: 60, xs: 60 },
-        minWidth: {lg: 60, md: 60, xs: 60},
+        minWidth: { lg: 60, md: 60, xs: 60 },
         display: "flex",
         flexDirection: matchesMobile ? "column" : "row",
         alignItems: !matchesMobile ? "center" : "flex-start",
@@ -66,6 +68,7 @@ const Header = () => {
       height: { lg: "4rem", xs: "3rem" },
       width: "100%",
       marginLeft: { lg: "20px", xs: "10px" },
+      cursor: "pointer",
     },
     BoxCont1sub1ButtonHead1boxStyle: {
       backgroundColor: "transparent",
@@ -135,10 +138,13 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{
-        width: "100%",
-        zIndex: (theme: any) => theme.zIndex.drawer + 1,
-      }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          width: "100%",
+          zIndex: (theme: any) => theme.zIndex.drawer + 1,
+        }}
+      >
         <Box sx={classes.BoxCont1}>
           <Box sx={classes.BoxCont1sub1}>
             <Box sx={classes.BoxCont1sub1sub1}>
@@ -147,14 +153,18 @@ const Header = () => {
                 onClick={() => setMobileOpen((prev) => !prev)}
                 sx={classes.BoxCont1sub1sub1StyleImg}
               />
-              <StyledImage src={FgLogo} sx={classes.RenderLogoCompStyleImg} />
+              <StyledImage
+                src={FgLogo}
+                sx={classes.RenderLogoCompStyleImg}
+                onClick={() => navigate("/admin/list_of_clients")}
+              />
             </Box>
             <Box sx={classes.BoxCont1sub2}>
               <BoxProfile
                 containerStyle={classes.BoxCont1sub2BoxProfileContStyle}
                 image={"https://picsum.photos/200/300"}
                 value={profileDetail && profileDetail?.userName}
-                balance={(profileDetail?.userBal?.currentBalance ?? 0)}
+                balance={profileDetail?.userBal?.currentBalance ?? 0}
               />
             </Box>
           </Box>
