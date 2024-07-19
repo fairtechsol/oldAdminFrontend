@@ -1,10 +1,17 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { CANCEL, LockIcon, UnLockIcon, eye } from "../../assets";
+import { CANCEL, LockIcon, UnLockIcon, eye,eyeLock } from "../../assets";
 
 const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
   const [password, setPassword] = useState("");
+
+  
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <Box
       sx={{
@@ -64,6 +71,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
         <Box sx={{ width: "40%", position: "relative" }}>
           <TextField
             variant="standard"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -82,13 +90,15 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
             }}
           />
           <img
-            src={eye}
+            src={showPassword?eye:eyeLock}
+            onClick={togglePasswordVisibility}
             style={{
               width: "12px",
               height: "9px",
               position: "absolute",
               right: "15%",
               top: "40%",
+              cursor: "pointer",
             }}
           />
         </Box>
@@ -107,6 +117,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
               borderRadius: "5px",
               height: "35px",
               background: "#0B4F26",
+              cursor: "pointer",
             }}
           >
             <Typography sx={{ color: "white", fontSize: "14px" }}>
