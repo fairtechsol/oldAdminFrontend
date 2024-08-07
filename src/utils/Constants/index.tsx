@@ -141,15 +141,15 @@ export const Constants = {
 
 export const baseUrls = {
   socket:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? Constants.apiBasePath
       : Constants.localPath,
   thirdParty:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? Constants.thirdParty
       : Constants.localPathThird,
   expertSocket:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? Constants.expertPath
       : Constants.localPathExpert,
 };
