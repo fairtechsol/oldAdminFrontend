@@ -505,7 +505,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           sx={{
             width: { lg: "8vw", md: "8vw", xs: "26.5vw" },
             display: "flex",
-            justifyContent: "center",
+            // justifyContent: "center",
             alignItems: "center",
             height: "45px",
             borderRight: "2px solid white",

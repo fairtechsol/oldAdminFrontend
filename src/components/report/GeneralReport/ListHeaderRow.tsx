@@ -22,7 +22,7 @@ const ListHeaderRow = ({ getLimitEntries, setCurrentPage }: any) => {
       <NumberDropDown
         getLimitEntries={getLimitEntries}
         pageLimit={15}
-        textColor={"fff"}
+        textColor={"white"}
       />
       <SearchInput
         show={true}
