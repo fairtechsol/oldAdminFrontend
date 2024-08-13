@@ -286,6 +286,12 @@ export const setCurrentOdd = createAsyncThunk<any, any>(
     return requestData;
   }
 );
+export const updatePlacedbetsDeleteReason = createAsyncThunk<any, any>(
+  "update/updatePlacedbetsDeleteReason",
+  async (requestData) => {
+    return requestData;
+  }
+);
 
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");
