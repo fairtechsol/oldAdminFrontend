@@ -25,6 +25,7 @@ import {
   updateBetsPlaced,
   updateMultipleMatchDetail,
   updatePlacedbets,
+  updatePlacedbetsDeleteReason,
   updateProfitLoss,
 } from "../../../store/actions/match/matchAction";
 import {
@@ -185,6 +186,12 @@ const MultipleMatch = ({}) => {
     }
   };
 
+  const updateMultiplePlacedbetsDeleteReason = (event: any) => {
+    if (state?.matchIds.includes(event?.matchId)) {
+      dispatch(updatePlacedbetsDeleteReason(event));
+    }
+  };
+
   useEffect(() => {
     try {
       if (state?.matchIds) {
@@ -211,6 +218,7 @@ const MultipleMatch = ({}) => {
         socketService.match.sessionDeleteBetOff();
         socketService.match.sessionResultOff();
         socketService.match.sessionResultUnDeclareOff();
+        socketService.match.updateDeleteReasonOff();
         state?.matchIds?.map((item: any) => {
           socketService.match.joinMatchRoom(item, profileDetail?.roleName);
         });
@@ -228,6 +236,9 @@ const MultipleMatch = ({}) => {
         socketService.match.sessionResult(handleMultiMatchSessionResultDeclare);
         socketService.match.sessionResultUnDeclare(
           handleMultiMatchSessionResultUnDeclare
+        );
+        socketService.match.updateDeleteReason(
+          updateMultiplePlacedbetsDeleteReason
         );
         dispatch(analysisListReset());
       }
@@ -252,6 +263,7 @@ const MultipleMatch = ({}) => {
       socketService.match.sessionDeleteBetOff();
       socketService.match.sessionResultOff();
       socketService.match.sessionResultUnDeclareOff();
+      socketService.match.updateDeleteReasonOff();
     };
   }, []);
 
@@ -301,7 +313,6 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any, index: any) => {
-
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
                     ?.map((item: any) => {
@@ -927,7 +938,6 @@ const MultipleMatch = ({}) => {
             >
               {multipleMatchDetail?.length > 0 &&
                 multipleMatchDetail?.map((item: any) => {
-
                   const QuicksessionData = item?.sessionBettings
                     ?.filter((item: any) => !JSON.parse(item).selectionId)
                     ?.map((item: any) => {
