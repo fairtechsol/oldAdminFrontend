@@ -20,6 +20,7 @@ import {
   updateMaxLossForBetOnUndeclare,
   updateMaxLossForDeleteBet,
   updatePlacedbets,
+  updatePlacedbetsDeleteReason,
   updateProfitLoss,
   updateTeamRates,
   updateTeamRatesOnDelete,
@@ -180,6 +181,16 @@ const LockMatchScreen = () => {
     }
   };
 
+  const handleDeleteReasonUpdate = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(updatePlacedbetsDeleteReason(event));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (statusSuccess) {
       setTimeout(() => {
@@ -212,6 +223,7 @@ const LockMatchScreen = () => {
         socketService.match.sessionDeleteBetOff();
         socketService.match.sessionResultOff();
         socketService.match.sessionResultUnDeclareOff();
+        socketService.match.updateDeleteReasonOff();
         socketService.match.joinMatchRoom(
           state?.matchId,
           profileDetail?.roleName
@@ -230,6 +242,7 @@ const LockMatchScreen = () => {
         socketService.match.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
+        socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
         // dispatch(matchListReset());
       }
     } catch (e) {
@@ -249,6 +262,7 @@ const LockMatchScreen = () => {
       socketService.match.sessionDeleteBetOff();
       socketService.match.sessionResultOff();
       socketService.match.sessionResultUnDeclareOff();
+      socketService.match.updateDeleteReasonOff();
     };
   }, [state?.matchId]);
 
