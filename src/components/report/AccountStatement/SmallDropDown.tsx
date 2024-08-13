@@ -48,23 +48,7 @@ const SmallDropDown = ({ setPageLimit, pageLimit, setCurrentPage }: any) => {
             zIndex: 22,
           }}
         >
-          {[
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-          ].map((item: any, idx: any) => {
+          {[5, 10, 15, 20, 50, 100].map((item: any, idx: any) => {
             return (
               <>
                 <Typography
