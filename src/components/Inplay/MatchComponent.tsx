@@ -166,8 +166,10 @@ const MatchComponent = (props: MatchComponentInterface) => {
           position: "relative",
           marginY: { xs: "13px", lg: "3px" },
           marginTop: {
-            xs: top ? "13px" : "1.2vh",
-            lg: top ? "10px" : "1vh",
+            xs: top ? "20px" : "1.2vh",
+            lg: top ? "25px" : "1vh",
+            md: top ? "25px" : "1vh",
+            sm: top ? "20px" : "1vh",
           },
           width: { xs: "98%", lg: "97.8%" },
           marginX: "1vw",
