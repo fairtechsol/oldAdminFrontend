@@ -34,7 +34,7 @@ export { default as ARROWDROPDOWN } from "./images/arrowDropDown.png";
 export { default as Lock } from "./images/lock.png";
 export { default as CalendarImage } from "./images/calendar.png";
 export { default as ARROWUP } from "./images/arrow_up.png";
-export { default as ARROW_UP } from "./images/arrowUp.png";
+export { default as ARROW_UP } from "./images/arrowup.png";
 export { default as CHECK } from "./images/check.png";
 export { default as LOCKOPEN } from "./images/lockopen.png";
 export { default as LOCKED } from "./images/locked.png";

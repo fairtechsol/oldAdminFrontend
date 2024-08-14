@@ -9,19 +9,19 @@ const toastOptions = {
   pauseOnHover: true,
 };
 
-// const service = axios.create({
-//   baseURL:
-//     process.env.NODE_ENV === Constants.PRODUCTION
-//       ? Constants.apiBasePath
-//       : Constants.localPath,
-// });
-
 const service = axios.create({
   baseURL:
     process.env.NODE_ENV === Constants.PRODUCTION
-      ? Constants.apiBasePathLive
+      ? Constants.apiBasePath
       : Constants.localPath,
 });
+
+// const service = axios.create({
+//   baseURL:
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? Constants.apiBasePathLive
+//       : Constants.localPath,
+// });
 
 service.defaults.timeout = 100000;
 
