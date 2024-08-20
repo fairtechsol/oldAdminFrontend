@@ -133,7 +133,7 @@ const MatchOdds = (props: any) => {
                     currentMatch?.profitLossDataMatch?.teamBRate
                   )
                 : typeOfBet === "Tied Match" ||
-                  typeOfBet === "Manual Tied Match"
+                  typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                 ? bookRatioA(
                     currentMatch?.profitLossDataMatch?.yesRateTie,
                     currentMatch?.profitLossDataMatch?.noRateTie
@@ -155,7 +155,7 @@ const MatchOdds = (props: any) => {
                     currentMatch?.profitLossDataMatch?.teamBRate
                   )
                 : typeOfBet === "Tied Match" ||
-                  typeOfBet === "Manual Tied Match"
+                  typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                 ? bookRatioB(
                     currentMatch?.profitLossDataMatch?.yesRateTie,
                     currentMatch?.profitLossDataMatch?.noRateTie
@@ -290,12 +290,12 @@ const MatchOdds = (props: any) => {
                 <TeamRowComponent
                   // teamImage={currentMatch?.teamA_Image}
                   name={
-                    typeOfBet !== "Manual Tied Match"
+                    typeOfBet !== "Manual Tied Match" && typeOfBet !== "Complete Manual"
                       ? currentMatch?.teamA
                       : "Yes"
                   }
                   rates={
-                    typeOfBet === "Manual Tied Match"
+                    typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.yesRateTie
                         ? currentMatch?.profitLossDataMatch?.yesRateTie
                         : 0
@@ -304,7 +304,7 @@ const MatchOdds = (props: any) => {
                       : 0
                   }
                   color={
-                    typeOfBet === "Manual Tied Match"
+                    typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.yesRateTie
                         ? currentMatch?.profitLossDataMatch?.yesRateTie < 0
                           ? "#FF4D4D"
@@ -330,12 +330,12 @@ const MatchOdds = (props: any) => {
                 <TeamRowComponent
                   // teamImage={currentMatch?.teamA_Image}
                   name={
-                    typeOfBet !== "Manual Tied Match"
+                    typeOfBet !== "Manual Tied Match" && typeOfBet !== "Complete Manual"
                       ? currentMatch?.teamB
                       : "No"
                   }
                   rates={
-                    typeOfBet === "Manual Tied Match"
+                    typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.noRateTie
                         ? currentMatch?.profitLossDataMatch?.noRateTie
                         : 0
@@ -344,7 +344,7 @@ const MatchOdds = (props: any) => {
                       : 0
                   }
                   color={
-                    typeOfBet === "Manual Tied Match"
+                    typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.noRateTie
                         ? currentMatch?.profitLossDataMatch?.noRateTie < 0
                           ? "#FF4D4D"
@@ -366,7 +366,7 @@ const MatchOdds = (props: any) => {
                   status={data?.statusTeamB !== "active" ? true : false}
                   isTeamC={currentMatch?.teamC}
                 />
-                {currentMatch?.teamC && typeOfBet !== "Manual Tied Match" ? (
+                {currentMatch?.teamC && typeOfBet !== "Manual Tied Match" && typeOfBet !== "Complete Manual" ? (
                   <>
                     <Divider />
                     <TeamRowComponent
@@ -457,7 +457,7 @@ const MatchOdds = (props: any) => {
                         ? currentMatch?.profitLossDataMatch?.teamARate
                         : 0
                       : typeOfBet === "Tied Match" ||
-                        typeOfBet === "Manual Tied Match"
+                        typeOfBet === "Manual Tied Match"|| typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.yesRateTie
                         ? currentMatch?.profitLossDataMatch?.yesRateTie
                         : 0
@@ -471,7 +471,7 @@ const MatchOdds = (props: any) => {
                     (typeOfBet === "Match Odds"
                       ? currentMatch?.profitLossDataMatch?.teamARate
                       : typeOfBet === "Tied Match" ||
-                        typeOfBet === "Manual Tied Match"
+                        typeOfBet === "Manual Tied Match"|| typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.yesRateTie
                       : currentMatch?.profitLossDataMatch?.yesRateComplete) <= 0
                       ? "#FF4D4D"
@@ -487,7 +487,7 @@ const MatchOdds = (props: any) => {
                     (typeOfBet === "Match Odds"
                       ? currentMatch?.profitLossDataMatch?.teamBRate
                       : typeOfBet === "Tied Match" ||
-                        typeOfBet === "Manual Tied Match"
+                        typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.noRateTie
                       : currentMatch?.profitLossDataMatch?.noRateComplete) <= 0
                       ? "#FF4D4D"
@@ -500,7 +500,7 @@ const MatchOdds = (props: any) => {
                         ? currentMatch?.profitLossDataMatch?.teamBRate
                         : 0
                       : typeOfBet === "Tied Match" ||
-                        typeOfBet === "Manual Tied Match"
+                        typeOfBet === "Manual Tied Match" || typeOfBet === "Complete Manual"
                       ? currentMatch?.profitLossDataMatch?.noRateTie
                         ? currentMatch?.profitLossDataMatch?.noRateTie
                         : 0
@@ -517,7 +517,8 @@ const MatchOdds = (props: any) => {
                 {currentMatch?.teamC &&
                 typeOfBet !== "Tied Match" &&
                 typeOfBet !== "Manual Tied Match" &&
-                typeOfBet !== "Market Complete Match" ? (
+                typeOfBet !== "Market Complete Match" && 
+                typeOfBet !== "Complete Manual" ? (
                   <>
                     <Divider />
                     <BoxComponent
