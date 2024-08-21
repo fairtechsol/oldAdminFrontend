@@ -130,7 +130,7 @@ const RowComponentMatches = ({
               right: 5,
             }}
           >
-            ({moment(item?.startAt).format("DD-MM-YYYY")})
+            ({moment(item?.startAt).format("DD-MM-YYYY HH:mm:ss")})
           </Typography>
 
           <Box
@@ -163,7 +163,7 @@ const RowComponentMatches = ({
                 fontWeight: "500",
               }}
             >
-              ({moment(item?.startAt).format("DD-MM-YYYY")})
+              ({moment(item?.startAt).format("DD-MM-YYYY HH:mm:ss")})
             </Typography>
           </Box>
           {true && (
