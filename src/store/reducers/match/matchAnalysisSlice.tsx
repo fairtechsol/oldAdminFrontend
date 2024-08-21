@@ -77,6 +77,7 @@ const analysisListSlice = createSlice({
                 matchOdd,
                 quickbookmaker,
                 sessionBettings,
+                completeManual,
               } = action?.payload;
               return {
                 ...match,
@@ -88,6 +89,7 @@ const analysisListSlice = createSlice({
                 matchOdd: matchOdd,
                 quickBookmaker: quickbookmaker,
                 sessionBettings: sessionBettings,
+                manualCompleteMatch: completeManual,
               };
             } else {
               return match;
@@ -157,7 +159,9 @@ const analysisListSlice = createSlice({
                   },
                 };
               } else if (
-                ["completeMatch"].includes(jobData?.newBet?.marketType)
+                ["completeMatch", "completeManual"].includes(
+                  jobData?.newBet?.marketType
+                )
               ) {
                 return {
                   ...match,
@@ -249,7 +253,9 @@ const analysisListSlice = createSlice({
                         redisObject[action?.payload?.teamBrateRedisKey],
                     },
                   };
-                } else if (["completeMatch"].includes(matchBetType)) {
+                } else if (
+                  ["completeMatch", "completeManual"].includes(matchBetType)
+                ) {
                   return {
                     ...match,
                     profitLossDataMatch: {

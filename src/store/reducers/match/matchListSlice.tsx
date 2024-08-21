@@ -87,8 +87,8 @@ const matchListSlice = createSlice({
 
             let matchOdds =
               state?.matchListInplay?.matches[matchListIndex]?.matchOdds &&
-              state?.matchListInplay?.matches[matchListIndex]?.matchOdds?.length >
-                0
+              state?.matchListInplay?.matches[matchListIndex]?.matchOdds
+                ?.length > 0
                 ? state?.matchListInplay?.matches[matchListIndex]?.matchOdds[0]
                 : state?.matchListInplay?.matches[matchListIndex]?.matchOdds;
 
@@ -119,6 +119,7 @@ const matchListSlice = createSlice({
           matchOdd,
           quickbookmaker,
           sessionBettings,
+          completeManual,
         } = action?.payload;
         state.matchDetail = {
           ...state.matchDetail,
@@ -132,6 +133,7 @@ const matchListSlice = createSlice({
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
           sessionBettings: sessionBettings,
+          manualCompleteMatch: completeManual,
         };
       })
       .addCase(matchListReset, (state) => {
@@ -142,7 +144,8 @@ const matchListSlice = createSlice({
           ...state.getProfile,
           userBal: {
             ...state?.getProfile?.userBal,
-            exposure: action?.payload?.newUserExposure ?? action?.payload?.exposure,
+            exposure:
+              action?.payload?.newUserExposure ?? action?.payload?.exposure,
           },
         };
       })
@@ -257,7 +260,11 @@ const matchListSlice = createSlice({
             yesRateTie: userRedisObj[jobData?.teamArateRedisKey],
             noRateTie: userRedisObj[jobData?.teamBrateRedisKey],
           };
-        } else if (["completeMatch"].includes(jobData?.newBet?.marketType)) {
+        } else if (
+          ["completeMatch", "completeManual"].includes(
+            jobData?.newBet?.marketType
+          )
+        ) {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             yesRateComplete: userRedisObj[jobData?.teamArateRedisKey],
@@ -280,7 +287,10 @@ const matchListSlice = createSlice({
             yesRateTie: redisObject[action?.payload?.teamArateRedisKey],
             noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
           };
-        } else if (matchBetType === "completeMatch") {
+        } else if (
+          matchBetType === "completeMatch" ||
+          matchBetType === "completeManual"
+        ) {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             yesRateComplete: redisObject[action?.payload?.teamArateRedisKey],
