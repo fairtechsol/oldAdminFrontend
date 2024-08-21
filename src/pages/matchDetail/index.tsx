@@ -293,6 +293,7 @@ const MatchDetail = () => {
     };
   }, []);
 
+  console.log("match", matchDetail);
   return (
     <>
       {visible && selectedBetData.length > 0 && (
@@ -414,6 +415,7 @@ const MatchDetail = () => {
               )}
             />
           )}
+
           {matchDetail?.marketCompleteMatch?.isActive && (
             <MatchOdds
               currentMatch={matchDetail}
@@ -434,6 +436,22 @@ const MatchDetail = () => {
               }
             />
           )}
+
+          {matchDetail?.manualCompleteMatch?.isActive && matchesMobile && (
+            <MatchOdds
+              typeOfBet={"Complete Manual"}
+              data={matchDetail?.manualCompleteMatch}
+              currentMatch={matchDetail}
+              session={"manualBookMaker"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.manualCompleteMatch?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.manualCompleteMatch?.maxBet)
+              )}
+            />
+          )}
+
           <Box sx={{ width: "150px", height: "3px" }}></Box>
           {matchDetail?.manualSessionActive &&
             matchDetail?.sessionBettings?.filter(
