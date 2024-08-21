@@ -439,7 +439,7 @@ const MatchDetail = () => {
 
           {matchDetail?.manualCompleteMatch?.isActive && matchesMobile && (
             <MatchOdds
-              typeOfBet={"Complete Manual"}
+              typeOfBet={"Manual Complete Match"}
               data={matchDetail?.manualCompleteMatch}
               currentMatch={matchDetail}
               session={"manualBookMaker"}
@@ -644,6 +644,20 @@ const MatchDetail = () => {
                 )}
                 maxBet={formatToINR(
                   Math.floor(matchDetail?.manualTiedMatch?.maxBet)
+                )}
+              />
+            )}
+            {matchDetail?.marketCompleteMatch?.isActive && (
+              <MatchOdds
+                typeOfBet={"Manual Complete Match"}
+                currentMatch={matchDetail}
+                session={"manualBookMaker"}
+                data={matchDetail?.marketCompleteMatch}
+                minBet={formatToINR(
+                  Math.floor(matchDetail?.marketCompleteMatch?.minBet)
+                )}
+                maxBet={formatToINR(
+                  Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
                 )}
               />
             )}
