@@ -7,12 +7,12 @@ import {
 } from "@mui/material";
 import SeperateBox from "../MatchOdds/SeperateBox";
 import { BallStart } from "../../../assets";
-import { formatNumber, formatToINR } from "../../../helper";
+import { formatToINR } from "../../../helper";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
 const CricketCasinoMarketBox = (props: any) => {
-  const { newData, setData, profitLossData, index } = props;
+  const { newData, setData, profitLossData, index, sessionData } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -86,17 +86,19 @@ const CricketCasinoMarketBox = (props: any) => {
         >
           {matchesMobile ? (
             <PlaceBetComponent
-              // amount={index == 2}
+              sessionData={sessionData}
               newData={newData}
-              profitLoss={profitLossData && profitLossData[0]}
+              profitLoss={profitLossData?.length > 0 && profitLossData[0]}
               setData={setData}
+              index={index}
             />
           ) : (
             <PlaceBetComponentWeb
-              // amount={index == 2}
+              sessionData={sessionData}
               newData={newData}
-              profitLoss={profitLossData && profitLossData[0]}
+              profitLoss={profitLossData?.length > 0 && profitLossData[0]}
               setData={setData}
+              index={index}
             />
           )}
 

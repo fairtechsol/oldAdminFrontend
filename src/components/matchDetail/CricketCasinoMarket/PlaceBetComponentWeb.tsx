@@ -5,9 +5,15 @@ import { AppDispatch } from "../../../store/store";
 import { getSessionProLoss } from "../../../store/actions/match/matchAction";
 import { handleNumber } from "../../../helper";
 
-const PlaceBetComponentWeb = ({ newData, profitLoss,color }: any) => {
+const PlaceBetComponentWeb = ({
+  newData,
+  profitLoss,
+  color,
+  // sessionData,
+  index,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+  // const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <>
       <Box
@@ -36,7 +42,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss,color }: any) => {
           position: "absolute",
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             background: "#FDF21A",
             borderRadius: "3px",
@@ -58,7 +64,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss,color }: any) => {
           >
             {Math.floor(profitLoss?.totalBet) || 0}
           </Typography>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             width: "100%",
@@ -74,8 +80,12 @@ const PlaceBetComponentWeb = ({ newData, profitLoss,color }: any) => {
               color: "white",
             }}
           >
-            {" "}
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
+            {!profitLoss?.profitLoss
+              ? "Profit/Loss"
+              : handleNumber(
+                  parseFloat(profitLoss?.profitLoss[index]).toFixed(2),
+                  color
+                )}
           </Typography>
           <img
             src={UD}

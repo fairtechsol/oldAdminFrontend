@@ -21,7 +21,7 @@ const SessionMarket = (props: any) => {
     min,
     sessionData,
     allBetsData,
-    // currentMatch,
+    currentMatch,
     type,
     handleBlock,
     handleHide,
@@ -31,6 +31,8 @@ const SessionMarket = (props: any) => {
   const onSubmit = (value: any) => {
     handleBlock(value, !locked, "SESSION");
   };
+
+  console.log(type, "type");
 
   return (
     <>
@@ -112,9 +114,18 @@ const SessionMarket = (props: any) => {
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
-                total={allBetsData?.reduce((acc: number, bet: any) => {
-                  return acc + +bet?.totalBet;
-                }, 0)}
+                total={allBetsData
+                  ?.filter(
+                    (item: any) =>
+                      JSON.parse(
+                        currentMatch?.sessionBettings?.find(
+                          (items: any) => JSON.parse(items)?.id == item?.betId
+                        ) || "{}"
+                      )?.type == type
+                  )
+                  ?.reduce((acc: number, bet: any) => {
+                    return acc + +bet?.totalBet;
+                  }, 0)}
               />
               {/* static code */}
               <Box
@@ -154,6 +165,15 @@ const SessionMarket = (props: any) => {
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
                       allBetsData
+                        ?.filter(
+                          (item: any) =>
+                            JSON.parse(
+                              currentMatch?.sessionBettings?.find(
+                                (items: any) =>
+                                  JSON.parse(items)?.id == item?.betId
+                              ) || "{}"
+                            )?.type == type
+                        )
                         ?.reduce((acc: number, bet: any) => {
                           return acc + (Number(bet?.maxLoss) || 0);
                         }, 0)
