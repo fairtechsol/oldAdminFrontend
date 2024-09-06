@@ -333,9 +333,7 @@ const SessionMarket = (props: any) => {
                     return (
                       <Box
                         key={
-                          title === "Session Market"
-                            ? element?.id
-                            : JSON.parse(element)?.id
+                          title === "Session Market" ? element?.id : element?.id
                         }
                         sx={{
                           width: "100%",
@@ -343,29 +341,9 @@ const SessionMarket = (props: any) => {
                         }}
                       >
                         <SeasonMarketBox
-                          newData={
-                            title === "Session Market"
-                              ? {
-                                  ...element,
-                                  noRate: element.LayPrice1 ?? 0,
-                                  noPercent: element.LaySize1 ?? 0,
-                                  yesRate: element.BackPrice1 ?? 0,
-                                  yesPercent: element.BackSize1 ?? 0,
-                                  status:
-                                    element?.GameStatus &&
-                                    element?.GameStatus !== ""
-                                      ? element?.GameStatus
-                                      : "active",
-                                  matchId: currentMatch?.id,
-                                }
-                              : JSON.parse(element)
-                          }
+                          newData={element}
                           profitLossData={allBetsData?.filter(
-                            (item: any) =>
-                              item?.betId ===
-                              (title === "Session Market"
-                                ? element?.id
-                                : JSON.parse(element)?.id)
+                            (item: any) => item?.betId === element?.id
                           )}
                           index={index}
                         />

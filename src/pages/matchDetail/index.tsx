@@ -486,6 +486,38 @@ const MatchDetail = () => {
               />
             )}
           {matchDetail?.apiSessionActive &&
+            Object.entries(matchDetail?.apiSession || {})
+              ?.filter(([_, value]: any) => value?.section?.length > 0)
+              ?.map(([key, value]: any) => {
+                return (
+                  <SessionMarket
+                    key={key}
+                    title={value?.mname}
+                    allBetsData={
+                      matchDetail?.profitLossDataSession
+                        ? Array.from(
+                            matchDetail?.profitLossDataSession?.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.betId)
+                                  ? acc
+                                  : acc.add(obj.betId) && acc,
+                              new Set()
+                            ),
+                            (id) =>
+                              matchDetail?.profitLossDataSession?.find(
+                                (obj: any) => obj.betId === id
+                              )
+                          )
+                        : []
+                    }
+                    currentMatch={matchDetail}
+                    sessionData={value?.section}
+                    min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+                    max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+                  />
+                );
+              })}
+          {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (
               <SessionMarket

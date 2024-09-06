@@ -15,6 +15,7 @@ import {
   updateTeamRatesOnDelete,
   setCurrentOdd,
 } from "../../actions/match/matchAction";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
 
 interface InitialState {
   matchListInplay: any;
@@ -118,13 +119,28 @@ const matchListSlice = createSlice({
           marketCompleteMatch,
           matchOdd,
           quickbookmaker,
-          sessionBettings,
+          // sessionBettings,
           completeManual,
         } = action?.payload;
+
+        let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
+          (item: any) => {
+            let parsedItem = JSON.parse(item);
+            return parsedItem;
+          }
+        );
+
+        let updatedFormat = convertData(parsedSessionBettings);
+
+        let updatedSessionBettings = updateSessionBettingsItem(
+          updatedFormat,
+          apiSession
+        );
+
         state.matchDetail = {
           ...state.matchDetail,
-          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
-          apiSessionActive: apiSession?.length >= 0 ? true : false,
+          // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
+          // apiSessionActive: apiSession?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
           bookmaker: bookmaker,
@@ -132,8 +148,9 @@ const matchListSlice = createSlice({
           marketCompleteMatch: marketCompleteMatch,
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
-          sessionBettings: sessionBettings,
+          // sessionBettings: sessionBettings,
           manualCompleteMatch: completeManual,
+          updatedSessionBettings: updatedSessionBettings,
         };
       })
       .addCase(matchListReset, (state) => {
