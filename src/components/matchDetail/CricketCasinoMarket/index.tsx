@@ -3,7 +3,6 @@ import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import BetsCountBox from "./BetsCountBox";
 import Divider from "../../Inplay/Divider";
 import { useState } from "react";
-import { customSort } from "../../../helper";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 
@@ -23,6 +22,7 @@ const CricketCasinoMarket = (props: any) => {
     currentMatch,
     handleBlock,
     handleHide,
+    type,
   } = props;
   const [visible, setVisible] = useState(true);
 
@@ -110,9 +110,18 @@ const CricketCasinoMarket = (props: any) => {
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
-                total={allBetsData?.reduce((acc: number, bet: any) => {
-                  return acc + +bet?.totalBet;
-                }, 0)}
+                total={allBetsData
+                  ?.filter(
+                    (item: any) =>
+                      JSON.parse(
+                        currentMatch?.sessionBettings?.find(
+                          (items: any) => JSON.parse(items)?.id == item?.betId
+                        ) || "{}"
+                      )?.type == type
+                  )
+                  ?.reduce((acc: number, bet: any) => {
+                    return acc + +bet?.totalBet;
+                  }, 0)}
               />
               {/* static code */}
               <Box
@@ -152,6 +161,16 @@ const CricketCasinoMarket = (props: any) => {
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
                       allBetsData
+                        ?.filter(
+                          (item: any) =>
+                            JSON.parse(
+                              currentMatch?.sessionBettings?.find(
+                                (items: any) =>
+                                  JSON.parse(items)?.id == item?.betId
+                              ) || "{}"
+                            )?.type == type
+                        )
+
                         ?.reduce((acc: number, bet: any) => {
                           return acc + (Number(bet?.maxLoss) || 0);
                         }, 0)
@@ -319,12 +338,15 @@ const CricketCasinoMarket = (props: any) => {
                       }}
                     >
                       <CricketCasinoMarketBox
-                        newData={{ ...currSessionItem }}
+                        newData={currSessionItem}
                         profitLossData={
-                          currentMatch?.profitLossData &&
-                          currentMatch?.profitLossData[sessionData?.id]
+                          currentMatch?.profitLossDataSession &&
+                          currentMatch?.profitLossDataSession?.filter(
+                            (item: any) => item?.betId === sessionData?.id
+                          )
                         }
                         index={index}
+                        sessionData={sessionData}
                       />
                       <Divider />
                     </Box>

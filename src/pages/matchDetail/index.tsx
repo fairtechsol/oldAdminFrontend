@@ -483,6 +483,7 @@ const MatchDetail = () => {
                 )}
                 min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                 max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+                type="session"
               />
             )}
           {matchDetail?.apiSessionActive &&
@@ -518,7 +519,7 @@ const MatchDetail = () => {
                     sessionData={value?.section}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                     max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
-                    type={key}
+                    type={key || value?.gtype}
                   />
                 );
               })}
@@ -550,7 +551,7 @@ const MatchDetail = () => {
                     sessionData={item}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                     max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
-
+                    type={sessionBettingType.cricketCasino}
                   />
                 );
               }
@@ -762,6 +763,7 @@ const MatchDetail = () => {
                   )}
                   min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                   max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+                  type="session"
                 />
               )}
 

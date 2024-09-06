@@ -164,7 +164,7 @@ const SeasonMarketBox = (props: any) => {
                       newData?.status === "suspended" ||
                       [0, "0"].includes(Math.floor(newData?.noRate))
                     }
-                    color="F6D0CB"
+                    color="#F6D0CB"
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
@@ -182,46 +182,40 @@ const SeasonMarketBox = (props: any) => {
                 </>
               ) : (
                 <>
-                  {newData.ex?.availableToLay?.map(
-                    (item: any, index: number) => (
-                      <SeperateBox
-                        key={index}
-                        session={true}
-                        back={true}
-                        value={item?.price ?? 0}
-                        value2={item?.size ?? 0}
-                        lock={
-                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
-                            ? true
-                            : false
-                        }
-                        color={
-                          sessionBettingType.oddEven == type
-                            ? "#B3E0FF"
-                            : "#F6D0CB"
-                        }
-                      />
-                    )
-                  )}
+                  <SeperateBox
+                    key={index}
+                    session={true}
+                    back={true}
+                    value={newData.ex?.availableToLay[0]?.price ?? 0}
+                    value2={newData.ex?.availableToLay[0]?.size ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(
+                        Math.floor(newData.ex?.availableToLay[0]?.price ?? 0)
+                      )
+                        ? true
+                        : false
+                    }
+                    color={
+                      sessionBettingType.oddEven == type ? "#B3E0FF" : "#F6D0CB"
+                    }
+                  />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
                   ></Box>
-                  {newData.ex?.availableToBack?.map(
-                    (item: any, index: number) => (
-                      <SeperateBox
-                        key={index}
-                        session={true}
-                        value={item?.price ?? 0}
-                        value2={item?.size ?? 0}
-                        lock={
-                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
-                            ? true
-                            : false
-                        }
-                        color="#B3E0FF"
-                      />  
-                    )
-                  )}
+                  <SeperateBox
+                    key={index}
+                    session={true}
+                    value={newData.ex?.availableToBack[0]?.price ?? 0}
+                    value2={newData.ex?.availableToBack[0]?.size ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(
+                        Math.floor(newData.ex?.availableToBack[0]?.price ?? 0)
+                      )
+                        ? true
+                        : false
+                    }
+                    color="#B3E0FF"
+                  />
                 </>
               )}
             </>
@@ -233,6 +227,167 @@ const SeasonMarketBox = (props: any) => {
         </Box>
       </Box>
       <Divider />
+      {Array.from(
+        { length: newData?.ex?.availableToLay?.length - 1 },
+        (_, i) => i + 1
+      )?.map((item: number) => (
+        <>
+          <Box
+            sx={{
+              display: "flex",
+              background: "white",
+              height: "38px",
+              width: "100%",
+              position: "relative",
+            }}
+          >
+            {newData?.activeStatus === "save" && (
+              <Box
+                sx={{
+                  margin: "1px",
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  right: 0,
+                  background: "rgba(0,0,0,0.5)",
+                  zIndex: 2,
+                }}
+              ></Box>
+            )}
+            <Box
+              sx={{
+                display: "flex",
+                height: "38px",
+                width: "40%",
+                alignItems: "center",
+                background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+              }}
+            ></Box>
+            <Box
+              sx={{
+                display: "flex",
+                position: "relative",
+                background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+                height: "38px",
+                width: { lg: "60%", xs: "80%" },
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              {matchesMobile ? (
+                <PlaceBetComponent
+                  // amount={index == 2}
+                  newData={newData}
+                  profitLoss={profitLossData && profitLossData[0]}
+                  setData={setData}
+                />
+              ) : (
+                <PlaceBetComponentWeb
+                  // amount={index == 2}
+                  newData={newData}
+                  profitLoss={profitLossData && profitLossData[0]}
+                  setData={setData}
+                />
+              )}
+
+              {!["ACTIVE", "active", "", undefined, null, ""].includes(
+                newData?.GameStatus
+              ) ||
+              (!newData.ex?.availableToBack?.length &&
+                !newData.ex?.availableToLay?.length) ? (
+                <Box
+                  sx={{
+                    background: "rgba(0,0,0,1)",
+                    // marginLeft: "-2px",
+                    height: "38px",
+                    // position: "absolute",
+                    marginLeft: { lg: "20%", md: "0%", xs: "0%" },
+                    // right: 0,
+                    width: { lg: "36.5%", md: "60%", xs: "60.5%" },
+                    justifyContent: { xs: "center", lg: "center" },
+                    alignItems: "center",
+                    display: "flex",
+                    zIndex: 1,
+                  }}
+                >
+                  {newData?.status == "Ball Running" ||
+                  newData?.status === "ball start" ? (
+                    <img
+                      src={BallStart}
+                      style={{ width: "113px", height: "32px" }}
+                    />
+                  ) : (
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "12px", lg: "18px" },
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                        width: "100%",
+                        color: "white",
+                        fontWeight: "400",
+                      }}
+                    >
+                      {newData?.isManual
+                        ? newData?.status
+                        : !newData?.GameStatus
+                        ? "SUSPENDED"
+                        : newData?.GameStatus}
+                    </Typography>
+                  )}
+                </Box>
+              ) : (
+                <>
+                  <SeperateBox
+                    key={index}
+                    session={true}
+                    back={true}
+                    value={newData.ex?.availableToLay[item]?.price ?? 0}
+                    value2={newData.ex?.availableToLay[item]?.size ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(
+                        Math.floor(newData.ex?.availableToLay[item]?.price ?? 0)
+                      )
+                        ? true
+                        : false
+                    }
+                    color={
+                      sessionBettingType.oddEven == type ? "#B3E0FF" : "#F6D0CB"
+                    }
+                  />
+                  <Box
+                    sx={{
+                      width: "3px",
+                      display: "flex",
+                      background: "pink",
+                    }}
+                  ></Box>
+                  <SeperateBox
+                    key={index}
+                    session={true}
+                    value={newData.ex?.availableToBack[item]?.price ?? 0}
+                    value2={newData.ex?.availableToBack[item]?.size ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(
+                        Math.floor(
+                          newData.ex?.availableToBack[item]?.price ?? 0
+                        )
+                      )
+                        ? true
+                        : false
+                    }
+                    color="#B3E0FF"
+                  />
+                </>
+              )}
+
+              <Box
+                sx={{ width: ".45%", display: "flex", background: "pink" }}
+              ></Box>
+            </Box>
+          </Box>
+          <Divider />
+        </>
+      ))}
     </>
   );
 };
