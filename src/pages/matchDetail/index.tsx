@@ -37,6 +37,7 @@ import { Constants, sessionBettingType } from "../../utils/Constants";
 import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
 import { formatToINR } from "../../helper";
+import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -293,7 +294,6 @@ const MatchDetail = () => {
     };
   }, []);
 
-  console.log("match", matchDetail);
   return (
     <>
       {visible && selectedBetData.length > 0 && (
@@ -518,9 +518,43 @@ const MatchDetail = () => {
                     sessionData={value?.section}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                     max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+                    type={key}
                   />
                 );
               })}
+          {matchDetail?.apiSessionActive &&
+            (matchDetail?.apiSession?.cricketCasino?.section || [])?.map(
+              (item: any) => {
+                return (
+                  <CricketCasinoMarket
+                    key={item?.selectionId}
+                    title={item?.RunnerName}
+                    allBetsData={
+                      matchDetail?.profitLossDataSession
+                        ? Array.from(
+                            matchDetail?.profitLossDataSession?.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.betId)
+                                  ? acc
+                                  : acc.add(obj.betId) && acc,
+                              new Set()
+                            ),
+                            (id) =>
+                              matchDetail?.profitLossDataSession?.find(
+                                (obj: any) => obj.betId === id
+                              )
+                          )
+                        : []
+                    }
+                    currentMatch={matchDetail}
+                    sessionData={item}
+                    min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+                    max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+
+                  />
+                );
+              }
+            )}
           {/* {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (

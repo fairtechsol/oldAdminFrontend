@@ -176,6 +176,7 @@ const matchListSlice = createSlice({
                   ...item,
                   maxLoss: profitLoss?.maxLoss,
                   totalBet: profitLoss?.totalBet,
+                  profitLoss: profitLoss?.betPlaced,
                 };
               }
               return item;
@@ -188,6 +189,7 @@ const matchListSlice = createSlice({
             updatedProfitLossDataSession?.push({
               betId: jobData?.placedBet?.betId,
               maxLoss: profitLoss?.maxLoss,
+              profitLoss: profitLoss?.betPlaced,
               totalBet: 1,
             });
           }
@@ -203,7 +205,6 @@ const matchListSlice = createSlice({
         if (bets?.length > 0 && state?.matchDetail?.id === bets[0]?.matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetail?.profitLossDataSession?.map((item: any) => {
-              // console.log(item);
               if (betId === item?.betId) {
                 return {
                   ...item,
