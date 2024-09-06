@@ -32,8 +32,6 @@ const SessionMarket = (props: any) => {
     handleBlock(value, !locked, "SESSION");
   };
 
-  console.log(type, "type");
-
   return (
     <>
       <Box

@@ -119,28 +119,64 @@ const matchListSlice = createSlice({
           marketCompleteMatch,
           matchOdd,
           quickbookmaker,
-          // sessionBettings,
+          sessionBettings,
           completeManual,
         } = action?.payload;
 
-        let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
-          (item: any) => {
-            let parsedItem = JSON.parse(item);
-            return parsedItem;
+        // let parsedSessionBettings = state?.matchDetail?.sessionBettings?.map(
+        //   (item: any) => JSON.parse(item)
+        // );
+
+        // let apiParsedSessionBettings = sessionBettings?.map((item: any) =>
+        //   JSON.parse(item)
+        // );
+
+        // apiParsedSessionBettings.forEach((apiItem: any) => {
+        //   const index = parsedSessionBettings.findIndex(
+        //     (parsedItem: any) => parsedItem.id === apiItem.id
+        //   );
+        //   if (index !== -1) {
+        //     parsedSessionBettings[index] = {
+        //       ...parsedSessionBettings[index],
+        //       ...apiItem,
+        //     };
+        //   } else parsedSessionBettings?.push(apiItem);
+        // });
+
+        // let stringifiedSessionBetting = parsedSessionBettings?.map(
+        //   (item: any) => JSON.stringify(item)
+        // );
+
+        // let updatedFormat = convertData(parsedSessionBettings);
+
+        // let updatedSessionBettings = updateSessionBettingsItem(
+        //   updatedFormat,
+        //   apiSession
+        // );
+
+        const parsedSessionBettings =
+          state.matchDetail?.sessionBettings?.map(JSON.parse) || [];
+        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
+
+        apiParsedSessionBettings.forEach((apiItem: any) => {
+          const index = parsedSessionBettings.findIndex(
+            (parsedItem: any) => parsedItem.id === apiItem.id
+          );
+          if (index !== -1) {
+            parsedSessionBettings[index] = {
+              ...parsedSessionBettings[index],
+              ...apiItem,
+            };
+          } else {
+            parsedSessionBettings.push(apiItem);
           }
-        );
-
-        let updatedFormat = convertData(parsedSessionBettings);
-
-        let updatedSessionBettings = updateSessionBettingsItem(
-          updatedFormat,
-          apiSession
+        });
+        const stringifiedSessionBetting = parsedSessionBettings.map(
+          JSON.stringify
         );
 
         state.matchDetail = {
           ...state.matchDetail,
-          // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
-          // apiSessionActive: apiSession?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
           bookmaker: bookmaker,
@@ -148,9 +184,12 @@ const matchListSlice = createSlice({
           marketCompleteMatch: marketCompleteMatch,
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
-          // sessionBettings: sessionBettings,
+          sessionBettings: stringifiedSessionBetting,
           manualCompleteMatch: completeManual,
-          updatedSessionBettings: updatedSessionBettings,
+          updatedSessionBettings: updateSessionBettingsItem(
+            convertData(parsedSessionBettings),
+            apiSession
+          ),
         };
       })
       .addCase(matchListReset, (state) => {
