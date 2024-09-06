@@ -107,9 +107,7 @@ const SeasonMarketBox = (props: any) => {
                 ) ||
                 (!newData.ex?.availableToBack?.length &&
                   !newData.ex?.availableToLay?.length)
-              : !["ACTIVE", "active", "", undefined, null, ""].includes(
-                  newData?.GameStatus
-                )
+              : newData?.status !== "active"
           ) ? (
             <Box
               sx={{
