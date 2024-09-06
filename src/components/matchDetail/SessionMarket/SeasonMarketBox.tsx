@@ -15,6 +15,7 @@ const SeasonMarketBox = (props: any) => {
   const { newData, setData, profitLossData, index } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <>
       <Box
@@ -99,7 +100,17 @@ const SeasonMarketBox = (props: any) => {
             />
           )}
 
-          {newData?.status !== "active" ? (
+          {(
+            !newData?.isManual
+              ? !["ACTIVE", "active", "", undefined, null, ""].includes(
+                  newData?.GameStatus
+                ) ||
+                (!newData.ex?.availableToBack?.length &&
+                  !newData.ex?.availableToLay?.length)
+              : !["ACTIVE", "active", "", undefined, null, ""].includes(
+                  newData?.GameStatus
+                )
+          ) ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
@@ -132,36 +143,83 @@ const SeasonMarketBox = (props: any) => {
                     fontWeight: "400",
                   }}
                 >
-                  {newData?.status}
+                  {newData?.isManual
+                    ? newData?.status
+                    : !newData?.GameStatus
+                    ? "SUSPENDED"
+                    : newData?.GameStatus}
                 </Typography>
               )}
             </Box>
           ) : (
             <>
-              <SeperateBox
-                session={true}
-                back={true}
-                value={Math.floor(newData?.noRate)}
-                value2={Math.floor(newData?.noPercent)}
-                lock={
-                  newData?.status === "suspended" ||
-                  [0, "0"].includes(Math.floor(newData?.noRate))
-                }
-                color={"#F6D0CB"}
-              />
-              <Box
-                sx={{ width: "3px", display: "flex", background: "pink" }}
-              ></Box>
-              <SeperateBox
-                session={true}
-                value={Math.floor(newData?.yesRate)}
-                value2={formatNumber(Math.floor(newData?.yesPercent))}
-                lock={
-                  newData?.status === "suspended" ||
-                  [0, "0"].includes(Math.floor(newData?.yesRate))
-                }
-                color={"#B3E0FF"}
-              />
+              {newData?.isManual ? (
+                <>
+                  <SeperateBox
+                    session={true}
+                    back={true}
+                    value={Math.floor(newData?.noRate)}
+                    value2={Math.floor(newData?.noPercent)}
+                    lock={
+                      newData?.status === "suspended" ||
+                      [0, "0"].includes(Math.floor(newData?.noRate))
+                    }
+                    color={"#F6D0CB"}
+                  />
+                  <Box
+                    sx={{ width: "3px", display: "flex", background: "pink" }}
+                  ></Box>
+                  <SeperateBox
+                    session={true}
+                    value={Math.floor(newData?.yesRate)}
+                    value2={formatNumber(Math.floor(newData?.yesPercent))}
+                    lock={
+                      newData?.status === "suspended" ||
+                      [0, "0"].includes(Math.floor(newData?.yesRate))
+                    }
+                    color={"#B3E0FF"}
+                  />
+                </>
+              ) : (
+                <>
+                  {newData.ex?.availableToLay?.map(
+                    (item: any, index: number) => (
+                      <SeperateBox
+                        key={index}
+                        session={true}
+                        back={true}
+                        value={item?.price ?? 0}
+                        value2={item?.size ?? 0}
+                        lock={
+                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
+                            ? true
+                            : false
+                        }
+                        color={"#F6D0CB"}
+                      />
+                    )
+                  )}
+                  <Box
+                    sx={{ width: "3px", display: "flex", background: "pink" }}
+                  ></Box>
+                  {newData.ex?.availableToBack?.map(
+                    (item: any, index: number) => (
+                      <SeperateBox
+                        key={index}
+                        session={true}
+                        value={item?.price ?? 0}
+                        value2={item?.size ?? 0}
+                        lock={
+                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
+                            ? true
+                            : false
+                        }
+                        color={"#B3E0FF"}
+                      />
+                    )
+                  )}
+                </>
+              )}
             </>
           )}
 

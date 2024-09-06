@@ -82,6 +82,15 @@ export const ApiConstants = {
   },
 };
 
+export const sessionBettingType = {
+  session: "session",
+  fancy1: "fancy1",
+  overByOver: "overByover",
+  ballByBall: "ballByBall",
+  oddEven: "oddEven",
+  cricketCasino: "cricketCasino",
+};
+
 export const Constants = {
   wallet: "wallet",
   oldAdmin: "/admin/",

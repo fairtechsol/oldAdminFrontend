@@ -20,7 +20,7 @@ const SessionMarket = (props: any) => {
     min,
     sessionData,
     allBetsData,
-    currentMatch,
+    // currentMatch,
     handleBlock,
     handleHide,
   } = props;
@@ -341,9 +341,17 @@ const SessionMarket = (props: any) => {
                         }}
                       >
                         <SeasonMarketBox
-                          newData={element}
+                          newData={
+                            title === "Quick Session Market"
+                              ? JSON.parse(element)
+                              : element
+                          }
                           profitLossData={allBetsData?.filter(
-                            (item: any) => item?.betId === element?.id
+                            (item: any) =>
+                              item?.betId ===
+                              (title === "Quick Session Market"
+                                ? JSON.parse(element)?.id
+                                : element?.id)
                           )}
                           index={index}
                         />
