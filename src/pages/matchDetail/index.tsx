@@ -33,10 +33,11 @@ import { useSelector } from "react-redux";
 import { socket, socketService } from "../../socketManager";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
-import { Constants } from "../../utils/Constants";
+import { Constants, sessionBettingType } from "../../utils/Constants";
 import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
 import { formatToINR } from "../../helper";
+import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -293,7 +294,6 @@ const MatchDetail = () => {
     };
   }, []);
 
-  console.log("match", matchDetail);
   return (
     <>
       {visible && selectedBetData.length > 0 && (
@@ -487,12 +487,16 @@ const MatchDetail = () => {
             )}
           {matchDetail?.apiSessionActive &&
             Object.entries(matchDetail?.apiSession || {})
-              ?.filter(([_, value]: any) => value?.section?.length > 0)
+              ?.filter(
+                ([key, value]: any) =>
+                  value?.section?.length > 0 &&
+                  key != sessionBettingType.cricketCasino
+              )
               ?.map(([key, value]: any) => {
                 return (
                   <SessionMarket
                     key={key}
-                    title={value?.mname}
+                    title={value?.mname || key}
                     allBetsData={
                       matchDetail?.profitLossDataSession
                         ? Array.from(
@@ -514,10 +518,44 @@ const MatchDetail = () => {
                     sessionData={value?.section}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
                     max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+                    type={key}
                   />
                 );
               })}
           {matchDetail?.apiSessionActive &&
+            (matchDetail?.apiSession?.cricketCasino?.section || [])?.map(
+              (item: any) => {
+                return (
+                  <CricketCasinoMarket
+                    key={item?.selectionId}
+                    title={item?.RunnerName}
+                    allBetsData={
+                      matchDetail?.profitLossDataSession
+                        ? Array.from(
+                            matchDetail?.profitLossDataSession?.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.betId)
+                                  ? acc
+                                  : acc.add(obj.betId) && acc,
+                              new Set()
+                            ),
+                            (id) =>
+                              matchDetail?.profitLossDataSession?.find(
+                                (obj: any) => obj.betId === id
+                              )
+                          )
+                        : []
+                    }
+                    currentMatch={matchDetail}
+                    sessionData={item}
+                    min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+                    max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
+
+                  />
+                );
+              }
+            )}
+          {/* {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (
               <SessionMarket
@@ -544,7 +582,7 @@ const MatchDetail = () => {
                 min={formatToINR(Math.floor(matchDetail?.betFairSessionMinBet))}
                 max={formatToINR(Math.floor(matchDetail?.betFairSessionMaxBet))}
               />
-            )}
+            )} */}
           {sessionProLoss?.length > 0 && matchesMobile && (
             <Box
               sx={{
@@ -726,7 +764,8 @@ const MatchDetail = () => {
                   max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
                 />
               )}
-            {matchDetail?.apiSessionActive &&
+
+            {/* {matchDetail?.apiSessionActive &&
               matchDetail?.apiSession?.length > 0 && (
                 <SessionMarket
                   title={"Session Market"}
@@ -757,7 +796,7 @@ const MatchDetail = () => {
                     Math.floor(matchDetail?.betFairSessionMinBet)
                   )}
                 />
-              )}
+              )} */}
             {sessionProLoss?.length > 0 && (
               <Box
                 sx={{

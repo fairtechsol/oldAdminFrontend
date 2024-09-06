@@ -10,12 +10,12 @@ import { BallStart } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
-import { sessionBettingType } from "../../../utils/Constants";
 
-const SeasonMarketBox = (props: any) => {
-  const { newData, setData, profitLossData, index, type } = props;
+const CricketCasinoMarketBox = (props: any) => {
+  const { newData, setData, profitLossData, index } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <>
       <Box
@@ -59,7 +59,7 @@ const SeasonMarketBox = (props: any) => {
                 lineHeight: "10px",
               }}
             >
-              {newData?.name ?? newData?.RunnerName}
+              {`${index} Number`}
             </Typography>
             <Typography
               sx={{
@@ -100,17 +100,9 @@ const SeasonMarketBox = (props: any) => {
             />
           )}
 
-          {(
-            !newData?.isManual
-              ? !["ACTIVE", "active", "", undefined, null, ""].includes(
-                  newData?.GameStatus
-                ) ||
-                (!newData.ex?.availableToBack?.length &&
-                  !newData.ex?.availableToLay?.length)
-              : !["ACTIVE", "active", "", undefined, null, ""].includes(
-                  newData?.GameStatus
-                )
-          ) ? (
+          {!["ACTIVE", "active", "", undefined, null, "", "OPEN"].includes(
+            newData?.gstatus
+          ) || !newData.odds?.length ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
@@ -143,87 +135,32 @@ const SeasonMarketBox = (props: any) => {
                     fontWeight: "400",
                   }}
                 >
-                  {newData?.isManual
-                    ? newData?.status
-                    : !newData?.GameStatus
-                    ? "SUSPENDED"
-                    : newData?.GameStatus}
+                  {!newData?.gstatus ? "SUSPENDED" : newData?.gstatus}
                 </Typography>
               )}
             </Box>
           ) : (
             <>
-              {newData?.isManual ? (
+              {newData?.odds?.map((item: any, index: number) => (
                 <>
                   <SeperateBox
+                    key={index}
                     session={true}
                     back={true}
-                    value={Math.floor(newData?.noRate)}
-                    value2={Math.floor(newData?.noPercent)}
+                    value={item?.odds ?? 0}
+                    value2={item?.size ?? 0}
                     lock={
-                      newData?.status === "suspended" ||
-                      [0, "0"].includes(Math.floor(newData?.noRate))
+                      [null, 0, "0"].includes(Math.floor(item?.odds ?? 0))
+                        ? true
+                        : false
                     }
-                    color="F6D0CB"
+                    color={"#B3E0FF"}
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
                   ></Box>
-                  <SeperateBox
-                    session={true}
-                    value={Math.floor(newData?.yesRate)}
-                    value2={formatNumber(Math.floor(newData?.yesPercent))}
-                    lock={
-                      newData?.status === "suspended" ||
-                      [0, "0"].includes(Math.floor(newData?.yesRate))
-                    }
-                    color="#B3E0FF"
-                  />
                 </>
-              ) : (
-                <>
-                  {newData.ex?.availableToLay?.map(
-                    (item: any, index: number) => (
-                      <SeperateBox
-                        key={index}
-                        session={true}
-                        back={true}
-                        value={item?.price ?? 0}
-                        value2={item?.size ?? 0}
-                        lock={
-                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
-                            ? true
-                            : false
-                        }
-                        color={
-                          sessionBettingType.oddEven == type
-                            ? "#B3E0FF"
-                            : "#F6D0CB"
-                        }
-                      />
-                    )
-                  )}
-                  <Box
-                    sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
-                  {newData.ex?.availableToBack?.map(
-                    (item: any, index: number) => (
-                      <SeperateBox
-                        key={index}
-                        session={true}
-                        value={item?.price ?? 0}
-                        value2={item?.size ?? 0}
-                        lock={
-                          [null, 0, "0"].includes(Math.floor(item?.price ?? 0))
-                            ? true
-                            : false
-                        }
-                        color="#B3E0FF"
-                      />  
-                    )
-                  )}
-                </>
-              )}
+              ))}
             </>
           )}
 
@@ -237,4 +174,4 @@ const SeasonMarketBox = (props: any) => {
   );
 };
 
-export default SeasonMarketBox;
+export default CricketCasinoMarketBox;

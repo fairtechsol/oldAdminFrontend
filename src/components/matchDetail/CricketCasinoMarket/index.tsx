@@ -2,13 +2,12 @@ import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import BetsCountBox from "./BetsCountBox";
 import Divider from "../../Inplay/Divider";
-import SeasonMarketBox from "./SeasonMarketBox";
 import { useState } from "react";
 import { customSort } from "../../../helper";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
-import { sessionBettingType } from "../../../utils/Constants";
+import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 
-const SessionMarket = (props: any) => {
+const CricketCasinoMarket = (props: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const {
@@ -21,8 +20,7 @@ const SessionMarket = (props: any) => {
     min,
     sessionData,
     allBetsData,
-    // currentMatch,
-    type,
+    currentMatch,
     handleBlock,
     handleHide,
   } = props;
@@ -231,36 +229,6 @@ const SessionMarket = (props: any) => {
                 >
                   <Box
                     sx={{
-                      background:
-                        sessionBettingType.oddEven == type
-                          ? "#00C0F9"
-                          : "#FF9292",
-                      width: { lg: "5.02vw", xs: "30.06%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {sessionBettingType.oddEven == type
-                        ? "BACK"
-                        : sessionBettingType.fancy1 == type
-                        ? "LAY"
-                        : "NO"}
-                    </Typography>
-                  </Box>
-                  <Box
-                    sx={{ width: "3px", display: "flex", background: "white" }}
-                  ></Box>
-                  <Box
-                    sx={{
                       background: "#00C0F9",
                       width: { lg: "5.05vw", xs: "30%" },
                       height: "100%",
@@ -276,12 +244,7 @@ const SessionMarket = (props: any) => {
                         fontWeight: "600",
                       }}
                     >
-                      {[
-                        sessionBettingType.oddEven,
-                        sessionBettingType.fancy1,
-                      ].includes(type)
-                        ? "BACK"
-                        : "YES"}
+                      BACK
                     </Typography>
                   </Box>
                 </Box>
@@ -339,7 +302,36 @@ const SessionMarket = (props: any) => {
                 position: "relative",
               }}
             >
-              {sessionData?.length > 0 &&
+              {Array.from({ length: 10 }, (_, index) => index)?.map(
+                (element: any, index: any) => {
+                  const currSessionItem =
+                    sessionData?.section?.find(
+                      (item: any) => parseInt(item?.sid) == element + 1
+                    ) || {};
+                  return (
+                    <Box
+                      key={
+                        title === "Session Market" ? element?.id : element?.id
+                      }
+                      sx={{
+                        width: "100%",
+                        display: element?.betStatus === 2 ? "none" : "block",
+                      }}
+                    >
+                      <CricketCasinoMarketBox
+                        newData={{ ...currSessionItem }}
+                        profitLossData={
+                          currentMatch?.profitLossData &&
+                          currentMatch?.profitLossData[sessionData?.id]
+                        }
+                        index={index}
+                      />
+                      <Divider />
+                    </Box>
+                  );
+                }
+              )}
+              {/* {sessionData?.length > 0 &&
                 sessionData
                   ?.slice()
                   .sort(customSort)
@@ -354,7 +346,7 @@ const SessionMarket = (props: any) => {
                           display: element?.betStatus === 2 ? "none" : "block",
                         }}
                       >
-                        <SeasonMarketBox
+                        <CricketCasinoMarketBox
                           newData={
                             title === "Quick Session Market"
                               ? JSON.parse(element)
@@ -368,12 +360,11 @@ const SessionMarket = (props: any) => {
                                 : element?.id)
                           )}
                           index={index}
-                          type={type}
                         />
                         <Divider />
                       </Box>
                     );
-                  })}
+                  })} */}
             </Box>
             {showUnlock && (
               <Box
@@ -422,4 +413,4 @@ const SessionMarket = (props: any) => {
   );
 };
 
-export default SessionMarket;
+export default CricketCasinoMarket;
