@@ -114,6 +114,7 @@ const matchListSlice = createSlice({
         const {
           apiSession,
           apiTiedMatch,
+          apiTiedMatch2,
           bookmaker,
           manualTideMatch,
           marketCompleteMatch,
@@ -179,6 +180,7 @@ const matchListSlice = createSlice({
           ...state.matchDetail,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
+          apiTideMatch2: apiTiedMatch2,
           bookmaker: bookmaker,
           manualTiedMatch: manualTideMatch,
           marketCompleteMatch: marketCompleteMatch,

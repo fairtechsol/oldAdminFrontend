@@ -387,6 +387,7 @@ const MatchDetail = () => {
             <MatchOdds
               currentMatch={matchDetail}
               typeOfBet={"Tied Match"}
+              title={matchDetail?.apiTideMatch?.name}
               minBet={formatToINR(
                 Math.floor(matchDetail?.apiTideMatch?.minBet)
               )}
@@ -399,6 +400,25 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+            />
+          )}
+          {matchDetail?.apiTideMatch2?.isActive && (
+            <MatchOdds
+              currentMatch={matchDetail}
+              typeOfBet={"Tied Match"}
+              title={matchDetail?.apiTideMatch2?.name}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch2?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.apiTideMatch2?.maxBet)
+              )}
+              data={
+                matchDetail?.apiTideMatch2?.runners?.length > 0
+                  ? matchDetail?.apiTideMatch2?.runners
+                  : []
+              }
+              showBox={matchDetail?.apiTideMatch2?.activeStatus === "save"}
             />
           )}
           {matchDetail?.manualTiedMatch?.isActive && matchesMobile && (
