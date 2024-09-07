@@ -278,7 +278,7 @@ const SeasonMarketBox = (props: any) => {
                 alignItems: "center",
               }}
             >
-              {matchesMobile ? (
+              {/* {matchesMobile ? (
                 <PlaceBetComponent
                   type={type}
                   newData={newData}
@@ -292,7 +292,7 @@ const SeasonMarketBox = (props: any) => {
                   profitLoss={profitLossData && profitLossData[0]}
                   setData={setData}
                 />
-              )}
+              )} */}
 
               {!["ACTIVE", "active", "", undefined, null, ""].includes(
                 newData?.GameStatus
