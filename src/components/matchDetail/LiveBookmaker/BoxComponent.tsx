@@ -123,7 +123,7 @@ const BoxComponent = (props: any) => {
                   fontWeight: "400",
                 }}
               >
-                {status ? status : 'suspended'} 
+                {status ? status : "suspended"}
               </Typography>
             </Box>
           </Box>
@@ -142,17 +142,21 @@ const BoxComponent = (props: any) => {
           <MoneyBox color={color} rates={rates} />
 
           {ex?.availableToBack?.length > 0 &&
-          ![0, "0"].includes(ex?.availableToBack[0]?.price) ? (
+          ![0, "0"].includes(
+            ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]?.price
+          ) ? (
             <SeperateBox
               align={align}
               value={
                 ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[0]?.price
+                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
+                      ?.price
                   : 0
               }
               value2={formatNumber(
                 ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[0]?.size
+                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
+                      ?.size
                   : 0,
                 false
               )}
