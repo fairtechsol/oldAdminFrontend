@@ -4,27 +4,27 @@ import { useDispatch } from "react-redux";
 import { getSessionProLoss } from "../../../store/actions/match/matchAction";
 import { handleNumber } from "../../../helper";
 
-const PlaceBetComponent = ({ newData, profitLoss, color }: any) => {
+const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <Box
-      //   onClick={handleClick}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
-        // ref={innerRef}
         onClick={() => {
-          dispatch(
-            getSessionProLoss({
-              matchId: newData?.matchId,
-              id: newData?.id,
-              name: newData?.name ?? newData?.RunnerName,
-              type: !newData?.isManual
-                ? "Session Market"
-                : "Quick Session Market",
-            })
-          );
+          if (type === "session") {
+            dispatch(
+              getSessionProLoss({
+                matchId: newData?.matchId,
+                id: newData?.id,
+                name: newData?.name ?? newData?.RunnerName,
+                type: !newData?.isManual
+                  ? "Session Market"
+                  : "Quick Session Market",
+              })
+            );
+          }
         }}
         sx={{
           background: "#0B4F26",
