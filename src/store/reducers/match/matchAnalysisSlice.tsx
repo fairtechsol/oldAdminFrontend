@@ -13,6 +13,7 @@ import {
   updateTeamRatesOfMultipleMatch,
   updateTeamRatesOnDeleteForMultiMatch,
 } from "../../actions/match/multipleMatchAction";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
 
 interface InitialState {
   analysisList: any;
@@ -79,6 +80,28 @@ const analysisListSlice = createSlice({
                 sessionBettings,
                 completeManual,
               } = action?.payload;
+
+              const parsedSessionBettings =
+                match?.sessionBettings?.map(JSON.parse) || [];
+              const apiParsedSessionBettings =
+                sessionBettings?.map(JSON.parse) || [];
+
+              apiParsedSessionBettings.forEach((apiItem: any) => {
+                const index = parsedSessionBettings.findIndex(
+                  (parsedItem: any) => parsedItem.id === apiItem.id
+                );
+                if (index !== -1) {
+                  parsedSessionBettings[index] = {
+                    ...parsedSessionBettings[index],
+                    ...apiItem,
+                  };
+                } else {
+                  parsedSessionBettings.push(apiItem);
+                }
+              });
+              const stringifiedSessionBetting = parsedSessionBettings.map(
+                JSON.stringify
+              );
               return {
                 ...match,
                 apiSession: apiSession,
@@ -88,8 +111,12 @@ const analysisListSlice = createSlice({
                 marketCompleteMatch: marketCompleteMatch,
                 matchOdd: matchOdd,
                 quickBookmaker: quickbookmaker,
-                sessionBettings: sessionBettings,
+                sessionBettings: stringifiedSessionBetting,
                 manualCompleteMatch: completeManual,
+                updatedSessionBettings: updateSessionBettingsItem(
+                  convertData(parsedSessionBettings),
+                  apiSession
+                ),
               };
             } else {
               return match;
@@ -112,6 +139,7 @@ const analysisListSlice = createSlice({
                         ...item,
                         maxLoss: profitLoss?.maxLoss,
                         totalBet: profitLoss?.totalBet,
+                        profitLoss: profitLoss?.betPlaced,
                       };
                     }
                     return item;
@@ -124,6 +152,7 @@ const analysisListSlice = createSlice({
                   updatedProfitLossDataSession?.push({
                     betId: jobData?.placedBet?.betId,
                     maxLoss: profitLoss?.maxLoss,
+                    profitLoss: profitLoss?.betPlaced,
                     totalBet: 1,
                   });
                 }
@@ -200,6 +229,7 @@ const analysisListSlice = createSlice({
                       betId: betId,
                       maxLoss: profitLossData?.maxLoss,
                       totalBet: profitLossData?.totalBet,
+                      profitLoss: profitLossData?.betPlaced,
                     },
                   ])
                 );
@@ -299,6 +329,7 @@ const analysisListSlice = createSlice({
                         ...item,
                         maxLoss: profitLoss?.maxLoss,
                         totalBet: profitLoss?.totalBet,
+                        profitLoss: profitLoss?.betPlaced,
                       };
                     }
                     return item;
@@ -311,6 +342,7 @@ const analysisListSlice = createSlice({
                   updatedProfitLossDataSession?.push({
                     betId: betId,
                     maxLoss: profitLoss?.maxLoss,
+                    profitLoss: profitLoss?.betPlaced,
                     totalBet: 1,
                   });
                 }
