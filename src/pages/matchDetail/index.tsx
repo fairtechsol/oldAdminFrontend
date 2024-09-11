@@ -408,17 +408,21 @@ const MatchDetail = () => {
               );
             })}
           {matchDetail?.other &&
-            matchDetail?.other?.map((match: any) => (
-              <LiveBookmaker
-                currentMatch={matchDetail}
-                showBox={match?.activeStatus === "save"}
-                minBet={Math.floor(match?.minBet)}
-                maxBet={Math.floor(match?.maxBet)}
-                liveData={match}
-                data={match?.runners?.length > 0 ? match?.runners : []}
-                title={match?.name}
-              />
-            ))}
+            matchDetail?.other
+              ?.filter(
+                (item: any) => item?.activeStatus === "live" && item?.isActive
+              )
+              ?.map((match: any) => (
+                <LiveBookmaker
+                  currentMatch={matchDetail}
+                  showBox={match?.activeStatus === "save"}
+                  minBet={Math.floor(match?.minBet)}
+                  maxBet={Math.floor(match?.maxBet)}
+                  liveData={match}
+                  data={match?.runners?.length > 0 ? match?.runners : []}
+                  title={match?.name}
+                />
+              ))}
           {matchDetail?.apiTideMatch?.isActive && (
             <MatchOdds
               liveData={matchDetail?.apiTideMatch}
@@ -789,7 +793,7 @@ const MatchDetail = () => {
             </Box>
             {matchDetail?.manualTiedMatch?.isActive && (
               <MatchOdds
-              liveData={matchDetail?.manualTiedMatch}
+                liveData={matchDetail?.manualTiedMatch}
                 typeOfBet={"Manual Tied Match"}
                 currentMatch={matchDetail}
                 session={"manualBookMaker"}
@@ -805,7 +809,7 @@ const MatchDetail = () => {
             )}
             {matchDetail?.marketCompleteMatch?.isActive && (
               <MatchOdds
-              liveData={matchDetail?.marketCompleteMatch}
+                liveData={matchDetail?.marketCompleteMatch}
                 typeOfBet={"Manual Complete Match"}
                 currentMatch={matchDetail}
                 session={"manualBookMaker"}
