@@ -6,6 +6,7 @@ import TeamRowComponent from "./TeamRowComponent";
 import BoxComponent from "../LiveBookmaker/BoxComponent";
 import { useState } from "react";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 
 const MatchOdds = (props: any) => {
   const {
@@ -25,6 +26,7 @@ const MatchOdds = (props: any) => {
     handleBlock,
     handleHide,
     title,
+    liveData,
   } = props;
 
   const [visible, setVisible] = useState(true);
@@ -131,52 +133,62 @@ const MatchOdds = (props: any) => {
           }}
         >
           <SmallBox
-            valueA={
-              typeOfBet === "Match Odds"
-                ? bookRatioA(
-                    currentMatch?.profitLossDataMatch?.teamARate,
-                    currentMatch?.profitLossDataMatch?.teamBRate
-                  )
-                : typeOfBet === "Tied Match" ||
-                  typeOfBet === "Manual Tied Match"
-                ? bookRatioA(
-                    currentMatch?.profitLossDataMatch?.yesRateTie,
-                    currentMatch?.profitLossDataMatch?.noRateTie
-                  )
-                : typeOfBet === "Market Complete Match" ||
-                  typeOfBet === "Manual Complete Match"
-                ? bookRatioA(
-                    currentMatch?.profitLossDataMatch?.yesRateComplete,
-                    currentMatch?.profitLossDataMatch?.noRateComplete
-                  )
-                : bookRatioA(
-                    currentMatch?.profitLossDataMatch?.teamARate,
-                    currentMatch?.profitLossDataMatch?.teamBRate
-                  )
-            }
-            valueB={
-              typeOfBet === "Match Odds"
-                ? bookRatioB(
-                    currentMatch?.profitLossDataMatch?.teamARate,
-                    currentMatch?.profitLossDataMatch?.teamBRate
-                  )
-                : typeOfBet === "Tied Match" ||
-                  typeOfBet === "Manual Tied Match"
-                ? bookRatioB(
-                    currentMatch?.profitLossDataMatch?.yesRateTie,
-                    currentMatch?.profitLossDataMatch?.noRateTie
-                  )
-                : typeOfBet === "Market Complete Match" ||
-                  typeOfBet === "Manual Complete Match"
-                ? bookRatioB(
-                    currentMatch?.profitLossDataMatch?.yesRateComplete,
-                    currentMatch?.profitLossDataMatch?.noRateComplete
-                  )
-                : bookRatioB(
-                    currentMatch?.profitLossDataMatch?.teamARate,
-                    currentMatch?.profitLossDataMatch?.teamBRate
-                  )
-            }
+            valueA={bookRatioA(
+              currentMatch?.profitLossDataMatch
+                ? currentMatch?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[liveData?.type]?.A +
+                      "_" +
+                      currentMatch?.id
+                  ]
+                  ? currentMatch?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[liveData?.type]?.A +
+                        "_" +
+                        currentMatch?.id
+                    ]
+                  : 0
+                : 0,
+              currentMatch?.profitLossDataMatch
+                ? currentMatch?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[liveData?.type]?.B +
+                      "_" +
+                      currentMatch?.id
+                  ]
+                  ? currentMatch?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[liveData?.type]?.B +
+                        "_" +
+                        currentMatch?.id
+                    ]
+                  : 0
+                : 0
+            )}
+            valueB={bookRatioB(
+              currentMatch?.profitLossDataMatch
+                ? currentMatch?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[liveData?.type]?.A +
+                      "_" +
+                      currentMatch?.id
+                  ]
+                  ? currentMatch?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[liveData?.type]?.A +
+                        "_" +
+                        currentMatch?.id
+                    ]
+                  : 0
+                : 0,
+              currentMatch?.profitLossDataMatch
+                ? currentMatch?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[liveData?.type]?.B +
+                      "_" +
+                      currentMatch?.id
+                  ]
+                  ? currentMatch?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[liveData?.type]?.B +
+                        "_" +
+                        currentMatch?.id
+                    ]
+                  : 0
+                : 0
+            )}
           />
           <img
             onClick={() => {
@@ -303,34 +315,34 @@ const MatchOdds = (props: any) => {
                       : "Yes"
                   }
                   rates={
-                    typeOfBet === "Manual Tied Match"
-                      ? currentMatch?.profitLossDataMatch?.yesRateTie
-                        ? currentMatch?.profitLossDataMatch?.yesRateTie
+                    currentMatch?.profitLossDataMatch
+                      ? currentMatch?.profitLossDataMatch[
+                          profitLossDataForMatchConstants[liveData?.type]?.A +
+                            "_" +
+                            currentMatch?.id
+                        ]
+                        ? currentMatch?.profitLossDataMatch[
+                            profitLossDataForMatchConstants[liveData?.type]?.A +
+                              "_" +
+                              currentMatch?.id
+                          ]
                         : 0
-                      : typeOfBet === "Manual Complete Match"
-                      ? currentMatch?.profitLossDataMatch?.yesRateComplete
-                        ? currentMatch?.profitLossDataMatch?.yesRateComplete
-                        : 0
-                      : currentMatch?.profitLossDataMatch?.teamARate
-                      ? currentMatch?.profitLossDataMatch?.teamARate
                       : 0
                   }
                   color={
-                    typeOfBet === "Manual Tied Match"
-                      ? currentMatch?.profitLossDataMatch?.yesRateTie
-                        ? currentMatch?.profitLossDataMatch?.yesRateTie < 0
+                    currentMatch?.profitLossDataMatch
+                      ? currentMatch?.profitLossDataMatch[
+                          profitLossDataForMatchConstants[liveData?.type]?.A +
+                            "_" +
+                            currentMatch?.id
+                        ]
+                        ? currentMatch?.profitLossDataMatch[
+                            profitLossDataForMatchConstants[liveData?.type]?.A +
+                              "_" +
+                              currentMatch?.id
+                          ] < 0
                           ? "#FF4D4D"
                           : "#319E5B"
-                        : "#319E5B"
-                      : typeOfBet === "Manual Complete Match"
-                      ? currentMatch?.profitLossDataMatch?.yesRateComplete
-                        ? currentMatch?.profitLossDataMatch?.yesRateComplete < 0
-                          ? "#FF4D4D"
-                          : "#319E5B"
-                        : "#319E5B"
-                      : currentMatch?.profitLossDataMatch?.teamARate
-                      ? currentMatch?.profitLossDataMatch?.teamARate < 0
-                        ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
@@ -354,34 +366,34 @@ const MatchOdds = (props: any) => {
                       : "No"
                   }
                   rates={
-                    typeOfBet === "Manual Tied Match"
-                      ? currentMatch?.profitLossDataMatch?.noRateTie
-                        ? currentMatch?.profitLossDataMatch?.noRateTie
+                    currentMatch?.profitLossDataMatch
+                      ? currentMatch?.profitLossDataMatch[
+                          profitLossDataForMatchConstants[liveData?.type]?.B +
+                            "_" +
+                            currentMatch?.id
+                        ]
+                        ? currentMatch?.profitLossDataMatch[
+                            profitLossDataForMatchConstants[liveData?.type]?.B +
+                              "_" +
+                              currentMatch?.id
+                          ]
                         : 0
-                      : typeOfBet === "Manual Complete Match"
-                      ? currentMatch?.profitLossDataMatch?.noRateComplete
-                        ? currentMatch?.profitLossDataMatch?.noRateComplete
-                        : 0
-                      : currentMatch?.profitLossDataMatch?.teamBRate
-                      ? currentMatch?.profitLossDataMatch?.teamBRate
                       : 0
                   }
                   color={
-                    typeOfBet === "Manual Tied Match"
-                      ? currentMatch?.profitLossDataMatch?.noRateTie
-                        ? currentMatch?.profitLossDataMatch?.noRateTie < 0
+                    currentMatch?.profitLossDataMatch
+                      ? currentMatch?.profitLossDataMatch[
+                          profitLossDataForMatchConstants[liveData?.type]?.B +
+                            "_" +
+                            currentMatch?.id
+                        ]
+                        ? currentMatch?.profitLossDataMatch[
+                            profitLossDataForMatchConstants[liveData?.type]?.B +
+                              "_" +
+                              currentMatch?.id
+                          ] < 0
                           ? "#FF4D4D"
                           : "#319E5B"
-                        : "#319E5B"
-                      : typeOfBet === "Manual Complete Match"
-                      ? currentMatch?.profitLossDataMatch?.noRateComplete
-                        ? currentMatch?.profitLossDataMatch?.noRateComplete < 0
-                          ? "#FF4D4D"
-                          : "#319E5B"
-                        : "#319E5B"
-                      : currentMatch?.profitLossDataMatch?.teamBRate
-                      ? currentMatch?.profitLossDataMatch?.teamBRate < 0
-                        ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
@@ -408,13 +420,35 @@ const MatchOdds = (props: any) => {
                       // }
                       name={currentMatch?.teamC}
                       rates={
-                        currentMatch?.profitLossDataMatch?.teamCRate
-                          ? currentMatch?.profitLossDataMatch?.teamCRate
+                        currentMatch?.profitLossDataMatch
+                          ? currentMatch?.profitLossDataMatch[
+                              profitLossDataForMatchConstants[liveData?.type]?.C +
+                                "_" +
+                                currentMatch?.id
+                            ]
+                            ? currentMatch?.profitLossDataMatch[
+                                profitLossDataForMatchConstants[liveData?.type]?.C +
+                                  "_" +
+                                  currentMatch?.id
+                              ]
+                            : 0
                           : 0
                       }
                       color={
-                        currentMatch?.profitLossDataMatch?.teamCRate <= 0
-                          ? "#FF4D4D"
+                        currentMatch?.profitLossDataMatch
+                          ? currentMatch?.profitLossDataMatch[
+                              profitLossDataForMatchConstants[liveData?.type]?.C +
+                                "_" +
+                                currentMatch?.id
+                            ]
+                            ? currentMatch?.profitLossDataMatch[
+                                profitLossDataForMatchConstants[liveData?.type]?.C +
+                                  "_" +
+                                  currentMatch?.id
+                              ] < 0
+                              ? "#FF4D4D"
+                              : "#319E5B"
+                            : "#319E5B"
                           : "#319E5B"
                       }
                       data={data?.length > 0 ? data[2] : []}

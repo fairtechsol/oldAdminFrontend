@@ -346,6 +346,7 @@ const MatchDetail = () => {
               typeOfBet={"Match Odds"}
               minBet={formatToINR(Math.floor(matchDetail?.matchOdd?.minBet))}
               maxBet={formatToINR(Math.floor(matchDetail?.matchOdd?.maxBet))}
+              liveData={matchDetail?.matchOdd}
               data={
                 matchDetail?.matchOdd?.runners?.length > 0
                   ? matchDetail?.matchOdd?.runners
@@ -356,6 +357,7 @@ const MatchDetail = () => {
           )}
           {matchDetail?.bookmaker?.isActive && (
             <LiveBookmaker
+              liveData={matchDetail?.bookmaker}
               currentMatch={matchDetail}
               minBet={formatToINR(Math.floor(matchDetail?.bookmaker?.minBet))}
               maxBet={formatToINR(Math.floor(matchDetail?.bookmaker?.maxBet))}
@@ -365,8 +367,29 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.bookmaker?.activeStatus === "save"}
+              title={matchDetail?.bookmaker?.name}
             />
           )}
+          {matchDetail?.marketBookmaker2?.isActive && (
+            <LiveBookmaker
+              liveData={matchDetail?.marketBookmaker2}
+              currentMatch={matchDetail}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.marketBookmaker2?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.marketBookmaker2?.maxBet)
+              )}
+              data={
+                matchDetail?.marketBookmaker2?.runners?.length > 0
+                  ? matchDetail?.marketBookmaker2?.runners
+                  : []
+              }
+              showBox={matchDetail?.marketBookmaker2?.activeStatus === "save"}
+              title={matchDetail?.marketBookmaker2?.name}
+            />
+          )}
+
           {matchDetail?.quickBookmaker
             ?.filter((item: any) => item?.isActive)
             .map((bookmaker: any, index: any) => {
@@ -380,11 +403,25 @@ const MatchDetail = () => {
                   maxBet={formatToINR(Math.floor(bookmaker?.maxBet)) || 0}
                   typeOfBet={bookmaker?.name}
                   matchOddsData={bookmaker}
+                  liveData={matchDetail?.quickBookmaker}
                 />
               );
             })}
+          {matchDetail?.other &&
+            matchDetail?.other?.map((match: any) => (
+              <LiveBookmaker
+                currentMatch={matchDetail}
+                showBox={match?.activeStatus === "save"}
+                minBet={Math.floor(match?.minBet)}
+                maxBet={Math.floor(match?.maxBet)}
+                liveData={match?.other}
+                data={match?.runners?.length > 0 ? match?.runners : []}
+                title={match?.name}
+              />
+            ))}
           {matchDetail?.apiTideMatch?.isActive && (
             <MatchOdds
+              liveData={matchDetail?.apiTideMatch}
               currentMatch={matchDetail}
               typeOfBet={"Tied Match"}
               title={matchDetail?.apiTideMatch?.name}
@@ -404,6 +441,7 @@ const MatchDetail = () => {
           )}
           {matchDetail?.apiTideMatch2?.isActive && (
             <MatchOdds
+              liveData={matchDetail?.apiTideMatch2}
               currentMatch={matchDetail}
               typeOfBet={"Tied Match"}
               title={matchDetail?.apiTideMatch2?.name}
@@ -423,6 +461,7 @@ const MatchDetail = () => {
           )}
           {matchDetail?.manualTiedMatch?.isActive && matchesMobile && (
             <MatchOdds
+              liveData={matchDetail?.manualTiedMatch}
               typeOfBet={"Manual Tied Match"}
               data={matchDetail?.manualTiedMatch}
               currentMatch={matchDetail}
@@ -438,6 +477,7 @@ const MatchDetail = () => {
 
           {matchDetail?.marketCompleteMatch?.isActive && (
             <MatchOdds
+              liveData={matchDetail?.marketCompleteMatch}
               currentMatch={matchDetail}
               typeOfBet={"Market Complete Match"}
               minBet={formatToINR(
@@ -456,9 +496,31 @@ const MatchDetail = () => {
               }
             />
           )}
-
+          {matchDetail?.marketCompleteMatch1?.isActive && (
+            <MatchOdds
+              liveData={matchDetail?.marketCompleteMatch1}
+              currentMatch={matchDetail}
+              typeOfBet={"Market Complete Match"}
+              minBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch1?.minBet)
+              )}
+              maxBet={formatToINR(
+                Math.floor(matchDetail?.marketCompleteMatch1?.maxBet)
+              )}
+              data={
+                matchDetail?.marketCompleteMatch1?.runners?.length > 0
+                  ? matchDetail?.marketCompleteMatch1?.runners
+                  : []
+              }
+              showBox={
+                matchDetail?.marketCompleteMatch1?.activeStatus === "save"
+              }
+              title={matchDetail?.marketCompleteMatch1?.name}
+            />
+          )}
           {matchDetail?.manualCompleteMatch?.isActive && matchesMobile && (
             <MatchOdds
+              liveData={matchDetail?.manualCompleteMatch}
               typeOfBet={"Manual Complete Match"}
               data={matchDetail?.manualCompleteMatch}
               currentMatch={matchDetail}
@@ -469,6 +531,7 @@ const MatchDetail = () => {
               maxBet={formatToINR(
                 Math.floor(matchDetail?.manualCompleteMatch?.maxBet)
               )}
+              title={matchDetail?.manualCompleteMatch?.name}
             />
           )}
 
@@ -726,6 +789,7 @@ const MatchDetail = () => {
             </Box>
             {matchDetail?.manualTiedMatch?.isActive && (
               <MatchOdds
+              liveData={matchDetail?.manualTiedMatch}
                 typeOfBet={"Manual Tied Match"}
                 currentMatch={matchDetail}
                 session={"manualBookMaker"}
@@ -736,10 +800,12 @@ const MatchDetail = () => {
                 maxBet={formatToINR(
                   Math.floor(matchDetail?.manualTiedMatch?.maxBet)
                 )}
+                title={matchDetail?.manualTiedMatch?.name}
               />
             )}
             {matchDetail?.marketCompleteMatch?.isActive && (
               <MatchOdds
+              liveData={matchDetail?.marketCompleteMatch}
                 typeOfBet={"Manual Complete Match"}
                 currentMatch={matchDetail}
                 session={"manualBookMaker"}
@@ -750,6 +816,7 @@ const MatchDetail = () => {
                 maxBet={formatToINR(
                   Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
                 )}
+                title={matchDetail?.marketCompleteMatch?.name}
               />
             )}
             <Box sx={{ width: "150px", height: "3px" }}></Box>

@@ -116,12 +116,15 @@ const matchListSlice = createSlice({
           apiTiedMatch,
           apiTiedMatch2,
           bookmaker,
+          bookmaker2,
           manualTideMatch,
           marketCompleteMatch,
           matchOdd,
           quickbookmaker,
           sessionBettings,
           completeManual,
+          marketCompleteMatch1,
+          other,
         } = action?.payload;
 
         // let parsedSessionBettings = state?.matchDetail?.sessionBettings?.map(
@@ -182,12 +185,15 @@ const matchListSlice = createSlice({
           apiTideMatch: apiTiedMatch,
           apiTideMatch2: apiTiedMatch2,
           bookmaker: bookmaker,
+          marketBookmaker2: bookmaker2,
           manualTiedMatch: manualTideMatch,
           marketCompleteMatch: marketCompleteMatch,
+          marketCompleteMatch1: marketCompleteMatch1,
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
           sessionBettings: stringifiedSessionBetting,
           manualCompleteMatch: completeManual,
+          other: other,
           updatedSessionBettings: updateSessionBettingsItem(
             convertData(parsedSessionBettings),
             apiSession
@@ -314,58 +320,29 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {
         const { userRedisObj, jobData } = action?.payload;
-        if (
-          ["tiedMatch2", "tiedMatch1"].includes(jobData?.newBet?.marketType)
-        ) {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            yesRateTie: userRedisObj[jobData?.teamArateRedisKey],
-            noRateTie: userRedisObj[jobData?.teamBrateRedisKey],
-          };
-        } else if (
-          ["completeMatch", "completeManual"].includes(
-            jobData?.newBet?.marketType
-          )
-        ) {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            yesRateComplete: userRedisObj[jobData?.teamArateRedisKey],
-            noRateComplete: userRedisObj[jobData?.teamBrateRedisKey],
-          };
-        } else {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            teamARate: userRedisObj[jobData?.teamArateRedisKey],
-            teamBRate: userRedisObj[jobData?.teamBrateRedisKey],
-            teamCRate: userRedisObj[jobData?.teamCrateRedisKey] ?? "",
-          };
-        }
+
+        state.matchDetail.profitLossDataMatch = {
+          ...state.matchDetail.profitLossDataMatch,
+          [jobData?.teamArateRedisKey]:
+            userRedisObj[jobData?.teamArateRedisKey],
+          [jobData?.teamBrateRedisKey]:
+            userRedisObj[jobData?.teamBrateRedisKey],
+          [jobData?.teamCrateRedisKey]:
+            userRedisObj[jobData?.teamCrateRedisKey] ?? "",
+        };
       })
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
-        const { redisObject, matchBetType } = action?.payload;
-        if (matchBetType === "tiedMatch2" || matchBetType === "tiedMatch1") {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            yesRateTie: redisObject[action?.payload?.teamArateRedisKey],
-            noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
-          };
-        } else if (
-          matchBetType === "completeMatch" ||
-          matchBetType === "completeManual"
-        ) {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            yesRateComplete: redisObject[action?.payload?.teamArateRedisKey],
-            noRateComplete: redisObject[action?.payload?.teamBrateRedisKey],
-          };
-        } else {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            teamARate: redisObject[action?.payload?.teamArateRedisKey],
-            teamBRate: redisObject[action?.payload?.teamBrateRedisKey],
-            teamCRate: redisObject[action?.payload?.teamCrateRedisKey] ?? "",
-          };
-        }
+        const { redisObject } = action?.payload;
+
+        state.matchDetail.profitLossDataMatch = {
+          ...state.matchDetail.profitLossDataMatch,
+          [action?.payload?.teamArateRedisKey]:
+            redisObject[action?.payload?.teamArateRedisKey],
+          [action?.payload?.teamBrateRedisKey]:
+            redisObject[action?.payload?.teamBrateRedisKey],
+          [action?.payload?.teamCrateRedisKey]:
+            redisObject[action?.payload?.teamCrateRedisKey] ?? "",
+        };
       })
       .addCase(amountupdate.fulfilled, (state, action) => {
         const { matchId, betId } = action?.payload;
