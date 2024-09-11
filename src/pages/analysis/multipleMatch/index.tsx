@@ -379,10 +379,10 @@ const MultipleMatch = ({}) => {
                                   User Profit Loss
                                 </Button>
                               </Typography>
-                              {item?.matchOdd?.isActive && (
+                              {(item?.matchOdd?.activeStatus==="live" && item?.matchOdd?.isActive) && (
                                 <MatchOdds
                                   currentMatch={item}
-                                  matchOddsLive={item?.matchOdd}
+                                  liveData={item?.matchOdd}
                                   minBet={formatToINR(
                                     Math.floor(item?.matchOdd?.minBet)
                                   )}
@@ -1147,7 +1147,7 @@ const MultipleMatch = ({}) => {
                         {item?.matchOdd?.isActive && (
                           <MatchOdds
                             currentMatch={item}
-                            matchOddsLive={item?.matchOdd}
+                            liveData={item?.matchOdd}
                             minBet={formatToINR(
                               Math.floor(item?.matchOdd?.minBet)
                             )}
@@ -1164,6 +1164,7 @@ const MultipleMatch = ({}) => {
                         )}
                         {item?.bookmaker?.isActive && (
                           <LiveBookmaker
+                          liveData={item?.bookmaker}
                             currentMatch={item}
                             minBet={formatToINR(
                               Math.floor(item?.bookmaker?.minBet)
@@ -1172,6 +1173,7 @@ const MultipleMatch = ({}) => {
                               Math.floor(item?.bookmaker?.maxBet)
                             )}
                             bookmakerLive={item?.bookmakerLive}
+                            title={item?.bookmaker?.name}
                             data={
                               item?.bookmaker?.runners?.length > 0
                                 ? item?.bookmaker?.runners

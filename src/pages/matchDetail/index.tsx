@@ -403,7 +403,7 @@ const MatchDetail = () => {
                   maxBet={formatToINR(Math.floor(bookmaker?.maxBet)) || 0}
                   typeOfBet={bookmaker?.name}
                   matchOddsData={bookmaker}
-                  liveData={matchDetail?.quickBookmaker}
+                  liveData={bookmaker}
                 />
               );
             })}
@@ -414,7 +414,7 @@ const MatchDetail = () => {
                 showBox={match?.activeStatus === "save"}
                 minBet={Math.floor(match?.minBet)}
                 maxBet={Math.floor(match?.maxBet)}
-                liveData={match?.other}
+                liveData={match}
                 data={match?.runners?.length > 0 ? match?.runners : []}
                 title={match?.name}
               />
