@@ -345,11 +345,23 @@ const SeasonMarketBox = (props: any) => {
                     key={index}
                     session={true}
                     back={true}
-                    value={newData.ex?.availableToLay[item]?.price ?? 0}
-                    value2={newData.ex?.availableToLay[item]?.size ?? 0}
+                    value={
+                      sessionBettingType.oddEven === type
+                        ? newData.ex?.availableToBack[item]?.price ?? 0
+                        : newData.ex?.availableToLay[item]?.price ?? 0
+                    }
+                    value2={
+                      sessionBettingType.oddEven === type
+                        ? newData.ex?.availableToBack[item]?.price ?? 0
+                        : newData.ex?.availableToLay[item]?.size ?? 0
+                    }
                     lock={
                       [null, 0, "0"].includes(
-                        Math.floor(newData.ex?.availableToLay[item]?.price ?? 0)
+                        Math.floor(
+                          sessionBettingType.oddEven === type
+                            ? newData.ex?.availableToBack[item]?.price ?? 0
+                            : newData.ex?.availableToLay[item]?.price ?? 0
+                        )
                       )
                         ? true
                         : false
@@ -368,12 +380,22 @@ const SeasonMarketBox = (props: any) => {
                   <SeperateBox
                     key={index}
                     session={true}
-                    value={newData.ex?.availableToBack[item]?.price ?? 0}
-                    value2={newData.ex?.availableToBack[item]?.size ?? 0}
+                    value={
+                      sessionBettingType.oddEven === type
+                        ? newData.ex?.availableToLay[item]?.price ?? 0
+                        : newData.ex?.availableToBack[item]?.price ?? 0
+                    }
+                    value2={
+                      sessionBettingType.oddEven === type
+                        ? newData.ex?.availableToLay[item]?.price ?? 0
+                        : newData.ex?.availableToBack[item]?.size ?? 0
+                    }
                     lock={
                       [null, 0, "0"].includes(
                         Math.floor(
-                          newData.ex?.availableToBack[item]?.price ?? 0
+                          sessionBettingType.oddEven === type
+                            ? newData.ex?.availableToLay[item]?.price ?? 0
+                            : newData.ex?.availableToBack[item]?.price ?? 0
                         )
                       )
                         ? true
