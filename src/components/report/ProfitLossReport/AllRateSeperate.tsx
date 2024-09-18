@@ -161,7 +161,7 @@ const AllRateSeperate = ({
                 <Box
                   sx={{
                     height: "25px",
-                    width: "12%",
+                    width: "13.3%",
                     display: "flex",
                     background: "#319E5B",
                     justifyContent: "center",
@@ -522,7 +522,7 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            boxWidth="90%"
+            boxWidth="100%"
             // data={
             //   data?.marketType == "MANUAL BOOKMAKER"
             //     ? "Quick Bookmaker"
@@ -536,7 +536,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data?.username || data?.userName || data?.user?.userName}
             header={header}
-            boxWidth="91%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
@@ -544,25 +544,25 @@ const RowComponent = ({ header, data }: any) => {
             up={true}
             header={header}
             time={getTime(data.createdAt)}
-            boxWidth="91%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data?.bet_type || data?.betType}
             header={header}
-            boxWidth="46%"
+            boxWidth="50%"
           />
           <SingleBox
             color={getColor()}
             data={data?.odds}
             header={header}
-            boxWidth="46%"
+            boxWidth="50%"
           />
           <SingleBox
             color={getColor()}
             data={formatToINR(data?.amount)}
             header={header}
-            boxWidth="35%"
+            boxWidth="40%"
           />
         </>
       )}
@@ -584,7 +584,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[2]}
             header={header}
-            boxWidth="100%"
+            boxWidth="90.5%"
           />
           <SingleBox
             color={getColor()}

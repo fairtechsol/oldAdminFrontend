@@ -124,7 +124,7 @@ const SessionBetSeperate = ({
               </Box>
               <RowComponent
                 header={true}
-                data={["Matched Bet", "Username", "Odds", "Yes/No", "Stake"]}
+                data={["Place Time", "Username", "Odds", "Yes/No", "Stake"]}
               />
               {profit && (
                 <Box
@@ -428,7 +428,7 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            data={data?.teamName}
+            // data={}
             first={true}
             header={header}
             time={getTime(data.createdAt)}
