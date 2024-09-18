@@ -187,3 +187,134 @@ export const baseUrls = {
 //       ? Constants.expertPathLive
 //       : Constants.localPathExpert,
 // };
+export const matchBettingType = {
+  matchOdd: "matchOdd",
+  bookmaker: "bookmaker",
+  bookmaker2: "bookmaker2",
+  quickbookmaker1: "quickbookmaker1",
+  quickbookmaker2: "quickbookmaker2",
+  quickbookmaker3: "quickbookmaker3",
+  tiedMatch1: "tiedMatch1",
+  tiedMatch2: "tiedMatch2",
+  tiedMatch3: "tiedMatch3",
+  completeMatch: "completeMatch",
+  completeMatch1: "completeMatch1",
+  completeManual: "completeManual",
+  setWinner1: "setWinner1",
+  setWinner2: "setWinner2",
+  other: "other",
+  ...Array.from({ length: 20 }, (_, index: any) => index).reduce(
+    (prev, curr) => {
+      prev[`overUnder${curr}.5`] = `overUnder${curr}.5`;
+      return prev;
+    },
+    {}
+  ),
+  ...Array.from({ length: 20 }, (_, index: any) => index).reduce(
+    (prev, curr) => {
+      prev[`firstHalfGoal${curr}.5`] = `firstHalfGoal${curr}.5`;
+      return prev;
+    },
+    {}
+  ),
+  halfTime: "halfTime",
+};
+
+export const profitLossDataForMatchConstants = {
+  [matchBettingType.matchOdd]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.bookmaker]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.bookmaker2]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.quickbookmaker1]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.quickbookmaker2]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.quickbookmaker3]: {
+    A: "teamARate",
+    B: "teamBRate",
+    C: "teamCRate",
+  },
+  [matchBettingType.tiedMatch1]: {
+    A: "yesRateTie",
+    B: "noRateTie",
+  },
+  [matchBettingType.tiedMatch2]: {
+    A: "yesRateTie",
+    B: "noRateTie",
+  },
+  [matchBettingType.tiedMatch3]: {
+    A: "yesRateTie",
+    B: "noRateTie",
+  },
+  [matchBettingType.completeMatch]: {
+    A: "yesRateComplete",
+    B: "noRateComplete",
+  },
+  [matchBettingType.completeMatch1]: {
+    A: "yesRateComplete",
+    B: "noRateComplete",
+  },
+  [matchBettingType.completeManual]: {
+    A: "yesRateComplete",
+    B: "noRateComplete",
+  },
+  [matchBettingType.other]: {
+    A: "userTeamARateOther",
+    B: "userTeamBRateOther",
+    C: "userTeamCRateOther",
+  },
+  ...Array.from({ length: 20 }, (_, index) => index).reduce(
+    (prev: any, curr) => {
+      prev[`overUnder${curr}.5`] = {
+        A: `yesRateUnderOver${curr}.5`,
+        B: `noRateUnderOver${curr}.5`,
+      };
+      return prev;
+    },
+    {}
+  ),
+  ...Array.from({ length: 20 }, (_, index) => index).reduce(
+    (prev: any, curr) => {
+      prev[`firstHalfGoal${curr}.5`] = {
+        A: `yesRateFirstHalfGoal${curr}.5`,
+        B: `noRateFirstHalfGoal${curr}.5`,
+      };
+      return prev;
+    },
+    {}
+  ),
+  [matchBettingType.halfTime]: {
+    A: "userTeamARateHalfTime",
+    B: "userTeamBRateHalfTime",
+    C: "userTeamCRateHalfTime",
+  },
+
+  ...Array.from({ length: 20 }, (_, index) => index).reduce(
+    (prev: any, curr) => {
+      prev[`setWinner${curr}`] = {
+        A: `userTeamARateSetWinner${curr}`,
+        B: `userTeamBRateSetWinner${curr}`,
+        C: `userTeamCRateSetWinner${curr}`,
+      };
+      return prev;
+    },
+    {}
+  ),
+};
