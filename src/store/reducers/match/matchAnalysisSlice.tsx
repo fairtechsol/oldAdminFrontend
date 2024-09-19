@@ -80,6 +80,7 @@ const analysisListSlice = createSlice({
                 quickbookmaker,
                 sessionBettings,
                 completeManual,
+                tournament,
               } = action?.payload;
 
               const parsedSessionBettings =
@@ -118,6 +119,7 @@ const analysisListSlice = createSlice({
                   convertData(parsedSessionBettings),
                   apiSession
                 ),
+                tournament,
               };
             } else {
               return match;
@@ -202,6 +204,15 @@ const analysisListSlice = createSlice({
                     match?.id]: userRedisObj[jobData?.teamCrateRedisKey],
                   },
                 };
+              } else if (jobData?.newBet?.marketType === "tournament") {
+                return {
+                  ...match,
+                  profitLossDataMatch: {
+                    ...match.profitLossDataMatch,
+                    [jobData?.betId + "_" + "profitLoss" + "_" + match?.id]:
+                      JSON.stringify(userRedisObj),
+                  },
+                };
               } else {
                 return {
                   ...match,
@@ -282,47 +293,99 @@ const analysisListSlice = createSlice({
       .addCase(
         updateTeamRatesOnDeleteForMultiMatch.fulfilled,
         (state, action) => {
-          const { redisObject, matchBetType } = action?.payload;
+          const {
+            redisObject,
+            betId,
+            teamRate,
+            matchBetType,
+            teamArateRedisKey,
+            teamBrateRedisKey,
+            teamCrateRedisKey,
+          } = action?.payload;
           state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id === action?.payload?.matchId) {
-                if (["tiedMatch2", "tiedMatch1"].includes(matchBetType)) {
+                if (matchBetType === "other") {
+                  if (redisObject[teamCrateRedisKey]) {
+                    return {
+                      ...match,
+                      profitLossDataMatch: {
+                        ...match?.profitLossDataMatch,
+                        [profitLossDataForMatchConstants[matchBetType].A +
+                        "_" +
+                        betId +
+                        "_" +
+                        match?.id]: redisObject[teamArateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].B +
+                        "_" +
+                        betId +
+                        "_" +
+                        match?.id]: redisObject[teamBrateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].C +
+                        "_" +
+                        betId +
+                        "_" +
+                        match?.id]: redisObject[teamCrateRedisKey],
+                      },
+                    };
+                  } else {
+                    return {
+                      ...match,
+                      profitLossDataMatch: {
+                        ...match?.profitLossDataMatch,
+                        [profitLossDataForMatchConstants[matchBetType].A +
+                        "_" +
+                        betId +
+                        "_" +
+                        match?.id]: redisObject[teamArateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].B +
+                        "_" +
+                        betId +
+                        "_" +
+                        match?.id]: redisObject[teamBrateRedisKey],
+                      },
+                    };
+                  }
+                } else if (matchBetType === "tournament") {
                   return {
                     ...match,
                     profitLossDataMatch: {
-                      ...match.profitLossDataMatch,
-                      yesRateTie:
-                        redisObject[action?.payload?.teamArateRedisKey],
-                      noRateTie:
-                        redisObject[action?.payload?.teamBrateRedisKey],
-                    },
-                  };
-                } else if (
-                  ["completeMatch", "completeManual"].includes(matchBetType)
-                ) {
-                  return {
-                    ...match,
-                    profitLossDataMatch: {
-                      ...match.profitLossDataMatch,
-                      yesRateComplete:
-                        redisObject[action?.payload?.teamArateRedisKey],
-                      noRateComplete:
-                        redisObject[action?.payload?.teamBrateRedisKey],
+                      ...match?.profitLossDataMatch,
+                      [betId + "_" + "profitLoss" + "_" + match?.id]:
+                        JSON.stringify(teamRate),
                     },
                   };
                 } else {
-                  return {
-                    ...match,
-                    profitLossDataMatch: {
-                      ...match.profitLossDataMatch,
-                      teamARate:
-                        redisObject[action?.payload?.teamArateRedisKey],
-                      teamBRate:
-                        redisObject[action?.payload?.teamBrateRedisKey],
-                      teamCRate:
-                        redisObject[action?.payload?.teamCrateRedisKey] ?? "",
-                    },
-                  };
+                  if (redisObject[teamCrateRedisKey]) {
+                    return {
+                      ...match,
+                      profitLossDataMatch: {
+                        ...match?.profitLossDataMatch,
+                        [profitLossDataForMatchConstants[matchBetType].A +
+                        "_" +
+                        match?.id]: redisObject[teamArateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].B +
+                        "_" +
+                        match?.id]: redisObject[teamBrateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].C +
+                        "_" +
+                        match?.id]: redisObject[teamCrateRedisKey],
+                      },
+                    };
+                  } else {
+                    return {
+                      ...match,
+                      profitLossDataMatch: {
+                        ...match?.profitLossDataMatch,
+                        [profitLossDataForMatchConstants[matchBetType].A +
+                        "_" +
+                        match?.id]: redisObject[teamArateRedisKey],
+                        [profitLossDataForMatchConstants[matchBetType].B +
+                        "_" +
+                        match?.id]: redisObject[teamBrateRedisKey],
+                      },
+                    };
+                  }
                 }
               } else return match;
             }
@@ -419,7 +482,7 @@ const analysisListSlice = createSlice({
               } else return match;
             }
           );
-        // });
+          // });
         }
       )
       .addCase(analysisListReset, (state) => {
