@@ -38,6 +38,7 @@ import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
 import { formatToINR } from "../../helper";
 import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
+import TournamentOdds from "../../components/matchDetail/TournamentOdds";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -423,6 +424,19 @@ const MatchDetail = () => {
                   title={match?.name}
                 />
               ))}
+          {matchDetail?.tournament &&
+            matchDetail?.tournament?.map((market: any, index: any) => {
+              return (
+                <TournamentOdds
+                  key={index}
+                  currentMatch={matchDetail}
+                  minBet={Math.floor(market?.minBet) || 0}
+                  maxBet={Math.floor(market?.maxBet) || 0}
+                  typeOfBet={market?.name}
+                  liveData={market}
+                />
+              );
+            })}
           {matchDetail?.apiTideMatch?.isActive && (
             <MatchOdds
               liveData={matchDetail?.apiTideMatch}
