@@ -625,8 +625,15 @@ const MatchDetail = () => {
                 );
               })}
           {matchDetail?.apiSessionActive &&
-            (matchDetail?.apiSession?.cricketCasino?.section || [])?.map(
-              (item: any) => {
+            (matchDetail?.apiSession?.cricketCasino?.section || [])
+              ?.filter(
+                (item: any) =>
+                  !(
+                    item?.activeStatus === "unSave" ||
+                    item?.activeStatus === "result"
+                  )
+              )
+              ?.map((item: any) => {
                 return (
                   <CricketCasinoMarket
                     key={item?.selectionId}
@@ -655,8 +662,7 @@ const MatchDetail = () => {
                     type={sessionBettingType.cricketCasino}
                   />
                 );
-              }
-            )}
+              })}
           {/* {matchDetail?.apiSessionActive &&
             matchesMobile &&
             matchDetail?.apiSession?.length > 0 && (
