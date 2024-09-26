@@ -126,10 +126,15 @@ const SeasonMarketBox = (props: any) => {
             >
               {newData?.status == "Ball Running" ||
               newData?.status === "ball start" ? (
-                <img
-                  src={BallStart}
-                  style={{ width: "113px", height: "32px" }}
-                />
+                Math.max(
+                  newData?.ex?.availableToLay?.length ?? 0,
+                  newData?.ex?.availableToBack?.length ?? 0
+                ) <= 1 && (
+                  <img
+                    src={BallStart}
+                    style={{ width: "113px", height: "32px" }}
+                  />
+                )
               ) : (
                 <Typography
                   sx={{
@@ -141,11 +146,15 @@ const SeasonMarketBox = (props: any) => {
                     fontWeight: "400",
                   }}
                 >
-                  {newData?.isManual
-                    ? newData?.status
-                    : !newData?.GameStatus
-                    ? "SUSPENDED"
-                    : newData?.GameStatus}
+                  {Math.max(
+                    newData?.ex?.availableToLay?.length ?? 0,
+                    newData?.ex?.availableToBack?.length ?? 0
+                  ) <= 1 &&
+                    (newData?.isManual
+                      ? newData?.status
+                      : !newData?.GameStatus
+                      ? "SUSPENDED"
+                      : newData?.GameStatus)}
                 </Typography>
               )}
             </Box>
@@ -278,22 +287,6 @@ const SeasonMarketBox = (props: any) => {
                 alignItems: "center",
               }}
             >
-              {/* {matchesMobile ? (
-                <PlaceBetComponent
-                  type={type}
-                  newData={newData}
-                  profitLoss={profitLossData && profitLossData[0]}
-                  setData={setData}
-                />
-              ) : (
-                <PlaceBetComponentWeb
-                  type={type}
-                  newData={newData}
-                  profitLoss={profitLossData && profitLossData[0]}
-                  setData={setData}
-                />
-              )} */}
-
               {!["ACTIVE", "active", "", undefined, null, ""].includes(
                 newData?.GameStatus
               ) ||
@@ -316,10 +309,12 @@ const SeasonMarketBox = (props: any) => {
                 >
                   {newData?.status == "Ball Running" ||
                   newData?.status === "ball start" ? (
-                    <img
-                      src={BallStart}
-                      style={{ width: "113px", height: "32px" }}
-                    />
+                    item === 1 && (
+                      <img
+                        src={BallStart}
+                        style={{ width: "113px", height: "32px" }}
+                      />
+                    )
                   ) : (
                     <Typography
                       sx={{
@@ -331,11 +326,12 @@ const SeasonMarketBox = (props: any) => {
                         fontWeight: "400",
                       }}
                     >
-                      {newData?.isManual
-                        ? newData?.status
-                        : !newData?.GameStatus
-                        ? "SUSPENDED"
-                        : newData?.GameStatus}
+                      {item === 1 &&
+                        (newData?.isManual
+                          ? newData?.status
+                          : !newData?.GameStatus
+                          ? "SUSPENDED"
+                          : newData?.GameStatus)}
                     </Typography>
                   )}
                 </Box>
