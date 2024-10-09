@@ -653,7 +653,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                   )}
                 </Box>
 
-                <Box sx={{ display: "flex" }}>
+                {/* <Box sx={{ display: "flex" }}>
                   <Box sx={{ display: "flex" }}>
                     <Typography
                       variant="h5"
@@ -669,7 +669,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                       Session Com  {": "}  {element?.sessionCommission
                       ? element?.sessionCommission
                       : 0}
-                    </Typography>
+                    </Typography> */}
                     {/* <Typography
                       variant="h5"
                       sx={[
@@ -683,7 +683,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                     >
                      
                     </Typography> */}
-                  </Box>
+                  {/* </Box> */}
                   {/* <Typography
                     variant="h5"
                     sx={[
@@ -697,7 +697,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                   >
                     
                   </Typography> */}
-                </Box>
+                {/* </Box> */}
               </Box>
               {showCReport && (
                 <Box
