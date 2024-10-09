@@ -215,7 +215,7 @@ export const FgAdminValidation = Yup.object({
   creditRefrence: Yup.string().required("Credit Reference is required"),
 
   matchCommission: Yup.number().required("Match Commission is required"),
-  sessionCommission: Yup.number().required("Session Commission is required"),
+  // sessionCommission: Yup.number().required("Session Commission is required"),
   // remarks: Yup.string(),
   adminTransPassword: Yup.string().required(
     "Admin Transaction Password is required"
