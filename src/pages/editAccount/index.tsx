@@ -68,10 +68,10 @@ const formDataSchema = {
     label: "",
     value: "",
   },
-  sessionCommission: {
-    label: "",
-    value: "",
-  },
+  // sessionCommission: {
+  //   label: "",
+  //   value: "",
+  // },
   remarks: "",
   adminTransPassword: "",
   logo: "",
@@ -134,7 +134,7 @@ const EditAccount = () => {
         phoneNumber: values.phoneNumber.toString(),
         city: values.city,
         remark: values.remarks,
-        sessionCommission: values.sessionCommission.value,
+        // sessionCommission: values.sessionCommission.value,
         matchComissionType: values.matchCommissionType.value,
         matchCommission: values.matchCommission.value,
       };
@@ -405,10 +405,10 @@ const EditAccount = () => {
             label: userDetail?.matchCommission,
             value: userDetail?.matchCommission,
           },
-          sessionCommission: {
-            label: userDetail?.sessionCommission,
-            value: userDetail?.sessionCommission,
-          },
+          // sessionCommission: {
+          //   label: userDetail?.sessionCommission,
+          //   value: userDetail?.sessionCommission,
+          // },
           remarks: "",
           adminTransPassword: "",
         });
@@ -1045,7 +1045,7 @@ const EditAccount = () => {
                       </>
                     )}
 
-                    <SelectField
+                    {/* <SelectField
                       containerStyle={containerStyles}
                       titleStyle={titleStyles}
                       id={"sessionCommission"}
@@ -1062,7 +1062,7 @@ const EditAccount = () => {
                       onBlur={formik.handleBlur}
                       // touched={touched.sessionCommission}
                       // error={errors.sessionCommission}
-                    />
+                    /> */}
                   </Box>
                 </>
               )}
