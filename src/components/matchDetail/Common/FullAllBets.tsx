@@ -106,7 +106,12 @@ const FullAllBets = (props: any) => {
               deletedReason: v?.deleteReason,
             },
             {
-              name: v?.betType,
+              name:
+                v?.marketType === "oddEven"
+                  ? v?.teamName
+                      ?.match(/[-_](odd|even)$/i)?.[1]
+                      ?.toUpperCase() || v?.betType
+                  : v?.betType,
               color: "black",
               background: ["YES", "BACK"].includes(v?.betType)
                 ? "#B3E0FF"
