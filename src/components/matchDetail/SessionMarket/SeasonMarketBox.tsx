@@ -59,7 +59,7 @@ const SeasonMarketBox = (props: any) => {
                 lineHeight: "10px",
               }}
             >
-              {newData?.name ?? newData?.RunnerName}
+              {type==="khado"? `${newData?.name ?? newData?.RunnerName}-${newData.ex?.availableToLay[0]?.price}`:(newData?.name ?? newData?.RunnerName)}
             </Typography>
             <Typography
               sx={{
@@ -197,8 +197,8 @@ const SeasonMarketBox = (props: any) => {
                     value2={newData.ex?.availableToLay[0]?.size ?? 0}
                     lock={
                       [null, 0, "0"].includes(
-                        Math.floor(newData.ex?.availableToLay[0]?.price ?? 0)
-                      )
+                        Math.floor(newData.ex?.availableToLay[0]?.price  ?? 0)
+                      ) ||type==="khado"
                         ? true
                         : false
                     }
