@@ -1,3 +1,14 @@
+
+const order: any = {
+  session: 1,
+  overByover: 2,
+  ballByBall: 3,
+  fancy1: 4,
+  khado: 5,
+  meter: 6,
+  oddEven: 5,
+};
+
 export const formatNumber = (value?: any, isRound?: any) => {
   if (value >= 1000) {
     // return (value / 1000).toFixed(1) + "k";
@@ -124,4 +135,14 @@ export const updateSessionBettingsItem = (
   } catch (error) {
     console.log(error);
   }
+};
+
+
+export const customSortBySessionMarketName = (
+  [_, nameA]: any,
+  [__, nameB]: any
+) => {
+  const orderA = order[nameA] || Infinity;
+  const orderB = order[nameB] || Infinity;
+  return orderA - orderB;
 };
