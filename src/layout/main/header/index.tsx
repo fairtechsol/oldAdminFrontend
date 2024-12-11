@@ -62,7 +62,7 @@ const Header = () => {
     BoxCont1sub1sub1StyleImg: {
       height: { lg: "24px", xs: "20px" },
       width: "100%",
-      cursor: "pointer",
+      // cursor: "pointer",
     },
     RenderLogoCompStyleImg: {
       height: { lg: "4rem", xs: "3rem" },
@@ -150,7 +150,7 @@ const Header = () => {
             <Box sx={classes.BoxCont1sub1sub1}>
               <StyledImage
                 src={Draw}
-                onClick={() => setMobileOpen((prev) => !prev)}
+                // onClick={() => setMobileOpen((prev) => !prev)}
                 sx={classes.BoxCont1sub1sub1StyleImg}
               />
               <StyledImage
