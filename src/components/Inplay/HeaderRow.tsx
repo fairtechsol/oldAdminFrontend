@@ -32,7 +32,7 @@ const HeaderRow = (props: any) => {
             marginLeft: "7px",
           }}
         >
-          {match.teamA} vs {match.teamB}{" "}
+          {match?.title}
           <span style={{ fontWeight: "500" }}>
             ({moment(match.startAt).format("LL")})
           </span>
