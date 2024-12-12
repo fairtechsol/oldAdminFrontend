@@ -339,7 +339,7 @@ const MatchDetail = () => {
               alignSelf: "start",
             }}
           >
-            {matchDetail?.teamA} V/S {matchDetail?.teamB}
+            {matchDetail?.title}
           </Typography>
           {matchDetail?.matchOdd?.isActive && (
             <MatchOdds
