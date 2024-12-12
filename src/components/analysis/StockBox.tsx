@@ -71,7 +71,7 @@ const StockBox = (props: any) => {
         {showFixed ? value : handleNumber(parseFloat(value), color)}
       </Typography>
 
-      {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />}
+      {/* {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />} */}
     </Box>
   );
 };

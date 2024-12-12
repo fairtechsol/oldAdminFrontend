@@ -7,7 +7,7 @@ import moment from "moment-timezone";
 import { Constants } from "../../utils/Constants";
 
 const MatchListComponent = (props: any) => {
-  const { team, team2, selected, mode, data, setSelected } = props;
+  const { team, team2, selected, mode, data, setSelected, title } = props;
 
   const navigate = useNavigate();
 
@@ -202,7 +202,7 @@ const MatchListComponent = (props: any) => {
                 WebkitBoxOrient: "vertical",
               }}
             >
-              {team} Vs {team2}
+              {title}
             </Typography>
             {upcoming && (
               <Box
