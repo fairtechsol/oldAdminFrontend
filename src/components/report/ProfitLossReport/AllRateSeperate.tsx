@@ -161,7 +161,7 @@ const AllRateSeperate = ({
                 <Box
                   sx={{
                     height: "25px",
-                    width: "13.3%",
+                    width: "12%",
                     display: "flex",
                     background: "#319E5B",
                     justifyContent: "center",
@@ -187,6 +187,9 @@ const AllRateSeperate = ({
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
               }}
             >
               {/* {console.warn("allBetsData :", allBetsData)} */}
@@ -370,7 +373,7 @@ const AllRateSeperate = ({
                       <Box
                         sx={{
                           height: "40px",
-                          width: "30%",
+                          width: "12%",
                           // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: "black",
@@ -584,7 +587,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[2]}
             header={header}
-            boxWidth="90.5%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
@@ -752,7 +755,7 @@ const SingleBox = ({ data, header, color, up, first, time, boxWidth }: any) => {
     ) : up ? (
       <Box
         sx={{
-          width: "91%",
+          width: "100%",
           height: "40px",
           flexDirection: "column",
           background: color,
