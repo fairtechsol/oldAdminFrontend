@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../Common/StyledImages";
-import { ARROWUP } from "../../assets";
 import { handleNumber } from "../../helper";
 
 const StockBox = (props: any) => {
