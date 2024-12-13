@@ -273,6 +273,7 @@ const Analysis = () => {
                   selected={!selected.includes(match.id as never)}
                   team={match?.teamA}
                   team2={match?.teamB}
+                  title={match?.title}
                 />
               );
             })}

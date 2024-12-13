@@ -8,7 +8,7 @@ import { AppDispatch } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 
 const menutItems = [
-  { title: "Secure Auth Verification" },
+  // { title: "Secure Auth Verification" },
   { title: "Change Password", link: `${Constants.oldAdmin}change-password` },
 ];
 const BoxDropDownMenu = (props: any) => {

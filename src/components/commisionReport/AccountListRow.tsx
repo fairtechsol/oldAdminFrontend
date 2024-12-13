@@ -12,10 +12,7 @@ const AccountListRow = ({
   const prevElement = {
     name: element?.name,
     commissionAmount: formatToINR(element?.commissionAmount),
-    commissionType:
-      element?.betType === "NO" || element?.betType === "YES"
-        ? "Session"
-        : "Match",
+    commissionType: element?.matchType === "SESSION" ? "Session" : "Match",
     betType: element?.betType,
     stack: element?.stake && formatToINR(element?.stake),
     odds: element?.odds,

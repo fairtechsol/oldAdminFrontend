@@ -352,7 +352,7 @@ const MultipleMatch = ({}) => {
                                   alignSelf: "start",
                                 }}
                               >
-                                {item?.teamA} V/S {item?.teamB}
+                                {item?.title}
                                 <Button
                                   onClick={(e) => {
                                     e.preventDefault();
@@ -850,7 +850,7 @@ const MultipleMatch = ({}) => {
                                 alignSelf: "start",
                               }}
                             >
-                              {item?.teamA} V/S {item?.teamB}
+                              {item?.title}
                               <Button
                                 onClick={() =>
                                   handleClicked({
@@ -1378,7 +1378,7 @@ const MultipleMatch = ({}) => {
                             alignSelf: "start",
                           }}
                         >
-                          {item?.teamA} V/S {item?.teamB}
+                          {item?.title}
                           <Button
                             onClick={() =>
                               handleClicked({

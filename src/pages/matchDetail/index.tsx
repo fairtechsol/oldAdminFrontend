@@ -339,7 +339,7 @@ const MatchDetail = () => {
               alignSelf: "start",
             }}
           >
-            {matchDetail?.teamA} V/S {matchDetail?.teamB}
+            {matchDetail?.title}
           </Typography>
           {matchDetail?.matchOdd?.isActive && (
             <MatchOdds
@@ -371,7 +371,7 @@ const MatchDetail = () => {
               title={matchDetail?.bookmaker?.name}
             />
           )}
-           {matchDetail?.other &&
+          {matchDetail?.other &&
             matchDetail?.other
               ?.filter(
                 (item: any) => item?.activeStatus === "live" && item?.isActive
@@ -437,8 +437,7 @@ const MatchDetail = () => {
                 />
               );
             })}
-         
-        
+
           {matchDetail?.apiTideMatch2?.isActive && (
             <MatchOdds
               liveData={matchDetail?.apiTideMatch2}
@@ -512,8 +511,6 @@ const MatchDetail = () => {
               title={matchDetail?.manualCompleteMatch?.name}
             />
           )}
- 
-          
 
           <Box sx={{ width: "150px", height: "3px" }}></Box>
           {matchDetail?.manualSessionActive &&
@@ -627,7 +624,7 @@ const MatchDetail = () => {
                   />
                 );
               })}
-               {matchDetail?.apiTideMatch?.isActive && (
+          {matchDetail?.apiTideMatch?.isActive && (
             <MatchOdds
               liveData={matchDetail?.apiTideMatch}
               currentMatch={matchDetail}
@@ -651,7 +648,7 @@ const MatchDetail = () => {
             <MatchOdds
               liveData={matchDetail?.marketCompleteMatch}
               currentMatch={matchDetail}
-              typeOfBet={"Market Complete Match"}
+              typeOfBet={matchDetail?.marketCompleteMatch?.name}
               minBet={formatToINR(
                 Math.floor(matchDetail?.marketCompleteMatch?.minBet)
               )}

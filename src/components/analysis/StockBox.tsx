@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../Common/StyledImages";
-import { ARROWUP } from "../../assets";
 import { handleNumber } from "../../helper";
 
 const StockBox = (props: any) => {
@@ -71,7 +70,7 @@ const StockBox = (props: any) => {
         {showFixed ? value : handleNumber(parseFloat(value), color)}
       </Typography>
 
-      {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />}
+      {/* {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />} */}
     </Box>
   );
 };

@@ -76,10 +76,10 @@ const AddAccount = () => {
       label: "0.00",
       value: "",
     },
-    // sessionCommission: {
-    //   label: "0.00",
-    //   value: "",
-    // },
+    sessionCommission: {
+      label: "0.00",
+      value: "",
+    },
     remarks: "",
     adminTransPassword: "",
     logo: "",
@@ -163,11 +163,11 @@ const AddAccount = () => {
           creditRefrence: values.creditRefrence,
           // commissionDownPartnership: values.commissionDownPartnership,
           myPartnership: values.myPartnership,
-          // sessionCommission:
-          //   values.sessionCommission.value === "" ||
-          //   values.sessionCommission.value === "0.00"
-          //     ? 0
-          //     : values.sessionCommission.value,
+          sessionCommission:
+            values.sessionCommission.value === "" ||
+            values.sessionCommission.value === "0.00"
+              ? 0
+              : values.sessionCommission.value,
           matchComissionType:
             values.matchCommissionType.value === "" ||
             values.matchCommissionType.value === "0.00"
@@ -404,10 +404,10 @@ const AddAccount = () => {
           label: "0.00",
           value: "0.00",
         },
-        // sessionCommission: {
-        //   label: "0.00",
-        //   value: "0.00",
-        // },
+        sessionCommission: {
+          label: "0.00",
+          value: "0.00",
+        },
       });
     }
   }, [formik.values.matchCommissionType.value]);
@@ -1101,7 +1101,7 @@ const AddAccount = () => {
                           </>
                         )}
 
-                        {/* <SelectField
+                        <SelectField
                           containerStyle={containerStyles}
                           titleStyle={titleStyles}
                           id={"sessionCommission"}
@@ -1118,7 +1118,7 @@ const AddAccount = () => {
                           onBlur={formik.handleBlur}
                           // touched={touched.sessionCommission}
                           // error={errors.sessionCommission}
-                        /> */}
+                        />
                       </Box>
                     </>
                   )}
