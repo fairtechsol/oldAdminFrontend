@@ -59,7 +59,7 @@ const BetsList = (props: any) => {
         setCurrentPage={setCurrentPage}
       />
 
-      <Box sx={{ overflowX: "auto",}}>
+      <Box sx={{ overflowX: "auto" }}>
         <TableHeaderList />
 
         {currentPageData &&

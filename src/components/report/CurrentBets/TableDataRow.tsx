@@ -23,7 +23,7 @@ const TableDataRow = (props: any) => {
           background: "#0B4F26",
           alignItems: "center",
           borderBottom: "1px solid white",
-                  },
+        },
         containerStyle,
       ]}
     >
@@ -124,8 +124,21 @@ const TableDataRow = (props: any) => {
             fontSize: { xs: "9px", md: "9px", lg: "12px" },
             fontWeight: "600",
             color: "black",
+            display: "flex",
+            alignItems: "center",
           }}
         >
+          {data?.isCommissionActive && (
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "green",
+                marginRight: "5px",
+              }}
+            />
+          )}
           {data?.user?.userName}
         </Typography>
       </Box>
@@ -205,7 +218,14 @@ const TableDataRow = (props: any) => {
           }}
         >
           {data?.odds}
-          {data?.marketType==="session"?<><br/>{data?.rate}</>:""}
+          {data?.marketType === "session" ? (
+            <>
+              <br />
+              {data?.rate}
+            </>
+          ) : (
+            ""
+          )}
         </Typography>
       </Box>
       <Box
