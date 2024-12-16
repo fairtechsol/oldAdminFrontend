@@ -11,6 +11,7 @@ import { formatNumber, formatToINR } from "../../../helper";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 import { sessionBettingType } from "../../../utils/Constants";
+import CommissionDot from "../../Common/CommissionDot";
 
 const SeasonMarketBox = (props: any) => {
   const { newData, setData, profitLossData, index, type } = props;
@@ -47,9 +48,10 @@ const SeasonMarketBox = (props: any) => {
             width: "40%",
             alignItems: "center",
             background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+            justifyContent: "space-between",
           }}
         >
-          <Typography>
+          <Box>
             <Typography
               sx={{
                 color: "black",
@@ -59,7 +61,11 @@ const SeasonMarketBox = (props: any) => {
                 lineHeight: "10px",
               }}
             >
-              {type==="khado"? `${newData?.name ?? newData?.RunnerName}-${newData.ex?.availableToLay[0]?.price}`:(newData?.name ?? newData?.RunnerName)}
+              {type === "khado"
+                ? `${newData?.name ?? newData?.RunnerName}-${
+                    newData.ex?.availableToLay[0]?.price
+                  }`
+                : newData?.name ?? newData?.RunnerName}
             </Typography>
             <Typography
               sx={{
@@ -71,8 +77,10 @@ const SeasonMarketBox = (props: any) => {
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
-          </Typography>
+          </Box>
+          {/* </Typography> */}
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -84,6 +92,16 @@ const SeasonMarketBox = (props: any) => {
             alignItems: "center",
           }}
         >
+          {newData?.isCommissionActive && (
+            <Box
+              sx={{
+                position: "absolute",
+                right: { xs: "60vw", sm: "53vw", lg: "22vw", md: "50vw" },
+              }}
+            >
+              <CommissionDot />
+            </Box>
+          )}
           {matchesMobile ? (
             <PlaceBetComponent
               type={type}
@@ -197,8 +215,8 @@ const SeasonMarketBox = (props: any) => {
                     value2={newData.ex?.availableToLay[0]?.size ?? 0}
                     lock={
                       [null, 0, "0"].includes(
-                        Math.floor(newData.ex?.availableToLay[0]?.price  ?? 0)
-                      ) ||type==="khado"
+                        Math.floor(newData.ex?.availableToLay[0]?.price ?? 0)
+                      ) || type === "khado"
                         ? true
                         : false
                     }
