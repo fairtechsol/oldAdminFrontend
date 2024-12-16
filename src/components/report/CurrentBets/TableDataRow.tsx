@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
+import CommissionDot from "../../Common/CommissionDot";
 
 const TableDataRow = (props: any) => {
   const {
@@ -128,17 +129,7 @@ const TableDataRow = (props: any) => {
             alignItems: "center",
           }}
         >
-          {data?.isCommissionActive && (
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#74ee15",
-                marginRight: "5px",
-              }}
-            />
-          )}
+          {data?.isCommissionActive && <CommissionDot />}
           {data?.user?.userName}
         </Typography>
       </Box>
