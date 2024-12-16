@@ -675,7 +675,7 @@ const LargeBox = ({ item, k }: any) => {
                 width: 10,
                 height: 10,
                 borderRadius: "50%",
-                backgroundColor: "green",
+                backgroundColor: "#74ee15",
               }}
             />
           )}
