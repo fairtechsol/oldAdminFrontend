@@ -66,6 +66,7 @@ const FullAllBets = (props: any) => {
                 ? "#faf11b"
                 : "#F1C550",
               deletedReason: v?.deleteReason,
+              isCommissionActive: v?.isCommissionActive,
               id: v?.id,
               userId: v?.user?.id,
               betId: v?.betId,
@@ -653,22 +654,48 @@ const LargeBox = ({ item, k }: any) => {
         flexDirection: "column",
       }}
     >
-      <Typography
+      <Box
         sx={{
-          fontSize: matchesMobile ? "8px" : ".6vw",
-          fontWeight: "600",
-          color: item?.color,
-          textTransform: "capitalize",
-          wordWrap: "break-word",
-          textAlign: "center",
-          lineHeight: 1,
-          whiteSpace: { xs: "nowrap", lg: "inherit" },
-          textOverflow: "ellipsis",
-          maxWidth: { xs: "43px", lg: "initial" },
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          textAlign: "left",
         }}
       >
-        {item?.name}
-      </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+          }}
+        >
+          {item?.isCommissionActive && (
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "#74ee15",
+              }}
+            />
+          )}
+          <Typography
+            sx={{
+              fontSize: matchesMobile ? "8px" : "8px",
+              fontWeight: "600",
+              color: item?.color,
+              textTransform: "capitalize",
+              wordWrap: "break-word",
+              lineHeight: 1,
+              overflowWrap: "anywhere",
+              whiteSpace: "inherit",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {item?.name}
+          </Typography>
+        </Box>
+      </Box>
       {item?.time && (
         <Typography
           sx={{

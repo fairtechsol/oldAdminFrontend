@@ -5,6 +5,7 @@ import SmallBox from "../MatchOdds/SmallBox";
 import Divider from "../../Inplay/Divider";
 import BoxComponent from "./BoxComponent";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import CommissionDot from "../../Common/CommissionDot";
 
 const LiveBookmaker = (props: any) => {
   const {
@@ -22,7 +23,7 @@ const LiveBookmaker = (props: any) => {
     handleBlock,
     handleHide,
     title,
-    liveData
+    liveData,
   } = props;
 
   const [visible, setVisible] = useState(true);
@@ -84,8 +85,9 @@ const LiveBookmaker = (props: any) => {
               marginLeft: "7px",
             }}
           >
-           {title}
-          </Typography>
+            {title}
+          </Typography>{" "}
+          {liveData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
             <img
               onClick={() =>
@@ -243,21 +245,33 @@ const LiveBookmaker = (props: any) => {
               // color={"#46e080"}
               teamImage={currentMatch?.teamA_Image}
               name={currentMatch?.teamA}
-              rates={ liveData?.type==="other"?
-                currentMatch?.profitLossDataMatch[`userTeamARateOther_${liveData?.id}_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`userTeamARateOther_${liveData?.id}_${currentMatch?.id}`]
-                  : 0
-                  :
-                  currentMatch?.profitLossDataMatch[`teamARate_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`teamARate_${currentMatch?.id}`]
+              rates={
+                liveData?.type === "other"
+                  ? currentMatch?.profitLossDataMatch[
+                      `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
+                    ]
+                    ? currentMatch?.profitLossDataMatch[
+                        `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
+                      ]
+                    : 0
+                  : currentMatch?.profitLossDataMatch[
+                      `teamARate_${currentMatch?.id}`
+                    ]
+                  ? currentMatch?.profitLossDataMatch[
+                      `teamARate_${currentMatch?.id}`
+                    ]
                   : 0
               }
-              color={liveData?.type==="other"?
-                currentMatch?.profitLossDataMatch[`userTeamARateOther_${liveData?.id}_${currentMatch?.id}`] <= 0
-                  ? "#FF4D4D"
-                  : "#319E5B"
-                  :
-                  currentMatch?.profitLossDataMatch[`teamARate_${currentMatch?.id}`] <= 0
+              color={
+                liveData?.type === "other"
+                  ? currentMatch?.profitLossDataMatch[
+                      `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
+                    ] <= 0
+                    ? "#FF4D4D"
+                    : "#319E5B"
+                  : currentMatch?.profitLossDataMatch[
+                      `teamARate_${currentMatch?.id}`
+                    ] <= 0
                   ? "#FF4D4D"
                   : "#319E5B"
               }
@@ -270,21 +284,33 @@ const LiveBookmaker = (props: any) => {
               // lock={true}
               teamImage={currentMatch?.teamB_Image}
               name={currentMatch?.teamB}
-              rates={ liveData?.type==="other"?
-                currentMatch?.profitLossDataMatch[`userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`]
-                  : 0
-                  :
-                  currentMatch?.profitLossDataMatch[`teamBRate_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`teamBRate_${currentMatch?.id}`]
+              rates={
+                liveData?.type === "other"
+                  ? currentMatch?.profitLossDataMatch[
+                      `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
+                    ]
+                    ? currentMatch?.profitLossDataMatch[
+                        `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
+                      ]
+                    : 0
+                  : currentMatch?.profitLossDataMatch[
+                      `teamBRate_${currentMatch?.id}`
+                    ]
+                  ? currentMatch?.profitLossDataMatch[
+                      `teamBRate_${currentMatch?.id}`
+                    ]
                   : 0
               }
-              color={liveData?.type==="other"?
-                currentMatch?.profitLossDataMatch[`userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`] <= 0
-                  ? "#FF4D4D"
-                  : "#319E5B"
-                  :
-                  currentMatch?.profitLossDataMatch[`teamBRate_${currentMatch?.id}`] <= 0
+              color={
+                liveData?.type === "other"
+                  ? currentMatch?.profitLossDataMatch[
+                      `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
+                    ] <= 0
+                    ? "#FF4D4D"
+                    : "#319E5B"
+                  : currentMatch?.profitLossDataMatch[
+                      `teamBRate_${currentMatch?.id}`
+                    ] <= 0
                   ? "#FF4D4D"
                   : "#319E5B"
               }
@@ -301,25 +327,35 @@ const LiveBookmaker = (props: any) => {
                   }
                   // color={"#FF4D4D"}
                   color={
-                    liveData?.type==="other"?
-                    currentMatch?.profitLossDataMatch[`userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`] <= 0
-                      ? "#FF4D4D"
-                      : "#319E5B"
-                      :
-                      currentMatch?.profitLossDataMatch[`teamCRate_${currentMatch?.id}`] <= 0
+                    liveData?.type === "other"
+                      ? currentMatch?.profitLossDataMatch[
+                          `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
+                        ] <= 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
+                      : currentMatch?.profitLossDataMatch[
+                          `teamCRate_${currentMatch?.id}`
+                        ] <= 0
                       ? "#FF4D4D"
                       : "#319E5B"
                   }
                   name={currentMatch?.teamC}
                   rates={
-                    liveData?.type==="other"?
-                currentMatch?.profitLossDataMatch[`userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`]
-                  : 0
-                  :
-                  currentMatch?.profitLossDataMatch[`teamCRate_${currentMatch?.id}`]
-                  ? currentMatch?.profitLossDataMatch[`teamCRate_${currentMatch?.id}`]
-                  : 0
+                    liveData?.type === "other"
+                      ? currentMatch?.profitLossDataMatch[
+                          `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
+                        ]
+                        ? currentMatch?.profitLossDataMatch[
+                            `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
+                          ]
+                        : 0
+                      : currentMatch?.profitLossDataMatch[
+                          `teamCRate_${currentMatch?.id}`
+                        ]
+                      ? currentMatch?.profitLossDataMatch[
+                          `teamCRate_${currentMatch?.id}`
+                        ]
+                      : 0
                   }
                   data={data?.length > 0 ? data[2] : []}
                   lock={handleLock(data?.length > 0 ? data[2] : [])}
