@@ -98,13 +98,13 @@ const MatchOdds = (props: any) => {
               alignItems: "center",
             }}
           >
-            {liveData?.isCommissionActive && <CommissionDot />}
             {typeOfBet === "MANUAL BOOKMAKER"
               ? "QUICK BOOKMAKER"
               : title
               ? title
               : typeOfBet}
           </Typography>
+          {liveData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
             <img
               onClick={() =>
