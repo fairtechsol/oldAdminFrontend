@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { formatToINR } from "../../../helper";
 
 const EventWiseExposureModal = ({
   setShowUserWiseExposureModal,
@@ -158,7 +159,7 @@ const EventWiseExposureModal = ({
                           fontSize: "1rem",
                         }}
                       >
-                        Profit/Loss
+                        Exposure
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -180,7 +181,7 @@ const EventWiseExposureModal = ({
                               borderRight: "1px solid #fff",
                             }}
                           >
-                            {value}
+                            {formatToINR(value)}
                           </TableCell>
                         </TableRow>
                       )
