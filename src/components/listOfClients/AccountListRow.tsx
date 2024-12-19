@@ -12,6 +12,7 @@ import CommissionReportTable from "../commisionReport/CommissionReportTable";
 import { ApiConstants, Constants } from "../../utils/Constants";
 import AccountListModal from "./AccountListModal";
 import { formatToINR } from "../../helper";
+import EventWiseExposureModal from "./eventWiseExposureModal";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -37,6 +38,8 @@ const AccountListRow = (props: AccountListRowInterface) => {
     id: "",
     title: "",
   });
+  const [showUserWiseExposureModal, setShowUserWiseExposureModal] =
+    useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selected, setSelected] = useState(null);
   const [depositeValue, setDepositeValue] = useState(0);
@@ -413,6 +416,10 @@ const AccountListRow = (props: AccountListRowInterface) => {
             alignItems: "center",
             height: "45px",
             borderRight: "2px solid white",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setShowUserWiseExposureModal(true);
           }}
         >
           <Typography variant="h5">
@@ -603,7 +610,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                           fTextStyle,
                         ]}
                       >
-                        {element?.matchComissionType} Com   {":"}{" "}
+                        {element?.matchComissionType} Com {":"}{" "}
                         {element?.matchCommission
                           ? element?.matchCommission
                           : 0}
@@ -635,7 +642,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                           fTextStyle,
                         ]}
                       >
-                        Match Com    : 0
+                        Match Com : 0
                       </Typography>
                       {/* <Typography
                         variant="h5"
@@ -670,7 +677,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                       ? element?.sessionCommission
                       : 0}
                     </Typography> */}
-                    {/* <Typography
+                {/* <Typography
                       variant="h5"
                       sx={[
                         {
@@ -683,8 +690,8 @@ const AccountListRow = (props: AccountListRowInterface) => {
                     >
                      
                     </Typography> */}
-                  {/* </Box> */}
-                  {/* <Typography
+                {/* </Box> */}
+                {/* <Typography
                     variant="h5"
                     sx={[
                       {
@@ -804,6 +811,20 @@ const AccountListRow = (props: AccountListRowInterface) => {
             currentPage={currentPage}
           />
         </Box>
+      </ModalMUI>
+      <ModalMUI
+        open={showUserWiseExposureModal}
+        onClose={() => {
+          setShowUserWiseExposureModal(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EventWiseExposureModal
+          setShowUserWiseExposureModal={setShowUserWiseExposureModal}
+          userName={element?.userName}
+          userId={element?.id}
+        />
       </ModalMUI>
       <ModalMUI
         open={showSubUsers?.value}
