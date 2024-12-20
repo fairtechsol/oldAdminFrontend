@@ -97,7 +97,7 @@ service.interceptors.response.use(
   (error) => {
     if (axios.isCancel(error)) {
       console.log("Request canceled:", error.message);
-      return;
+      // return;
     }
 
     let { status, data } = error.response || {};
