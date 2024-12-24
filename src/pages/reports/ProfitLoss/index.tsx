@@ -19,8 +19,6 @@ interface FilterObject {
 }
 const ProfitLossReport = () => {
   const dispatch: AppDispatch = useDispatch();
-  // const [pageLimit] = useState(10);
-  const [pageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<any>("");
   const [startDate, setStartDate] = useState<any>();
@@ -131,7 +129,6 @@ const ProfitLossReport = () => {
           endDate={endDate}
           eventData={userTotalProfitLoss && userTotalProfitLoss}
           currentPage={currentPage}
-          pageCount={pageCount}
           setCurrentPage={setCurrentPage}
           userProfitLoss={userProfitLoss}
           getUserProfitLoss={getUserProfitLoss}
