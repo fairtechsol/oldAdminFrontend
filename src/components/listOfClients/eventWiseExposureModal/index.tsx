@@ -24,7 +24,7 @@ const EventWiseExposureModal = ({
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { userWiseExposureList } = useSelector(
+  const { userWiseExposureList, loading } = useSelector(
     (state: RootState) => state.user.userList
   );
 
@@ -164,26 +164,42 @@ const EventWiseExposureModal = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {Object.entries(userWiseExposureList || {}).map(
-                      ([key, value]: any) => (
-                        <TableRow key={value}>
-                          <TableCell
-                            sx={{
-                              color: "#fff",
-                              borderRight: "1px solid #fff",
-                            }}
-                          >
-                            {key}
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              color: "#fff",
-                              borderRight: "1px solid #fff",
-                            }}
-                          >
-                            {formatToINR(value)}
-                          </TableCell>
-                        </TableRow>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={2}
+                          sx={{
+                            color: "#fff",
+                            borderRight: "1px solid #fff",
+                            alignItems: "center",
+                            textAlign: "center",
+                          }}
+                        >
+                          Loading...
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      Object.entries(userWiseExposureList || {}).map(
+                        ([key, value]: any) => (
+                          <TableRow key={value}>
+                            <TableCell
+                              sx={{
+                                color: "#fff",
+                                borderRight: "1px solid #fff",
+                              }}
+                            >
+                              {key}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                color: "#fff",
+                                borderRight: "1px solid #fff",
+                              }}
+                            >
+                              {formatToINR(value)}
+                            </TableCell>
+                          </TableRow>
+                        )
                       )
                     )}
                   </TableBody>

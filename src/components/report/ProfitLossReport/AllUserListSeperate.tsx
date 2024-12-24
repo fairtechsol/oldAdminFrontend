@@ -160,6 +160,7 @@ const AllUserListSeparate = ({
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 lineClamp: 2,
+                cursor: "pointer",
               }}
             >
               {item?.userName}

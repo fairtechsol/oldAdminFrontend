@@ -24,7 +24,7 @@ const RowComponentMatches = ({
   userProfitLoss,
   getUserProfitLoss,
   currentPage,
-  color
+  color,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -151,6 +151,7 @@ const RowComponentMatches = ({
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 lineClamp: 2,
+                cursor: "pointer",
               }}
             >
               {item?.title}
@@ -270,13 +271,9 @@ const RowComponentMatches = ({
                 lineHeight: "0.9",
               }}
             >
-             
-                  {handleNumber(parseFloat(item?.rateProfitLoss || 0),color)}{" "}
-                  {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
-                  ${formatToINR(
-                    Number(item?.totalDeduction || 0)
-                  )})`}
-              
+              {handleNumber(parseFloat(item?.rateProfitLoss || 0), color)}{" "}
+              {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
+                  ${formatToINR(Number(item?.totalDeduction || 0))})`}
             </Typography>
             <StyledImage
               src={ArrowDown}
@@ -375,10 +372,13 @@ const RowComponentMatches = ({
               {Number(item?.sessionProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {handleNumber(parseFloat(item?.sessionProfitLoss || 0),color)}
+                  {handleNumber(
+                    parseFloat(item?.sessionProfitLoss || 0),
+                    color
+                  )}
                 </>
               ) : (
-                handleNumber(parseFloat(item?.sessionProfitLoss || 0),color)
+                handleNumber(parseFloat(item?.sessionProfitLoss || 0), color)
               )}
             </Typography>
             <StyledImage
