@@ -594,9 +594,30 @@ export const getSearchClientList = createAsyncThunk<
     throw thunkApi.rejectWithValue(err.response?.status);
   }
 });
+
+export const getUserWiseExposure = createAsyncThunk<any, any>(
+  "userwiseExposure/clientList",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.USER.USER_WISE_EVENTWISE_EXPOSURE}/${requestData}`
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      throw thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
 export const updateUserReset = createAction("updateUser/reset");
 export const addReset = createAction("add/reset");
 export const userListSuccessReset = createAction("userList/reset");
+export const resetUserWiseExposureList = createAction(
+  "userWiseExposureList/reset"
+);

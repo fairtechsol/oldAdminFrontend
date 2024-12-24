@@ -247,29 +247,29 @@ const LiveBookmaker = (props: any) => {
               name={currentMatch?.teamA}
               rates={
                 liveData?.type === "other"
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
                     ]
-                    ? currentMatch?.profitLossDataMatch[
+                    ? currentMatch?.profitLossDataMatch?.[
                         `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
                       ]
                     : 0
-                  : currentMatch?.profitLossDataMatch[
+                  : currentMatch?.profitLossDataMatch?.[
                       `teamARate_${currentMatch?.id}`
                     ]
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `teamARate_${currentMatch?.id}`
                     ]
                   : 0
               }
               color={
                 liveData?.type === "other"
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
                     ] <= 0
                     ? "#FF4D4D"
                     : "#319E5B"
-                  : currentMatch?.profitLossDataMatch[
+                  : currentMatch?.profitLossDataMatch?.[
                       `teamARate_${currentMatch?.id}`
                     ] <= 0
                   ? "#FF4D4D"
@@ -286,29 +286,29 @@ const LiveBookmaker = (props: any) => {
               name={currentMatch?.teamB}
               rates={
                 liveData?.type === "other"
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
                     ]
-                    ? currentMatch?.profitLossDataMatch[
+                    ? currentMatch?.profitLossDataMatch?.[
                         `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
                       ]
                     : 0
-                  : currentMatch?.profitLossDataMatch[
+                  : currentMatch?.profitLossDataMatch?.[
                       `teamBRate_${currentMatch?.id}`
                     ]
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `teamBRate_${currentMatch?.id}`
                     ]
                   : 0
               }
               color={
                 liveData?.type === "other"
-                  ? currentMatch?.profitLossDataMatch[
+                  ? currentMatch?.profitLossDataMatch?.[
                       `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
                     ] <= 0
                     ? "#FF4D4D"
                     : "#319E5B"
-                  : currentMatch?.profitLossDataMatch[
+                  : currentMatch?.profitLossDataMatch?.[
                       `teamBRate_${currentMatch?.id}`
                     ] <= 0
                   ? "#FF4D4D"
@@ -328,12 +328,12 @@ const LiveBookmaker = (props: any) => {
                   // color={"#FF4D4D"}
                   color={
                     liveData?.type === "other"
-                      ? currentMatch?.profitLossDataMatch[
+                      ? currentMatch?.profitLossDataMatch?.[
                           `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
                         ] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
-                      : currentMatch?.profitLossDataMatch[
+                      : currentMatch?.profitLossDataMatch?.[
                           `teamCRate_${currentMatch?.id}`
                         ] <= 0
                       ? "#FF4D4D"
@@ -342,17 +342,17 @@ const LiveBookmaker = (props: any) => {
                   name={currentMatch?.teamC}
                   rates={
                     liveData?.type === "other"
-                      ? currentMatch?.profitLossDataMatch[
+                      ? currentMatch?.profitLossDataMatch?.[
                           `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
                         ]
-                        ? currentMatch?.profitLossDataMatch[
+                        ? currentMatch?.profitLossDataMatch?.[
                             `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
                           ]
                         : 0
-                      : currentMatch?.profitLossDataMatch[
+                      : currentMatch?.profitLossDataMatch?.[
                           `teamCRate_${currentMatch?.id}`
                         ]
-                      ? currentMatch?.profitLossDataMatch[
+                      ? currentMatch?.profitLossDataMatch?.[
                           `teamCRate_${currentMatch?.id}`
                         ]
                       : 0
