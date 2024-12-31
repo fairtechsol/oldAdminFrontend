@@ -12,6 +12,7 @@ import {
   amountupdate,
   // betDataFromSocket,
   getMatchDetail,
+  getMatchDetailMarketAnalysis,
   getPlacedBets,
   getUserProfitLoss,
   removeRunAmount,
@@ -216,7 +217,15 @@ const MatchDetail = () => {
       dispatch(resetBetSessionProfitLossGraph());
       dispatch(getPlacedBets(`eq${state?.matchId}`));
     }
-  }, [state?.matchId]);
+    if (state?.userId) {
+      dispatch(
+        getMatchDetailMarketAnalysis({
+          matchId: state?.matchId,
+          userId: state?.userId,
+        })
+      );
+    }
+  }, [state?.matchId, state?.userId]);
 
   useEffect(() => {
     try {
@@ -283,6 +292,14 @@ const MatchDetail = () => {
           dispatch(getUserProfitLoss(state?.matchId));
           dispatch(getPlacedBets(`eq${state?.matchId}`));
         }
+        if (state?.userId) {
+          dispatch(
+            getMatchDetailMarketAnalysis({
+              matchId: state?.matchId,
+              userId: state?.userId,
+            })
+          );
+        }
       } else if (document.visibilityState === "hidden") {
         socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(state?.matchId);
@@ -293,7 +310,7 @@ const MatchDetail = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [state]);
 
   return (
     <>

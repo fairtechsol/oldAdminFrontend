@@ -204,6 +204,7 @@ const EventWiseExposureModal = ({
                                     setShowUserWiseMatchListModal({
                                       status: true,
                                       value: value?.match,
+                                      matchType: key,
                                     });
                                   }
                                 }}
