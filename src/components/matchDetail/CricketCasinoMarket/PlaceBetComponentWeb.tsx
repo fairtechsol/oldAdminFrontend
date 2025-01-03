@@ -1,9 +1,12 @@
 import { Box, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { UD } from "../../../assets";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/store";
-import { getSessionProLoss } from "../../../store/actions/match/matchAction";
 import { handleNumber } from "../../../helper";
+import {
+  addRunAmount,
+  getSessionProLoss,
+} from "../../../store/actions/match/matchAction";
+import { AppDispatch, RootState } from "../../../store/store";
 
 const PlaceBetComponentWeb = ({
   newData,
@@ -14,20 +17,42 @@ const PlaceBetComponentWeb = ({
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   // const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
   return (
     <>
       <Box
         onClick={() => {
-          dispatch(
-            getSessionProLoss({
-              matchId: newData?.matchId,
-              id: newData?.id,
-              name: newData?.name ?? newData?.RunnerName,
-              type: !newData?.isManual
-                ? "Session Market"
-                : "Quick Session Market",
-            })
-          );
+          if (marketAnalysis?.betType) {
+            const currBetPL = marketAnalysis?.betType?.session?.find(
+              (item: any) => item.betId === newData?.id
+            );
+            if (currBetPL) {
+              dispatch(
+                addRunAmount({
+                  id: newData?.id,
+                  name: newData?.name,
+                  type: !newData?.isManual
+                    ? "Session Market"
+                    : "Quick Session Market",
+                  matchId: newData?.matchId,
+                  proLoss: JSON.stringify(currBetPL?.profitLoss),
+                })
+              );
+            }
+          } else {
+            dispatch(
+              getSessionProLoss({
+                matchId: newData?.matchId,
+                id: newData?.id,
+                name: newData?.name ?? newData?.RunnerName,
+                type: !newData?.isManual
+                  ? "Session Market"
+                  : "Quick Session Market",
+              })
+            );
+          }
         }}
         sx={{
           background: "#0B4F26",
@@ -80,10 +105,13 @@ const PlaceBetComponentWeb = ({
               color: "white",
             }}
           >
-            {!profitLoss?.profitLoss
+            {!profitLoss?.profitLoss && !profitLoss?.betPlaced
               ? "Profit/Loss"
               : handleNumber(
-                  parseFloat(profitLoss?.profitLoss[index]).toFixed(2),
+                  parseFloat(
+                    profitLoss?.betPlaced[index] ??
+                      profitLoss?.profitLoss[index]
+                  ).toFixed(2),
                   color
                 )}
           </Typography>
