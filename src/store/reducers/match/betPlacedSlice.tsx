@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  addRunAmount,
   getPlacedBets,
   getSessionProLoss,
   getSessionProfitLossMatchDetailFilter,
@@ -103,6 +104,16 @@ const betsSlice = createSlice({
           );
 
           state.sessionProLoss = updatedSessionProLoss;
+        }
+      })
+      .addCase(addRunAmount.fulfilled, (state, action) => {
+        const data = action?.payload;
+        let idToAdd=data.id
+        if (
+          idToAdd &&
+          !state?.sessionProLoss?.find((item: any) => item?.id === idToAdd)
+        ) {
+          state?.sessionProLoss?.push(action?.payload);
         }
       })
       .addCase(removeRunAmount.fulfilled, (state, action) => {
