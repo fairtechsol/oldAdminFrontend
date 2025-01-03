@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import service from "../../../service";
 import { AxiosError } from "axios";
+import service from "../../../service";
 import { ApiConstants, Constants } from "../../../utils/Constants";
 
 export const getMatchListInplay = createAsyncThunk<any, any>(
@@ -274,7 +274,12 @@ export const updateProfitLoss = createAsyncThunk<any, any>(
     return profitLoss;
   }
 );
-
+export const addRunAmount = createAsyncThunk<any, any>(
+  "/placed/addRunAmount",
+  async (profitLoss) => {
+    return profitLoss;
+  }
+);
 export const removeRunAmount = createAsyncThunk<any, any>(
   "/remove/runAmount",
   async (profitLoss) => {

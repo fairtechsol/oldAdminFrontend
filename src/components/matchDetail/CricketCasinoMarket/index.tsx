@@ -1,9 +1,11 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
-import BetsCountBox from "./BetsCountBox";
-import Divider from "../../Inplay/Divider";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
+import { RootState } from "../../../store/store";
+import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import BetsCountBox from "./BetsCountBox";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 
 const CricketCasinoMarket = (props: any) => {
@@ -29,6 +31,10 @@ const CricketCasinoMarket = (props: any) => {
   const onSubmit = (value: any) => {
     handleBlock(value, !locked, "SESSION");
   };
+
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   return (
     <>
@@ -110,7 +116,14 @@ const CricketCasinoMarket = (props: any) => {
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
-                total={allBetsData
+                total={ marketAnalysis?.betType
+                  ? marketAnalysis?.betType?.session
+                      ?.filter((item: any) => sessionData?.id == item?.betId)
+                      ?.reduce((prev: number, session: any) => {
+                        prev += session?.profitLoss?.totalBet || 0;
+                        return prev;
+                      }, 0)
+                  :allBetsData
                   ?.filter(
                     (item: any) =>
                       JSON.parse(
@@ -160,6 +173,15 @@ const CricketCasinoMarket = (props: any) => {
                   }, 0)} */}
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
+                      marketAnalysis?.betType
+                      ? marketAnalysis?.betType?.session
+                          ?.filter((item: any) => sessionData?.id == item?.betId)
+                          ?.reduce((prev: number, session: any) => {
+                            prev += Number(session?.profitLoss?.maxLoss || 0);
+                            return prev;
+                          }, 0)
+                          .toFixed(2)
+                      : 
                       allBetsData
                         ?.filter(
                           (item: any) =>
@@ -340,6 +362,11 @@ const CricketCasinoMarket = (props: any) => {
                       <CricketCasinoMarketBox
                         newData={currSessionItem}
                         profitLossData={
+                          marketAnalysis?.betType
+                          ? [marketAnalysis?.betType?.session?.find(
+                              (item: any) => item.betId == sessionData?.id
+                            )?.profitLoss]
+                          :
                           currentMatch?.profitLossDataSession &&
                           currentMatch?.profitLossDataSession?.filter(
                             (item: any) => item?.betId === sessionData?.id

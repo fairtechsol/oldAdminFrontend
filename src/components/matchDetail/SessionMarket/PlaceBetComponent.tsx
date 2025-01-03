@@ -1,29 +1,53 @@
 import { Box, Typography } from "@mui/material";
-import { AppDispatch } from "../../../store/store";
-import { useDispatch } from "react-redux";
-import { getSessionProLoss } from "../../../store/actions/match/matchAction";
+import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../../../helper";
+import { addRunAmount, getSessionProLoss } from "../../../store/actions/match/matchAction";
+import { AppDispatch, RootState } from "../../../store/store";
 
 const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
         onClick={() => {
-          if (type === "session") {
-            dispatch(
-              getSessionProLoss({
-                matchId: newData?.matchId,
-                id: newData?.id,
-                name: newData?.name ?? newData?.RunnerName,
-                type: !newData?.isManual
-                  ? "Session Market"
-                  : "Quick Session Market",
-              })
+          if (marketAnalysis?.betType) {
+            const currBetPL = marketAnalysis?.betType?.session?.find(
+              (item: any) => item.betId === newData?.id
             );
+            if (currBetPL) {
+              dispatch(
+                addRunAmount({
+                  id: newData?.id,
+                  name: newData?.name,
+                  type: !newData?.isManual
+                    ? "Session Market"
+                    : "Quick Session Market",
+                  matchId: newData?.matchId,
+                  proLoss: JSON.stringify(currBetPL?.profitLoss),
+                })
+              );
+            }
+          } else {
+            if (type === "session") {
+              dispatch(
+                getSessionProLoss({
+                  matchId: newData?.matchId,
+                  id: newData?.id,
+                  name: newData?.name ?? newData?.RunnerName,
+                  type: !newData?.isManual
+                    ? "Session Market"
+                    : "Quick Session Market",
+                })
+              );
+            }
           }
         }}
         sx={{
