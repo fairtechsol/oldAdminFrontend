@@ -35,7 +35,6 @@ const SessionMarket = (props: any) => {
   const onSubmit = (value: any) => {
     handleBlock(value, !locked, "SESSION");
   };
-
   return (
     <>
       <Box
@@ -403,7 +402,9 @@ const SessionMarket = (props: any) => {
                             marketAnalysis?.betType
                               ? [
                                   marketAnalysis?.betType?.session?.find(
-                                    (item: any) => item.betId == element?.id
+                                    (item: any) => (title === "Quick Session Market"
+                                      ? JSON.parse(element)?.id
+                                      : element?.id)
                                   )?.profitLoss,
                                 ]
                               : allBetsData?.filter(

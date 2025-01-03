@@ -733,6 +733,11 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) => item?.betId === matchDetail?.apiTideMatch?.id
+                ) ?? profitLossFromAnalysisForTiedMarket?.[0]
+              }
             />
           )}
           {matchDetail?.marketCompleteMatch?.isActive && (
@@ -753,6 +758,12 @@ const MatchDetail = () => {
               }
               showBox={
                 matchDetail?.marketCompleteMatch?.activeStatus === "save"
+              }
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.marketCompleteMatch?.id
+                ) ?? profitLossFromAnalysisForCompleteMarket?.[0]
               }
             />
           )}

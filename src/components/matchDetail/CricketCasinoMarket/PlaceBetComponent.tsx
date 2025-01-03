@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { handleNumber } from "../../../helper";
 
-const PlaceBetComponent = ({profitLoss, color, index }: any) => {
+const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
   // const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <Box
@@ -75,10 +75,13 @@ const PlaceBetComponent = ({profitLoss, color, index }: any) => {
               color: "white",
             }}
           >
-            {!profitLoss?.profitLoss
+            {!profitLoss?.profitLoss && !profitLoss?.betPlaced
               ? "Profit/Loss"
               : handleNumber(
-                  parseFloat(profitLoss?.profitLoss[index]).toFixed(2),
+                  parseFloat(
+                    profitLoss?.betPlaced[index] ??
+                      profitLoss?.profitLoss[index]
+                  ).toFixed(2),
                   color
                 )}
           </Typography>
