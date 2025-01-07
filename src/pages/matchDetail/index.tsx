@@ -170,7 +170,11 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(removeRunAmount(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(getPlacedBets(`eq${state?.matchId}${
+          state.userId
+            ? `&userId=${state.userId}&roleName=${state?.roleName}`
+            : ""
+        }`));
         dispatch(amountupdate(event));
       }
     } catch (error) {
@@ -203,7 +207,11 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(updateMaxLossForBetOnUndeclare(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(getPlacedBets(`eq${state?.matchId}${
+          state.userId
+            ? `&userId=${state.userId}&roleName=${state?.roleName}`
+            : ""
+        }`));
       }
     } catch (error) {
       console.log(error);
@@ -217,7 +225,11 @@ const MatchDetail = () => {
       dispatch(getUserProfitLoss(state?.matchId));
       dispatch(resetSessionProfitLoss());
       dispatch(resetBetSessionProfitLossGraph());
-      dispatch(getPlacedBets(`eq${state?.matchId}`));
+      dispatch(getPlacedBets(`eq${state?.matchId}${
+        state.userId
+          ? `&userId=${state.userId}&roleName=${state?.roleName}`
+          : ""
+      }`));
     }
     if (state?.userId) {
       dispatch(
@@ -250,17 +262,19 @@ const MatchDetail = () => {
           state?.matchId,
           updateMatchDetailToRedux
         );
-        socketService.match.matchResultDeclared(matchResultDeclared);
-        socketService.match.declaredMatchResultAllUser(matchResultDeclared);
-        socketService.match.matchDeleteBet(matchDeleteBet);
-        socketService.match.sessionDeleteBet(handleSessionDeleteBet);
-        socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
-        socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
-        socketService.match.sessionResult(handleSessionResultDeclare);
-        socketService.match.sessionResultUnDeclare(
-          handleSessionResultUnDeclare
-        );
-        socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
+        if (!state.userId) {
+          socketService.match.matchResultDeclared(matchResultDeclared);
+          socketService.match.declaredMatchResultAllUser(matchResultDeclared);
+          socketService.match.matchDeleteBet(matchDeleteBet);
+          socketService.match.sessionDeleteBet(handleSessionDeleteBet);
+          socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
+          socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+          socketService.match.sessionResult(handleSessionResultDeclare);
+          socketService.match.sessionResultUnDeclare(
+            handleSessionResultUnDeclare
+          );
+          socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
+        }
         // dispatch(matchListReset());
       }
     } catch (e) {
@@ -292,7 +306,11 @@ const MatchDetail = () => {
         if (state?.matchId) {
           dispatch(getMatchDetail(state?.matchId));
           dispatch(getUserProfitLoss(state?.matchId));
-          dispatch(getPlacedBets(`eq${state?.matchId}`));
+          dispatch(getPlacedBets(`eq${state?.matchId}${
+            state.userId
+              ? `&userId=${state.userId}`
+              : ""
+          }`));
         }
         if (state?.userId) {
           dispatch(
@@ -325,16 +343,16 @@ const MatchDetail = () => {
         "quickbookmaker3",
       ].includes(item?.marketType)
   );
-  let profitLossFromAnalysisForTiedMarket =
-    marketAnalysis?.betType?.match?.filter((item: any) =>
+  let profitLossFromAnalysisForTiedMarket = marketAnalysis?.betType?.match?.filter(
+    (item: any) =>
       ["tiedMatch1", "tiedMatch2", "tiedMatch3"].includes(item?.marketType)
-    );
-  let profitLossFromAnalysisForCompleteMarket =
-    marketAnalysis?.betType?.match?.filter((item: any) =>
+  );
+  let profitLossFromAnalysisForCompleteMarket = marketAnalysis?.betType?.match?.filter(
+    (item: any) =>
       ["completeMatch", "completeMatch1", "completeManual"].includes(
         item?.marketType
       )
-    );
+  );
 
   return (
     <>
