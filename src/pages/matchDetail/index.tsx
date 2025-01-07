@@ -172,7 +172,7 @@ const MatchDetail = () => {
         dispatch(removeRunAmount(event));
         dispatch(getPlacedBets(`eq${state?.matchId}${
           state.userId
-            ? `&userId=${state.userId}&roleName=${state?.roleName}`
+            ? `&userId=${state.userId}`
             : ""
         }`));
         dispatch(amountupdate(event));
@@ -209,7 +209,7 @@ const MatchDetail = () => {
         dispatch(updateMaxLossForBetOnUndeclare(event));
         dispatch(getPlacedBets(`eq${state?.matchId}${
           state.userId
-            ? `&userId=${state.userId}&roleName=${state?.roleName}`
+            ? `&userId=${state.userId}`
             : ""
         }`));
       }
@@ -227,7 +227,7 @@ const MatchDetail = () => {
       dispatch(resetBetSessionProfitLossGraph());
       dispatch(getPlacedBets(`eq${state?.matchId}${
         state.userId
-          ? `&userId=${state.userId}&roleName=${state?.roleName}`
+          ? `&userId=${state.userId}`
           : ""
       }`));
     }
