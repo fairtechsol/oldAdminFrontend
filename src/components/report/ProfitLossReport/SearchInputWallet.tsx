@@ -1,5 +1,5 @@
+import { Box, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Box, Typography, TextField } from "@mui/material";
 import { ARROWDROPDOWN } from "../../../assets";
 
 const SearchInputWallet = (props: any) => {
@@ -117,7 +117,7 @@ const SearchInputWallet = (props: any) => {
         >
           {data
             ?.filter((k: any) =>
-              k?.userName?.toLowerCase().includes(search.toLowerCase())
+              k?.userName?.toLowerCase().includes(search?.toLowerCase())
             )
             .map((i: any, idx: any) => {
               return <Block key={idx} i={i} />;

@@ -13,6 +13,7 @@ import { ApiConstants, Constants } from "../../utils/Constants";
 import AccountListModal from "./AccountListModal";
 import { formatToINR } from "../../helper";
 import EventWiseExposureModal from "./eventWiseExposureModal";
+import EventWiseMatchListModal from "./eventWiseMatchListModal";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -40,6 +41,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
   });
   const [showUserWiseExposureModal, setShowUserWiseExposureModal] =
     useState(false);
+  const [showUserWiseMatchListModal, setShowUserWiseMatchListModal] = useState({
+    status: false,
+    value: {},
+    matchType: "",
+  });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selected, setSelected] = useState(null);
   const [depositeValue, setDepositeValue] = useState(0);
@@ -824,6 +830,23 @@ const AccountListRow = (props: AccountListRowInterface) => {
           setShowUserWiseExposureModal={setShowUserWiseExposureModal}
           userName={element?.userName}
           userId={element?.id}
+          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+        />
+      </ModalMUI>
+      <ModalMUI
+        open={showUserWiseMatchListModal?.status}
+        onClose={() => {
+          setShowUserWiseMatchListModal({ status: false, value: {}, matchType: "" });
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EventWiseMatchListModal
+          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+          userName={element?.userName}
+          data={showUserWiseMatchListModal?.value}
+          userId={element?.id}
+          matchType={showUserWiseMatchListModal?.matchType}
         />
       </ModalMUI>
       <ModalMUI

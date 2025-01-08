@@ -14,6 +14,7 @@ import {
   updateTeamRates,
   updateTeamRatesOnDelete,
   setCurrentOdd,
+  getMatchDetailMarketAnalysis,
 } from "../../actions/match/matchAction";
 import { convertData, updateSessionBettingsItem } from "../../../helper";
 import { profitLossDataForMatchConstants } from "../../../utils/Constants";
@@ -28,6 +29,7 @@ interface InitialState {
   matchDetails: any;
   betPlaceData: any;
   currentOdd: any;
+  marketAnalysis: any;
 }
 
 const initialState: InitialState = {
@@ -40,6 +42,7 @@ const initialState: InitialState = {
   betPlaceData: [],
   getProfile: null,
   currentOdd: null,
+  marketAnalysis: null,
 };
 
 const matchListSlice = createSlice({
@@ -75,6 +78,19 @@ const matchListSlice = createSlice({
         state.success = true;
       })
       .addCase(getMatchDetail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getMatchDetailMarketAnalysis.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.marketAnalysis = null;
+      })
+      .addCase(getMatchDetailMarketAnalysis.fulfilled, (state, action) => {
+        state.loading = false;
+        state.marketAnalysis = action?.payload;
+      })
+      .addCase(getMatchDetailMarketAnalysis.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

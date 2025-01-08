@@ -1,12 +1,14 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
-import BetsCountBox from "./BetsCountBox";
-import Divider from "../../Inplay/Divider";
-import SeasonMarketBox from "./SeasonMarketBox";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { customSort } from "../../../helper";
-import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import { RootState } from "../../../store/store";
 import { sessionBettingType } from "../../../utils/Constants";
+import Divider from "../../Inplay/Divider";
+import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import BetsCountBox from "./BetsCountBox";
+import SeasonMarketBox from "./SeasonMarketBox";
 
 const SessionMarket = (props: any) => {
   const theme = useTheme();
@@ -27,11 +29,12 @@ const SessionMarket = (props: any) => {
     handleHide,
   } = props;
   const [visible, setVisible] = useState(true);
-
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
   const onSubmit = (value: any) => {
     handleBlock(value, !locked, "SESSION");
   };
-
   return (
     <>
       <Box
@@ -112,18 +115,28 @@ const SessionMarket = (props: any) => {
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
-                total={allBetsData
-                  ?.filter(
-                    (item: any) =>
-                      JSON.parse(
-                        currentMatch?.sessionBettings?.find(
-                          (items: any) => JSON.parse(items)?.id == item?.betId
-                        ) || "{}"
-                      )?.type == type
-                  )
-                  ?.reduce((acc: number, bet: any) => {
-                    return acc + +bet?.totalBet;
-                  }, 0)}
+                total={
+                  marketAnalysis?.betType
+                    ? marketAnalysis?.betType?.session
+                        ?.filter((item: any) => item.type == type)
+                        ?.reduce((prev: number, session: any) => {
+                          prev += session?.profitLoss?.totalBet || 0;
+                          return prev;
+                        }, 0)
+                    : allBetsData
+                        ?.filter(
+                          (item: any) =>
+                            JSON.parse(
+                              currentMatch?.sessionBettings?.find(
+                                (items: any) =>
+                                  JSON.parse(items)?.id == item?.betId
+                              ) || "{}"
+                            )?.type == type
+                        )
+                        ?.reduce((acc: number, bet: any) => {
+                          return acc + +bet?.totalBet;
+                        }, 0)
+                }
               />
               {/* static code */}
               <Box
@@ -162,20 +175,27 @@ const SessionMarket = (props: any) => {
                   }, 0)} */}
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
-                      allBetsData
-                        ?.filter(
-                          (item: any) =>
-                            JSON.parse(
-                              currentMatch?.sessionBettings?.find(
-                                (items: any) =>
-                                  JSON.parse(items)?.id == item?.betId
-                              ) || "{}"
-                            )?.type == type
-                        )
-                        ?.reduce((acc: number, bet: any) => {
-                          return acc + (Number(bet?.maxLoss) || 0);
-                        }, 0)
-                        .toFixed(2)
+                      marketAnalysis?.betType
+                        ? marketAnalysis?.betType?.session
+                            ?.filter((item: any) => item.type == type)
+                            ?.reduce((prev: number, session: any) => {
+                              prev += +session?.profitLoss?.maxLoss || 0;
+                              return prev;
+                            }, 0)
+                        : allBetsData
+                            ?.filter(
+                              (item: any) =>
+                                JSON.parse(
+                                  currentMatch?.sessionBettings?.find(
+                                    (items: any) =>
+                                      JSON.parse(items)?.id == item?.betId
+                                  ) || "{}"
+                                )?.type == type
+                            )
+                            ?.reduce((acc: number, bet: any) => {
+                              return acc + (Number(bet?.maxLoss) || 0);
+                            }, 0)
+                            .toFixed(2)
                     )
                   )}
                 </Typography>
@@ -378,13 +398,23 @@ const SessionMarket = (props: any) => {
                               ? JSON.parse(element)
                               : element
                           }
-                          profitLossData={allBetsData?.filter(
-                            (item: any) =>
-                              item?.betId ===
-                              (title === "Quick Session Market"
-                                ? JSON.parse(element)?.id
-                                : element?.id)
-                          )}
+                          profitLossData={
+                            marketAnalysis?.betType
+                              ? [
+                                  marketAnalysis?.betType?.session?.find(
+                                    () => (title === "Quick Session Market"
+                                      ? JSON.parse(element)?.id
+                                      : element?.id)
+                                  )?.profitLoss,
+                                ]
+                              : allBetsData?.filter(
+                                  (item: any) =>
+                                    item?.betId ===
+                                    (title === "Quick Session Market"
+                                      ? JSON.parse(element)?.id
+                                      : element?.id)
+                                )
+                          }
                           index={index}
                           type={type}
                         />

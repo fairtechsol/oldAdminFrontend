@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import service from "../../../service";
 import { AxiosError } from "axios";
+import service from "../../../service";
 import { ApiConstants, Constants } from "../../../utils/Constants";
 
 export const getMatchListInplay = createAsyncThunk<any, any>(
@@ -35,7 +35,22 @@ export const getMatchDetail = createAsyncThunk<any, any>(
     }
   }
 );
-
+export const getMatchDetailMarketAnalysis = createAsyncThunk<any, any>(
+  "match/detailMarketAnalysis",
+  async ({ matchId, userId }, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.MATCH.GET_MATCH_MARKET_ANALYSIS}?matchId=${matchId}&userId=${userId}`
+      );
+      if (resp) {
+        return resp?.data?.[0];
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      throw thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getPlacedBets = createAsyncThunk<any, any>(
   "get/placedBets",
   async (requestData, thunkApi) => {
@@ -259,7 +274,12 @@ export const updateProfitLoss = createAsyncThunk<any, any>(
     return profitLoss;
   }
 );
-
+export const addRunAmount = createAsyncThunk<any, any>(
+  "/placed/addRunAmount",
+  async (profitLoss) => {
+    return profitLoss;
+  }
+);
 export const removeRunAmount = createAsyncThunk<any, any>(
   "/remove/runAmount",
   async (profitLoss) => {
