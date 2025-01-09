@@ -4,14 +4,14 @@ import ModalMUI from "@mui/material/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DownGIcon, DownIcon, LockIcon, UnLockIcon } from "../../assets";
-import { AccountListRowInterface } from "../../interface/listOfClients";
-import StyledImage from "../Common/StyledImages";
-import RowModalComponents from "./RowModalComponents";
-import { Modal } from "../Common/Modal";
-import CommissionReportTable from "../commisionReport/CommissionReportTable";
-import { ApiConstants, Constants } from "../../utils/Constants";
-import AccountListModal from "./AccountListModal";
 import { formatToINR } from "../../helper";
+import { AccountListRowInterface } from "../../interface/listOfClients";
+import { ApiConstants, Constants } from "../../utils/Constants";
+import { Modal } from "../Common/Modal";
+import StyledImage from "../Common/StyledImages";
+import CommissionReportTable from "../commisionReport/CommissionReportTable";
+import AccountListModal from "./AccountListModal";
+import RowModalComponents from "./RowModalComponents";
 import EventWiseExposureModal from "./eventWiseExposureModal";
 import EventWiseMatchListModal from "./eventWiseMatchListModal";
 
@@ -846,6 +846,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
           userName={element?.userName}
           data={showUserWiseMatchListModal?.value}
           userId={element?.id}
+          roleName={element?.roleName}
           matchType={showUserWiseMatchListModal?.matchType}
         />
       </ModalMUI>

@@ -8,8 +8,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { formatToINR } from "../../../helper";
 import { useNavigate } from "react-router-dom";
+import { formatToINR } from "../../../helper";
 import { Constants } from "../../../utils/Constants";
 
 const EventWiseMatchListModal = ({
@@ -18,6 +18,7 @@ const EventWiseMatchListModal = ({
   data,
   userId,
   matchType,
+  roleName,
 }: any) => {
   const navigate = useNavigate();
   return (
@@ -161,7 +162,10 @@ const EventWiseMatchListModal = ({
                           }}
                           key={key}
                           onClick={() => {
-                            if (matchType !== "card") {
+                            if (
+                              matchType !== "card" &&
+                              matchType !== "virtual"
+                            ) {
                               navigate(
                                 `${Constants.oldAdmin}live_market/matches`,
                                 {
@@ -170,6 +174,7 @@ const EventWiseMatchListModal = ({
                                     matchId: key,
                                     userId: userId,
                                     matchType: matchType,
+                                    roleName: roleName,
                                   },
                                 }
                               );
