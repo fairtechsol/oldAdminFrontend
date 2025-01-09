@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
+import { RootState } from "../../../store/store";
 import CommissionDot from "../../Common/CommissionDot";
 import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
@@ -28,6 +30,10 @@ const LiveBookmaker = (props: any) => {
   } = props;
 
   const [visible, setVisible] = useState(true);
+
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const bookRatioA = (teamARates: any, teamBRates: any) => {
     const bookRatio = teamARates != 0 ? teamBRates / teamARates || 0 : 0;
@@ -121,19 +127,27 @@ const LiveBookmaker = (props: any) => {
         >
           <SmallBox
             valueA={bookRatioA(
-              profitLossFromAnalysis
-                ? profitLossFromAnalysis?.profitLoss?.a
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
                 : currentMatch?.profitLossDataMatch?.teamARate,
-              profitLossFromAnalysis
-                ? profitLossFromAnalysis?.profitLoss?.b
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
                 : currentMatch?.profitLossDataMatch?.teamBRate
             )}
             valueB={bookRatioB(
-              profitLossFromAnalysis
-                ? profitLossFromAnalysis?.profitLoss?.a
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
                 : currentMatch?.profitLossDataMatch?.teamARate,
-              profitLossFromAnalysis
-                ? profitLossFromAnalysis?.profitLoss?.b
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
                 : currentMatch?.profitLossDataMatch?.teamBRate
             )}
           />
@@ -255,8 +269,10 @@ const LiveBookmaker = (props: any) => {
               teamImage={currentMatch?.teamA_Image}
               name={currentMatch?.teamA}
               rates={
-                profitLossFromAnalysis
-                  ? profitLossFromAnalysis?.profitLoss?.a
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis
+                    ? profitLossFromAnalysis?.profitLoss?.a
+                    : 0
                   : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
@@ -274,7 +290,7 @@ const LiveBookmaker = (props: any) => {
                   : 0
               }
               color={
-                profitLossFromAnalysis
+                marketAnalysis?.betType
                   ? profitLossFromAnalysis?.profitLoss?.a < 0
                     ? "#FF4D4D"
                     : "#319E5B"
@@ -300,8 +316,10 @@ const LiveBookmaker = (props: any) => {
               teamImage={currentMatch?.teamB_Image}
               name={currentMatch?.teamB}
               rates={
-                profitLossFromAnalysis
-                  ? profitLossFromAnalysis?.profitLoss?.b
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis
+                    ? profitLossFromAnalysis?.profitLoss?.b
+                    : 0
                   : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
@@ -319,7 +337,7 @@ const LiveBookmaker = (props: any) => {
                   : 0
               }
               color={
-                profitLossFromAnalysis
+                marketAnalysis?.betType
                   ? profitLossFromAnalysis?.profitLoss?.b < 0
                     ? "#FF4D4D"
                     : "#319E5B"
@@ -348,7 +366,7 @@ const LiveBookmaker = (props: any) => {
                   }
                   // color={"#FF4D4D"}
                   color={
-                    profitLossFromAnalysis
+                    marketAnalysis?.betType
                       ? profitLossFromAnalysis?.profitLoss?.c < 0
                         ? "#FF4D4D"
                         : "#319E5B"
@@ -366,8 +384,10 @@ const LiveBookmaker = (props: any) => {
                   }
                   name={currentMatch?.teamC}
                   rates={
-                    profitLossFromAnalysis
-                      ? profitLossFromAnalysis?.profitLoss?.c
+                    marketAnalysis?.betType
+                      ? profitLossFromAnalysis
+                        ? profitLossFromAnalysis?.profitLoss?.c
+                        : 0
                       : liveData?.type === "other"
                       ? currentMatch?.profitLossDataMatch?.[
                           `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
