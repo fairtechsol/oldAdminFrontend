@@ -165,16 +165,17 @@ const MatchDetail = () => {
       console.log(e);
     }
   };
-
   const handleSessionResultDeclare = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(removeRunAmount(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}${
-          state.userId
-            ? `&userId=${state.userId}`
-            : ""
-        }`));
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
+        );
         dispatch(amountupdate(event));
       }
     } catch (error) {
@@ -207,11 +208,13 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(updateMaxLossForBetOnUndeclare(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}${
-          state.userId
-            ? `&userId=${state.userId}`
-            : ""
-        }`));
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
+        );
       }
     } catch (error) {
       console.log(error);
@@ -225,11 +228,11 @@ const MatchDetail = () => {
       dispatch(getUserProfitLoss(state?.matchId));
       dispatch(resetSessionProfitLoss());
       dispatch(resetBetSessionProfitLossGraph());
-      dispatch(getPlacedBets(`eq${state?.matchId}${
-        state.userId
-          ? `&userId=${state.userId}`
-          : ""
-      }`));
+      dispatch(
+        getPlacedBets(
+          `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""}`
+        )
+      );
     }
     if (state?.userId) {
       dispatch(
@@ -306,11 +309,13 @@ const MatchDetail = () => {
         if (state?.matchId) {
           dispatch(getMatchDetail(state?.matchId));
           dispatch(getUserProfitLoss(state?.matchId));
-          dispatch(getPlacedBets(`eq${state?.matchId}${
-            state.userId
-              ? `&userId=${state.userId}`
-              : ""
-          }`));
+          dispatch(
+            getPlacedBets(
+              `eq${state?.matchId}${
+                state.userId ? `&userId=${state.userId}` : ""
+              }`
+            )
+          );
         }
         if (state?.userId) {
           dispatch(
@@ -906,6 +911,7 @@ const MatchDetail = () => {
                 tag={false}
                 setSelectedBetData={setSelectedBetData}
                 selectedBetData={selectedBetData}
+                role={state.roleName}
               />
             </Box>
           )}

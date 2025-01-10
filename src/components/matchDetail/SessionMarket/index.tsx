@@ -402,9 +402,11 @@ const SessionMarket = (props: any) => {
                             marketAnalysis?.betType
                               ? [
                                   marketAnalysis?.betType?.session?.find(
-                                    () => (title === "Quick Session Market"
-                                      ? JSON.parse(element)?.id
-                                      : element?.id)
+                                    (item: any) =>
+                                      item.betId ==
+                                      (title === "Quick Session Market"
+                                        ? JSON.parse(element)?.id
+                                        : element?.id)
                                   )?.profitLoss,
                                 ]
                               : allBetsData?.filter(
