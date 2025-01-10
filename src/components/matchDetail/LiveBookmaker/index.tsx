@@ -1,11 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
-import SmallBox from "../MatchOdds/SmallBox";
-import Divider from "../../Inplay/Divider";
-import BoxComponent from "./BoxComponent";
-import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import { RootState } from "../../../store/store";
 import CommissionDot from "../../Common/CommissionDot";
+import Divider from "../../Inplay/Divider";
+import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import SmallBox from "../MatchOdds/SmallBox";
+import BoxComponent from "./BoxComponent";
 
 const LiveBookmaker = (props: any) => {
   const {
@@ -24,9 +26,14 @@ const LiveBookmaker = (props: any) => {
     handleHide,
     title,
     liveData,
+    profitLossFromAnalysis,
   } = props;
 
   const [visible, setVisible] = useState(true);
+
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const bookRatioA = (teamARates: any, teamBRates: any) => {
     const bookRatio = teamARates != 0 ? teamBRates / teamARates || 0 : 0;
@@ -120,12 +127,28 @@ const LiveBookmaker = (props: any) => {
         >
           <SmallBox
             valueA={bookRatioA(
-              currentMatch?.profitLossDataMatch?.teamARate,
-              currentMatch?.profitLossDataMatch?.teamBRate
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
+                : currentMatch?.profitLossDataMatch?.teamARate,
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
+                : currentMatch?.profitLossDataMatch?.teamBRate
             )}
             valueB={bookRatioB(
-              currentMatch?.profitLossDataMatch?.teamARate,
-              currentMatch?.profitLossDataMatch?.teamBRate
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
+                : currentMatch?.profitLossDataMatch?.teamARate,
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
+                : currentMatch?.profitLossDataMatch?.teamBRate
             )}
           />
           <img
@@ -246,7 +269,11 @@ const LiveBookmaker = (props: any) => {
               teamImage={currentMatch?.teamA_Image}
               name={currentMatch?.teamA}
               rates={
-                liveData?.type === "other"
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis
+                    ? profitLossFromAnalysis?.profitLoss?.a
+                    : 0
+                  : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
                     ]
@@ -263,7 +290,11 @@ const LiveBookmaker = (props: any) => {
                   : 0
               }
               color={
-                liveData?.type === "other"
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis?.profitLoss?.a < 0
+                    ? "#FF4D4D"
+                    : "#319E5B"
+                  : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamARateOther_${liveData?.id}_${currentMatch?.id}`
                     ] <= 0
@@ -285,7 +316,11 @@ const LiveBookmaker = (props: any) => {
               teamImage={currentMatch?.teamB_Image}
               name={currentMatch?.teamB}
               rates={
-                liveData?.type === "other"
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis
+                    ? profitLossFromAnalysis?.profitLoss?.b
+                    : 0
+                  : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
                     ]
@@ -302,7 +337,11 @@ const LiveBookmaker = (props: any) => {
                   : 0
               }
               color={
-                liveData?.type === "other"
+                marketAnalysis?.betType
+                  ? profitLossFromAnalysis?.profitLoss?.b < 0
+                    ? "#FF4D4D"
+                    : "#319E5B"
+                  : liveData?.type === "other"
                   ? currentMatch?.profitLossDataMatch?.[
                       `userTeamBRateOther_${liveData?.id}_${currentMatch?.id}`
                     ] <= 0
@@ -327,7 +366,11 @@ const LiveBookmaker = (props: any) => {
                   }
                   // color={"#FF4D4D"}
                   color={
-                    liveData?.type === "other"
+                    marketAnalysis?.betType
+                      ? profitLossFromAnalysis?.profitLoss?.c < 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
+                      : liveData?.type === "other"
                       ? currentMatch?.profitLossDataMatch?.[
                           `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
                         ] <= 0
@@ -341,7 +384,11 @@ const LiveBookmaker = (props: any) => {
                   }
                   name={currentMatch?.teamC}
                   rates={
-                    liveData?.type === "other"
+                    marketAnalysis?.betType
+                      ? profitLossFromAnalysis
+                        ? profitLossFromAnalysis?.profitLoss?.c
+                        : 0
+                      : liveData?.type === "other"
                       ? currentMatch?.profitLossDataMatch?.[
                           `userTeamCRateOther_${liveData?.id}_${currentMatch?.id}`
                         ]

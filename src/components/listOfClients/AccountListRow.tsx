@@ -4,15 +4,16 @@ import ModalMUI from "@mui/material/Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DownGIcon, DownIcon, LockIcon, UnLockIcon } from "../../assets";
-import { AccountListRowInterface } from "../../interface/listOfClients";
-import StyledImage from "../Common/StyledImages";
-import RowModalComponents from "./RowModalComponents";
-import { Modal } from "../Common/Modal";
-import CommissionReportTable from "../commisionReport/CommissionReportTable";
-import { ApiConstants, Constants } from "../../utils/Constants";
-import AccountListModal from "./AccountListModal";
 import { formatToINR } from "../../helper";
+import { AccountListRowInterface } from "../../interface/listOfClients";
+import { ApiConstants, Constants } from "../../utils/Constants";
+import { Modal } from "../Common/Modal";
+import StyledImage from "../Common/StyledImages";
+import CommissionReportTable from "../commisionReport/CommissionReportTable";
+import AccountListModal from "./AccountListModal";
+import RowModalComponents from "./RowModalComponents";
 import EventWiseExposureModal from "./eventWiseExposureModal";
+import EventWiseMatchListModal from "./eventWiseMatchListModal";
 
 const AccountListRow = (props: AccountListRowInterface) => {
   const {
@@ -40,6 +41,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
   });
   const [showUserWiseExposureModal, setShowUserWiseExposureModal] =
     useState(false);
+  const [showUserWiseMatchListModal, setShowUserWiseMatchListModal] = useState({
+    status: false,
+    value: {},
+    matchType: "",
+  });
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selected, setSelected] = useState(null);
   const [depositeValue, setDepositeValue] = useState(0);
@@ -824,6 +830,24 @@ const AccountListRow = (props: AccountListRowInterface) => {
           setShowUserWiseExposureModal={setShowUserWiseExposureModal}
           userName={element?.userName}
           userId={element?.id}
+          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+        />
+      </ModalMUI>
+      <ModalMUI
+        open={showUserWiseMatchListModal?.status}
+        onClose={() => {
+          setShowUserWiseMatchListModal({ status: false, value: {}, matchType: "" });
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <EventWiseMatchListModal
+          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+          userName={element?.userName}
+          data={showUserWiseMatchListModal?.value}
+          userId={element?.id}
+          roleName={element?.roleName}
+          matchType={showUserWiseMatchListModal?.matchType}
         />
       </ModalMUI>
       <ModalMUI

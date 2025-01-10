@@ -1,17 +1,24 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
+import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
+import UserProfitLoss from "../../components/matchDetail/Common/UserProfitLoss";
+import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
+import LiveBookmaker from "../../components/matchDetail/LiveBookmaker";
 import MatchOdds from "../../components/matchDetail/MatchOdds";
 import SessionMarket from "../../components/matchDetail/SessionMarket";
-import LiveBookmaker from "../../components/matchDetail/LiveBookmaker";
-import UserProfitLoss from "../../components/matchDetail/Common/UserProfitLoss";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
+import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
+import TournamentOdds from "../../components/matchDetail/TournamentOdds";
+import { customSortBySessionMarketName, formatToINR } from "../../helper";
+import { socket, socketService } from "../../socketManager";
 import {
   AllBetDelete,
   amountupdate,
   // betDataFromSocket,
   getMatchDetail,
+  getMatchDetailMarketAnalysis,
   getPlacedBets,
   getUserProfitLoss,
   removeRunAmount,
@@ -29,16 +36,9 @@ import {
   updateTeamRates,
   updateTeamRatesOnDelete,
 } from "../../store/actions/match/matchAction";
-import { useSelector } from "react-redux";
-import { socket, socketService } from "../../socketManager";
-import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
-import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
-import { Constants, sessionBettingType } from "../../utils/Constants";
-import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
-import { customSortBySessionMarketName, formatToINR } from "../../helper";
-import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
-import TournamentOdds from "../../components/matchDetail/TournamentOdds";
+import { AppDispatch, RootState } from "../../store/store";
+import { Constants, sessionBettingType } from "../../utils/Constants";
 
 const MatchDetail = () => {
   const navigate = useNavigate();
@@ -53,6 +53,9 @@ const MatchDetail = () => {
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const { matchDetail, success } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+  const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets, loading, sessionProLoss } = useSelector(
@@ -162,12 +165,17 @@ const MatchDetail = () => {
       console.log(e);
     }
   };
-
   const handleSessionResultDeclare = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(removeRunAmount(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
+        );
         dispatch(amountupdate(event));
       }
     } catch (error) {
@@ -200,7 +208,13 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(updateMaxLossForBetOnUndeclare(event));
-        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
+        );
       }
     } catch (error) {
       console.log(error);
@@ -214,9 +228,21 @@ const MatchDetail = () => {
       dispatch(getUserProfitLoss(state?.matchId));
       dispatch(resetSessionProfitLoss());
       dispatch(resetBetSessionProfitLossGraph());
-      dispatch(getPlacedBets(`eq${state?.matchId}`));
+      dispatch(
+        getPlacedBets(
+          `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""}`
+        )
+      );
     }
-  }, [state?.matchId]);
+    if (state?.userId) {
+      dispatch(
+        getMatchDetailMarketAnalysis({
+          matchId: state?.matchId,
+          userId: state?.userId,
+        })
+      );
+    }
+  }, [state?.matchId, state?.userId]);
 
   useEffect(() => {
     try {
@@ -239,17 +265,19 @@ const MatchDetail = () => {
           state?.matchId,
           updateMatchDetailToRedux
         );
-        socketService.match.matchResultDeclared(matchResultDeclared);
-        socketService.match.declaredMatchResultAllUser(matchResultDeclared);
-        socketService.match.matchDeleteBet(matchDeleteBet);
-        socketService.match.sessionDeleteBet(handleSessionDeleteBet);
-        socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
-        socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
-        socketService.match.sessionResult(handleSessionResultDeclare);
-        socketService.match.sessionResultUnDeclare(
-          handleSessionResultUnDeclare
-        );
-        socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
+        if (!state.userId) {
+          socketService.match.matchResultDeclared(matchResultDeclared);
+          socketService.match.declaredMatchResultAllUser(matchResultDeclared);
+          socketService.match.matchDeleteBet(matchDeleteBet);
+          socketService.match.sessionDeleteBet(handleSessionDeleteBet);
+          socketService.match.userSessionBetPlaced(setSessionBetsPlaced);
+          socketService.match.userMatchBetPlaced(setMatchBetsPlaced);
+          socketService.match.sessionResult(handleSessionResultDeclare);
+          socketService.match.sessionResultUnDeclare(
+            handleSessionResultUnDeclare
+          );
+          socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
+        }
         // dispatch(matchListReset());
       }
     } catch (e) {
@@ -281,7 +309,21 @@ const MatchDetail = () => {
         if (state?.matchId) {
           dispatch(getMatchDetail(state?.matchId));
           dispatch(getUserProfitLoss(state?.matchId));
-          dispatch(getPlacedBets(`eq${state?.matchId}`));
+          dispatch(
+            getPlacedBets(
+              `eq${state?.matchId}${
+                state.userId ? `&userId=${state.userId}` : ""
+              }`
+            )
+          );
+        }
+        if (state?.userId) {
+          dispatch(
+            getMatchDetailMarketAnalysis({
+              matchId: state?.matchId,
+              userId: state?.userId,
+            })
+          );
         }
       } else if (document.visibilityState === "hidden") {
         socketService.match.leaveMatchRoom(state?.matchId);
@@ -293,7 +335,29 @@ const MatchDetail = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [state]);
+
+  let profitLossFromAnalysisForMarket = marketAnalysis?.betType?.match?.filter(
+    (item: any) =>
+      [
+        "matchOdd",
+        "bookmaker",
+        "bookmaker2",
+        "quickbookmaker1",
+        "quickbookmaker2",
+        "quickbookmaker3",
+      ].includes(item?.marketType)
+  );
+  let profitLossFromAnalysisForTiedMarket = marketAnalysis?.betType?.match?.filter(
+    (item: any) =>
+      ["tiedMatch1", "tiedMatch2", "tiedMatch3"].includes(item?.marketType)
+  );
+  let profitLossFromAnalysisForCompleteMarket = marketAnalysis?.betType?.match?.filter(
+    (item: any) =>
+      ["completeMatch", "completeMatch1", "completeManual"].includes(
+        item?.marketType
+      )
+  );
 
   return (
     <>
@@ -354,6 +418,11 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.matchOdd?.activeStatus === "save"}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) => item?.betId === matchDetail?.matchOdd?.id
+                ) ?? profitLossFromAnalysisForMarket?.[0]
+              }
             />
           )}
           {matchDetail?.bookmaker?.isActive && (
@@ -369,6 +438,11 @@ const MatchDetail = () => {
               }
               showBox={matchDetail?.bookmaker?.activeStatus === "save"}
               title={matchDetail?.bookmaker?.name}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) => item?.betId === matchDetail?.bookmaker?.id
+                ) ?? profitLossFromAnalysisForMarket?.[0]
+              }
             />
           )}
           {matchDetail?.other &&
@@ -385,6 +459,9 @@ const MatchDetail = () => {
                   liveData={match}
                   data={match?.runners?.length > 0 ? match?.runners : []}
                   title={match?.name}
+                  profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
+                    (item: any) => item?.betId === match?.id
+                  )}
                 />
               ))}
           {matchDetail?.tournament &&
@@ -397,6 +474,9 @@ const MatchDetail = () => {
                   maxBet={Math.floor(market?.maxBet) || 0}
                   typeOfBet={market?.name}
                   liveData={market}
+                  profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
+                    (item: any) => item?.betId === market?.id
+                  )}
                 />
               );
             })}
@@ -417,6 +497,12 @@ const MatchDetail = () => {
               }
               showBox={matchDetail?.marketBookmaker2?.activeStatus === "save"}
               title={matchDetail?.marketBookmaker2?.name}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.marketBookmaker2?.id
+                ) ?? profitLossFromAnalysisForMarket?.[0]
+              }
             />
           )}
 
@@ -434,6 +520,11 @@ const MatchDetail = () => {
                   typeOfBet={bookmaker?.name}
                   matchOddsData={bookmaker}
                   liveData={bookmaker}
+                  profitLossFromAnalysis={
+                    marketAnalysis?.betType?.match?.find(
+                      (item: any) => item?.betId === bookmaker?.id
+                    ) ?? profitLossFromAnalysisForMarket?.[0]
+                  }
                 />
               );
             })}
@@ -456,6 +547,11 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.apiTideMatch2?.activeStatus === "save"}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) => item?.betId === matchDetail?.apiTideMatch2?.id
+                ) ?? profitLossFromAnalysisForTiedMarket?.[0]
+              }
             />
           )}
           {matchDetail?.manualTiedMatch?.isActive && matchesMobile && (
@@ -471,6 +567,12 @@ const MatchDetail = () => {
               maxBet={formatToINR(
                 Math.floor(matchDetail?.manualTiedMatch?.maxBet)
               )}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.manualTiedMatch?.id
+                ) ?? profitLossFromAnalysisForTiedMarket?.[0]
+              }
             />
           )}
           {matchDetail?.marketCompleteMatch1?.isActive && (
@@ -493,6 +595,12 @@ const MatchDetail = () => {
                 matchDetail?.marketCompleteMatch1?.activeStatus === "save"
               }
               title={matchDetail?.marketCompleteMatch1?.name}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.marketCompleteMatch1?.id
+                ) ?? profitLossFromAnalysisForCompleteMarket?.[0]
+              }
             />
           )}
           {matchDetail?.manualCompleteMatch?.isActive && matchesMobile && (
@@ -509,6 +617,12 @@ const MatchDetail = () => {
                 Math.floor(matchDetail?.manualCompleteMatch?.maxBet)
               )}
               title={matchDetail?.manualCompleteMatch?.name}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.manualCompleteMatch?.id
+                ) ?? profitLossFromAnalysisForCompleteMarket?.[0]
+              }
             />
           )}
 
@@ -642,6 +756,11 @@ const MatchDetail = () => {
                   : []
               }
               showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) => item?.betId === matchDetail?.apiTideMatch?.id
+                ) ?? profitLossFromAnalysisForTiedMarket?.[0]
+              }
             />
           )}
           {matchDetail?.marketCompleteMatch?.isActive && (
@@ -662,6 +781,12 @@ const MatchDetail = () => {
               }
               showBox={
                 matchDetail?.marketCompleteMatch?.activeStatus === "save"
+              }
+              profitLossFromAnalysis={
+                marketAnalysis?.betType?.match?.find(
+                  (item: any) =>
+                    item?.betId === matchDetail?.marketCompleteMatch?.id
+                ) ?? profitLossFromAnalysisForCompleteMarket?.[0]
               }
             />
           )}
@@ -786,6 +911,7 @@ const MatchDetail = () => {
                 tag={false}
                 setSelectedBetData={setSelectedBetData}
                 selectedBetData={selectedBetData}
+                role={state.roleName}
               />
             </Box>
           )}

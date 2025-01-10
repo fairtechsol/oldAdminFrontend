@@ -1,14 +1,20 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
-import { ARROWUP } from "../../../assets";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
-import { CHECK } from "../../../assets";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { ARROWUP, CHECK } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import { RootState } from "../../../store/store";
 
 const FullAllBets = (props: any) => {
-  const { tag, mode, IObets, selectedBetData, setSelectedBetData } = props;
+  const {
+    tag,
+    mode,
+    IObets,
+    selectedBetData,
+    setSelectedBetData,
+    role,
+  } = props;
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -25,7 +31,7 @@ const FullAllBets = (props: any) => {
 
       const result = Object.values<Record<string, any>>(uniqueData);
       const body: any = result?.map((v: any) => {
-        const roleName = profileDetail?.roleName;
+        const roleName = role || profileDetail?.roleName;
         let partnership = 0;
         switch (roleName) {
           case "fairGameAdmin":
@@ -49,7 +55,9 @@ const FullAllBets = (props: any) => {
           case "fairGameWallet":
             partnership = v?.user?.fwPartnership;
             break;
-
+          case "user":
+            partnership = 100;
+            break;
           default:
             partnership = 0;
         }
