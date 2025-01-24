@@ -153,45 +153,13 @@ export const Constants = {
   privateNumber: `U2FsdGVkX19PB0k7pc6tsaolSzWPHY2kgJvHhevrMQ7JuPxXzoTJ/RVKBD6yBUt3xnPx4Nu+beP2YSbQ5GvSxw0ZJRzPMDNp1UOtOPzl5afvOf2wbvZLzhHSkW/qUmERYHLa7b24YLZDY0nIjS6PRLxc22qlRavxSa0/LCRGN0tWmTneiwD6aCgYPkD6YyzpL7qhBPCPSzCJ4CG05wknMfhg6kZSfNEYssJy3moQdlNTjr/6H923TMHCyE5GNfXeLgEYFdA2xxfbRiDJNvm9oJeDyhOiKOqM5kw7GceZQ4pHbtd4snOkfrMjVCY+ogpkXGpauvyTO+dJrqb2rDJ2OZlfHgXhCbWXlyq6CPFmmwqly5ZtJMDyOLhUZ/yJ2z4e/vLJYFuEcOFk4BQrpmnsAiVsCZyV9WGZER5mR11Wri0kWBw0Nya/mbGljAYWJzB8PcpUvZcwa3/Zoh6WgYzoSeAKWP8ftQvcHOQIa7XrFUWWYGH9DpHFJ4f2TnLb+azIMeFkdLXRTO0wETkf3G1H8uSND7B95tHn4L77wcXe5lHTguj4vFHs3dy+o+sqRKqilB6et/ehikfinAh6aBg2isbVnnp5BFzvfwwPKEMb1bKfMpFB3xg9ip8qsVKN6t3Igx5ur8E6ZQ/GpQ4IBUqFc/gkj3cA4v+inA/x/J4Al3RB2kw5V3Jm0Nq9cDf7pUY9AGOoTWZz+TOGKXCrctWBRolCLBmJRKMBGcPCZd7WgCTU3dMzqb4MB8e86QBVNQO8rAr1Nb4IQIcohAthGaFScD0VmWv1/omL0GxIvFY+tNl0IT9OK0rF9pAM+LjuCzP56MeMpEQx+K5LR8sUQtN9QXcHaQfmkBv8ThPmQGkyRKM7t6Pimf9j1niiUp3HArtIFCKFTzYpPEXHc0LeAYLr7TQ06zlLuQLsOcHsIim/0aNAjyXVUFcVvNX673sKA6wvaAMLdJOAzea54U+MVOgeP1t2WTJGjr7TiUKm8SWxVy0OhxRKyjFtJPGktUCYA/4h0oNtVb1atSBBGfcbtt6RubdtQzGfYGjjJHSc329dS17AgoCdlyu1FllcJ3MqGya6LySxBN29Jh9qM9N5Qw3cnvvkkhG/f0yj44Vcna3MjxS4gobAFa5jZacxQ8w0xGRkjETfN/22Kt7qUZnKwQ5f21iMeTDXDtNwN/Pld866Z9GVBQKekM6J9AhR0kWVZJQJ`,
 };
 
-export const serviceUrl =
-  process.env.NODE_ENV === Constants.PRODUCTION
-    ? Constants.apiBasePath
-    : Constants.localPath;
+export const serviceUrl = import.meta.env.BASE_URL;
 
 export const baseUrls = {
-  socket:
-    process.env.NODE_ENV === Constants.PRODUCTION
-      ? Constants.apiBasePath
-      : Constants.localPath,
-  thirdParty:
-    process.env.NODE_ENV === Constants.PRODUCTION
-      ? Constants.thirdParty
-      : Constants.localPathThird,
-  expertSocket:
-    process.env.NODE_ENV === Constants.PRODUCTION
-      ? Constants.expertPath
-      : Constants.localPathExpert,
+  socket: import.meta.env.BASE_URL,
+  thirdParty: import.meta.env.THIRD_PARTY_BASE_URL,
+  expertSocket: import.meta.env.EXPERT_BASE_URL,
 };
-
-// export const serviceUrl =
-//   process.env.NODE_ENV === Constants.PRODUCTION
-//     ? Constants.apiBasePathLive
-//     : Constants.localPath;
-
-// export const baseUrls = {
-//   socket:
-//     process.env.NODE_ENV === Constants.PRODUCTION
-//       ? Constants.apiBasePathLive
-//       : Constants.localPath,
-//   thirdParty:
-//     process.env.NODE_ENV === Constants.PRODUCTION
-//       ? Constants.thirdPartyLive
-//       : Constants.localPathThird,
-//   expertSocket:
-//     process.env.NODE_ENV === Constants.PRODUCTION
-//       ? Constants.expertPathLive
-//       : Constants.localPathExpert,
-// };
 
 export const matchBettingType = {
   matchOdd: "matchOdd",
