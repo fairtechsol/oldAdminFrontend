@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
+import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 import {
   amountupdate,
   betDataFromSocket,
   getMatchDetail,
+  getMatchDetailMarketAnalysis,
   getMatchListInplay,
   matchListReset,
+  resetMarketAnalysys,
+  setCurrentOdd,
   updateBalance,
   updateMatchListRates,
   updateMatchRates,
@@ -13,11 +18,7 @@ import {
   updateMaxLossForDeleteBet,
   updateTeamRates,
   updateTeamRatesOnDelete,
-  setCurrentOdd,
-  getMatchDetailMarketAnalysis,
 } from "../../actions/match/matchAction";
-import { convertData, updateSessionBettingsItem } from "../../../helper";
-import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 
 interface InitialState {
   matchListInplay: any;
@@ -93,6 +94,9 @@ const matchListSlice = createSlice({
       .addCase(getMatchDetailMarketAnalysis.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(resetMarketAnalysys, (state) => {
+        state.marketAnalysis = null;
       })
       .addCase(updateMatchListRates.fulfilled, (state, action) => {
         const { id, matchOdd } = action?.payload;
