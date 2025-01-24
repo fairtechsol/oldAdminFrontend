@@ -313,6 +313,13 @@ export const updatePlacedbetsDeleteReason = createAsyncThunk<any, any>(
   }
 );
 
+export const updateMatchRatesFromApiOnList = createAsyncThunk<any, any>(
+  "/updateMatchRatesFromApiOnList/rates",
+  async (data) => {
+    return data;
+  }
+);
+
 export const matchListReset = createAction("matchList/reset");
 export const analysisListReset = createAction("analysisList/reset");
 export const resetcompetitionList = createAction("competitionList/reset");

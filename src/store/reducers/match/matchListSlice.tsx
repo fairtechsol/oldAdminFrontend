@@ -13,6 +13,7 @@ import {
   updateBalance,
   updateMatchListRates,
   updateMatchRates,
+  updateMatchRatesFromApiOnList,
   updateMaxLossForBet,
   updateMaxLossForBetOnUndeclare,
   updateMaxLossForDeleteBet,
@@ -459,6 +460,22 @@ const matchListSlice = createSlice({
               state.matchDetail?.id]: redisObject[teamBrateRedisKey],
             };
           }
+        }
+      })
+      .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
+        let matchListFromApi = action.payload;
+        if (state.matchListInplay?.matches?.length > 0) {
+          state.matchListInplay.matches = state.matchListInplay?.matches?.map((items: any) => {
+            const itemToUpdate = matchListFromApi?.find(
+              (item: any) =>
+                +item?.gameId === +items?.eventId ||
+                +item?.gmid === +items?.eventId
+            );
+            return {
+              ...items,
+              ...itemToUpdate,
+            };
+          });
         }
       })
       .addCase(amountupdate.fulfilled, (state, action) => {

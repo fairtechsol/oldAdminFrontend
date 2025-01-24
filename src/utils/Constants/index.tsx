@@ -81,6 +81,12 @@ export const ApiConstants = {
     BET_PROFIT_LOSS: "/user/total/bet/profitLoss",
     SESSION_PROFIT_LOSS: "/user/total/session/profitLoss",
     GET_MATCH_MARKET_ANALYSIS: "/match/marketAnalysis",
+    MARKET_MATCH_LIST_CRICKET:
+    "https://marketsarket.qnsports.live/getcricketmatches",
+  MARKET_MATCH_LIST_FOOTBALL:
+    "https://marketsarket.qnsports.live/getsoccerallmatches2",
+  MARKET_MATCH_LIST_TENNIS:
+    "https://marketsarket.qnsports.live/gettennisallmatches2",
   },
 };
 
@@ -291,4 +297,10 @@ export const profitLossDataForMatchConstants = {
     },
     {}
   ),
+};
+
+export const marketApiConst = {
+  cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
+  football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
+  tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
 };

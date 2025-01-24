@@ -1,15 +1,15 @@
 import { Box, Typography } from "@mui/material";
+import moment from "moment-timezone";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
+import { socket, socketService } from "../../socketManager";
+import { updateMatchListRates } from "../../store/actions/match/matchAction";
+import { AppDispatch } from "../../store/store";
+import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
-import Divider from "./Divider";
-import { useEffect, useState } from "react";
-import moment from "moment-timezone";
-import { AppDispatch } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { updateMatchListRates } from "../../store/actions/match/matchAction";
-import { socket, socketService } from "../../socketManager";
-import { formatToINR } from "../../helper";
 
 const MatchComponent = (props: MatchComponentInterface) => {
   const { onClick, top, blur, match } = props;
@@ -303,13 +303,14 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 background: "#319E5B",
                 height: "25px",
                 width: { lg: "60%", xs: "80%" },
-                justifyContent: { lg: "center", xs: "flex-end" },
+                justifyContent: { lg: "flex-end", xs: "flex-end" },
+                marginRight: { lg: "4px", xs: "2px" },
               }}
             >
               <Box
                 sx={{
                   background: "#00C0F9",
-                  width: { lg: "16.5%", xs: "25%" },
+                  width: { lg: "20%", xs: "25%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -327,7 +328,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
               <Box
                 sx={{
                   background: "#FF9292",
-                  width: { lg: "16.5%", xs: "25%" },
+                  width: { lg: "20%", xs: "25%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -347,6 +348,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
             runnerNumber={0}
             apiBasePath={"abc"}
             matchOddsLive={match?.matchOdds[0]}
+            match={match}
           />
           <Divider />
           <TeamDetailRow
@@ -354,6 +356,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
             runnerNumber={1}
             apiBasePath={"abc"}
             matchOddsLive={match?.matchOdds[0]}
+            match={match}
           />
           {match.teamC && (
             <>
@@ -363,6 +366,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 runnerNumber={2}
                 apiBasePath={"abc"}
                 matchOddsLive={match?.matchOdds[0]}
+                match={match}
               />
             </>
           )}

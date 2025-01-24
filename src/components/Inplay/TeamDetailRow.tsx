@@ -1,9 +1,8 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { formatNumber } from "../../helper";
 import SeparateBox from "./SeparateBox";
 
 const TeamDetailRow = (props: any) => {
-  const { teamName, runnerNumber, matchOddsLive } = props;
+  const { teamName, runnerNumber,match } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -50,11 +49,11 @@ const TeamDetailRow = (props: any) => {
             background: "white",
             height: "40px",
             width: { lg: "60%", xs: "80%" },
-            justifyContent: { xs: "flex-end", lg: "center" },
+            justifyContent: { xs: "flex-end", lg: "flex-end" },
             alignItems: "center",
           }}
         >
-          {!matchesMobile && (
+          {/* {!matchesMobile && (
             <SeparateBox
               value={
                 matchOddsLive?.runners?.length &&
@@ -74,11 +73,11 @@ const TeamDetailRow = (props: any) => {
               )}
               color={matchesMobile ? "white" : "#CEEBFF"}
             />
-          )}
+          )} */}
           <Box
             sx={{ width: ".25%", display: "flex", background: "pink" }}
           ></Box>
-          {!matchesMobile && (
+          {/* {!matchesMobile && (
             <SeparateBox
               value={
                 matchOddsLive?.runners?.length &&
@@ -98,27 +97,21 @@ const TeamDetailRow = (props: any) => {
               )}
               color={matchesMobile ? "white" : "#C2E6FF"}
             />
-          )}
+          )} */}
           <Box
             sx={{ width: ".25%", display: "flex", background: "pink" }}
           ></Box>
           <SeparateBox
             value={
-              matchOddsLive?.runners?.length &&
-              matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                ?.length > 0
-                ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[0]
-                    ?.price
-                : 0
+              (runnerNumber == 0
+                ? match?.back1
+                : runnerNumber == 1
+                ? match?.back11
+                : runnerNumber == 2
+                ? match?.back12
+                : 0) ?? 0
             }
-            value2={formatNumber(
-              matchOddsLive?.runners?.length &&
-                matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                  ?.length > 0
-                ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[0]
-                    ?.size
-                : 0
-            )}
+            value2={0}
             color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
           />
           <Box
@@ -126,27 +119,21 @@ const TeamDetailRow = (props: any) => {
           ></Box>
           <SeparateBox
             value={
-              matchOddsLive?.runners?.length &&
-              matchOddsLive?.runners[runnerNumber]?.ex?.availableToLay?.length >
-                0
-                ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToLay[0]
-                    ?.price
-                : 0
+              (runnerNumber == 0
+                ? match?.lay1
+                : runnerNumber == 1
+                ? match?.lay11
+                : runnerNumber == 2
+                ? match?.lay12
+                : 0) ?? 0
             }
-            value2={formatNumber(
-              matchOddsLive?.runners?.length &&
-                matchOddsLive?.runners[runnerNumber]?.ex?.availableToLay
-                  ?.length > 0
-                ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToLay[0]
-                    ?.size
-                : 0
-            )}
+            value2={0}
             color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
           />
           <Box
             sx={{ width: ".25%", display: "flex", background: "pink" }}
           ></Box>
-          {!matchesMobile && (
+          {/* {!matchesMobile && (
             <SeparateBox
               value={
                 matchOddsLive?.runners?.length &&
@@ -166,11 +153,11 @@ const TeamDetailRow = (props: any) => {
               )}
               color={matchesMobile ? "white" : "#F2CBCB"}
             />
-          )}
+          )} */}
           <Box
             sx={{ width: ".25%", display: "flex", background: "pink" }}
           ></Box>
-          {!matchesMobile && (
+          {/* {!matchesMobile && (
             <SeparateBox
               value={
                 matchOddsLive?.runners?.length &&
@@ -190,7 +177,7 @@ const TeamDetailRow = (props: any) => {
               )}
               color={matchesMobile ? "white" : "#ECD6D6"}
             />
-          )}
+          )} */}
           <Box
             sx={{ width: ".25%", display: "flex", background: "pink" }}
           ></Box>
