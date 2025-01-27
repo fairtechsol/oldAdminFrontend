@@ -104,12 +104,16 @@ const MatchDetail = () => {
   };
   const matchResultDeclared = (event: any) => {
     try {
-      if (event?.matchId === state?.matchId) {
+      if (event?.matchId === state?.matchId && event.isMatchDeclare) {
         if (location.pathname.includes("market_analysis")) {
           navigate(`${Constants.oldAdmin}market_analysis`);
         } else {
           navigate(`${Constants.oldAdmin}live_market`);
         }
+      } else {
+        getPlacedBets(
+          `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""}`
+        );
       }
     } catch (e) {
       console.log(e);
@@ -359,7 +363,7 @@ const MatchDetail = () => {
         item?.marketType
       )
   );
-  
+
   useEffect(() => {
     return () => {
       dispatch(resetMarketAnalysys());
