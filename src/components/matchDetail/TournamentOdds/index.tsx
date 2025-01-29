@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import Divider from "../../Inplay/Divider";
-import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
-import BoxComponent from "../LiveBookmaker/BoxComponent";
 import { useState } from "react";
+import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { formatToINR } from "../../../helper";
-import SmallBox from "../MatchOdds/SmallBox";
-import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import { profitLossDataForMatchConstants } from "../../../utils/Constants";
+import CommissionDot from "../../Common/CommissionDot";
+import Divider from "../../Inplay/Divider";
+import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
+import BoxComponent from "../LiveBookmaker/BoxComponent";
+import SmallBox from "../MatchOdds/SmallBox";
 
 const TournamentOdds = (props: any) => {
   const {
@@ -100,6 +101,7 @@ const TournamentOdds = (props: any) => {
               ? title
               : typeOfBet}
           </Typography>
+          {liveData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
             <img
               onClick={() => (selft ? handleShowLock(true, typeOfBet) : "")}

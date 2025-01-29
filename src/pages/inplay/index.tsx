@@ -43,7 +43,7 @@ const Inplay = () => {
 
   const getMatchListMarket = async (matchType: string) => {
     try {
-      const resp: any = await axios.get(marketApiConst[matchType]||"", {
+      const resp: any = await axios.get(marketApiConst[matchType], {
         timeout: 2000,
       });
       if (resp?.status) {
