@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { formatToINR } from "../../../helper";
-import { profitLossDataForMatchConstants } from "../../../utils/Constants";
+import { RootState } from "../../../store/store";
 import CommissionDot from "../../Common/CommissionDot";
 import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
@@ -26,8 +27,11 @@ const TournamentOdds = (props: any) => {
     handleHide,
     liveData,
     title,
+    profitLossFromAnalysis,
   } = props;
-
+  const { marketAnalysis } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
   const [visible, setVisible] = useState(true);
 
   const bookRatioA = (teamARates: any, teamBRates: any) => {
@@ -49,7 +53,6 @@ const TournamentOdds = (props: any) => {
   const onSubmit = (value: any) => {
     handleBlock(value, !locked, typeOfBet);
   };
-
   return (
     <Box
       key="odds"
@@ -130,58 +133,66 @@ const TournamentOdds = (props: any) => {
         >
           <SmallBox
             valueA={bookRatioA(
-              currentMatch?.profitLossDataMatch
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
+                : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    profitLossDataForMatchConstants[liveData?.type]?.A +
-                      "_" +
-                      currentMatch?.id
+                    liveData?.id + "_profitLoss_" + currentMatch?.id
                   ]
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
+                  ? JSON.parse(
+                      currentMatch?.profitLossDataMatch[
+                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                      ] || "{}"
+                    )?.[liveData?.runners?.[0]?.id]
                   : 0
                 : 0,
-              currentMatch?.profitLossDataMatch
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
+                : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    profitLossDataForMatchConstants[liveData?.type]?.B +
-                      "_" +
-                      currentMatch?.id
+                    liveData?.id + "_profitLoss_" + currentMatch?.id
                   ]
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
+                  ? JSON.parse(
+                      currentMatch?.profitLossDataMatch[
+                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                      ] || "{}"
+                    )?.[liveData?.runners?.[1]?.id]
                   : 0
                 : 0
             )}
             valueB={bookRatioB(
-              currentMatch?.profitLossDataMatch
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.a
+                  : 0
+                : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    profitLossDataForMatchConstants[liveData?.type]?.A +
-                      "_" +
-                      currentMatch?.id
+                    liveData?.id + "_profitLoss_" + currentMatch?.id
                   ]
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
+                  ? JSON.parse(
+                      currentMatch?.profitLossDataMatch[
+                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                      ] || "{}"
+                    )?.[liveData?.runners?.[0]?.id]
                   : 0
                 : 0,
-              currentMatch?.profitLossDataMatch
+              marketAnalysis?.betType
+                ? profitLossFromAnalysis
+                  ? profitLossFromAnalysis?.profitLoss?.b
+                  : 0
+                : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    profitLossDataForMatchConstants[liveData?.type]?.B +
-                      "_" +
-                      currentMatch?.id
+                    liveData?.id + "_profitLoss_" + currentMatch?.id
                   ]
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
+                  ? JSON.parse(
+                      currentMatch?.profitLossDataMatch[
+                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                      ] || "{}"
+                    )?.[liveData?.runners?.[1]?.id]
                   : 0
                 : 0
             )}
@@ -301,14 +312,24 @@ const TournamentOdds = (props: any) => {
                 }}
               ></Box>
             )}
-            {liveData?.runners?.map((runner: any) => (
+            {liveData?.runners?.map((runner: any, index: number) => (
               <>
                 <BoxComponent
                   name={runner?.nat || runner?.runnerName}
                   rates={
-                    currentMatch?.profitLossDataMatch?.[
-                      liveData?.id + "_" + "profitLoss" + "_" + currentMatch?.id
-                    ]
+                    marketAnalysis?.betType
+                      ? profitLossFromAnalysis
+                        ? profitLossFromAnalysis?.profitLoss?.[
+                            String.fromCharCode(97 + index)
+                          ]
+                        : 0
+                      : currentMatch?.profitLossDataMatch?.[
+                          liveData?.id +
+                            "_" +
+                            "profitLoss" +
+                            "_" +
+                            currentMatch?.id
+                        ]
                       ? JSON.parse(
                           currentMatch?.profitLossDataMatch?.[
                             liveData?.id +
@@ -321,9 +342,19 @@ const TournamentOdds = (props: any) => {
                       : 0
                   }
                   color={
-                    currentMatch?.profitLossDataMatch?.[
-                      liveData?.id + "_" + "profitLoss" + "_" + currentMatch?.id
-                    ]
+                    marketAnalysis?.betType
+                      ? profitLossFromAnalysis?.profitLoss?.[
+                          String.fromCharCode(97 + index)
+                        ] < 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
+                      : currentMatch?.profitLossDataMatch?.[
+                          liveData?.id +
+                            "_" +
+                            "profitLoss" +
+                            "_" +
+                            currentMatch?.id
+                        ]
                       ? JSON.parse(
                           currentMatch?.profitLossDataMatch?.[
                             liveData?.id +
