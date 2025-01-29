@@ -299,7 +299,7 @@ export const profitLossDataForMatchConstants = {
   ),
 };
 
-export const marketApiConst = {
+export const marketApiConst: { [key: string]: string }  = {
   cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
   football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
   tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
