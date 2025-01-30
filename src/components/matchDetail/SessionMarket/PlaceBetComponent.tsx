@@ -1,7 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../../../helper";
-import { addRunAmount, getSessionProLoss } from "../../../store/actions/match/matchAction";
+import {
+  addRunAmount,
+  getSessionProLoss,
+} from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
 const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
@@ -14,7 +17,12 @@ const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
 
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+      }}
     >
       <Box
         onClick={() => {

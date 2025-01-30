@@ -74,6 +74,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
           height: "32px",
           right: "11vw",
           position: "absolute",
+          cursor: "pointer",
         }}
       >
         <Box
