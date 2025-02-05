@@ -1,12 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { LockSolid } from "../../../assets";
+import { formatNumber } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "../MatchOdds/MoneyBox";
 import SeperateBox from "../MatchOdds/SeperateBox";
-import { formatNumber } from "../../../helper";
-import { LockSolid } from "../../../assets";
 
 const BoxComponent = (props: any) => {
-  const { name, color, align, rates, data } = props;
+  const { name, color, align, rates, data, marketDetails } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};
@@ -69,7 +69,11 @@ const BoxComponent = (props: any) => {
           </Typography>
         </Box>
       </Box>
-      {!["ACTIVE", "", undefined, null].includes(status) ? (
+      {!["ACTIVE", "OPEN", "", undefined, null].includes(status) &&
+      !(
+        !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+        marketDetails?.gtype == "match"
+      ) ? (
         <Box
           sx={{
             // background: "rgba(0,0,0,1)",
