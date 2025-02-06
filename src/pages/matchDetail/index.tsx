@@ -477,7 +477,7 @@ const MatchDetail = () => {
           {matchDetail?.tournament &&
             matchDetail?.tournament
               ?.filter(
-                (items: any) => items.activeStatus === "live" && items.isActive
+                (items: any) => items.activeStatus === "live"
               )
               ?.map((market: any, index: any) => {
                 return (
