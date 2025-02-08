@@ -6,8 +6,9 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-import { InputInterface } from "../../interface/common";
 import { numberInputOnWheelPreventChange } from "../../helper";
+import { InputInterface } from "../../interface/common";
+import isMobile from "../../utils/isMobile";
 
 const Input: React.FC<InputInterface> = (props: any) => {
   const {
@@ -109,7 +110,7 @@ const Input: React.FC<InputInterface> = (props: any) => {
             }}
             alt="side input"
             style={{
-              height: matches ? "0.5em" : "0.6rem",
+              height: isMobile ? "0.9em" : matches ? "0.5em" : "0.6rem",
               width: "auto",
               marginRight: ".5em",
               ...imgstyle,

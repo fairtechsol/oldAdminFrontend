@@ -299,6 +299,7 @@ const TournamentOdds = (props: any) => {
           <Box sx={{ position: "relative", width: "99.8%", background: "red" }}>
             {(upcoming ||
               showBox ||
+              !liveData?.isActive||
               (!["ACTIVE", "OPEN", ""].includes(liveData?.status) &&
                 liveData?.gtype == "match")) && (
               <Box
