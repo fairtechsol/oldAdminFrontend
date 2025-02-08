@@ -8,7 +8,7 @@ export let thirdParty: any = null;
 
 export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
-    transports: [`${Constants.WEBSOCKET}`],
+    transports: [`${Constants.WEBSOCKET}`,`${Constants.POLLING}`],
     auth: {
       token: `${sessionStorage.getItem("jwtAdmin")}`,
     },
@@ -18,7 +18,7 @@ export const initialiseSocket = () => {
       // process.env.NODE_ENV === "production"
       //   ? `${Constants.POLLING}`
       //   : 
-        `${Constants.WEBSOCKET}`,
+        `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
     ],
     auth: {
       token: `${sessionStorage.getItem("jwtAdmin")}`,
