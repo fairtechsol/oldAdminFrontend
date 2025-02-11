@@ -139,13 +139,19 @@ const TournamentOdds = (props: any) => {
                   : 0
                 : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    liveData?.id + "_profitLoss_" + currentMatch?.id
+                    (liveData?.parentBetId || liveData?.id) +
+                      "_profitLoss_" +
+                      currentMatch?.id
                   ]
                   ? JSON.parse(
                       currentMatch?.profitLossDataMatch[
-                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                        liveData?.parentBetId ||
+                          liveData?.id + "_profitLoss_" + currentMatch?.id
                       ] || "{}"
-                    )?.[liveData?.runners?.[0]?.id]
+                    )?.[
+                      liveData?.runners?.[0]?.parentRunnerId ||
+                        liveData?.runners?.[0]?.id
+                    ]
                   : 0
                 : 0,
               marketAnalysis?.betType
@@ -154,13 +160,20 @@ const TournamentOdds = (props: any) => {
                   : 0
                 : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    liveData?.id + "_profitLoss_" + currentMatch?.id
+                    (liveData?.parentBetId || liveData?.id) +
+                      "_profitLoss_" +
+                      currentMatch?.id
                   ]
                   ? JSON.parse(
                       currentMatch?.profitLossDataMatch[
-                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                        (liveData?.parentBetId || liveData?.id) +
+                          "_profitLoss_" +
+                          currentMatch?.id
                       ] || "{}"
-                    )?.[liveData?.runners?.[1]?.id]
+                    )?.[
+                      liveData?.runners?.[1]?.parentRunnerId ||
+                        liveData?.runners?.[1]?.id
+                    ]
                   : 0
                 : 0
             )}
@@ -171,13 +184,20 @@ const TournamentOdds = (props: any) => {
                   : 0
                 : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    liveData?.id + "_profitLoss_" + currentMatch?.id
+                    (liveData?.parentBetId || liveData?.id) +
+                      "_profitLoss_" +
+                      currentMatch?.id
                   ]
                   ? JSON.parse(
                       currentMatch?.profitLossDataMatch[
-                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                        (liveData?.parentBetId || liveData?.id) +
+                          "_profitLoss_" +
+                          currentMatch?.id
                       ] || "{}"
-                    )?.[liveData?.runners?.[0]?.id]
+                    )?.[
+                      liveData?.runners?.[0]?.parentRunnerId ||
+                        liveData?.runners?.[0]?.id
+                    ]
                   : 0
                 : 0,
               marketAnalysis?.betType
@@ -186,13 +206,20 @@ const TournamentOdds = (props: any) => {
                   : 0
                 : currentMatch?.profitLossDataMatch
                 ? currentMatch?.profitLossDataMatch[
-                    liveData?.id + "_profitLoss_" + currentMatch?.id
+                    (liveData?.parentBetId || liveData?.id) +
+                      "_profitLoss_" +
+                      currentMatch?.id
                   ]
                   ? JSON.parse(
                       currentMatch?.profitLossDataMatch[
-                        liveData?.id + "_profitLoss_" + currentMatch?.id
+                        (liveData?.parentBetId || liveData?.id) +
+                          "_profitLoss_" +
+                          currentMatch?.id
                       ] || "{}"
-                    )?.[liveData?.runners?.[1]?.id]
+                    )?.[
+                      liveData?.runners?.[1]?.parentRunnerId ||
+                        liveData?.runners?.[1]?.id
+                    ]
                   : 0
                 : 0
             )}
@@ -299,7 +326,7 @@ const TournamentOdds = (props: any) => {
           <Box sx={{ position: "relative", width: "99.8%", background: "red" }}>
             {(upcoming ||
               showBox ||
-              !liveData?.isActive||
+              !liveData?.isActive ||
               (!["ACTIVE", "OPEN", ""].includes(liveData?.status) &&
                 liveData?.gtype == "match")) && (
               <Box
@@ -344,7 +371,7 @@ const TournamentOdds = (props: any) => {
                           ]
                         : 0
                       : currentMatch?.profitLossDataMatch?.[
-                          liveData?.id +
+                          (liveData?.parentBetId || liveData?.id) +
                             "_" +
                             "profitLoss" +
                             "_" +
@@ -352,13 +379,13 @@ const TournamentOdds = (props: any) => {
                         ]
                       ? JSON.parse(
                           currentMatch?.profitLossDataMatch?.[
-                            liveData?.id +
+                            (liveData?.parentBetId || liveData?.id) +
                               "_" +
                               "profitLoss" +
                               "_" +
                               currentMatch?.id
                           ]
-                        )?.[runner?.id]
+                        )?.[runner?.parentRunnerId || runner?.id]
                       : 0
                   }
                   color={
@@ -369,7 +396,7 @@ const TournamentOdds = (props: any) => {
                         ? "#FF4D4D"
                         : "#319E5B"
                       : currentMatch?.profitLossDataMatch?.[
-                          liveData?.id +
+                        (liveData?.parentBetId || liveData?.id) +
                             "_" +
                             "profitLoss" +
                             "_" +
@@ -377,13 +404,13 @@ const TournamentOdds = (props: any) => {
                         ]
                       ? JSON.parse(
                           currentMatch?.profitLossDataMatch?.[
-                            liveData?.id +
+                            (liveData?.parentBetId || liveData?.id) +
                               "_" +
                               "profitLoss" +
                               "_" +
                               currentMatch?.id
                           ]
-                        )?.[runner?.id] < 0
+                        )?.[runner?.parentRunnerId || runner?.id] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"

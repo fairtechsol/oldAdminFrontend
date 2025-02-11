@@ -476,9 +476,7 @@ const MatchDetail = () => {
               ))}
           {matchDetail?.tournament &&
             matchDetail?.tournament
-              ?.filter(
-                (items: any) => items.activeStatus === "live"
-              )
+              ?.filter((items: any) => items.activeStatus === "live")
               ?.map((market: any, index: any) => {
                 return (
                   <TournamentOdds
@@ -489,7 +487,8 @@ const MatchDetail = () => {
                     typeOfBet={market?.name}
                     liveData={market}
                     profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
-                      (item: any) => item?.betId === market?.id
+                      (item: any) =>
+                        item?.betId === (market?.parentBetId || market?.id)
                     )}
                   />
                 );
