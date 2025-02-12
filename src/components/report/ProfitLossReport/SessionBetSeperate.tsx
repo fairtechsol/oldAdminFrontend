@@ -1,8 +1,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
-import { formatNumber, formatToINR } from "../../../helper";
-import StyledImage from "../../Common/StyledImages";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
+import { formatNumber, formatToINR } from "../../../helper";
+import CommissionDot from "../../Common/CommissionDot";
+import StyledImage from "../../Common/StyledImages";
 
 const SessionBetSeperate = ({
   profit,
@@ -432,6 +433,7 @@ const RowComponent = ({ header, data }: any) => {
             first={true}
             header={header}
             time={getTime(data.createdAt)}
+            isCommissionActive={data?.isCommissionActive}
           />
           <SingleBox
             color={getColor()}
@@ -483,6 +485,7 @@ const SingleBox = ({
   time,
   isPercent,
   rate,
+  isCommissionActive
 }: any) => {
   return !header ? (
     first ? (
@@ -490,12 +493,15 @@ const SingleBox = ({
         sx={{
           width: "140%",
           height: "40px",
-          flexDirection: "column",
+          flexDirection: "row",
           background: "#F8C851",
           display: { xs: "initial", lg: "flex" },
           justifyContent: { lg: "center", xs: "initial" },
+          alignItems: "center",
+          
         }}
       >
+        {isCommissionActive && <CommissionDot />}
         <Typography
           sx={{
             fontWeight: "700",
