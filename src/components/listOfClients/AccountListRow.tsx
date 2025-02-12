@@ -39,8 +39,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
     id: "",
     title: "",
   });
-  const [showUserWiseExposureModal, setShowUserWiseExposureModal] =
-    useState(false);
+  const [showUserWiseExposureModal, setShowUserWiseExposureModal] = useState(
+    false
+  );
   const [showUserWiseMatchListModal, setShowUserWiseMatchListModal] = useState({
     status: false,
     value: {},
@@ -666,7 +667,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                   )}
                 </Box>
 
-                {/* <Box sx={{ display: "flex" }}>
+                <Box sx={{ display: "flex" }}>
                   <Box sx={{ display: "flex" }}>
                     <Typography
                       variant="h5"
@@ -679,11 +680,12 @@ const AccountListRow = (props: AccountListRowInterface) => {
                         fTextStyle,
                       ]}
                     >
-                      Session Com  {": "}  {element?.sessionCommission
-                      ? element?.sessionCommission
-                      : 0}
-                    </Typography> */}
-                {/* <Typography
+                      Session Com {": "}{" "}
+                      {element?.sessionCommission
+                        ? element?.sessionCommission
+                        : 0}
+                    </Typography>
+                    <Typography
                       variant="h5"
                       sx={[
                         {
@@ -693,24 +695,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
                         },
                         fTextStyle,
                       ]}
-                    >
-                     
-                    </Typography> */}
-                {/* </Box> */}
-                {/* <Typography
-                    variant="h5"
-                    sx={[
-                      {
-                        color: "white",
-                        textAlign: "left",
-                        marginLeft: "3px",
-                      },
-                      fTextStyle,
-                    ]}
-                  >
-                    
-                  </Typography> */}
-                {/* </Box> */}
+                    ></Typography>
+                  </Box>
+                </Box>
               </Box>
               {showCReport && (
                 <Box
@@ -836,7 +823,11 @@ const AccountListRow = (props: AccountListRowInterface) => {
       <ModalMUI
         open={showUserWiseMatchListModal?.status}
         onClose={() => {
-          setShowUserWiseMatchListModal({ status: false, value: {}, matchType: "" });
+          setShowUserWiseMatchListModal({
+            status: false,
+            value: {},
+            matchType: "",
+          });
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
