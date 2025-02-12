@@ -2,6 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import CommissionDot from "../../Common/CommissionDot";
 import StyledImage from "../../Common/StyledImages";
 
 const AllRateSeperate = ({
@@ -534,6 +535,7 @@ const RowComponent = ({ header, data }: any) => {
             data={data?.bettingName ?? data?.marketType}
             first={true}
             header={header}
+            isCommissionActive={data?.isCommissionActive}
           />
           <SingleBox
             color={getColor()}
@@ -710,7 +712,7 @@ const RowComponent = ({ header, data }: any) => {
 //     </Box>
 //   );
 // };
-const SingleBox = ({ data, header, color, up, first, time, boxWidth }: any) => {
+const SingleBox = ({ data, header, color, up, first, time, boxWidth,isCommissionActive }: any) => {
   return !header ? (
     first ? (
       <Box
@@ -725,6 +727,7 @@ const SingleBox = ({ data, header, color, up, first, time, boxWidth }: any) => {
           alignItems: "center",
         }}
       >
+        {isCommissionActive && <CommissionDot />}
         {data === "Bookmaker" ? (
           <Typography
             sx={{
