@@ -12,7 +12,7 @@ import SessionMarket from "../../components/matchDetail/SessionMarket";
 import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import TournamentOdds from "../../components/matchDetail/TournamentOdds";
 import { customSortBySessionMarketName, formatToINR } from "../../helper";
-import { socket, socketService } from "../../socketManager";
+import { socket, socketService, matchService } from "../../socketManager";
 import {
   AllBetDelete,
   amountupdate,
@@ -66,6 +66,13 @@ const MatchDetail = () => {
   const { currentOdd } = useSelector(
     (state: RootState) => state.match.matchList
   );
+
+  useEffect(() => {
+    matchService.connect();
+    return () => {
+      matchService.disconnect(); 
+    };
+  }, []);
 
   const handleDeleteBet = (value: any) => {
     try {

@@ -16,7 +16,7 @@ import MatchOdds from "../../../components/matchDetail/MatchOdds";
 import SessionMarket from "../../../components/matchDetail/SessionMarket";
 import RunsBox from "../../../components/matchDetail/SessionMarket/RunsBox";
 import { formatToINR } from "../../../helper";
-import { socket, socketService } from "../../../socketManager";
+import { socket, socketService, matchService } from "../../../socketManager";
 import {
   analysisListReset,
   getPlacedBets,
@@ -70,6 +70,13 @@ const MultipleMatch = ({}) => {
   const { placedBets, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
+
+  useEffect(() => {
+    matchService.connect();
+    return () => {
+      matchService.disconnect(); 
+    };
+  }, []);
 
   const updateMatchDetailToRedux = (event: any) => {
     dispatch(updateMultipleMatchDetail(event));
