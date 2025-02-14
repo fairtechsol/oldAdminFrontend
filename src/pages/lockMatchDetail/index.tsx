@@ -54,11 +54,13 @@ const LockMatchScreen = () => {
   const [isSessionLock, setIsSessionLock] = useState<any>(false);
 
   useEffect(() => {
-    matchService.connect();
+    if(state){
+      matchService.connect(state?.matchId, profileDetail?.roleName);
+    }
     return () => {
       matchService.disconnect(); 
     };
-  }, []);
+  }, [state]);
 
   const handleBlock = async (value: any, status: any, typeOfBet: any) => {
     try {
@@ -232,8 +234,7 @@ const LockMatchScreen = () => {
         socketService.match.sessionResultUnDeclareOff();
         socketService.match.updateDeleteReasonOff();
         socketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
+          state?.matchId
         );
         socketService.match.getMatchRates(
           state?.matchId,
@@ -259,7 +260,7 @@ const LockMatchScreen = () => {
 
   useEffect(() => {
     return () => {
-      socketService.match.leaveMatchRoom(state?.matchId);
+      // socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(state?.matchId);
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();

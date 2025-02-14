@@ -70,13 +70,15 @@ const MultipleMatch = ({}) => {
   const { placedBets, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
-
   useEffect(() => {
-    matchService.connect();
+    if(state){
+      console.log("state?.matchIds :", state?.matchIds)
+      matchService.connect(state?.matchIds, profileDetail?.roleName);
+    }
     return () => {
       matchService.disconnect(); 
     };
-  }, []);
+  }, [state]);
 
   const updateMatchDetailToRedux = (event: any) => {
     dispatch(updateMultipleMatchDetail(event));
@@ -230,7 +232,7 @@ const MultipleMatch = ({}) => {
         socketService.match.sessionResultUnDeclareOff();
         socketService.match.updateDeleteReasonOff();
         state?.matchIds?.map((item: any) => {
-          socketService.match.joinMatchRoom(item, profileDetail?.roleName);
+          socketService.match.joinMatchRoom(item);
         });
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRates(item, updateMatchDetailToRedux);
@@ -259,9 +261,9 @@ const MultipleMatch = ({}) => {
 
   useEffect(() => {
     return () => {
-      state?.matchIds?.map((item: any) => {
-        socketService.match.leaveMatchRoom(item);
-      });
+      // state?.matchIds?.map((item: any) => {
+      //   socketService.match.leaveMatchRoom(item);
+      // });
       state?.matchIds?.map((item: any) => {
         socketService.match.getMatchRatesOff(item);
       });
@@ -286,9 +288,9 @@ const MultipleMatch = ({}) => {
           dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         }
       } else if (document.visibilityState === "hidden") {
-        state?.matchIds?.map((item: any) => {
-          socketService.match.leaveMatchRoom(item);
-        });
+        // state?.matchIds?.map((item: any) => {
+        //   socketService.match.leaveMatchRoom(item);
+        // });
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRatesOff(item);
         });
