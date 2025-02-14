@@ -68,13 +68,14 @@ const MatchDetail = () => {
   );
 
   useEffect(() => {
-    if(state){
+    if(state?.matchId){
+      console.log("state?.matchId :", state?.matchId)
       matchService.connect(state?.matchId, profileDetail?.roleName);
     }
     return () => {
       matchService.disconnect(); 
     };
-  }, [state]);
+  }, [state?.matchId]);
 
   const handleDeleteBet = (value: any) => {
     try {
