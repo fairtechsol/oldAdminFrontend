@@ -385,7 +385,9 @@ const SessionMarket = (props: any) => {
                     return (
                       <Box
                         key={
-                          title === "Session Market" ? element?.id : element?.id
+                          title === "Quick Session Market"
+                                        ? JSON.parse(element)?.id
+                                        : element?.id
                         }
                         sx={{
                           width: "100%",
