@@ -372,7 +372,7 @@ const SessionMarket = (props: any) => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                maxHeight: "160px",
+                // maxHeight: "160px",
                 width: "100%",
                 position: "relative",
               }}
