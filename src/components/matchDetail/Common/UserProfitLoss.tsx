@@ -5,21 +5,25 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import Divider from "../../Inplay/Divider";
-import UserProfitLossListComp from "./UserProfitLossListComp";
-import { Refresh } from "../../../assets";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Refresh } from "../../../assets";
 import {
   getUserProfitLoss,
   resetUserProfitLoss,
 } from "../../../store/actions/match/matchAction";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import Divider from "../../Inplay/Divider";
+import UserProfitLossListComp from "./UserProfitLossListComp";
 
 const UserProfitLoss = (props: any) => {
-  const { title, matchData, setShowUserProfitLoss, single, matchDetail } =
-    props;
+  const {
+    title,
+    matchData,
+    setShowUserProfitLoss,
+    single,
+    matchDetail,
+  } = props;
   const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -156,7 +160,7 @@ const UserProfitLoss = (props: any) => {
             alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            overflowY: "auto",
+            overflow: "auto",
           }}
         >
           <Box
@@ -173,8 +177,9 @@ const UserProfitLoss = (props: any) => {
                 display: "flex",
                 background: "'#319E5B'",
                 height: "25px",
-                width: "40%",
+                width: "10%",
                 alignItems: "center",
+                minWidth: "100px",
               }}
             >
               <Typography
@@ -187,103 +192,59 @@ const UserProfitLoss = (props: any) => {
                 Username
               </Typography>
             </Box>
+
             <Box
               sx={{
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: { lg: "60%", xs: "81%" },
-                justifyContent: { lg: "flex-end", xs: "flex-end" },
+                width: { lg: "90%", xs: "90%" },
+                // justifyContent: { lg: "flex-end", xs: "flex-end" },
+                // overflow: "auto",
               }}
             >
-              <Box
-                sx={{
-                  background: "#f1c550",
-                  border: "1px solid #2626264D",
-                  width: { lg: "10vw", xs: "30.06%" },
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: {
-                      lg: "13px",
-                      md: "12px",
-                      xs: matchesMobile ? "8px" : "8px",
-                    },
-                    color: "black",
-                    fontWeight: "600",
-                    lineHeight: "0.9",
-                  }}
-                >
-                  {matchDetail?.teamA || matchData?.teamA}
-                </Typography>
-              </Box>
-              <Box
-                sx={{ width: "3px", display: "flex", background: "white" }}
-              ></Box>
-              <Box
-                sx={{
-                  background: "#f1c550",
-                  border: "1px solid #2626264D",
-                  width: { lg: "10vw", xs: "30%" },
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: {
-                      lg: "13px",
-                      md: "12px",
-                      xs: matchesMobile ? "8px" : "8px",
-                    },
-                    color: "black",
-                    fontWeight: "600",
-                    lineHeight: "0.9",
-                  }}
-                >
-                  {matchDetail?.teamB || matchData?.teamB}
-                </Typography>
-              </Box>
-              {(matchDetail?.teamC || matchData?.teamC) && (
-                <>
-                  <Box
-                    sx={{
-                      width: "3px",
-                      display: "flex",
-                      background: "white",
-                    }}
-                  ></Box>
-                  <Box
-                    sx={{
-                      background: "#f1c550",
-                      border: "1px solid #2626264D",
-                      width: { lg: "10vw", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
+              {userProfitLossData?.markets?.map((item: any) => {
+                return (
+                  <>
+                    <Box
                       sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                        lineHeight: "0.9",
+                        background: "#f1c550",
+                        border: "1px solid #2626264D",
+                        width: { lg: "30%", xs: "30.06%" },
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        minWidth: "100px",
                       }}
+                      className="wrapContent"
+                      key={item?.betId}
                     >
-                      {matchDetail?.teamC || matchData?.teamC}
-                    </Typography>
-                  </Box>
-                </>
-              )}
+                      <Typography
+                        sx={{
+                          fontSize: {
+                            lg: "13px",
+                            md: "12px",
+                            xs: matchesMobile ? "8px" : "8px",
+                          },
+                          color: "black",
+                          fontWeight: "600",
+                          lineHeight: "0.9",
+                        }}
+                      >
+                        {item?.name}
+                      </Typography>
+                    </Box>
+                    {/* <Box
+                      sx={{
+                        width: "3px",
+                        display: "flex",
+                        background: "white",
+                      }}
+                    ></Box> */}
+                  </>
+                );
+              })}
             </Box>
           </Box>
           <Box
@@ -295,26 +256,26 @@ const UserProfitLoss = (props: any) => {
               position: "relative",
             }}
           >
-            {userProfitLossData?.length > 0 &&
-              userProfitLossData?.map((element: any, index: number) => {
-                return (
-                  <Box
-                    key={index}
-                    sx={{
-                      width: "100%",
-                      display: element?.betStatus === 2 ? "none" : "block",
-                    }}
-                  >
-                    <UserProfitLossListComp
-                      element={element}
-                      showTeamC={
-                        matchDetail?.teamC || matchData?.teamC ? true : false
-                      }
-                    />
-                    <Divider />
-                  </Box>
-                );
-              })}
+            {userProfitLossData?.profitLoss?.length > 0 &&
+              userProfitLossData?.profitLoss?.map(
+                (element: any, index: number) => {
+                  return (
+                    <Box
+                      key={index}
+                      sx={{
+                        width: "100%",
+                        display: element?.betStatus === 2 ? "none" : "block",
+                      }}
+                    >
+                      <UserProfitLossListComp
+                        element={element}
+                        markets={userProfitLossData?.markets}
+                      />
+                      <Divider />
+                    </Box>
+                  );
+                }
+              )}
           </Box>
         </Box>
       </Box>
