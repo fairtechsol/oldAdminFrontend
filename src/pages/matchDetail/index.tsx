@@ -68,11 +68,14 @@ const MatchDetail = () => {
   );
 
   useEffect(() => {
-    matchService.connect();
+    if(state?.matchId){
+      console.log("state?.matchId :", state?.matchId)
+      matchService.connect(state?.matchId, profileDetail?.roleName);
+    }
     return () => {
       matchService.disconnect(); 
     };
-  }, []);
+  }, [state?.matchId]);
 
   const handleDeleteBet = (value: any) => {
     try {
@@ -270,8 +273,7 @@ const MatchDetail = () => {
         socketService.match.sessionResultUnDeclareOff();
         socketService.match.updateDeleteReasonOff();
         socketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
+          state?.matchId
         );
         socketService.match.getMatchRates(
           state?.matchId,
@@ -299,7 +301,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     return () => {
-      socketService.match.leaveMatchRoom(state?.matchId);
+      // socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(state?.matchId);
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();
@@ -338,7 +340,7 @@ const MatchDetail = () => {
           );
         }
       } else if (document.visibilityState === "hidden") {
-        socketService.match.leaveMatchRoom(state?.matchId);
+        // socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(state?.matchId);
       }
     };
