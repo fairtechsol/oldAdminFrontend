@@ -182,7 +182,7 @@ const UserProfitLoss = (props: any) => {
                 minWidth: "100px",
                 position:"sticky",
                 left:0,
-                zIndex:9999
+                zIndex:2
               }}
             >
               <Typography
