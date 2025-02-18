@@ -26,7 +26,7 @@ const UserProfitLossListComp = (props: any) => {
             left:0,
             border: "1px solid #2626264D",
 
-            zIndex:9999
+            zIndex:2
           }}
         >
           <Typography
