@@ -69,7 +69,6 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if(state?.matchId){
-      console.log("state?.matchId :", state?.matchId)
       matchService.connect([state?.matchId], profileDetail?.roleName);
     }
     return () => {

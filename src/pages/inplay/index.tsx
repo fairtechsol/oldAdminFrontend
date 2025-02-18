@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MatchComponent from "../../components/Inplay/MatchComponent";
 import Loader from "../../components/Loader";
-import { socket, socketService, matchService, thirdParty } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 import {
   getMatchListInplay,
   matchListReset,
@@ -41,15 +41,15 @@ const Inplay = () => {
     (state: RootState) => state.user.profile
   );
 
-    useEffect(() => {
-      if (matchListInplay?.matches?.length && (!thirdParty || !thirdParty.connected) && success) {
-        const matchIds = matchListInplay.matches.map((match:any) => match.id);
-        matchService.connect(matchIds, profileDetail?.roleName);
-      }
-      return () => {
-        matchService.disconnect(); 
-      };
-  }, [success]);
+  //   useEffect(() => {
+  //     if (matchListInplay?.matches?.length && (!thirdParty || !thirdParty.connected) && success) {
+  //       const matchIds = matchListInplay.matches.map((match:any) => match.id);
+  //       matchService.connect(matchIds, profileDetail?.roleName);
+  //     }
+  //     return () => {
+  //       matchService.disconnect(); 
+  //     }; 
+  // }, [success]);
 
   const getMatchListMarket = async (matchType: string) => {
     try {
