@@ -12,7 +12,7 @@ import SessionMarket from "../../components/matchDetail/SessionMarket";
 import RunsBox from "../../components/matchDetail/SessionMarket/RunsBox";
 import TournamentOdds from "../../components/matchDetail/TournamentOdds";
 import { customSortBySessionMarketName, formatToINR } from "../../helper";
-import { socket, socketService } from "../../socketManager";
+import { socket, socketService, matchService } from "../../socketManager";
 import {
   AllBetDelete,
   amountupdate,
@@ -66,6 +66,15 @@ const MatchDetail = () => {
   const { currentOdd } = useSelector(
     (state: RootState) => state.match.matchList
   );
+
+  useEffect(() => {
+    if(state?.matchId){
+      matchService.connect([state?.matchId], profileDetail?.roleName);
+    }
+    return () => {
+      matchService.disconnect(); 
+    };
+  }, [state?.matchId]);
 
   const handleDeleteBet = (value: any) => {
     try {
@@ -263,8 +272,7 @@ const MatchDetail = () => {
         socketService.match.sessionResultUnDeclareOff();
         socketService.match.updateDeleteReasonOff();
         socketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
+          state?.matchId
         );
         socketService.match.getMatchRates(
           state?.matchId,
@@ -292,7 +300,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     return () => {
-      socketService.match.leaveMatchRoom(state?.matchId);
+      // socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(state?.matchId);
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();
@@ -331,7 +339,7 @@ const MatchDetail = () => {
           );
         }
       } else if (document.visibilityState === "hidden") {
-        socketService.match.leaveMatchRoom(state?.matchId);
+        // socketService.match.leaveMatchRoom(state?.matchId);
         socketService.match.getMatchRatesOff(state?.matchId);
       }
     };
@@ -937,6 +945,7 @@ const MatchDetail = () => {
               flexDirection: "column",
               display: "flex",
               minHeight: "100px",
+              maxWidth: "50%"
             }}
           >
             <Box

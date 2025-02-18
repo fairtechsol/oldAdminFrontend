@@ -24,3 +24,17 @@ code {
 .MuiTypography-root.MuiTypography-body1.css-gv9xp0-MuiTypography-root {
   line-height: 1 !important; /* Adjust the line height as needed */
 }
+
+.wrapContent{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrapWord{
+  white-space: nowrap;     /* Prevent text from wrapping to the next line */
+  overflow: hidden; /* Display an ellipsis (...) when text is truncated */
+  text-overflow: ellipsis;
+}
