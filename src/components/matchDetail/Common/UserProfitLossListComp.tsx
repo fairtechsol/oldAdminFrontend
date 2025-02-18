@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import Divider from "../../Inplay/Divider";
 
 const UserProfitLossListComp = (props: any) => {
   const { element, markets, color } = props;
@@ -12,6 +11,7 @@ const UserProfitLossListComp = (props: any) => {
           height: "auto",
           width: "99.7%",
           position: "relative",
+          borderBottom:"1px solid rgba(211,211,211)"
         }}
       >
         <Box
@@ -22,6 +22,11 @@ const UserProfitLossListComp = (props: any) => {
             width: "10%",
             alignItems: "center",
             minWidth: "100px",
+            position:"sticky",
+            left:0,
+            border: "1px solid #2626264D",
+
+            zIndex:9999
           }}
         >
           <Typography
@@ -30,7 +35,7 @@ const UserProfitLossListComp = (props: any) => {
               fontSize: { lg: "11px", md: "10px", xs: "8px" },
               marginLeft: "7px",
               fontWeight: "600",
-              minWidth: "100px",
+              minWidth: "100px"
             }}
           >
             {element?.userName}
@@ -75,7 +80,7 @@ const UserProfitLossListComp = (props: any) => {
                       >
                         <Box
                           sx={{
-                            border: "1px solid grey",
+                            border: "1px solid #2626264D",
                             width: "100%",
                             height: "32px",
                             fontWeight: "500",
@@ -186,7 +191,6 @@ const UserProfitLossListComp = (props: any) => {
           ></Box>
         </Box> */}
       </Box>
-      <Divider />
     </>
   );
 };

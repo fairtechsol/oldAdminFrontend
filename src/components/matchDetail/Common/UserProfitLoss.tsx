@@ -175,11 +175,14 @@ const UserProfitLoss = (props: any) => {
             <Box
               sx={{
                 display: "flex",
-                background: "'#319E5B'",
+                background: "#319E5B",
                 height: "25px",
                 width: "10%",
                 alignItems: "center",
                 minWidth: "100px",
+                position:"sticky",
+                left:0,
+                zIndex:9999
               }}
             >
               <Typography
