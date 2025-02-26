@@ -55,7 +55,7 @@ const LockMatchScreen = () => {
 
   useEffect(() => {
     if(state){
-      matchService.connect(state?.matchId, profileDetail?.roleName);
+      matchService.connect([state?.matchId], profileDetail?.roleName);
     }
     return () => {
       matchService.disconnect(); 

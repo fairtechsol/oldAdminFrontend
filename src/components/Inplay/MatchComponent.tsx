@@ -1,32 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
-import { socket, socketService, matchService } from "../../socketManager";
-import { updateMatchListRates } from "../../store/actions/match/matchAction";
-import { AppDispatch, RootState } from "../../store/store";
+// import { socket, socketService } from "../../socketManager";
+// import { updateMatchListRates } from "../../store/actions/match/matchAction";
+// import { AppDispatch } from "../../store/store";
 import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
 
 const MatchComponent = (props: MatchComponentInterface) => {
   const { onClick, top, blur, match } = props;
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
-  const { profileDetail } = useSelector(
-    (state: RootState) => state.user.profile
-  );
-
-  useEffect(() => {
-    if(match?.id){
-      matchService.connect(match?.id, profileDetail?.roleName);
-    }
-    return () => {
-      matchService.disconnect(); 
-    };
-  }, [match?.id]);
 
   function calculateTimeLeft() {
     try {
@@ -66,15 +54,15 @@ const MatchComponent = (props: MatchComponentInterface) => {
     Number(timeLeft?.hours) === 0 &&
     Number(timeLeft?.minutes) <= 30;
 
-  const setMatchOddRatesInRedux = (event: any) => {
-    try {
-      if (match?.id === event?.id) {
-        dispatch(updateMatchListRates(event));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const setMatchOddRatesInRedux = (event: any) => {
+  //   try {
+  //     if (match?.id === event?.id) {
+  //       dispatch(updateMatchListRates(event));
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -83,14 +71,14 @@ const MatchComponent = (props: MatchComponentInterface) => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (socket) {
-      socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
-      return () => {
-        socketService.match.getMatchRatesOff(match?.id);
-      };
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (socket) {
+  //     socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
+  //     return () => {
+  //       socketService.match.getMatchRatesOff(match?.id);
+  //     };
+  //   }
+  // }, [socket]);
 
   return (
     <>

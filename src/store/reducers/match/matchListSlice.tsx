@@ -221,7 +221,16 @@ const matchListSlice = createSlice({
             convertData(parsedSessionBettings),
             apiSession
           ),
-          tournament,
+          tournament: tournament?.sort((a: any, b: any) => {
+            // Primary sort by sno (ascending)
+            if (a.sno !== b.sno) {
+              return a.sno - b.sno;
+            }
+            // If sno values are equal, sort so that null parentId comes first
+            if (a.parentBetId === null && b.parentBetId !== null) return -1;
+            if (a.parentBetId !== null && b.parentBetId === null) return 1;
+            return 0;
+          }),
         };
       })
       .addCase(matchListReset, (state) => {

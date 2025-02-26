@@ -41,6 +41,16 @@ const Inplay = () => {
     (state: RootState) => state.user.profile
   );
 
+  //   useEffect(() => {
+  //     if (matchListInplay?.matches?.length && (!thirdParty || !thirdParty.connected) && success) {
+  //       const matchIds = matchListInplay.matches.map((match:any) => match.id);
+  //       matchService.connect(matchIds, profileDetail?.roleName);
+  //     }
+  //     return () => {
+  //       matchService.disconnect(); 
+  //     }; 
+  // }, [success]);
+
   const getMatchListMarket = async (matchType: string) => {
     try {
       const resp: any = await axios.get(marketApiConst[matchType], {

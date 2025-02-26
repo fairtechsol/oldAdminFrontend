@@ -111,7 +111,7 @@ const TeamDetailRow = (props: any) => {
                 ? match?.back12
                 : 0) ?? 0
             }
-            value2={0}
+            value2={""}
             color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
           />
           <Box
@@ -127,7 +127,7 @@ const TeamDetailRow = (props: any) => {
                 ? match?.lay12
                 : 0) ?? 0
             }
-            value2={0}
+            value2={""}
             color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
           />
           <Box

@@ -69,8 +69,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if(state?.matchId){
-      console.log("state?.matchId :", state?.matchId)
-      matchService.connect(state?.matchId, profileDetail?.roleName);
+      matchService.connect([state?.matchId], profileDetail?.roleName);
     }
     return () => {
       matchService.disconnect(); 
@@ -946,6 +945,7 @@ const MatchDetail = () => {
               flexDirection: "column",
               display: "flex",
               minHeight: "100px",
+              maxWidth: "50%"
             }}
           >
             <Box
