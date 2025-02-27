@@ -116,25 +116,28 @@ const CricketCasinoMarket = (props: any) => {
           >
             <Box sx={{ gap: "4px", display: "flex" }}>
               <BetsCountBox
-                total={ marketAnalysis?.betType
-                  ? marketAnalysis?.betType?.session
-                      ?.filter((item: any) => sessionData?.id == item?.betId)
-                      ?.reduce((prev: number, session: any) => {
-                        prev += session?.profitLoss?.totalBet || 0;
-                        return prev;
-                      }, 0)
-                  :allBetsData
-                  ?.filter(
-                    (item: any) =>
-                      JSON.parse(
-                        currentMatch?.sessionBettings?.find(
-                          (items: any) => JSON.parse(items)?.id == item?.betId
-                        ) || "{}"
-                      )?.type == type
-                  )
-                  ?.reduce((acc: number, bet: any) => {
-                    return acc + +bet?.totalBet;
-                  }, 0)}
+                total={
+                  marketAnalysis?.betType
+                    ? marketAnalysis?.betType?.session
+                        ?.filter((item: any) => sessionData?.id == item?.betId)
+                        ?.reduce((prev: number, session: any) => {
+                          prev += session?.profitLoss?.totalBet || 0;
+                          return prev;
+                        }, 0)
+                    : allBetsData
+                        ?.filter(
+                          (item: any) =>
+                            JSON.parse(
+                              currentMatch?.sessionBettings?.find(
+                                (items: any) =>
+                                  JSON.parse(items)?.id == item?.betId
+                              ) || "{}"
+                            )?.type == type
+                        )
+                        ?.reduce((acc: number, bet: any) => {
+                          return acc + +bet?.totalBet;
+                        }, 0)
+                }
               />
               {/* static code */}
               <Box
@@ -174,29 +177,30 @@ const CricketCasinoMarket = (props: any) => {
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
                       marketAnalysis?.betType
-                      ? marketAnalysis?.betType?.session
-                          ?.filter((item: any) => sessionData?.id == item?.betId)
-                          ?.reduce((prev: number, session: any) => {
-                            prev += Number(session?.profitLoss?.maxLoss || 0);
-                            return prev;
-                          }, 0)
-                          .toFixed(2)
-                      : 
-                      allBetsData
-                        ?.filter(
-                          (item: any) =>
-                            JSON.parse(
-                              currentMatch?.sessionBettings?.find(
-                                (items: any) =>
-                                  JSON.parse(items)?.id == item?.betId
-                              ) || "{}"
-                            )?.type == type
-                        )
+                        ? marketAnalysis?.betType?.session
+                            ?.filter(
+                              (item: any) => sessionData?.id == item?.betId
+                            )
+                            ?.reduce((prev: number, session: any) => {
+                              prev += Number(session?.profitLoss?.maxLoss || 0);
+                              return prev;
+                            }, 0)
+                            .toFixed(2)
+                        : allBetsData
+                            ?.filter(
+                              (item: any) =>
+                                JSON.parse(
+                                  currentMatch?.sessionBettings?.find(
+                                    (items: any) =>
+                                      JSON.parse(items)?.id == item?.betId
+                                  ) || "{}"
+                                )?.type == type
+                            )
 
-                        ?.reduce((acc: number, bet: any) => {
-                          return acc + (Number(bet?.maxLoss) || 0);
-                        }, 0)
-                        .toFixed(2)
+                            ?.reduce((acc: number, bet: any) => {
+                              return acc + (Number(bet?.maxLoss) || 0);
+                            }, 0)
+                            .toFixed(2)
                     )
                   )}
                 </Typography>
@@ -351,26 +355,25 @@ const CricketCasinoMarket = (props: any) => {
                     ) || {};
                   return (
                     <Box
-                      key={
-                        title === "Session Market" ? element?.id : element?.id
-                      }
+                      key={index}
                       sx={{
                         width: "100%",
-                        display: element?.betStatus === 2 ? "none" : "block",
+                        display: "block",
                       }}
                     >
                       <CricketCasinoMarketBox
                         newData={currSessionItem}
                         profitLossData={
                           marketAnalysis?.betType
-                          ? [marketAnalysis?.betType?.session?.find(
-                              (item: any) => item.betId == sessionData?.id
-                            )?.profitLoss]
-                          :
-                          currentMatch?.profitLossDataSession &&
-                          currentMatch?.profitLossDataSession?.filter(
-                            (item: any) => item?.betId === sessionData?.id
-                          )
+                            ? [
+                                marketAnalysis?.betType?.session?.find(
+                                  (item: any) => item.betId == sessionData?.id
+                                )?.profitLoss,
+                              ]
+                            : currentMatch?.profitLossDataSession &&
+                              currentMatch?.profitLossDataSession?.filter(
+                                (item: any) => item?.betId === sessionData?.id
+                              )
                         }
                         index={index}
                         sessionData={sessionData}

@@ -204,6 +204,7 @@ const matchListSlice = createSlice({
 
         state.matchDetail = {
           ...state.matchDetail,
+          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
           apiTideMatch2: apiTiedMatch2,
