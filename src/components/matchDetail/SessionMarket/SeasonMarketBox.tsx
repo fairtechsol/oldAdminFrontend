@@ -5,13 +5,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import SeperateBox from "../MatchOdds/SeperateBox";
+import React from "react";
 import { BallStart } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
-import PlaceBetComponent from "./PlaceBetComponent";
-import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 import { sessionBettingType } from "../../../utils/Constants";
 import CommissionDot from "../../Common/CommissionDot";
+import SeperateBox from "../MatchOdds/SeperateBox";
+import PlaceBetComponent from "./PlaceBetComponent";
+import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
 const SeasonMarketBox = (props: any) => {
   const { newData, setData, profitLossData, index, type } = props;
@@ -208,7 +209,6 @@ const SeasonMarketBox = (props: any) => {
               ) : (
                 <>
                   <SeperateBox
-                    key={index}
                     session={true}
                     back={true}
                     value={newData.ex?.availableToLay[0]?.price ?? 0}
@@ -228,7 +228,6 @@ const SeasonMarketBox = (props: any) => {
                     sx={{ width: "3px", display: "flex", background: "pink" }}
                   ></Box>
                   <SeperateBox
-                    key={index}
                     session={true}
                     value={newData.ex?.availableToBack[0]?.price ?? 0}
                     value2={newData.ex?.availableToBack[0]?.size ?? 0}
@@ -261,8 +260,8 @@ const SeasonMarketBox = (props: any) => {
             ) - 1,
         },
         (_, i) => i + 1
-      )?.map((item: number) => (
-        <>
+      )?.map((item: number,index:number) => (
+        <React.Fragment key={index}>
           <Box
             sx={{
               display: "flex",
@@ -356,7 +355,6 @@ const SeasonMarketBox = (props: any) => {
               ) : (
                 <>
                   <SeperateBox
-                    key={index}
                     session={true}
                     back={true}
                     value={
@@ -392,7 +390,6 @@ const SeasonMarketBox = (props: any) => {
                     }}
                   ></Box>
                   <SeperateBox
-                    key={index}
                     session={true}
                     value={
                       sessionBettingType.oddEven === type
@@ -426,7 +423,7 @@ const SeasonMarketBox = (props: any) => {
             </Box>
           </Box>
           <Divider />
-        </>
+        </React.Fragment>
       ))}
     </>
   );
