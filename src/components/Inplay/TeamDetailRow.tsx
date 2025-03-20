@@ -2,7 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import SeparateBox from "./SeparateBox";
 
 const TeamDetailRow = (props: any) => {
-  const { teamName, runnerNumber,match } = props;
+  const { teamName, runnerNumber, match } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -104,12 +104,12 @@ const TeamDetailRow = (props: any) => {
           <SeparateBox
             value={
               (runnerNumber == 0
-                ? match?.back1
+                ? match?.back1 || match?.section?.[0]?.odds?.[0]?.odds || 0
                 : runnerNumber == 1
-                ? match?.back11
-                : runnerNumber == 2
-                ? match?.back12
-                : 0) ?? 0
+                  ? match?.back11 || match?.section?.[1]?.odds?.[0]?.odds || 0
+                  : runnerNumber == 2
+                    ? match?.back12 || match?.section?.[2]?.odds?.[0]?.odds || 0
+                    : 0) ?? 0
             }
             value2={""}
             color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
@@ -120,12 +120,12 @@ const TeamDetailRow = (props: any) => {
           <SeparateBox
             value={
               (runnerNumber == 0
-                ? match?.lay1
+                ? match?.lay1 || match?.section?.[0]?.odds?.[1]?.odds || 0
                 : runnerNumber == 1
-                ? match?.lay11
-                : runnerNumber == 2
-                ? match?.lay12
-                : 0) ?? 0
+                  ? match?.lay11 || match?.section?.[1]?.odds?.[1]?.odds || 0
+                  : runnerNumber == 2
+                    ? match?.lay12 || match?.section?.[2]?.odds?.[1]?.odds || 0
+                    : 0) ?? 0
             }
             value2={""}
             color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
