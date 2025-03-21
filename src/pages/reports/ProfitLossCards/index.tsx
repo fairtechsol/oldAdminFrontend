@@ -10,10 +10,7 @@ import {
   getUserTotalProfitLossCards,
   updateUserSearchId,
 } from "../../../store/actions/reports";
-import {
-  getSearchClientList,
-  getUserTotalProfitLoss,
-} from "../../../store/actions/user/userAction";
+import { getSearchClientList } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { ApiConstants } from "../../../utils/Constants";
 interface FilterObject {
