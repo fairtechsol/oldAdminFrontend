@@ -3,7 +3,6 @@ import {
   getBetProfitLoss,
   getCommissionBetPlaced,
   getCommissionMatch,
-  getDomainProfitLoss,
   getSessionProfitLoss,
   getTotalProfitLoss,
   resetBetProfitLoss,
@@ -55,20 +54,6 @@ const profitLossReportSlice = createSlice({
         state.totalProfitLossList = action?.payload;
       })
       .addCase(getTotalProfitLoss.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getDomainProfitLoss.pending, (state) => {
-        state.loading = false;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getDomainProfitLoss.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.domainProfitLossList = action?.payload;
-      })
-      .addCase(getDomainProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

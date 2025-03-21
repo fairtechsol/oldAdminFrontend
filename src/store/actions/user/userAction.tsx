@@ -15,7 +15,7 @@ interface RequestData {
 
 interface SearchUsers {
   userName?: string;
-  createdBy: string;
+  createdBy?: string;
 }
 
 export const changePassword = createAsyncThunk<any, any>(
