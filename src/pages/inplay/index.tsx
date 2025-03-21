@@ -148,6 +148,8 @@ const Inplay = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
     }, 500);
 
     return () => clearInterval(intervalId);
@@ -158,42 +160,42 @@ const Inplay = () => {
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0
         ? matchListInplay?.matches?.map((match: any) => {
-            return (
-              <MatchComponent
-                key={match.id}
-                onClick={() => {
-                  navigate(`${Constants.oldAdmin}live_market/matches`, {
-                    state: {
-                      submit: true,
-                      matchId: match?.id,
-                    },
-                  });
-                }}
-                top={true}
-                blur={false}
-                match={match}
-                // handleUpdateMatch={handleUpdateMatch}
-              />
-            );
-          })
+          return (
+            <MatchComponent
+              key={match.id}
+              onClick={() => {
+                navigate(`${Constants.oldAdmin}live_market/matches`, {
+                  state: {
+                    submit: true,
+                    matchId: match?.id,
+                  },
+                });
+              }}
+              top={true}
+              blur={false}
+              match={match}
+            // handleUpdateMatch={handleUpdateMatch}
+            />
+          );
+        })
         : !loading && (
-            <Table>
-              <TableBody>
-                <TableRow>
-                  <TableCell style={{ color: "white", textAlign: "center" }}>
-                    No Record Found...
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          )}
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell style={{ color: "white", textAlign: "center" }}>
+                  No Record Found...
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        )}
       {matchListInplay && matchListInplay?.matches?.length > 0 && (
         <Pagination
           page={currentPage}
           className={`${classes.whiteTextPagination} d-flex justify-content-center`}
           count={Math.ceil(
             parseInt(matchListInplay?.count ? matchListInplay?.count : 1) /
-              Constants.pageLimit
+            Constants.pageLimit
           )}
           color="primary"
           onChange={(e: any, value: number) => {
