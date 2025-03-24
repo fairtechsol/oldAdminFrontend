@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import service from "../../../service";
 import { ApiConstants } from "../../../utils/Constants";
-import { AxiosError } from "axios";
 
 interface AccountStatement {
   id: string;
@@ -157,6 +157,75 @@ export const getCommissionBetPlaced = createAsyncThunk<any, any>(
     }
   }
 );
+export const getUserTotalProfitLossCards = createAsyncThunk<any, any>(
+  "/usrTotalProfitLossCards",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARD.GET_TOTAL_PROFIT_LOSS}`,
+        requestData?.filter ? requestData?.filter : requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
+export const getMatchWiseProfitLossCards = createAsyncThunk<any, any>(
+  "/matchWiseProfitLossCards",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARD.GET_GAME_WISE_PROFIT_LOSS}`,
+        requestData
+      );
+      if (resp) {
+        return { result: resp?.data?.result, count: resp?.data?.count };
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
+export const getBetProfitLossCards = createAsyncThunk<any, any>(
+  "bet/list/cards",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARD.GET_TOTAL_BET_PROFIT_LOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getUserWiseProfitLossCards = createAsyncThunk<any, any>(
+  "userWise/list/cards",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.CARD.GET_USERWISE_PROFIT_LOSS}?matchId=${requestData.matchId}&url=${requestData.url}`
+      );
+      if (resp) {
+        return resp?.data?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const updateUserSearchId = createAsyncThunk<any, any>(
   "/maxLoss/updateUserSearchId",
   async (data) => {
@@ -167,3 +236,10 @@ export const resetAccountStatement = createAction("statement/reset");
 export const resetSessionProfitLoss = createAction("sessionProfitLoss/reset");
 export const resetBetProfitLoss = createAction("betProfitLoss/reset");
 export const resetDomainProfitLoss = createAction("domainProfitLoss/reset");
+export const resetSessionProfitLossCard = createAction(
+  "sessionProfitLoss/resetCard"
+);
+export const resetBetProfitLossCard = createAction("betProfitLoss/resetCard");
+export const resetDomainProfitLossCard = createAction(
+  "domainProfitLoss/resetCard"
+);

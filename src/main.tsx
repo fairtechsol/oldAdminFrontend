@@ -7,12 +7,15 @@ import { Provider } from "react-redux";
 import store from "./store/store.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ErrorBoundary from "./helper/ErrorBoundary.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <ToastContainer />
-      <App />
-    </Provider>
-  </ThemeProvider>
+  <ErrorBoundary>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <ToastContainer />
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </ErrorBoundary>
 );

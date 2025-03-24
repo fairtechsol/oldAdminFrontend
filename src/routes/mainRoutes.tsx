@@ -19,6 +19,7 @@ import AccountStatement from "../pages/reports/AccountStatement";
 import CurrentBets from "../pages/reports/CurrentBets";
 import GeneralReport from "../pages/reports/GeneralReport";
 import ProfitLossReport from "../pages/reports/ProfitLoss";
+import ProfitLossCards from "../pages/reports/ProfitLossCards";
 import WalletSettings from "../pages/walletSettings";
 
 // const ListOfClients = Loadable(() => import("../pages/listOfClients"));
@@ -110,6 +111,10 @@ const MainRoutes = {
     {
       path: Constants.AdminReportsPaths.profitLoss,
       element: <ProfitLossReport />,
+    },
+    {
+      path: Constants.AdminReportsPaths.profitLossCards,
+      element: <ProfitLossCards />,
     },
     {
       path: Constants.AdminReportsPaths.accountStatement,

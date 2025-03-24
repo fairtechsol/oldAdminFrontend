@@ -88,6 +88,12 @@ export const ApiConstants = {
     MARKET_MATCH_LIST_TENNIS:
       "https://marketsarket.qnsports.live/gettennisallmatches2",
   },
+  CARD: {
+    GET_TOTAL_PROFIT_LOSS: "/virtual/total/profitLoss",
+    GET_GAME_WISE_PROFIT_LOSS: "/virtual/total/gameWise/profitLoss",
+    GET_TOTAL_BET_PROFIT_LOSS: "/virtual/total/bet/profitLoss",
+    GET_USERWISE_PROFIT_LOSS: "/virtual/userwise/profitLoss",
+  },
 };
 
 export const sessionBettingType = {
@@ -128,6 +134,7 @@ export const Constants = {
   },
   AdminReportsPaths: {
     profitLoss: "/admin/reports/profit_loss",
+    profitLossCards: "/admin/reports/profit_loss_cards",
     accountStatement: "/admin/reports/account_statement",
     currentBet: "/admin/reports/current_bet",
     generalReport: "/admin/reports/general_report",
