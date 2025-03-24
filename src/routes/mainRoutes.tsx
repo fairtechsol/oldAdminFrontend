@@ -12,6 +12,7 @@ import Inplay from "../pages/inplay";
 import ListOfClients from "../pages/listOfClients";
 import LockMatchScreen from "../pages/lockMatchDetail";
 import MatchDetail from "../pages/matchDetail";
+import MatchList from "../pages/matchList";
 import MyAccount from "../pages/myAccount";
 import Reports from "../pages/reports";
 import AccountStatement from "../pages/reports/AccountStatement";
@@ -66,6 +67,14 @@ const MainRoutes = {
     {
       path: Constants.AdminMainPaths.addAccount,
       element: <AddAccount />,
+    },
+    {
+      path: Constants.AdminMainPaths.matchList,
+      element: <MatchList />,
+    },
+    {
+      path: Constants.AdminMainPaths.matchListMatches,
+      element: <MatchDetail />,
     },
     {
       path: Constants.AdminMainPaths.editAccount,

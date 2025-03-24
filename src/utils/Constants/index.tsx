@@ -129,6 +129,8 @@ export const Constants = {
     walletSettings: "walletSettings",
     myAccount: "my-account",
     changePassword: "change-password",
+    matchList: "matchList/:type",
+    matchListMatches: "matchList/:type/:id",
   },
   AdminReportsPaths: {
     profitLoss: "/admin/reports/profit_loss",

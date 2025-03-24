@@ -1,33 +1,39 @@
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   ADDACCOUNT,
   CHECKLIST,
+  Cricket,
+  Football,
   MYACCOUNT,
   Play,
   TEAM,
+  Tennis,
   TREND,
-  WALLET,
+  WALLET
 } from "../../../assets";
-import AdminEventComponent from "./AdminEventComponent";
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
+import AdminEventComponent from "./AdminEventComponent";
 
 const data = [
   { id: 1, title: "INPLAY", image: Play, url: "live_market" },
-  { id: 2, title: "Add Account", image: ADDACCOUNT, url: "add_account" },
-  { id: 3, title: "Client list", image: TEAM, url: "list_of_clients" },
+  { id: 2, title: "CRICKET", image: Cricket, url: "matchList/cricket" },
+  { id: 3, title: "FOOTBALL", image: Football, url: "matchList/football" },
+  { id: 4, title: "TENNIS", image: Tennis, url: "matchList/tennis" },
+  { id: 5, title: "Add Account", image: ADDACCOUNT, url: "add_account" },
+  { id: 6, title: "Client list", image: TEAM, url: "list_of_clients" },
 
-  { id: 4, title: "Analysis", image: TREND, url: "market_analysis" },
+  { id: 7, title: "Analysis", image: TREND, url: "market_analysis" },
   {
-    id: 5,
+    id: 8,
     title: "Reports",
     image: CHECKLIST,
     url: "reports",
   },
-  { id: 6, title: "My Account", image: MYACCOUNT, url: "my-account" },
+  { id: 9, title: "My Account", image: MYACCOUNT, url: "my-account" },
 ];
 
 const AdminEventListing = () => {
