@@ -127,8 +127,27 @@ const AllRateSeperate = ({
           </Box>
         </Box>
         {visible && (
-          <>
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              maxHeight: { xs: "200px", lg: "420px" },
+              overflowY: "auto",
+              overflowX: matchesMobile ? "auto" : "hidden",
+              width: "100%",
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1px",
+                minWidth: matchesMobile ? "800px" : "auto",
+              }}
+            >
               <Box
                 sx={{
                   height: "25px",
@@ -185,16 +204,15 @@ const AllRateSeperate = ({
             </Box>
 
             <Box
-              // className="myScroll"
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
+                minWidth: matchesMobile ? "800px" : "auto",
                 "::-webkit-scrollbar": {
                   display: "none",
                 },
               }}
             >
-              {/* {console.warn("allBetsData :", allBetsData)} */}
               {[...new Set(allBetsData)]?.map((i: any, k: any) => {
                 const num = allBetsData.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
@@ -443,7 +461,7 @@ const AllRateSeperate = ({
                 currentPageNo={allbetsPage}
               /> */}
             </Box>
-          </>
+          </Box>
         )}
       </Box>
 
@@ -546,25 +564,25 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data?.roundId}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data?.bet_type || data?.betType}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data?.providerName}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={formatToINR(Math.abs(data?.totalLoss))}
             header={header}
-            boxWidth="40%"
+            boxWidth="100%"
           />
         </>
       )}
@@ -592,25 +610,25 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[3]}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data[4]}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data[5]}
             header={header}
-            boxWidth="50%"
+            boxWidth="100%"
           />
           <SingleBox
             color={getColor()}
             data={data[6]}
             header={header}
-            boxWidth="40%"
+            boxWidth="100%"
           />
         </>
       )}
