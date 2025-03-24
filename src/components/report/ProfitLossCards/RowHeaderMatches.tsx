@@ -1,11 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
+import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
 import { handleNumber } from "../../../helper";
 import { RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import RowComponentMatches from "./RowComponentMatches";
+import { gameIconConstants } from "../../../utils/Constants";
 
 const RowHeaderMatches = ({
   item,
@@ -19,6 +20,7 @@ const RowHeaderMatches = ({
   eventType,
   currentPage,
 }: any) => {
+  console.log(item)
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [show, setShow] = useState(false);
@@ -58,7 +60,7 @@ const RowHeaderMatches = ({
           }}
         >
           <StyledImage
-            src={Cricket}
+            src={gameIconConstants[item?.eventType]}
             sx={{ width: { lg: "35px", xs: "25px" } }}
           />
         </Box>
