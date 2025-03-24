@@ -197,15 +197,12 @@ export const getBetProfitLossCards = createAsyncThunk<any, any>(
   "bet/list/cards",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.CARD.GET_TOTAL_BET_PROFIT_LOSS}?matchId=${
-          requestData.matchId
-        }${requestData.betId ? `&betId=${requestData.betId}` : ""}&isSession=${
-          requestData.isSession
-        }&url=${requestData.url}`
+      const resp = await service.post(
+        `${ApiConstants.CARD.GET_TOTAL_BET_PROFIT_LOSS}`,
+        requestData
       );
       if (resp) {
-        return resp?.data?.data;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;

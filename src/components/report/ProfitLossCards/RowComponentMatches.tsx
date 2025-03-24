@@ -7,8 +7,8 @@ import { getBetProfitLossCards } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
-import AllRateSeperate from "../ProfitLossReport/AllRateSeperate";
-import AllUserListSeparate from "../ProfitLossReport/AllUserListSeperate";
+import AllRateSeperate from "./AllRateSeperate";
+import AllUserListSeparate from "./AllUserListSeparate";
 
 const RowComponentMatches = ({
   item,
@@ -140,24 +140,13 @@ const RowComponentMatches = ({
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
                 transform:
-                  selectedId?.id === item?.matchId && showListOfUsers
+                  selectedId?.id === item?.gameId && showListOfUsers
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
             />
           )}
-          {/* <StyledImage
-              src={ArrowDown}
-              sx={{
-                marginTop: { xs: "5px", lg: "0" },
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            /> */}
+        
         </Box>
         <Box
           onClick={(e) => {
@@ -179,7 +168,7 @@ const RowComponentMatches = ({
               });
               dispatch(
                 getBetProfitLossCards({
-                  matchId: item?.gameId,
+                  gameId: item?.gameId,
                   searchId: userData?.id ? userData?.id : "",
                 })
               );
@@ -257,7 +246,7 @@ const RowComponentMatches = ({
           </Box>
         </Box>
       </Box>
-      {selectedId?.id === item?.matchId && (
+      {selectedId?.id === item?.gameId && (
         <>
           {showListOfUsers && (
             <>
