@@ -22,8 +22,8 @@ const RowHeaderMatches = ({
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [show, setShow] = useState(false);
-  const { matchWiseProfitLoss } = useSelector(
-    (state: RootState) => state.user.profitLoss
+  const { matchWiseProfitLossCard } = useSelector(
+    (state: RootState) => state.report.cardReport
   );
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const RowHeaderMatches = ({
       <Box>
         {show &&
           eventType === item?.eventType &&
-          matchWiseProfitLoss?.map((item: any, index: number) => {
+          matchWiseProfitLossCard?.map((item: any, index: number) => {
             return (
               <RowComponentMatches
                 key={index}

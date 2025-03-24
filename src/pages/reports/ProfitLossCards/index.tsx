@@ -3,8 +3,8 @@ import { debounce } from "lodash";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ProfitLossTableComponent from "../../../components/report/ProfitLossCards/ProfitLossTableComponent";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
-import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
 import service from "../../../service";
 import {
   getUserTotalProfitLossCards,
@@ -29,8 +29,8 @@ const ProfitLossCards = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const { userTotalProfitLoss } = useSelector(
-    (state: RootState) => state.user.profitLoss
+  const { totalProfitLossListCard } = useSelector(
+    (state: RootState) => state.report.cardReport
   );
   const { searchUserList } = useSelector(
     (state: RootState) => state.user.userList
@@ -72,7 +72,7 @@ const ProfitLossCards = () => {
   const getUserProfitLoss = async (matchId: string) => {
     try {
       let payload = {
-        matchId: matchId,
+        gameId: matchId,
         searchId: search?.id ? search?.id : "",
       };
       const { data } = await service.post(
@@ -131,7 +131,7 @@ const ProfitLossCards = () => {
         <ProfitLossTableComponent
           startDate={startDate}
           endDate={endDate}
-          eventData={userTotalProfitLoss && userTotalProfitLoss}
+          eventData={totalProfitLossListCard && totalProfitLossListCard}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           userProfitLoss={userProfitLoss}

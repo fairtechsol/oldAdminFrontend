@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
+import { getMatchWiseProfitLossCards } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import Footer from "../../Common/Footer";
@@ -21,8 +21,8 @@ const ProfitLossTableComponent = (props: any) => {
 
   const dispatch: AppDispatch = useDispatch();
   const [event, setEvent] = useState("");
-  const { matchWiseProfitLossCount } = useSelector(
-    (state: RootState) => state.user.profitLoss
+  const { matchWiseProfitLossCountCard } = useSelector(
+    (state: RootState) => state.report.cardReport
   );
   const { userData } = useSelector(
     (state: RootState) => state.report.reportList
@@ -54,8 +54,8 @@ const ProfitLossTableComponent = (props: any) => {
         sessionBet: false,
       }));
       dispatch(
-        getMatchWiseProfitLoss({
-          type: eventType,
+        getMatchWiseProfitLossCards({
+          providerName: eventType,
           searchId: userData?.id,
           startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
           endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
@@ -78,8 +78,8 @@ const ProfitLossTableComponent = (props: any) => {
 
   useEffect(() => {
     dispatch(
-      getMatchWiseProfitLoss({
-        type: event,
+      getMatchWiseProfitLossCards({
+        providerName: event,
         searchId: userData?.id,
         startDate: startDate,
         endDate: endDate,
@@ -132,7 +132,9 @@ const ProfitLossTableComponent = (props: any) => {
             currentPage={currentPage}
             pages={Math.ceil(
               parseInt(
-                matchWiseProfitLossCount > 0 ? matchWiseProfitLossCount : 1
+                matchWiseProfitLossCountCard > 0
+                  ? matchWiseProfitLossCountCard
+                  : 1
               ) / Constants.pageLimit
             )}
             // callPage={callPage}
