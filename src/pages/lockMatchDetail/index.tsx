@@ -1,13 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import SessionMarket from "../../components/matchDetail/SessionMarket";
-// import MatchComponent from "../../components/Inplay/MatchComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
-import LiveBookmaker from "../../components/matchDetail/LiveBookmaker";
-import MatchOdds from "../../components/matchDetail/MatchOdds";
-import { socket, socketService, matchService } from "../../socketManager";
+import SessionMarket from "../../components/matchDetail/SessionMarket";
+import { matchService, socket, socketService } from "../../socketManager";
+import {
+  getUserDetailsOfLock,
+  updateUserMatchLock,
+} from "../../store/actions/match/marketLockUnlockAction";
 import {
   amountupdate,
   getMatchDetail,
@@ -28,11 +29,6 @@ import {
 import { resetSessionProfitLoss } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
-import {
-  getUserDetailsOfLock,
-  updateUserMatchLock,
-} from "../../store/actions/match/marketLockUnlockAction";
-import { formatToINR } from "../../helper";
 const LockMatchScreen = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
@@ -50,15 +46,14 @@ const LockMatchScreen = () => {
   );
   const { placedBets } = useSelector((state: RootState) => state.match.bets);
   const [mode, setMode] = useState<any>(false);
-  const [isMatchLock, setIsMatchLock] = useState<any>(false);
   const [isSessionLock, setIsSessionLock] = useState<any>(false);
 
   useEffect(() => {
-    if(state){
+    if (state) {
       matchService.connect([state?.matchId], profileDetail?.roleName);
     }
     return () => {
-      matchService.disconnect(); 
+      matchService.disconnect();
     };
   }, [state]);
 
@@ -80,13 +75,11 @@ const LockMatchScreen = () => {
 
   const handleShowLock = async (_: any, type: any) => {
     if (type === "Match Odds") {
-      setIsMatchLock(true);
     } else if (type === "Session Market") {
       setIsSessionLock(true);
     }
   };
   const handleHide = async () => {
-    setIsMatchLock(false);
     setIsSessionLock(false);
   };
 
@@ -233,9 +226,7 @@ const LockMatchScreen = () => {
         socketService.match.sessionResultOff();
         socketService.match.sessionResultUnDeclareOff();
         socketService.match.updateDeleteReasonOff();
-        socketService.match.joinMatchRoom(
-          state?.matchId
-        );
+        socketService.match.joinMatchRoom(state?.matchId);
         socketService.match.getMatchRates(
           state?.matchId,
           updateMatchDetailToRedux
@@ -326,97 +317,6 @@ const LockMatchScreen = () => {
             display: "flex",
           }}
         >
-          {matchDetail?.matchOdd?.isActive && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              typeOfBet={"Match Odds"}
-              showBox={matchDetail?.matchOdd?.activeStatus === "save"}
-              minBet={formatToINR(Math.floor(matchDetail?.matchOdd?.minBet))}
-              maxBet={formatToINR(Math.floor(matchDetail?.matchOdd?.maxBet))}
-              data={
-                matchDetail?.matchOdd?.runners?.length > 0
-                  ? matchDetail?.matchOdd?.runners
-                  : []
-              }
-              blockMatch={true}
-              locked={childStatus?.allChildMatchDeactive}
-              selft={true}
-              handleBlock={handleBlock}
-              handleHide={handleHide}
-              handleShowLock={handleShowLock}
-              showUnlock={isMatchLock}
-            />
-          )}
-          {/* {true && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              data={currentMatch}
-              manualBookmakerData={manualBookmakerData}
-              typeOfBet={"Quick Bookmaker"}
-              blockMatch={true}
-              locked={currentMatch?.blockMarket?.MANUALBOOKMAKER?.block}
-              selft={currentMatch?.blockMarket?.MANUALBOOKMAKER?.selft}
-              handleBlock={handleBlock}
-              handleHide={handleHide}
-              handleShowLock={handleShowLock}
-              mShowUnlock={isManualLock}
-            />
-          )} */}
-          {matchDetail?.bookmaker?.isActive && (
-            <LiveBookmaker
-              currentMatch={matchDetail}
-              showBox={matchDetail?.bookmaker?.activeStatus === "save"}
-              minBet={formatToINR(Math.floor(matchDetail?.bookmaker?.minBet))}
-              maxBet={formatToINR(Math.floor(matchDetail?.bookmaker?.maxBet))}
-              data={
-                matchDetail?.bookmaker?.runners?.length > 0
-                  ? matchDetail?.bookmaker?.runners
-                  : []
-              }
-              blockMatch={false}
-              locked={childStatus?.allChildMatchDeactive}
-            />
-          )}
-          {matchDetail?.apiTideMatch?.isActive && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              typeOfBet={"Tied Match"}
-              minBet={formatToINR(
-                Math.floor(matchDetail?.apiTideMatch?.minBet)
-              )}
-              maxBet={formatToINR(
-                Math.floor(matchDetail?.apiTideMatch?.maxBet)
-              )}
-              data={
-                matchDetail?.apiTideMatch?.runners?.length > 0
-                  ? matchDetail?.apiTideMatch?.runners
-                  : []
-              }
-              showBox={matchDetail?.apiTideMatch?.activeStatus === "save"}
-              locked={childStatus?.allChildMatchDeactive}
-            />
-          )}
-          {matchDetail?.marketCompleteMatch?.isActive && (
-            <MatchOdds
-              currentMatch={matchDetail}
-              typeOfBet={"Market Complete Match"}
-              minBet={formatToINR(
-                Math.floor(matchDetail?.marketCompleteMatch?.minBet)
-              )}
-              maxBet={formatToINR(
-                Math.floor(matchDetail?.marketCompleteMatch?.maxBet)
-              )}
-              data={
-                matchDetail?.marketCompleteMatch?.runners?.length > 0
-                  ? matchDetail?.marketCompleteMatch?.runners
-                  : []
-              }
-              showBox={
-                matchDetail?.marketCompleteMatch?.activeStatus === "save"
-              }
-              locked={childStatus?.allChildMatchDeactive}
-            />
-          )}
           {matchDetail?.apiSessionActive && (
             <SessionMarket
               allBetsData={
@@ -487,13 +387,6 @@ const LockMatchScreen = () => {
             minHeight: "100px",
           }}
         >
-          {/* <MatchComponent
-            currentMatch={currentMatch}
-            liveScoreData={liveScoreData}
-            submit={true}
-          /> */}
-
-          {/* <LiveMatchHome currentMatch={currentMatch} submit={true} /> */}
           <FullAllBets
             IObets={
               placedBets.length > 0
