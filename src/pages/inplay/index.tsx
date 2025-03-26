@@ -41,16 +41,6 @@ const Inplay = () => {
     (state: RootState) => state.user.profile
   );
 
-  //   useEffect(() => {
-  //     if (matchListInplay?.matches?.length && (!thirdParty || !thirdParty.connected) && success) {
-  //       const matchIds = matchListInplay.matches.map((match:any) => match.id);
-  //       matchService.connect(matchIds, profileDetail?.roleName);
-  //     }
-  //     return () => {
-  //       matchService.disconnect(); 
-  //     }; 
-  // }, [success]);
-
   const getMatchListMarket = async (matchType: string) => {
     try {
       const resp: any = await axios.get(marketApiConst[matchType], {
@@ -89,12 +79,6 @@ const Inplay = () => {
           socketService.match.declaredMatchResultAllUserOff();
           socketService.match.unDeclaredMatchResultAllUserOff();
           socketService.match.matchAddedOff();
-          // matchListInplay?.matches?.map((item: any) => {
-          //   socketService.match.joinMatchRoom(
-          //     item?.id,
-          //     profileDetail?.roleName
-          //   );
-          // });
           socketService.match.matchResultDeclared(getMatchListService);
           socketService.match.matchResultUnDeclared(getMatchListService);
           socketService.match.declaredMatchResultAllUser(getMatchListService);
@@ -115,9 +99,6 @@ const Inplay = () => {
 
   useEffect(() => {
     return () => {
-      // matchListInplay?.matches?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item?.id);
-      // });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
       socketService.match.declaredMatchResultAllUserOff();
@@ -132,11 +113,6 @@ const Inplay = () => {
         setCurrentPage(1);
         getMatchListService();
       }
-      //  else if (document.visibilityState === "hidden") {
-      //   matchListInplay?.matches?.map((item: any) => {
-      //     socketService.match.getMatchRatesOff(item?.id);
-      //   });
-      // }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -174,7 +150,6 @@ const Inplay = () => {
               top={true}
               blur={false}
               match={match}
-            // handleUpdateMatch={handleUpdateMatch}
             />
           );
         })

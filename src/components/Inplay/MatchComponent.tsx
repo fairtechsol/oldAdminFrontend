@@ -1,19 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
 import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
-// import { socket, socketService } from "../../socketManager";
-// import { updateMatchListRates } from "../../store/actions/match/matchAction";
-// import { AppDispatch } from "../../store/store";
 import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
 
 const MatchComponent = (props: MatchComponentInterface) => {
   const { onClick, top, blur, match } = props;
-  // const dispatch: AppDispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
 
   function calculateTimeLeft() {
@@ -54,31 +49,12 @@ const MatchComponent = (props: MatchComponentInterface) => {
     Number(timeLeft?.hours) === 0 &&
     Number(timeLeft?.minutes) <= 30;
 
-  // const setMatchOddRatesInRedux = (event: any) => {
-  //   try {
-  //     if (match?.id === event?.id) {
-  //       dispatch(updateMatchListRates(event));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 100);
     return () => clearInterval(timer);
   }, []);
-
-  // useEffect(() => {
-  //   if (socket) {
-  //     socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
-  //     return () => {
-  //       socketService.match.getMatchRatesOff(match?.id);
-  //     };
-  //   }
-  // }, [socket]);
 
   return (
     <>
@@ -285,18 +261,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 width: "40%",
                 alignItems: "center",
               }}
-            >
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: { lg: "11px", xs: "9px" },
-                  marginLeft: "7px",
-                }}
-              >
-                MIN: {formatToINR(Math.floor(match?.matchOdds[0]?.minBet))} MAX:{" "}
-                {formatToINR(Math.floor(match?.matchOdds[0]?.maxBet))}
-              </Typography>
-            </Box>
+            ></Box>
             <Box
               sx={{
                 display: "flex",
@@ -304,7 +269,6 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 height: "25px",
                 width: { lg: "60%", xs: "80%" },
                 justifyContent: { lg: "flex-end", xs: "flex-end" },
-                marginRight: { lg: "4px", xs: "2px" },
               }}
             >
               <Box
@@ -347,17 +311,17 @@ const MatchComponent = (props: MatchComponentInterface) => {
             teamName={match.teamA}
             runnerNumber={0}
             apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
             match={match}
           />
           <Divider />
-          <TeamDetailRow
-            teamName={match.teamB}
-            runnerNumber={1}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
-            match={match}
-          />
+          {match.teamB && (
+            <TeamDetailRow
+              teamName={match.teamB}
+              runnerNumber={1}
+              apiBasePath={"abc"}
+              match={match}
+            />
+          )}
           {match.teamC && (
             <>
               <Divider />
@@ -365,7 +329,6 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 teamName={match.teamC}
                 runnerNumber={2}
                 apiBasePath={"abc"}
-                matchOddsLive={match?.matchOdds[0]}
                 match={match}
               />
             </>
