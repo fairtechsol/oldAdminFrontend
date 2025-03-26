@@ -307,14 +307,16 @@ const MatchComponent = ({
             apiBasePath={"abc"}
             match={match}
           />
-          <Divider />
           {match.teamB && (
-            <TeamDetailRow
-              teamName={match.teamB}
-              runnerNumber={1}
-              apiBasePath={"abc"}
-              match={match}
-            />
+            <>
+              <Divider />
+              <TeamDetailRow
+                teamName={match.teamB}
+                runnerNumber={1}
+                apiBasePath={"abc"}
+                match={match}
+              />
+            </>
           )}
           {match.teamC && (
             <>
