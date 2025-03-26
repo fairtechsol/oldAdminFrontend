@@ -169,10 +169,6 @@ const SessionMarket = (props: any) => {
                     lineHeight: 1,
                   }}
                 >
-                  {/* {allBetsData?.reduce((acc: number, bet: any) => {
-                    let total = Number(acc) + Number(bet?.maxLoss);
-                    return Number(total)?.toFixed(2);
-                  }, 0)} */}
                   {new Intl.NumberFormat("en-IN").format(
                     parseFloat(
                       marketAnalysis?.betType
@@ -386,8 +382,8 @@ const SessionMarket = (props: any) => {
                       <Box
                         key={
                           title === "Quick Session Market"
-                                        ? JSON.parse(element)?.id
-                                        : element?.id
+                            ? JSON.parse(element)?.id
+                            : element?.id
                         }
                         sx={{
                           width: "100%",
@@ -397,8 +393,11 @@ const SessionMarket = (props: any) => {
                         <SeasonMarketBox
                           newData={
                             title === "Quick Session Market"
-                              ? JSON.parse(element)
-                              : element
+                              ? {
+                                  ...JSON.parse(element),
+                                  matchId: currentMatch?.id,
+                                }
+                              : { ...element, matchId: currentMatch?.id }
                           }
                           profitLossData={
                             marketAnalysis?.betType
