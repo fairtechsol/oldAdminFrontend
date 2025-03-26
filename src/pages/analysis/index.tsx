@@ -1,4 +1,3 @@
-import Loader from "../../components/Loader";
 import {
   Box,
   Pagination,
@@ -8,20 +7,21 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import CustomBox from "../../components/analysis/CustomBox";
 import { useEffect, useState } from "react";
-import MatchListComponent from "../../components/analysis/MatchListComponent";
-import { useNavigate } from "react-router-dom";
-import "./index.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CustomBox from "../../components/analysis/CustomBox";
+import MatchListComponent from "../../components/analysis/MatchListComponent";
+import Loader from "../../components/Loader";
 import { AppDispatch, RootState } from "../../store/store";
+import "./index.css";
 // import { analysisListReset } from "../../store/actions/match/matchAction";
-import { useDispatch } from "react-redux";
-import { Constants } from "../../utils/Constants";
-import { toast } from "react-toastify";
 import { makeStyles } from "@material-ui/core/styles";
-import { getAnalysisList } from "../../store/actions/match/multipleMatchAction";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { socket, socketService } from "../../socketManager";
+import { getAnalysisList } from "../../store/actions/match/multipleMatchAction";
+import { Constants } from "../../utils/Constants";
 
 const Analysis = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Analysis = () => {
   const [max, setMax] = useState("2");
   const [selected, setSelected] = useState<any>([]);
   const [matchIds, setMatchIds] = useState<any>([]);
-  // const [marketIds, setMarketIds] = useState([]);
+  const [selectedMatchType, setSelectedMatchType] = useState<any>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const useStyles = makeStyles({
     whiteTextPagination: {
@@ -50,22 +50,38 @@ const Analysis = () => {
   };
 
   const changeSelected = (match: any) => {
-    if (mode === "0") {
+    if (mode === "0") return false;
+
+    const matchId = match?.id;
+    if (!matchId) return false;
+
+    const isSameMatchType =
+      !selectedMatchType || selectedMatchType === match?.matchType;
+    const isAlreadySelected = selected.includes(matchId);
+
+    if (!isSameMatchType) {
+      toast.error("Please Select Match Of Same Category");
       return false;
     }
-    const x: any = [...selected];
-    if (x.includes(match?.id)) {
+
+    if (isAlreadySelected) {
       setMatchIds((prevIds: any) =>
-        prevIds.filter((matchId: any) => matchId !== match?.id)
+        prevIds.filter((id: any) => id !== matchId)
       );
-      const updatedSelected = x.filter((id: any) => id !== match?.id);
-      setSelected(updatedSelected);
+      setSelected((prevSelected: any) =>
+        prevSelected.filter((id: any) => id !== matchId)
+      );
     } else {
-      setMatchIds((prevIds: any) => [...prevIds, match?.id]);
-      setSelected([...x, match?.id]);
-      if (+max === selected?.length) {
+      if (selected.length >= +max) {
         toast.warn(`Only ${max} allowed`);
-        return;
+        return false;
+      }
+
+      setMatchIds((prevIds: any) => [...prevIds, matchId]);
+      setSelected((prevSelected: any) => [...prevSelected, matchId]);
+
+      if (!selectedMatchType) {
+        setSelectedMatchType(match?.matchType);
       }
     }
   };
