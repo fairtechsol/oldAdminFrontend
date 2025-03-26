@@ -1,48 +1,42 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
 import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
 
-const MatchComponent = (props: MatchComponentInterface) => {
-  const { onClick, top, blur, match } = props;
-  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
+const MatchComponent = ({
+  onClick,
+  top,
+  blur,
+  match,
+}: MatchComponentInterface) => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+  });
 
-  function calculateTimeLeft() {
-    try {
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const targetDate = moment(match?.startAt).tz(timezone);
-      const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-      let timeLeft = {};
-      if (difference > 0) {
-        timeLeft = {
-          days:
-            ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) ||
-            0,
-          hours:
-            ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(
-              -2
-            ) || 0,
-          minutes:
-            ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
-          seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
-        };
-      } else {
-        timeLeft = {
-          days: "00",
-          hours: "00",
-          minutes: "00",
-        };
-      }
-
-      return timeLeft;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  const calculateTimeLeft = () => {
+    const diff = moment(match?.startAt).diff(moment());
+    return diff > 0
+      ? {
+          days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(
+            2,
+            "0"
+          ),
+          hours: String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(
+            2,
+            "0"
+          ),
+          minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(
+            2,
+            "0"
+          ),
+        }
+      : { days: "00", hours: "00", minutes: "00" };
+  };
 
   const upcoming: any =
     Number(timeLeft?.days) === 0 &&
@@ -54,7 +48,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
       setTimeLeft(calculateTimeLeft());
     }, 100);
     return () => clearInterval(timer);
-  }, []);
+  }, [match?.startAt]);
 
   return (
     <>
