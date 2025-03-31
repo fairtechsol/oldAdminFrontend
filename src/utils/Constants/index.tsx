@@ -82,11 +82,17 @@ export const ApiConstants = {
     SESSION_PROFIT_LOSS: "/user/total/session/profitLoss",
     GET_MATCH_MARKET_ANALYSIS: "/match/marketAnalysis",
     MARKET_MATCH_LIST_CRICKET:
-    "https://marketsarket.qnsports.live/getcricketmatches",
-  MARKET_MATCH_LIST_FOOTBALL:
-    "https://marketsarket.qnsports.live/getsoccerallmatches2",
-  MARKET_MATCH_LIST_TENNIS:
-    "https://marketsarket.qnsports.live/gettennisallmatches2",
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=cricket`,
+    MARKET_MATCH_LIST_FOOTBALL:
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=football`,
+    MARKET_MATCH_LIST_TENNIS:
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=tennis`,
+  },
+  CARD: {
+    GET_TOTAL_PROFIT_LOSS: "/virtual/total/profitLoss",
+    GET_GAME_WISE_PROFIT_LOSS: "/virtual/total/gameWise/profitLoss",
+    GET_TOTAL_BET_PROFIT_LOSS: "/virtual/total/bet/profitLoss",
+    GET_USERWISE_PROFIT_LOSS: "/virtual/userwise/profitLoss",
   },
 };
 
@@ -123,9 +129,12 @@ export const Constants = {
     walletSettings: "walletSettings",
     myAccount: "my-account",
     changePassword: "change-password",
+    matchList: "matchList/:type",
+    matchListMatches: "matchList/:type/:id",
   },
   AdminReportsPaths: {
     profitLoss: "/admin/reports/profit_loss",
+    profitLossCards: "/admin/reports/profit_loss_cards",
     accountStatement: "/admin/reports/account_statement",
     currentBet: "/admin/reports/current_bet",
     generalReport: "/admin/reports/general_report",
@@ -299,7 +308,7 @@ export const profitLossDataForMatchConstants = {
   ),
 };
 
-export const marketApiConst: { [key: string]: string }  = {
+export const marketApiConst: { [key: string]: string } = {
   cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
   football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
   tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
