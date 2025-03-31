@@ -47,8 +47,8 @@ const Inplay = () => {
   //       matchService.connect(matchIds, profileDetail?.roleName);
   //     }
   //     return () => {
-  //       matchService.disconnect(); 
-  //     }; 
+  //       matchService.disconnect();
+  //     };
   // }, [success]);
 
   const getMatchListMarket = async (matchType: string) => {
@@ -146,9 +146,11 @@ const Inplay = () => {
   }, []);
 
   useEffect(() => {
-    getMatchListMarket("cricket");
-    getMatchListMarket("tennis");
-    getMatchListMarket("football");
+    setTimeout(() => {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket("cricket");
       getMatchListMarket("tennis");

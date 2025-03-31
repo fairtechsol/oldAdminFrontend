@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Box,
-    Pagination,
-    Table,
-    TableBody,
-    TableCell,
-    TableRow,
+  Box,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -15,8 +15,8 @@ import MatchComponent from "../../components/Inplay/MatchComponent";
 import Loader from "../../components/Loader";
 import { socketService } from "../../socketManager";
 import {
-    getMatchListInplay,
-    updateMatchRatesFromApiOnList,
+  getMatchListInplay,
+  updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
@@ -125,6 +125,9 @@ const Inplay = () => {
   const classes = useStyles();
 
   useEffect(() => {
+    setTimeout(() => {
+      getMatchListMarket(type);
+    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket(type);
     }, 3000);
