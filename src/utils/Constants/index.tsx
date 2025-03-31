@@ -281,6 +281,7 @@ export const cardGamesTypeConstants: any = {
   cmeter: "cmeter",
   queen: "queen",
   worli: "worli",
+  mac88: "MAC88",
 };
 
 export const gameIconConstants = {
