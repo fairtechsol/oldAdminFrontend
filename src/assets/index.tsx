@@ -51,3 +51,27 @@ export { default as UD } from "./images/UD.png";
 export { default as UnLockIcon } from "./images/unlock.svg";
 export { default as WALLET } from "./images/wallet.webp";
 
+export { default as Thirty2CardsA } from "./images/32Cards.png";
+export { default as AmarAkbarAnthony } from "./images/amarAkbarAnthony.png";
+export { default as AndarBahar2 } from "./images/andarBahar.png";
+export { default as Baccarat } from "./images/baccarat.png";
+export { default as BollywoodCasino } from "./images/bollywoodCasino.png";
+export { default as CasinoMeter } from "./images/casinoMeter.png";
+export { default as CasinoQueen } from "./images/casinoQueen.png";
+export { default as CasinoWar } from "./images/casinoWar.png";
+export { default as CriketMatch2020 } from "./images/cricketMatch2020.png";
+export { default as DragonTiger20 } from "./images/dragonTiger.png";
+export { default as Five5 } from "./images/five5.png";
+export { default as GreyHound } from "./images/greyHound.png";
+export { default as HorseRacing } from "./images/horseRacing.png";
+export { default as InstantWorli } from "./images/instantWorli.png";
+export { default as Lucky7A } from "./images/lucky7A.png";
+export { default as MAC88 } from "./images/mac88.png";
+export { default as Poker } from "./images/poker.png";
+export { default as Race2020 } from "./images/race20.png";
+export { default as BallByBall } from "./images/snooker.webp";
+export { default as SuperOver } from "./images/superOver.png";
+export { default as Teenpatti20 } from "./images/teenpatti.png";
+export { default as TeenPatti1Day } from "./images/teenpatti1Day.png";
+export { default as WorliMatka } from "./images/worliMatka.png";
+
