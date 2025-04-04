@@ -3,22 +3,19 @@ import { convertData, updateSessionBettingsItem } from "../../../helper";
 import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 import {
   amountupdate,
-  betDataFromSocket,
   getMatchDetail,
   getMatchDetailMarketAnalysis,
   getMatchListInplay,
   matchListReset,
   resetMarketAnalysys,
   setCurrentOdd,
-  updateBalance,
-  updateMatchListRates,
   updateMatchRates,
   updateMatchRatesFromApiOnList,
   updateMaxLossForBet,
   updateMaxLossForBetOnUndeclare,
   updateMaxLossForDeleteBet,
   updateTeamRates,
-  updateTeamRatesOnDelete,
+  updateTeamRatesOnDelete
 } from "../../actions/match/matchAction";
 
 interface InitialState {
@@ -98,39 +95,6 @@ const matchListSlice = createSlice({
       })
       .addCase(resetMarketAnalysys, (state) => {
         state.marketAnalysis = null;
-      })
-      .addCase(updateMatchListRates.fulfilled, (state, action) => {
-        const { id, matchOdd } = action?.payload;
-        if (matchOdd) {
-          const matchListIndex = state?.matchListInplay?.matches?.findIndex(
-            (match: any) => match?.id === id
-          );
-          if (matchListIndex !== -1) {
-            const updatedMatchlist = [...state.matchListInplay.matches];
-
-            let matchOdds =
-              state?.matchListInplay?.matches[matchListIndex]?.matchOdds &&
-              state?.matchListInplay?.matches[matchListIndex]?.matchOdds
-                ?.length > 0
-                ? state?.matchListInplay?.matches[matchListIndex]?.matchOdds[0]
-                : state?.matchListInplay?.matches[matchListIndex]?.matchOdds;
-
-            updatedMatchlist[matchListIndex] = {
-              ...updatedMatchlist[matchListIndex],
-              matchOdds: [
-                {
-                  ...matchOdds,
-                  ...matchOdd,
-                },
-              ],
-            };
-
-            state.matchListInplay = {
-              ...state.matchListInplay,
-              matches: updatedMatchlist,
-            };
-          }
-        }
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
@@ -237,16 +201,7 @@ const matchListSlice = createSlice({
       .addCase(matchListReset, (state) => {
         state.success = false;
       })
-      .addCase(updateBalance.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
-          userBal: {
-            ...state?.getProfile?.userBal,
-            exposure:
-              action?.payload?.newUserExposure ?? action?.payload?.exposure,
-          },
-        };
-      })
+     
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { jobData, profitLoss } = action?.payload;
         if (state?.matchDetail?.id === jobData?.placedBet?.matchId) {
@@ -331,25 +286,6 @@ const matchListSlice = createSlice({
               ])
             ),
           };
-        }
-      })
-      .addCase(betDataFromSocket.fulfilled, (state, action) => {
-        const betId = action?.payload?.betPlaced?.placedBet?.betId;
-
-        if (
-          !state.betPlaceData.some(
-            (item: any) => item?.betPlaced?.placedBet?.betId === betId
-          )
-        ) {
-          state.betPlaceData = [...state.betPlaceData, action?.payload];
-        } else {
-          const existingIndex = state?.betPlaceData?.findIndex(
-            (item: any) => item?.betPlaced?.placedBet?.betId === betId
-          );
-          if (existingIndex !== -1) {
-            let updatedSlice = state?.betPlaceData?.splice(existingIndex, 1);
-            state.betPlaceData = [...updatedSlice, action?.payload];
-          }
         }
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {

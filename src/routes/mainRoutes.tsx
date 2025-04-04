@@ -1,8 +1,6 @@
-// import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import MultipleMatch from "../pages/analysis/multipleMatch";
 import { Constants } from "../utils/Constants";
-
 import MainLayout from "../layout/main";
 import AddAccount from "../pages/addAccount";
 import Analysis from "../pages/analysis";

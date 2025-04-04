@@ -8,10 +8,13 @@ export const getMatchListInplay = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.INPLAY.MATCHLIST}?${requestData?.matchType
-          ? `match.matchType=${requestData?.matchType}&`
-          : ""
-        }page=${requestData?.currentPage}&limit=${Constants.pageLimit}&sort=match.startAt:ASC`
+        `${ApiConstants.INPLAY.MATCHLIST}?${
+          requestData?.matchType
+            ? `match.matchType=${requestData?.matchType}&`
+            : ""
+        }page=${requestData?.currentPage}&limit=${
+          Constants.pageLimit
+        }&sort=match.startAt:ASC`
       );
       if (resp) {
         return resp?.data;
@@ -59,7 +62,8 @@ export const getPlacedBets = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.GET_BETS
+        `${
+          ApiConstants.MATCH.GET_BETS
         }?matchId=${requestData}&result=inArr${JSON.stringify([
           "PENDING",
           "UNDECLARE",
@@ -195,13 +199,6 @@ export const AllBetDelete = createAsyncThunk<any, any>(
     }
   }
 );
-
-export const updateMatchListRates = createAsyncThunk<any, any>(
-  "/matchList/rates",
-  async (matchList) => {
-    return matchList;
-  }
-);
 export const updateMatchRates = createAsyncThunk<any, any>(
   "/match/rates",
   async (matchDetails) => {
@@ -212,19 +209,6 @@ export const updateBetsPlaced = createAsyncThunk<any, any>(
   "/placed/bets",
   async (placedBets) => {
     return placedBets;
-  }
-);
-export const updateBalance = createAsyncThunk<any, any>(
-  "/user/balance",
-  async (balance) => {
-    return balance;
-  }
-);
-
-export const betDataFromSocket = createAsyncThunk<any, any>(
-  "/betData/update",
-  async (data) => {
-    return data;
   }
 );
 export const updateMaxLossForBet = createAsyncThunk<any, any>(
@@ -241,12 +225,6 @@ export const updateMaxLossForDeleteBet = createAsyncThunk<any, any>(
 );
 export const amountupdate = createAsyncThunk<any, any>(
   "/maxLossOnDelete/amountupdate",
-  async (data) => {
-    return data;
-  }
-);
-export const updateProfitLossForBet = createAsyncThunk<any, any>(
-  "/profitLoss/update",
   async (data) => {
     return data;
   }

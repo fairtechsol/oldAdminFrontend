@@ -3,14 +3,12 @@ import {
   changeAmmountUser,
   changePasswordRow,
   getAlreadyUserExist,
-  getModalUserList,
   getSearchClientList,
   getTotalBalance,
   getUserList,
   getUserWiseExposure,
   handleDeleteUser,
   handleExport,
-  handleModelActions,
   handleSettleCommission,
   resetUserWiseExposureList,
   setCreditRefference,
@@ -77,30 +75,6 @@ export const userList = createSlice({
       .addCase(getUserList.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
-      })
-      .addCase(getModalUserList.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(getModalUserList.fulfilled, (state, action) => {
-        state.userModalList = action?.payload;
-        state.loading = false;
-      })
-      .addCase(getModalUserList.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(handleModelActions.fulfilled, (state, action) => {
-        const { openModal, domain } = action?.payload;
-        state.openModal = openModal;
-        let obj = {
-          roleName: action?.payload?.roleName,
-          id: action?.payload?.userId,
-          domain: domain,
-          title: action?.payload?.title,
-        };
-        state.userElement = obj;
-        state.loading = false;
       })
       .addCase(changeAmmountUser.pending, (state) => {
         state.loading = true;
