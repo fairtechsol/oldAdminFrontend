@@ -112,11 +112,11 @@ export const ApiConstants = {
     SESSION_PROFIT_LOSS: "/user/total/session/profitLoss",
     GET_MATCH_MARKET_ANALYSIS: "/match/marketAnalysis",
     MARKET_MATCH_LIST_CRICKET:
-      "https://marketsarket.qnsports.live/getcricketmatches",
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=cricket`,
     MARKET_MATCH_LIST_FOOTBALL:
-      "https://marketsarket.qnsports.live/getsoccerallmatches2",
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=football`,
     MARKET_MATCH_LIST_TENNIS:
-      "https://marketsarket.qnsports.live/gettennisallmatches2",
+      import.meta.env.VITE_THIRD_PARTY_BASE_URL + `/sportsList?type=tennis`,
   },
   CARD: {
     GET_TOTAL_PROFIT_LOSS: "/virtual/total/profitLoss",
