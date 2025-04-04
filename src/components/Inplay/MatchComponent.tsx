@@ -281,8 +281,7 @@ const MatchComponent = ({
                   Back
                 </Typography>
               </Box>
-              <Box sx={{ width: ".35%", display: "flex" }}></Box>
-
+              <Box sx={{ width: ".35%", display: "flex" }} />
               <Box
                 sx={{
                   background: "#FF9292",
@@ -304,7 +303,7 @@ const MatchComponent = ({
           <TeamDetailRow
             teamName={match.teamA}
             runnerNumber={0}
-            apiBasePath={"abc"}
+            apiBasePath="abc"
             match={match}
           />
           {match.teamB && (
@@ -324,7 +323,7 @@ const MatchComponent = ({
               <TeamDetailRow
                 teamName={match.teamC}
                 runnerNumber={2}
-                apiBasePath={"abc"}
+                apiBasePath="abc"
                 match={match}
               />
             </>

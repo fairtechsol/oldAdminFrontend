@@ -18,7 +18,6 @@ const Layout = ({
   selectedBetData,
   showBets,
 }: any) => {
-  console.log(sessionProLoss);
   return (
     <>
       <Typography
@@ -71,7 +70,7 @@ const Layout = ({
         })}
       {item?.manualSessionActive && (
         <SessionMarket
-          title={"Quick Session Market"}
+          title="Quick Session Market"
           allBetsData={
             item?.profitLossDataSession
               ? Array.from(

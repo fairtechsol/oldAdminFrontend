@@ -1,10 +1,9 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BetsList from "../../../components/report/CurrentBets/BetsList";
 import HeaderCurrentBets from "../../../components/report/CurrentBets/HeaderCurrentBets";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
 import { getCurrentBets } from "../../../store/actions/reports";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
 
 const CurrentBets = () => {
   const dispatch: AppDispatch = useDispatch();

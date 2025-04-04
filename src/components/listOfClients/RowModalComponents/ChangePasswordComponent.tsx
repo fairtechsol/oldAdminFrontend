@@ -1,10 +1,8 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import StyledImage from "../../Common/StyledImages";
-import BoxButton from "./BoxButton";
-
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { EyeIconWhite, EyeSlashWhite } from "../../../assets";
 import {
   changePasswordRow,
   userListSuccessReset,
@@ -12,14 +10,9 @@ import {
 import { AppDispatch, RootState } from "../../../store/store";
 import { ApiConstants } from "../../../utils/Constants";
 import { userChangePasswordValidations } from "../../../utils/Validations";
-
-import {
-  // EyeIcon,
-  EyeIconWhite,
-  // EyeSlash,
-  EyeSlashWhite,
-} from "../../../assets";
 import CustomErrorMessage from "../../Common/CustomErrorMessage";
+import StyledImage from "../../Common/StyledImages";
+import BoxButton from "./BoxButton";
 
 const initialValues: any = {
   userId: "",
@@ -46,33 +39,18 @@ const ChangePasswordComponent = (props: any) => {
         payload = {
           newPassword: values.newPassword,
           transactionPassword: values.transactionPassword,
-          // remark: values.remark,
         };
-      }
-      // else if (
-      //   element.roleName === "superAdmin" ||
-      //   element.roleName === "fairGameAdmin"
-      // ) {
-      //   payload = {
-      //     userId: element?.id,
-      //     newPassword: values.newPassword,
-      //     transactionPassword: values.transactionPassword,
-      //     // remark: values.remark,
-      //   };
-      // }
-      else if (element.roleName === "expert") {
+      } else if (element.roleName === "expert") {
         payload = {
           id: element?.id,
           password: values.newPassword,
           transactionPassword: values.transactionPassword,
-          // remark: values.remark,
         };
       } else {
         payload = {
           userId: element?.id,
           newPassword: values.newPassword,
           transactionPassword: values.transactionPassword,
-          // remark: values.remark,
         };
       }
       dispatch(

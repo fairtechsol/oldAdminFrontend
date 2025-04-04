@@ -5,33 +5,27 @@ interface props {
   style?: React.CSSProperties;
 }
 
-const CustomErrorMessage = ({
-  touched,
-  errors,
-  style
-  
-}: props) => {
+const CustomErrorMessage = ({ touched, errors, style }: props) => {
   const inlineStyle: React.CSSProperties = {
     ...style,
   };
-    return (
-      <>
+  return (
+    <>
       {touched && errors && (
-          <Typography 
-          sx={{ 
-            color: "#fa1e1e", 
+        <Typography
+          sx={{
+            color: "#fa1e1e",
             position: "absolute",
             fontSize: "12px",
             wordBreak: "break-all",
           }}
           style={{ ...inlineStyle }}
-          >
-            {errors}
-          </Typography>
-        )}
-      </>
-    );
-  };
-  
-  export default CustomErrorMessage;
-  
+        >
+          {errors}
+        </Typography>
+      )}
+    </>
+  );
+};
+
+export default CustomErrorMessage;

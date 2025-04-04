@@ -83,9 +83,6 @@ const Inplay = () => {
         socketService.match.declaredMatchResultAllUserOff();
         socketService.match.unDeclaredMatchResultAllUserOff();
         socketService.match.matchAddedOff();
-        // matchListInplay?.matches?.map((item: any) => {
-        //   socketService.match.joinMatchRoom(item?.id, profileDetail?.roleName);
-        // });
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
         socketService.match.declaredMatchResultAllUser(getMatchListService);
@@ -99,9 +96,6 @@ const Inplay = () => {
 
   useEffect(() => {
     return () => {
-      // matchListInplay?.matches?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item?.id);
-      // });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
       socketService.match.declaredMatchResultAllUserOff();
@@ -156,7 +150,6 @@ const Inplay = () => {
                 top={true}
                 blur={false}
                 match={match}
-                // handleUpdateMatch={handleUpdateMatch}
               />
             );
           })

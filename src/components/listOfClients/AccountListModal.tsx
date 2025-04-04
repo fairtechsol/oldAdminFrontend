@@ -1,13 +1,13 @@
-import { Box, useMediaQuery, Button } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import service from "../../service";
+import { ApiConstants, Constants } from "../../utils/Constants";
+import Pagination from "../Common/Pagination";
+import SearchInput from "../Common/SearchInput";
 import AccountListRow from "./AccountListRow";
 import ListHeader from "./ListHeader";
-import Pagination from "../Common/Pagination";
 import ListHeaderRow from "./ListHeaderRow";
 import SubHeaderListRow from "./SubHeaderListRow";
-import SearchInput from "../Common/SearchInput";
-import { ApiConstants, Constants } from "../../utils/Constants";
-import service from "../../service";
 
 const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
   const matchesBreakPoint = useMediaQuery("(max-width:1137px)");
@@ -100,13 +100,12 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-              // height: "50px",
             }}
           >
             <SearchInput
-              placeholder={"Search User..."}
+              placeholder="Search User..."
               show={true}
-              searchFor={"userModalList"}
+              searchFor="userModalList"
               endpoint={endpoint}
               userId={id}
               roleName={element?.roleName}
@@ -154,14 +153,12 @@ const AccountListTable = ({ endpoint, id, setShow, title, element }: any) => {
                     showUserDetails={false}
                     showOptions={true}
                     showCReport={true}
-                    // showChildModal={true}
                     containerStyle={{ background: "#ECECEC" }}
                     profit={(+element?.userBal?.profitLoss || 0) >= 0}
                     fContainerStyle={{ background: "#F8C851" }}
                     fTextStyle={{ color: "#0B4F26" }}
                     element={element}
                     show={true}
-                    // getListOfUser={getListOfUser}
                     currentPage={currentPage}
                   />
                 );

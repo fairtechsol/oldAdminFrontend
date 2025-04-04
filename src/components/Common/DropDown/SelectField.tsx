@@ -10,10 +10,13 @@ const SelectField = ({
   error,
   ...props
 }: any) => {
-
-  const getMenuPlacement = (id:any) => {
-    const topIds = ['sessionCommission', 'matchCommission', 'matchCommissionType'];
-    return topIds.includes(id) ? 'top' : 'bottom';
+  const getMenuPlacement = (id: any) => {
+    const topIds = [
+      "sessionCommission",
+      "matchCommission",
+      "matchCommissionType",
+    ];
+    return topIds.includes(id) ? "top" : "bottom";
   };
 
   const customStyles = {
@@ -28,7 +31,7 @@ const SelectField = ({
     }),
     singleValue: (base: any) => ({
       ...base,
-      color: "white", // Set the text color to white for the selected option
+      color: "white",
     }),
     option: (base: any, { isFocused }: any) => {
       return {
@@ -52,11 +55,12 @@ const SelectField = ({
       >
         {label}
       </Typography>
-
-      {/* <InputLabel sx={[{}, titleStyle]} htmlFor={props.name}>
-        {label}
-      </Label> */}
-      <Select isSearchable={ false } {...props} styles={customStyles} menuPlacement={getMenuPlacement(id)}/>
+      <Select
+        isSearchable={false}
+        {...props}
+        styles={customStyles}
+        menuPlacement={getMenuPlacement(id)}
+      />
       {touched && error ? <div style={{ color: "red" }}>{error}</div> : null}
     </Box>
   );

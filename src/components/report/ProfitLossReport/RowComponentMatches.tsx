@@ -171,18 +171,6 @@ const RowComponentMatches = ({
               }}
             />
           )}
-          {/* <StyledImage
-              src={ArrowDown}
-              sx={{
-                marginTop: { xs: "5px", lg: "0" },
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            /> */}
         </Box>
         <Box
           onClick={(e) => {
@@ -299,9 +287,7 @@ const RowComponentMatches = ({
                   <Box
                     sx={{
                       width: { xs: "100%", lg: "100%", md: "100%" },
-                      // maxHeight: "51vh",
                       overflow: "hidden",
-                      // overflowY: "auto",
                       marginY: { xs: ".2vh", lg: "1vh" },
                       padding: 0.2,
                     }}
@@ -317,8 +303,6 @@ const RowComponentMatches = ({
                           showListOfUsers={showListOfUsers}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          // sessionBetData={sessionBetData}
-                          // bet1Data={betData}
                         />
                       );
                     })}
@@ -345,75 +329,9 @@ const RowComponentMatches = ({
                   profit
                 />
               </Box>
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
             </>
           )}
-          {/* {selectedId?.type === "session_bet" && showSessions && (
-            <Box
-              sx={{
-                width: { xs: "100%", lg: "96%" },
-                marginTop: { xs: ".25vh" },
-                marginLeft: { lg: "4%" },
-                display: "flex",
-                flexDirection: { lg: "row", xs: "column" },
-              }}
-            >
-              <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
-                <Box
-                  sx={{
-                    width: { xs: "100%", lg: "50%", md: "100%" },
-                    maxHeight: "51vh",
-                    overflow: "hidden",
-                    overflowY: "auto",
-                    marginY: { xs: ".2vh", lg: "1vh" },
-                    padding: 0.2,
-                  }}
-                >
-                  {totalSessionProfitLoss?.length > 0 &&
-                    totalSessionProfitLoss?.map((bets: any, index: number) => {
-                      return (
-                        <SessionComponentMatches
-                          key={index}
-                          item={bets}
-                          index={index + 1}
-                          matchId={item?.matchId}
-                          showSessionBets={showSessionBets}
-                          setShowSessionBets={setShowSessionBets}
-                          getBetReport={getBetReport}
-                          selectedId={selectedId}
-                          // sessionBetData={sessionBetData}
-                        />
-                      );
-                    })}
-                </Box>
-                {selectedId?.betId !== "" &&
-                  !matchesMobile &&
-                  showSessionBets && (
-                    <Box
-                      sx={{
-                        width: {
-                          xs: "100%",
-                          lg: "49%",
-                          md: "100%",
-                        },
-                      }}
-                    >
-                      <SessionBetSeperate
-                        allBetsData={
-                          totalBetProfitLoss
-                            ? Array.from(new Set(totalBetProfitLoss))
-                            : []
-                        }
-                        betHistory={false}
-                        // placedBets={totalBetProfitLoss && totalBetProfitLoss}
-                        profit
-                        isArrow={true}
-                      />
-                    </Box>
-                  )}
-              </Box>
-            </Box>
-          )} */}
         </>
       )}
     </Box>

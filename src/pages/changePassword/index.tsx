@@ -239,7 +239,7 @@ const ChangePassword = (props: any) => {
               dispatch(logout());
             }
           }}
-          buttonMessage={"Navigate To Login"}
+          buttonMessage="Navigate To Login"
           navigateTo={`${Constants.oldAdmin}login`}
         />
       )}

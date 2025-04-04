@@ -2,41 +2,37 @@ import { Box, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
 
-const SearchInputWallet = (props: any) => {
-  const {
-    title,
-    data,
-    containerStyle,
-    inputContainerStyle,
-    setSearch,
-    search,
-  } = props;
-
+const SearchInputWallet = ({
+  title,
+  data,
+  containerStyle,
+  inputContainerStyle,
+  setSearch,
+  search,
+}: any) => {
   const [open, setOpen] = useState(false);
 
   const Block = ({ i }: any) => {
     return (
-      <>
-        <Typography
-          onClick={() => {
-            setSearch(i);
-            setOpen(false);
-          }}
-          sx={{
-            paddingY: "5px",
-            paddingLeft: "10px",
-            fontSize: "10px",
-            fontWeight: "500",
-            color: "black",
-            "&:hover": {
-              cursor: "pointer",
-              background: "#3498ff33",
-            },
-          }}
-        >
-          {i?.userName}
-        </Typography>
-      </>
+      <Typography
+        onClick={() => {
+          setSearch(i);
+          setOpen(false);
+        }}
+        sx={{
+          paddingY: "5px",
+          paddingLeft: "10px",
+          fontSize: "10px",
+          fontWeight: "500",
+          color: "black",
+          "&:hover": {
+            cursor: "pointer",
+            background: "#3498ff33",
+          },
+        }}
+      >
+        {i?.userName}
+      </Typography>
     );
   };
 

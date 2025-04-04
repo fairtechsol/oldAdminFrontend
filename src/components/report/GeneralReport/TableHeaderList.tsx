@@ -20,7 +20,7 @@ const TableHeaderList = () => {
           alignItems: "center",
           height: "35px",
           borderRight: "2px solid white",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <Typography sx={{ color: "white", fontSize: "11px" }}>
@@ -62,7 +62,7 @@ const TableHeaderList = () => {
           alignItems: "center",
           height: "35px",
           borderRight: "2px solid white",
-          overflow:"hidden"
+          overflow: "hidden",
         }}
       >
         <Typography sx={{ color: "white", fontSize: "11px" }}>

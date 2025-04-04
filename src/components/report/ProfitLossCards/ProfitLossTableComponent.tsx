@@ -8,17 +8,15 @@ import { Constants } from "../../../utils/Constants";
 import Footer from "../../Common/Footer";
 import RowHeaderMatches from "./RowHeaderMatches";
 
-const ProfitLossTableComponent = (props: any) => {
-  const {
-    eventData,
-    currentPage,
-    endDate,
-    startDate,
-    userProfitLoss,
-    getUserProfitLoss,
-    setCurrentPage,
-  } = props;
-
+const ProfitLossTableComponent = ({
+  eventData,
+  currentPage,
+  endDate,
+  startDate,
+  userProfitLoss,
+  getUserProfitLoss,
+  setCurrentPage,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [event, setEvent] = useState("");
   const { matchWiseProfitLossCountCard } = useSelector(
@@ -89,21 +87,6 @@ const ProfitLossTableComponent = (props: any) => {
     );
   }, [currentPage]);
 
-  // function paginate(array: any, pageNumber: number, pageSize: number) {
-  //   try {
-  //     --pageNumber;
-  //     if (array.length > 0) {
-  //       const startIndex = pageNumber * pageSize;
-  //       const endIndex = startIndex + pageSize;
-  //       return array?.slice(startIndex, endIndex);
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  // const currentPageData = paginate(matchWiseProfitLoss, currentPage, 1);
-
   return (
     <>
       {eventData?.length > 0 ? (
@@ -127,7 +110,6 @@ const ProfitLossTableComponent = (props: any) => {
             );
           })}
           <Footer
-            // getListOfUser={() => handleReport(event)}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             pages={Math.ceil(
@@ -137,7 +119,6 @@ const ProfitLossTableComponent = (props: any) => {
                   : 1
               ) / Constants.pageLimit
             )}
-            // callPage={callPage}
           />
         </Box>
       ) : (

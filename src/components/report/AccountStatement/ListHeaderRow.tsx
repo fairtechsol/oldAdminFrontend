@@ -1,20 +1,19 @@
 import { Box } from "@mui/material";
-import SearchInput from "../../Common/SearchInput";
-import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import { ApiConstants } from "../../../utils/Constants";
+import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
+import SearchInput from "../../Common/SearchInput";
 
-const ListHeaderRow = (props: any) => {
-  const {
-    getLimitEntries,
-    getAccountStatement,
-    searchFor,
-    pageLimit,
-    setPageLimit,
-    setCurrentPage,
-    fromDate,
-    toDate,
-    setSearchValue,
-  } = props;
+const ListHeaderRow = ({
+  getLimitEntries,
+  getAccountStatement,
+  searchFor,
+  pageLimit,
+  setPageLimit,
+  setCurrentPage,
+  fromDate,
+  toDate,
+  setSearchValue,
+}: any) => {
   return (
     <Box
       sx={{
@@ -34,7 +33,7 @@ const ListHeaderRow = (props: any) => {
         getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
-        textColor={"000"}
+        textColor="#000"
         setCurrentPage={setCurrentPage}
       />
       <SearchInput
@@ -47,8 +46,8 @@ const ListHeaderRow = (props: any) => {
         pageLimit={pageLimit}
         onChange={setSearchValue}
         setCurrentPage={setCurrentPage}
-        width={"100%"}
-        placeholder={"Search..."}
+        width="100%"
+        placeholder="Search..."
         inputContainerStyle={{
           width: { xs: "50vw", lg: "17vw" },
           marginLeft: "auto",

@@ -3,13 +3,19 @@ import moment from "moment-timezone";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CHECK } from "../../assets";
+import { IconConstants } from "../../helper/gameConstants";
 import { Constants } from "../../utils/Constants";
 import StockBox from "./StockBox";
-import { IconConstants } from "../../helper/gameConstants";
 
-const MatchListComponent = (props: any) => {
-  const { team, team2, selected, mode, data, setSelected, title } = props;
-
+const MatchListComponent = ({
+  team,
+  team2,
+  selected,
+  mode,
+  data,
+  setSelected,
+  title,
+}: any) => {
   const navigate = useNavigate();
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());

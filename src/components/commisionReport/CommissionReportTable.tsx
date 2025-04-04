@@ -1,13 +1,12 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getCommissionMatch } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import MatchList from "./MatchList";
+import Loader from "../Loader";
 import FooterRowCommissionReport from "./FooterRowCommissionReport";
 import ListHeader from "./ListHeader";
-import { useSelector } from "react-redux";
-import Loader from "../Loader";
+import MatchList from "./MatchList";
 
 const CommissionReportTable = ({ id, setShow, title }: any) => {
   const dispatch: AppDispatch = useDispatch();
@@ -81,64 +80,11 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
                   setSelectedId={setSelectedId}
                   showCommisionReport={showCommisionReport}
                   setShowCommisionReport={setShowCommisionReport}
-                  // getCommisionReport={getCommisionReport}
                   id={id}
                 />
               ))}
-              {/* <ListHeaderT />
-              <Box
-                sx={{
-                  display: matchesBreakPoint ? "inline-block" : "block",
-                  width: "100%",
-                  position: "relative",
-                }}
-              >
-                {data1?.map((element, i) => (
-                  <AccountListRow
-                    key={i}
-                    showOptions={false}
-                    showChildModal={true}
-                    containerStyle={{
-                      background:
-                        element?.ComissionType === "commission setteled"
-                          ? "#135a2e"
-                          : ["back", "yes"].includes(
-                              element?.bet_place_id?.bet_type
-                            )
-                          ? "#B3E0FF"
-                          : ["lay", "no"].includes(
-                              element?.bet_place_id?.bet_type
-                            )
-                          ? "#FF9292"
-                          : "#FFE094 ",
-                    }}
-                    profit={element.profit_loss >= 0}
-                    fContainerStyle={{
-                      background:
-                        element?.ComissionType === "session"
-                          ? "#319E5B"
-                          : element?.ComissionType === "commission setteled"
-                          ? "#135a2e"
-                          : "#F1C550",
-                    }}
-                    fTextStyle={{
-                      color:
-                        ["commission setteled"].includes(
-                          element?.ComissionType
-                        ) && "white",
-                    }}
-                    element={element}
-                    getListOfUser={getListOfUser}
-                    currentPage={currentPage}
-                  />
-                ))}
-              </Box> */}
             </Box>
-            <FooterRowCommissionReport
-              currentPage={currentPage}
-              // pages={pageCount}
-              // callPage={callPage}
-            />
+            <FooterRowCommissionReport currentPage={currentPage} />
           </>
         )}
       </Box>

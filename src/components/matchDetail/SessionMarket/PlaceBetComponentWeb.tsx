@@ -115,7 +115,6 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
               color: "white",
             }}
           >
-            {" "}
             {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
           </Typography>
           <img

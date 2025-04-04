@@ -1,19 +1,18 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
 
-const BoxButton = (props: any) => {
-  const {
-    title,
-    containerStyle,
-    icon,
-    onClick,
-    isSelected,
-    deleteBtn,
-    titleStyle,
-    loading,
-    type,
-    color,
-    disabled,
-  } = props;
+const BoxButton = ({
+  title,
+  containerStyle,
+  icon,
+  onClick,
+  isSelected,
+  deleteBtn,
+  titleStyle,
+  loading,
+  type,
+  color,
+  disabled,
+}: any) => {
   const classes = {
     mainBox: [
       {

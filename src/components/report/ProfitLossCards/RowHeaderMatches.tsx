@@ -11,7 +11,6 @@ import RowComponentMatches from "./RowComponentMatches";
 const RowHeaderMatches = ({
   item,
   getHandleReport,
-  // show,
   color,
   selectedId,
   getBetReport,

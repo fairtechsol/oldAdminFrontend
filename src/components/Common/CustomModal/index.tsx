@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
+import { useEffect, useRef } from "react";
 import { IoCloseCircle } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePasswordReset } from "../../../store/actions/user/userAction";
-import { useDispatch } from "react-redux";
-import { useEffect, useRef } from "react";
 
 const CustomModal = ({
   transactionMessage,

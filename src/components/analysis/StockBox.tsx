@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../Common/StyledImages";
 import { handleNumber } from "../../helper";
+import StyledImage from "../Common/StyledImages";
 
-const StockBox = (props: any) => {
-  const { team, value, up, mode, color, showFixed } = props;
+const StockBox = ({ team, value, up, mode, color, showFixed }: any) => {
   return (
     <Box
       sx={{
@@ -69,8 +68,6 @@ const StockBox = (props: any) => {
       >
         {showFixed ? value : handleNumber(parseFloat(value), color)}
       </Typography>
-
-      {/* {!team && <img style={{ width: "20px", height: "12px" }} src={ARROWUP} />} */}
     </Box>
   );
 };

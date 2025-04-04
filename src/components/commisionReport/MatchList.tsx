@@ -1,14 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import StyledImage from "./StyledImage";
+import { useDispatch, useSelector } from "react-redux";
 import { ArrowDown } from "../../assets";
+import { formatToINR } from "../../helper";
+import { getCommissionBetPlaced } from "../../store/actions/reports";
+import { AppDispatch, RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import HeaderRowCommissionReport from "./HeadeRowCommissionReport";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { getCommissionBetPlaced } from "../../store/actions/reports";
-import { useSelector } from "react-redux";
-import { formatToINR } from "../../helper";
+import StyledImage from "./StyledImage";
 
 const MatchList = ({
   element,
@@ -176,14 +175,12 @@ const MatchList = ({
               marginLeft: { lg: "4%" },
               display: "flex",
               overflowX: "auto",
-              // flexDirection: { lg: "row", xs: "column" },
               flexDirection: { lg: "column", xs: "column" },
             }}
           >
             <HeaderRowCommissionReport />
             <Box
               sx={{
-                // display: matchesBreakPoint ? "inline-block" : "block",
                 width: "100%",
                 position: "relative",
               }}
@@ -214,8 +211,6 @@ const MatchList = ({
                       filter: element?.settled && "grayscale(0.5)",
                     }}
                     element={element}
-                    // getListOfUser={getListOfUser}
-                    // currentPage={currentPage}
                   />
                 ))}
             </Box>

@@ -64,7 +64,7 @@ const SmallDropDown = ({ setPageLimit, pageLimit, setCurrentPage }: any) => {
                 </Typography>
                 <Box
                   sx={{ width: "100%", height: "1px", background: "#DEDEDE" }}
-                ></Box>
+                />
               </>
             );
           })}

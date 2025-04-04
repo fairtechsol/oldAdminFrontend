@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const CustomBox = (props: any) => {
-  const { onClick, title, bg } = props;
+const CustomBox = ({ onClick, title, bg }: any) => {
   return (
     <Box onClick={onClick} sx={{ position: "relative" }}>
       <Box

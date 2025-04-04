@@ -1,22 +1,20 @@
-import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarImage } from "../../assets";
 
-const Calendar = (props: any) => {
-  const {
-    title,
-    containerStyle,
-    DatePickerProps,
-    pickerStyles,
-    startDate,
-    setStartDate,
-    limit
-  } = props;
-
+const Calendar = ({
+  title,
+  containerStyle,
+  DatePickerProps,
+  pickerStyles,
+  startDate,
+  setStartDate,
+  limit,
+}: any) => {
   const [open, setOpen] = useState(false);
 
   return (

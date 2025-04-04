@@ -25,13 +25,6 @@ const TeamDetailRow = (props: any) => {
             alignItems: "center",
           }}
         >
-          {/* {image !== null && (
-            <img
-              src={`${apiBasePath}/${image}`}
-              style={{ width: "25px", height: "25px", marginLeft: "10px" }}
-              alt={image}
-            />
-          )} */}
           <Typography
             sx={{
               color: "black",
@@ -53,54 +46,7 @@ const TeamDetailRow = (props: any) => {
             alignItems: "center",
           }}
         >
-          {/* {!matchesMobile && (
-            <SeparateBox
-              value={
-                matchOddsLive?.runners?.length &&
-                matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                  ?.length > 0
-                  ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[2]
-                      ?.price
-                  : 0
-              }
-              value2={formatNumber(
-                matchOddsLive?.runners?.length &&
-                  matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                    ?.length > 0
-                  ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[2]
-                      ?.size
-                  : 0
-              )}
-              color={matchesMobile ? "white" : "#CEEBFF"}
-            />
-          )} */}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
-          {/* {!matchesMobile && (
-            <SeparateBox
-              value={
-                matchOddsLive?.runners?.length &&
-                matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                  ?.length > 0
-                  ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[1]
-                      ?.price
-                  : 0
-              }
-              value2={formatNumber(
-                matchOddsLive?.runners?.length &&
-                  matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack
-                    ?.length > 0
-                  ? matchOddsLive?.runners[runnerNumber]?.ex?.availableToBack[1]
-                      ?.size
-                  : 0
-              )}
-              color={matchesMobile ? "white" : "#C2E6FF"}
-            />
-          )} */}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
           <SeparateBox
             value={
               (runnerNumber == 0

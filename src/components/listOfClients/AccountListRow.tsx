@@ -15,21 +15,19 @@ import RowModalComponents from "./RowModalComponents";
 import EventWiseExposureModal from "./eventWiseExposureModal";
 import EventWiseMatchListModal from "./eventWiseMatchListModal";
 
-const AccountListRow = (props: AccountListRowInterface) => {
-  const {
-    containerStyle,
-    fContainerStyle,
-    fTextStyle,
-    profit,
-    element,
-    getListOfUser,
-    showOptions,
-    showCReport,
-    showUserDetails,
-    show,
-    currentPage,
-  } = props;
-
+const AccountListRow = ({
+  containerStyle,
+  fContainerStyle,
+  fTextStyle,
+  profit,
+  element,
+  getListOfUser,
+  showOptions,
+  showCReport,
+  showUserDetails,
+  show,
+  currentPage,
+}: AccountListRowInterface) => {
   const navigate = useNavigate();
   const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
@@ -39,9 +37,8 @@ const AccountListRow = (props: AccountListRowInterface) => {
     id: "",
     title: "",
   });
-  const [showUserWiseExposureModal, setShowUserWiseExposureModal] = useState(
-    false
-  );
+  const [showUserWiseExposureModal, setShowUserWiseExposureModal] =
+    useState(false);
   const [showUserWiseMatchListModal, setShowUserWiseMatchListModal] = useState({
     status: false,
     value: {},
@@ -153,44 +150,15 @@ const AccountListRow = (props: AccountListRowInterface) => {
   };
 
   function formatAmount(amount: string) {
-    // Splitting the string into numeric part and percentage part
     const [numericPart, percentagePart] = amount?.split("(");
-
-    // Formatting the numeric part to INR format
     const formattedNumericPart = formatToINR(Number(numericPart));
-
-    // Combining the formatted numeric part with the percentage part
     return `${formattedNumericPart}(${percentagePart}`;
   }
 
   const formattedPLValue = new Intl.NumberFormat("en-IN", {
     currency: "INR",
   }).format(calculateProfitLoss());
-  // const handleModal = () => {
-  //   dispatch(
-  //     handleModelActions({
-  //       url: ApiConstants.USER.LIST,
-  //       userId: element?.id,
-  //       roleName: element?.roleName,
-  //       openModal: true,
-  //       title: element?.userName,
-  //     })
-  //   );
-  //   dispatch(
-  //     getTotalBalance({
-  //       userId: element?.id,
-  //       roleName: element?.roleName,
-  //     })
-  //   );
-  //   dispatch(
-  //     getModalUserList({
-  //       currentPage: currentPage,
-  //       url: ApiConstants.USER.LIST,
-  //       userId: element?.id,
-  //       roleName: element?.roleName,
-  //     })
-  //   );
-  // };
+
   const handleClearValue = () => {
     setDepositeValue(0);
     setWithdrawValue(0);
@@ -305,12 +273,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
             borderRight: "2px solid white",
           }}
         >
-          <Typography variant="h5">
-            {/* {typeOfAmount === "credit" && creditValue > 0
-              ? Number(+creditValue)
-              : +element?.creditRefrence || 0} */}
-            {formattedCRValue}
-          </Typography>
+          <Typography variant="h5">{formattedCRValue}</Typography>
         </Box>
         <Box
           sx={{
@@ -519,7 +482,6 @@ const AccountListRow = (props: AccountListRowInterface) => {
           sx={{
             width: { lg: "8vw", md: "8vw", xs: "26.5vw" },
             display: "flex",
-            // justifyContent: "center",
             alignItems: "center",
             height: "45px",
             borderRight: "2px solid white",
@@ -622,19 +584,6 @@ const AccountListRow = (props: AccountListRowInterface) => {
                           ? element?.matchCommission
                           : 0}
                       </Typography>
-                      {/* <Typography
-                        variant="h5"
-                        sx={[
-                          {
-                            color: "white",
-                            textAlign: "center",
-                            marginRight: "1px",
-                          },
-                          fTextStyle,
-                        ]}
-                      >
-                      
-                      </Typography> */}
                     </>
                   ) : (
                     <>
@@ -651,18 +600,6 @@ const AccountListRow = (props: AccountListRowInterface) => {
                       >
                         Match Com : 0
                       </Typography>
-                      {/* <Typography
-                        variant="h5"
-                        sx={[
-                          {
-                            color: "white",
-                            textAlign: "left",
-                          },
-                          fTextStyle,
-                        ]}
-                      >
-                     
-                      </Typography> */}
                     </>
                   )}
                 </Box>
@@ -695,7 +632,7 @@ const AccountListRow = (props: AccountListRowInterface) => {
                         },
                         fTextStyle,
                       ]}
-                    ></Typography>
+                    />
                   </Box>
                 </Box>
               </Box>
@@ -876,10 +813,9 @@ const AccountListRow = (props: AccountListRowInterface) => {
           message={showModalMessage}
           setShowSuccessModal={setShowSuccessModal}
           showSuccessModal={showSuccessModal}
-          buttonMessage={"OK"}
-          navigateTo={"list_of_clients"}
-          // title={`${element?.userName} - (Commission Report)`}
-        ></Modal>
+          buttonMessage="OK"
+          navigateTo="list_of_clients"
+        />
       )}
     </>
   );

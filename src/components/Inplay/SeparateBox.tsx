@@ -2,9 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { Lock } from "../../assets";
 
-const SeparateBox = (props: any) => {
-  const { color, empty, value, value2, lock } = props;
-
+const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
   const classes = {
     container: {
       background: color,

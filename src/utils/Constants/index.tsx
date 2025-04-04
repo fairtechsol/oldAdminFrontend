@@ -156,7 +156,6 @@ export const Constants = {
     marketAnalysisMatches: "market_analysis/matches",
     multipleMatch: "market_analysis/multiple_Match",
     reports: "reports",
-    walletSettings: "walletSettings",
     myAccount: "my-account",
     changePassword: "change-password",
     matchList: "matchList/:type",
@@ -172,15 +171,10 @@ export const Constants = {
   pageCount: 10,
   listOfClientCountLimit: 15,
 
-  // customPageLimit: 10,
-  // customTimeOut: 300000,// 5 mint in mili seconds user ideal 5 mint after that logout
-  // customTimer: 30000,// 30 sec in mili seconds remainint timer start and show message  Your session will expire in 30 second
-  // sessionExpireTime: 30 // 30 sec,
-
   customPageLimit: 15,
-  customTimeOut: 1000 * 60 * 60, // 5 mint in mili seconds user ideal 5 mint after that logout
-  customTimer: 1000 * 60 * 5, // 30 sec in mili seconds remainint timer start and show message  Your session will expire in 30 second
-  sessionExpireTime: 60 * 5, // 30 sec
+  customTimeOut: 1000 * 60 * 60,
+  customTimer: 1000 * 60 * 5,
+  sessionExpireTime: 60 * 5,
   apiBasePath: "https://devbetfairapi.fairgame.club",
   thirdParty: "https://devserviceapi.fairgame.club",
   expertPath: "https://devexpertapi.fairgame.club",

@@ -6,15 +6,14 @@ import { ARROWUP, CHECK } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import { RootState } from "../../../store/store";
 
-const FullAllBets = (props: any) => {
-  const {
-    tag,
-    mode,
-    IObets,
-    selectedBetData,
-    setSelectedBetData,
-    role,
-  } = props;
+const FullAllBets = ({
+  tag,
+  mode,
+  IObets,
+  selectedBetData,
+  setSelectedBetData,
+  role,
+}: any) => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -722,7 +721,6 @@ const LargeBox = ({ item, k }: any) => {
 const SmallBox = ({ item, k }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  // alert(JSON.stringify(item))
   return (
     <Box
       key={k}

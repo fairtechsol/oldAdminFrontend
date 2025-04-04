@@ -1,8 +1,4 @@
-import {
-  Box,
-  useMediaQuery,
-  useTheme
-} from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

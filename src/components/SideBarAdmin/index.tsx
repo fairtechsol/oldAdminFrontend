@@ -30,7 +30,7 @@ const SideBarAdmin = (props: any) => {
   });
 
   return (
-    <Box>
+    <>
       <Box
         sx={[
           {
@@ -59,7 +59,7 @@ const SideBarAdmin = (props: any) => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ display: "flex", flex: 0.1 }}></Box>
+          <Box sx={{ display: "flex", flex: 0.1 }} />
           <Box
             sx={{
               display: "flex",
@@ -110,7 +110,7 @@ const SideBarAdmin = (props: any) => {
           />
         );
       })}
-    </Box>
+    </>
   );
 };
 export default SideBarAdmin;

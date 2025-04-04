@@ -146,7 +146,6 @@ const RowComponentMatches = ({
               }}
             />
           )}
-        
         </Box>
         <Box
           onClick={(e) => {
@@ -263,9 +262,7 @@ const RowComponentMatches = ({
                   <Box
                     sx={{
                       width: { xs: "100%", lg: "100%", md: "100%" },
-                      // maxHeight: "51vh",
                       overflow: "hidden",
-                      // overflowY: "auto",
                       marginY: { xs: ".2vh", lg: "1vh" },
                       padding: 0.2,
                     }}
@@ -281,8 +278,6 @@ const RowComponentMatches = ({
                           showListOfUsers={showListOfUsers}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          // sessionBetData={sessionBetData}
-                          // bet1Data={betData}
                         />
                       );
                     })}
@@ -309,7 +304,7 @@ const RowComponentMatches = ({
                   profit
                 />
               </Box>
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
             </>
           )}
         </>

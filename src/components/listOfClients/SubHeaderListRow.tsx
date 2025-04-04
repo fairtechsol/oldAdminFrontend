@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../Common/StyledImages";
 import { handleNumber } from "../../helper";
+import StyledImage from "../Common/StyledImages";
 
-const SubHeaderListRow = (props: any) => {
-  const { data, color } = props;
+const SubHeaderListRow = ({ data, color }: any) => {
   return (
     <Box
       sx={{
@@ -74,12 +73,9 @@ const SubHeaderListRow = (props: any) => {
           justifyContent: "space-between",
         }}
       >
-        {" "}
-        {/* element.profit_loss >= 0 ? '#27AC1E' : '#E32A2A'*/}
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?userBal?.profitLoss} */}
           {handleNumber(parseFloat(data?.profitsum || 0), color)}
         </Typography>
         <StyledImage
@@ -110,12 +106,9 @@ const SubHeaderListRow = (props: any) => {
           justifyContent: "space-between",
         }}
       >
-        {" "}
-        {/* element.profit_loss >= 0 ? '#27AC1E' : '#E32A2A'*/}
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?.percent_profit_loss} */}
           {handleNumber(parseFloat(data?.percentprofitloss || 0), color)}
         </Typography>
         <StyledImage
@@ -177,7 +170,6 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?.availablebalancesum} */}
           {handleNumber(parseFloat(data?.availableBalance || 0), color)}
         </Typography>
       </Box>
@@ -216,9 +208,7 @@ const SubHeaderListRow = (props: any) => {
       >
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
-        >
-          {/* {+data?.totalExposure || 0} */}
-        </Typography>
+        />
       </Box>
       <Box
         sx={{
@@ -230,7 +220,7 @@ const SubHeaderListRow = (props: any) => {
           height: "45px",
           borderRight: "2px solid white",
         }}
-      ></Box>
+      />
     </Box>
   );
 };

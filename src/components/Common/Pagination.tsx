@@ -1,8 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { PaginationInterface } from "../../interface/common";
 
-const Pagination = (props: PaginationInterface) => {
-  const { currentPage, pages, setCurrentPage } = props;
+const Pagination = ({
+  currentPage,
+  pages,
+  setCurrentPage,
+}: PaginationInterface) => {
   return (
     <Box
       sx={{

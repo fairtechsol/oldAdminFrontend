@@ -2,26 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { handleNumber } from "../../../helper";
 
 const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
-  // const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
   return (
     <Box
-      //   onClick={handleClick}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
-        // ref={innerRef}
-        onClick={() => {
-          // dispatch(
-          //   getSessionProLoss({
-          //     matchId: newData?.matchId,
-          //     id: newData?.id,
-          //     name: newData?.name ?? newData?.RunnerName,
-          //     type: !newData?.isManual
-          //       ? "Session Market"
-          //       : "Quick Session Market",
-          //   })
-          // );
-        }}
         sx={{
           background: "#0B4F26",
           position: "absolute",
@@ -37,31 +22,6 @@ const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
           zIndex: 100,
         }}
       >
-        {/* <Box
-          sx={{
-            background: "#FDF21A",
-            borderRadius: "3px",
-            width: "90%",
-            height: "45%",
-            zIndex: 40,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { lg: "10px", xs: "8px" },
-              fontWeight: "bold",
-              color: "#FF4D4D",
-            }}
-          >
-            Total Bet :{" "}
-            <span style={{ color: "#0B4F26" }}>
-              {Math.floor(profitLoss?.totalBet) || 0}
-            </span>
-          </Typography>
-        </Box> */}
         <Box sx={{ zIndex: 100, display: "flex", flexDirection: "column" }}>
           <Typography
             sx={{

@@ -1,7 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-const BetsCountBox = (props: any) => {
-  const { total } = props;
+const BetsCountBox = ({ total }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -9,9 +8,7 @@ const BetsCountBox = (props: any) => {
       sx={{
         width: { lg: "72px", xs: "50px" },
         flexDirection: "column",
-        // position: "absolute",
         display: "flex",
-        // marginRight: "5px",
         justifyContent: "center",
         alignItems: "center",
         height: "30px",

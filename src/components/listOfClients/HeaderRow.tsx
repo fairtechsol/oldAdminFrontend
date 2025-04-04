@@ -1,11 +1,10 @@
-import { useDispatch } from "react-redux";
+import { Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Excel, Pdf } from "../../assets";
+import { handleExport } from "../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../store/store";
 import SearchInput from "../Common/SearchInput";
 import StyledImage from "../Common/StyledImages";
-import { Box } from "@mui/material";
-import { AppDispatch, RootState } from "../../store/store";
-import { handleExport } from "../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
 
 const HeaderRow = ({
   endpoint,
@@ -19,7 +18,7 @@ const HeaderRow = ({
   );
   return (
     <Box
-      display={"flex"}
+      display="flex"
       sx={{
         justifyContent: "space-between",
         px: "10px",

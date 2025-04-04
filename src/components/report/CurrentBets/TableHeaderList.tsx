@@ -5,13 +5,12 @@ const TableHeaderList = () => {
     <Box
       sx={{
         display: "flex",
-        width:{xs:'1070px', lg: "100%"},
+        width: { xs: "1070px", lg: "100%" },
         height: "35px",
         background: "#262626",
         alignItems: "center",
         borderTop: "2px solid white",
         borderBottom: "2px solid white",
-        // overflow: "auto"
       }}
     >
       <Box
@@ -37,10 +36,11 @@ const TableHeaderList = () => {
           justifyContent: "center",
           height: "35px",
           borderRight: "2px solid white",
-       
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" , lineHeight: "0.9"}}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           Event Type
         </Typography>
       </Box>
@@ -56,7 +56,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           Event Name
         </Typography>
       </Box>
@@ -72,7 +74,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "11px" , lineHeight: "0.9"}}>
+        <Typography
+          sx={{ color: "white", fontSize: "11px", lineHeight: "0.9" }}
+        >
           User name
         </Typography>
       </Box>
@@ -102,7 +106,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           Bet Type
         </Typography>
       </Box>
@@ -117,7 +123,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           User Rate
         </Typography>
       </Box>
@@ -131,13 +139,24 @@ const TableHeaderList = () => {
           alignItems: "center",
           height: "35px",
           borderRight: "2px solid white",
-          // overflow: "hidden"
         }}
       >
-        <Typography sx={{ color: "white", fontSize: { xs: "7px", md: "9px", lg: "12px" } , lineHeight: "0.9" }}>
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: { xs: "7px", md: "9px", lg: "12px" },
+            lineHeight: "0.9",
+          }}
+        >
           Back/Lay
         </Typography>
-        <Typography sx={{ color: "white", fontSize: { xs: "7px", md: "9px", lg: "12px" } , lineHeight: "0.9" }}>
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: { xs: "7px", md: "9px", lg: "12px" },
+            lineHeight: "0.9",
+          }}
+        >
           Yes/No
         </Typography>
       </Box>
@@ -153,7 +172,12 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: { xs: "8px", md: "9px", lg: "12px" } }}>
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: { xs: "8px", md: "9px", lg: "12px" },
+          }}
+        >
           Amount
         </Typography>
       </Box>
@@ -169,7 +193,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9"  }}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           Place Date
         </Typography>
       </Box>
@@ -185,7 +211,9 @@ const TableHeaderList = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9"  }}>
+        <Typography
+          sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}
+        >
           Match Date
         </Typography>
       </Box>

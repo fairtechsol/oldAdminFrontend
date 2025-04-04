@@ -1,6 +1,4 @@
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
   ADDACCOUNT,
@@ -12,9 +10,7 @@ import {
   TEAM,
   Tennis,
   TREND,
-  WALLET
 } from "../../../assets";
-import { RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import AdminEventComponent from "./AdminEventComponent";
 
@@ -37,31 +33,6 @@ const data = [
 ];
 
 const AdminEventListing = () => {
-  const { profileDetail } = useSelector(
-    (state: RootState) => state.user.profile
-  );
-  const [newData, setNewData] = useState<any>(data);
-
-  useEffect(() => {
-    if (profileDetail?.roleName === "fairGameWallet") {
-      setNewData((prev: any) => {
-        const newData = [...prev];
-        const body = {
-          id: 7,
-          title: "wallet",
-          image: WALLET,
-          url: "walletsettings",
-        };
-        const objectExists = prev.some((item: any) => item?.id === body?.id);
-        if (!objectExists) {
-          const secondLastIndex = prev.length - 1;
-          newData.splice(secondLastIndex, 0, body);
-        }
-        return newData;
-      });
-    }
-  }, [profileDetail]);
-
   return (
     <Box
       sx={[
@@ -77,7 +48,7 @@ const AdminEventListing = () => {
         },
       ]}
     >
-      {newData?.map((i: any, idx: any) => {
+      {data?.map((i: any, idx: any) => {
         return (
           <NavLink
             key={idx}

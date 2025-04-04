@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../../../components/Common/StyledImages";
 import { useEffect, useState } from "react";
 import { ArrowDown } from "../../../assets";
-import BoxDropDownMenu from "./BoxDropDownMenu";
+import StyledImage from "../../../components/Common/StyledImages";
 import { handleNumber } from "../../../helper";
+import BoxDropDownMenu from "./BoxDropDownMenu";
 
-const BoxProfile = (props: any) => {
-  const { value, containerStyle, balance, color } = props;
+const BoxProfile = ({ value, containerStyle, balance, color }: any) => {
   const [open, setOpen] = useState(false);
 
   const [anchorEl] = useState(null);
@@ -33,7 +32,6 @@ const BoxProfile = (props: any) => {
           {
             backgroundColor: "primary.main",
             minWidth: { lg: "150px", xs: "100px" },
-            // marginLeft: "1vw",
             display: "flex",
             alignItems: "center",
             boxShadow: "0px 3px 10px #B7B7B726",
@@ -63,7 +61,7 @@ const BoxProfile = (props: any) => {
               fontWeight: "700",
             }}
           >
-            {handleNumber(parseFloat(balance || 0.00), color)}
+            {handleNumber(parseFloat(balance || 0.0), color)}
           </Typography>
         </Box>
         <StyledImage

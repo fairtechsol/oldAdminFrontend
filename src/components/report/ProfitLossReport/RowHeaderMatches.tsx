@@ -1,17 +1,16 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import { ARROWDOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import { handleNumber } from "../../../helper";
-import RowComponentMatches from "./RowComponentMatches";
 import { useSelector } from "react-redux";
+import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
+import { handleNumber } from "../../../helper";
 import { RootState } from "../../../store/store";
 import { gameIconConstants } from "../../../utils/Constants";
+import StyledImage from "../../Common/StyledImages";
+import RowComponentMatches from "./RowComponentMatches";
 
 const RowHeaderMatches = ({
   item,
   getHandleReport,
-  // show,
   color,
   selectedId,
   getBetReport,

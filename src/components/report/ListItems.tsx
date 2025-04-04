@@ -1,8 +1,7 @@
 import { Box, MenuItem, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const ListItems = (props: any) => {
-  const { menutItems1, title } = props;
+const ListItems = ({ menutItems1, title }: any) => {
   const navigate = useNavigate();
   const classes = {
     Menusx: {

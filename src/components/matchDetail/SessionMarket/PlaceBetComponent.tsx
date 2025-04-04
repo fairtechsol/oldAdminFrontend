@@ -81,7 +81,6 @@ const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
           height: "35px",
-
           zIndex: 100,
         }}
       >

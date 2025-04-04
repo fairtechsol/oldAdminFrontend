@@ -2,10 +2,13 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 
-const YellowHeader = (props: any) => {
-  const { getAccountStatement, fromDate, toDate, setFromDate, setToDate } =
-    props;
-
+const YellowHeader = ({
+  getAccountStatement,
+  fromDate,
+  toDate,
+  setFromDate,
+  setToDate,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));
@@ -68,7 +71,7 @@ const YellowHeader = (props: any) => {
           >
             <Calendar
               sx={{ width: "50%" }}
-              title={"From"}
+              title="From"
               startDate={fromDate}
               setStartDate={setFromDate}
             />
@@ -76,7 +79,7 @@ const YellowHeader = (props: any) => {
 
             <Calendar
               sx={{ width: "50%" }}
-              title={"To"}
+              title="To"
               startDate={toDate}
               setStartDate={setToDate}
               limit={fromDate}
@@ -93,7 +96,6 @@ const YellowHeader = (props: any) => {
                 marginRight: "0px",
                 marginTop: matchesMobile ? "25px" : 0,
                 marginLeft: matchesMobile ? "10px" : "20px",
-                // marginBottom: matchesMobile ? "15px" : tab ? "28px" : "15px",
               }}
               onClick={() => {
                 getAccountStatement();
@@ -115,7 +117,6 @@ const YellowHeader = (props: any) => {
             }}
             onClick={() => {
               if (fromDate === "" && toDate === "") {
-                // toast.warn("Please select From and To date");
                 return false;
               } else {
                 getAccountStatement(fromDate, toDate);

@@ -387,7 +387,6 @@ const SessionBetSeperate = ({
     </>
   );
 };
-// value2 = { formatNumber(newData?.rate_percent?.split("-")[0])}
 const RowComponent = ({ header, data }: any) => {
   const getTime = (date: any) => {
     const now = new Date(date);
@@ -404,10 +403,8 @@ const RowComponent = ({ header, data }: any) => {
     if (header) {
       return "black";
     } else if (data?.betType === "BACK" || data?.betType == "YES") {
-      // return "#00C0F9";
       return "#CEEBFF";
     } else if (data?.betType === "LAY" || data?.betType == "NO") {
-      // return "#FF9292";
       return "#F2CBCB";
     }
   };
@@ -421,7 +418,6 @@ const RowComponent = ({ header, data }: any) => {
         alignItems: "center",
         display: "flex",
         gap: "1px",
-        // marginTop: "1px"
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >
@@ -429,7 +425,6 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            // data={}
             first={true}
             header={header}
             time={getTime(data.createdAt)}
@@ -485,7 +480,7 @@ const SingleBox = ({
   time,
   isPercent,
   rate,
-  isCommissionActive
+  isCommissionActive,
 }: any) => {
   return !header ? (
     first ? (
@@ -498,7 +493,6 @@ const SingleBox = ({
           display: { xs: "initial", lg: "flex" },
           justifyContent: { lg: "center", xs: "initial" },
           alignItems: "center",
-          
         }}
       >
         {isCommissionActive && <CommissionDot />}
@@ -568,7 +562,6 @@ const SingleBox = ({
           width: "100%",
           height: "40px",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -609,7 +602,6 @@ const SingleBox = ({
         width: "140%",
         height: "25px",
         background: "#319E5B",
-        // marginX: { xs: "1px", lg: "1px" },
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

@@ -1,16 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import Loader from "../../../components/Loader";
-import Pagination from "../../../components/Common/Pagination";
-import YellowHeader from "../../../components/report/AccountStatement/YellowHeader";
-import ListHeaderRow from "../../../components/report/AccountStatement/ListHeaderRow";
-import TableHeaderList from "../../../components/report/AccountStatement/TableHeaderList";
-import TableDataRow from "../../../components/report/AccountStatement/TableDataRow";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { getAccountStatement } from "../../../store/actions/reports";
-import { useSelector } from "react-redux";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Pagination from "../../../components/Common/Pagination";
+import Loader from "../../../components/Loader";
+import ListHeaderRow from "../../../components/report/AccountStatement/ListHeaderRow";
+import TableDataRow from "../../../components/report/AccountStatement/TableDataRow";
+import TableHeaderList from "../../../components/report/AccountStatement/TableHeaderList";
+import YellowHeader from "../../../components/report/AccountStatement/YellowHeader";
+import { getAccountStatement } from "../../../store/actions/reports";
+import { AppDispatch, RootState } from "../../../store/store";
 
 const AccountStatement = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -119,7 +118,7 @@ const AccountStatement = () => {
           ]}
         >
           <ListHeaderRow
-            searchFor={"accountStatement"}
+            searchFor="accountStatement"
             pageLimit={pageLimit}
             setPageLimit={setPageLimit}
             setCurrentPage={setCurrentPage}

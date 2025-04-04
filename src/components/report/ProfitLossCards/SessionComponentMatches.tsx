@@ -2,7 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
-import {  handleNumber } from "../../../helper";
+import { handleNumber } from "../../../helper";
 import {
   getTotalBetProfitLoss,
   getTotalBetProfitLossForModal,
@@ -23,7 +23,7 @@ const SessionComponentMatches = ({
   user,
   selectedChildBetId,
   setSelectedChildBetId,
-  color
+  color,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -148,9 +148,7 @@ const SessionComponentMatches = ({
               top: 0,
               right: 5,
             }}
-          >
-            {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
-          </Typography>
+          />
 
           <Box
             sx={{
@@ -180,9 +178,7 @@ const SessionComponentMatches = ({
                 marginLeft: "5px",
                 fontWeight: "600",
               }}
-            >
-              {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
-            </Typography>
+            />
           </Box>
         </Box>
 
@@ -214,7 +210,7 @@ const SessionComponentMatches = ({
                 color: "white",
               }}
             >
-            {matchesMobile ? "P/L" : "Profit/Loss"}
+              {matchesMobile ? "P/L" : "Profit/Loss"}
             </Typography>
             <StyledImage
               src={item.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
@@ -242,7 +238,6 @@ const SessionComponentMatches = ({
               ) : (
                 handleNumber(parseFloat(item.totalLoss), color)
               )}
-              {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>
             <StyledImage
               src={ArrowDown}

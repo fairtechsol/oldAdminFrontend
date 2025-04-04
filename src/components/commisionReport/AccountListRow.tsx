@@ -40,7 +40,6 @@ const AccountListRow = ({
         <Box
           sx={{
             background: "rgba(0,0,0,0.5)",
-            //   width: { xs: "218%", lg: "100%", md: "100%" },
             height: "45px",
             position: "absolute",
             display: "flex",
@@ -172,7 +171,6 @@ const AccountListRow = ({
               fTextStyle,
             ]}
           >
-            {/* {elementToUDM.teamBet} */}
             {elementToUDM?.createAt
               ? `${moment(elementToUDM?.createAt).format("L")}  ${moment(
                   elementToUDM?.createAt

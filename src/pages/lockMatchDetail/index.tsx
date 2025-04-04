@@ -109,8 +109,6 @@ const LockMatchScreen = () => {
     try {
       setMode(false);
       if (event?.matchId === state?.matchId) {
-        // dispatch(getMatchDetail(state?.matchId));
-        // dispatch(getPlacedBets(state?.matchId));
         dispatch(updatePlacedbets(event));
         dispatch(updateTeamRatesOnDelete(event));
       }
@@ -128,8 +126,6 @@ const LockMatchScreen = () => {
             myStake: event?.jobData?.betPlaceObject?.myStack,
           })
         );
-        // dispatch(updateBalance(event));
-        // dispatch(betDataFromSocket(event));
         dispatch(updateProfitLoss(event));
         dispatch(updateMaxLossForBet(event));
       }
@@ -142,7 +138,6 @@ const LockMatchScreen = () => {
     try {
       if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData));
-        // dispatch(updateBalance(event?.jobData));
         dispatch(updateTeamRates(event));
       }
     } catch (e) {
@@ -163,7 +158,6 @@ const LockMatchScreen = () => {
   };
   const handleSessionDeleteBet = (event: any) => {
     try {
-      // setMode(false);
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbets(event));
         dispatch(updateMaxLossForDeleteBet(event));
@@ -242,7 +236,6 @@ const LockMatchScreen = () => {
           handleSessionResultUnDeclare
         );
         socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
-        // dispatch(matchListReset());
       }
     } catch (e) {
       console.log(e);
@@ -251,7 +244,6 @@ const LockMatchScreen = () => {
 
   useEffect(() => {
     return () => {
-      // socketService.match.leaveMatchRoom(state?.matchId);
       socketService.match.getMatchRatesOff(state?.matchId);
       socketService.match.userSessionBetPlacedOff();
       socketService.match.userMatchBetPlacedOff();
@@ -334,7 +326,7 @@ const LockMatchScreen = () => {
                     )
                   : []
               }
-              title={"Session Market"}
+              title="Session Market"
               currentMatch={matchDetail}
               sessionData={matchDetail?.apiSession}
               min={Math.floor(matchDetail?.betFairSessionMinBet)}
@@ -365,7 +357,7 @@ const LockMatchScreen = () => {
                     )
                   : []
               }
-              title={"Quick Session Market"}
+              title="Quick Session Market"
               currentMatch={matchDetail}
               sessionData={matchDetail?.sessionBettings?.filter(
                 (item: any) => !JSON.parse(item).selectionId
