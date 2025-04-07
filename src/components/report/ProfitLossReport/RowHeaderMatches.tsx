@@ -6,6 +6,7 @@ import { handleNumber } from "../../../helper";
 import RowComponentMatches from "./RowComponentMatches";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { gameIconConstants } from "../../../utils/Constants";
 
 const RowHeaderMatches = ({
   item,
@@ -58,7 +59,7 @@ const RowHeaderMatches = ({
           }}
         >
           <StyledImage
-            src={Cricket}
+            src={gameIconConstants[item?.eventType]}
             sx={{ width: { lg: "35px", xs: "25px" } }}
           />
         </Box>
