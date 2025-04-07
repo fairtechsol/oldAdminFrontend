@@ -1,14 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import StockBox from "./StockBox";
-import { CHECK } from "../../assets";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import moment from "moment-timezone";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { CHECK } from "../../assets";
+import { IconConstants } from "../../helper/gameConstants";
 import { Constants } from "../../utils/Constants";
+import StockBox from "./StockBox";
 
-const MatchListComponent = (props: any) => {
-  const { team, team2, selected, mode, data, setSelected, title } = props;
-
+const MatchListComponent = ({
+  team,
+  team2,
+  selected,
+  mode,
+  data,
+  setSelected,
+  title,
+}: any) => {
   const navigate = useNavigate();
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
@@ -190,12 +197,28 @@ const MatchListComponent = (props: any) => {
               minHeight: "30px",
             }}
           >
+            <Box
+              sx={{
+                background: "#f1c40f",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: "5px",
+              }}
+            >
+              <img
+                className="inplayicon"
+                src={IconConstants[data?.matchType]}
+                alt="Inplay Icon"
+                width={25}
+                height={25}
+              />
+            </Box>
             <Typography
               sx={{
                 fontSize: { lg: "16px", xs: "10px" },
                 fontWeight: "bold",
                 marginLeft: "5px",
-
                 overflow: "hidden",
                 display: "-webkit-box",
                 WebkitLineClamp: 2,
