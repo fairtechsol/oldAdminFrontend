@@ -20,7 +20,6 @@ import CurrentBets from "../pages/reports/CurrentBets";
 import GeneralReport from "../pages/reports/GeneralReport";
 import ProfitLossReport from "../pages/reports/ProfitLoss";
 import ProfitLossCards from "../pages/reports/ProfitLossCards";
-import WalletSettings from "../pages/walletSettings";
 
 // const ListOfClients = Loadable(() => import("../pages/listOfClients"));
 // const ChangePassword = Loadable(() => import("../pages/changePassword"));
@@ -95,10 +94,6 @@ const MainRoutes = {
     {
       path: Constants.AdminMainPaths.reports,
       element: <Reports />,
-    },
-    {
-      path: Constants.AdminMainPaths.walletSettings,
-      element: <WalletSettings />,
     },
     {
       path: Constants.AdminMainPaths.myAccount,

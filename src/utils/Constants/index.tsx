@@ -156,7 +156,6 @@ export const Constants = {
     marketAnalysisMatches: "market_analysis/matches",
     multipleMatch: "market_analysis/multiple_Match",
     reports: "reports",
-    walletSettings: "walletSettings",
     myAccount: "my-account",
     changePassword: "change-password",
     matchList: "matchList/:type",
