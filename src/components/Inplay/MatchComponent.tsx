@@ -273,7 +273,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
               display: "flex",
               background: "#319E5B",
               height: "25px",
-              width: "99.7%",
+              width: "100%",
               alignSelf: "center",
             }}
           >
@@ -304,13 +304,13 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 height: "25px",
                 width: { lg: "60%", xs: "80%" },
                 justifyContent: { lg: "flex-end", xs: "flex-end" },
-                marginRight: { lg: "4px", xs: "2px" },
+                // marginRight: { lg: "4px", xs: "2px" },
               }}
             >
               <Box
                 sx={{
                   background: "#00C0F9",
-                  width: { lg: "20%", xs: "25%" },
+                  width: { lg: "20%", xs: "24.5%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -323,12 +323,11 @@ const MatchComponent = (props: MatchComponentInterface) => {
                   Back
                 </Typography>
               </Box>
-              <Box sx={{ width: ".35%", display: "flex" }}></Box>
-
+              <Box sx={{ width: ".35%", display: "flex" }} />
               <Box
                 sx={{
                   background: "#FF9292",
-                  width: { lg: "20%", xs: "25%" },
+                  width: { lg: "20%", xs: "24.5%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -341,6 +340,9 @@ const MatchComponent = (props: MatchComponentInterface) => {
                   Lay
                 </Typography>
               </Box>
+              <Box
+                sx={{ width: ".25%", display: "flex", background: "white" }}
+              />
             </Box>
           </Box>
           <TeamDetailRow

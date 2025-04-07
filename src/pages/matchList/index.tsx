@@ -110,18 +110,18 @@ const Inplay = () => {
     };
   }, [success, profileDetail?.roleName, type]);
 
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        setCurrentPage(1);
-        getMatchListService();
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [type]);
+  // useEffect(() => {
+  //   const handleVisibilityChange = () => {
+  //     if (document.visibilityState === "visible") {
+  //       setCurrentPage(1);
+  //       getMatchListService();
+  //     }
+  //   };
+  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+  //   return () => {
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  //   };
+  // }, [type]);
   const classes = useStyles();
 
   useEffect(() => {
