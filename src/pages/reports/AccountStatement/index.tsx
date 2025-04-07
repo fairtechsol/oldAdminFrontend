@@ -94,7 +94,6 @@ const AccountStatement = () => {
             setFromDate={setFromDate}
           />
         </Box>
-
         <Box
           sx={[
             {
@@ -148,7 +147,6 @@ const AccountStatement = () => {
                       key={item?.id}
                       index={item?.id}
                       containerStyle={{ background: "#FFE094" }}
-                      profit={true}
                       fContainerStyle={{ background: "#0B4F26" }}
                       fTextStyle={{ color: "white" }}
                       date={item?.createdAt}

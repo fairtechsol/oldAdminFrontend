@@ -2,13 +2,21 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 
+interface YellowHeaderProps {
+  getAccountStatement: () => void;
+  fromDate: string;
+  toDate: string;
+  setFromDate: (date: string) => void;
+  setToDate: (date: string) => void;
+}
+
 const YellowHeader = ({
   getAccountStatement,
   fromDate,
   toDate,
   setFromDate,
   setToDate,
-}: any) => {
+}: YellowHeaderProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));
@@ -43,7 +51,6 @@ const YellowHeader = ({
           borderRadius: "5px",
           width: "100%",
           p: "10px",
-
           minHeight: { xs: "0", lg: "80px" },
           background: "#F8C851",
           display: "flex",
@@ -70,23 +77,19 @@ const YellowHeader = ({
             }}
           >
             <Calendar
-              sx={{ width: "50%" }}
               title="From"
               startDate={fromDate}
               setStartDate={setFromDate}
             />
-            <Box sx={{ width: "10px" }}></Box>
-
+            <Box sx={{ width: "10px" }} />
             <Calendar
-              sx={{ width: "50%" }}
               title="To"
               startDate={toDate}
               setStartDate={setToDate}
               limit={fromDate}
             />
           </Box>
-
-          <Box sx={{ width: "10px" }}></Box>
+          <Box sx={{ width: "10px" }} />
           {!matchesMobile && (
             <CustomButtonAdmin
               btnStyle={{
@@ -100,7 +103,6 @@ const YellowHeader = ({
               onClick={() => {
                 getAccountStatement();
               }}
-              getAccountStatement={getAccountStatement}
             />
           )}
         </Box>
@@ -119,10 +121,9 @@ const YellowHeader = ({
               if (fromDate === "" && toDate === "") {
                 return false;
               } else {
-                getAccountStatement(fromDate, toDate);
+                getAccountStatement();
               }
             }}
-            getAccountStatement={getAccountStatement}
           />
         )}
       </Box>

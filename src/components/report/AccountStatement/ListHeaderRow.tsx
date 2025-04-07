@@ -3,9 +3,17 @@ import { ApiConstants } from "../../../utils/Constants";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import SearchInput from "../../Common/SearchInput";
 
+interface ListHeaderRowProps {
+  searchFor: string;
+  pageLimit: number;
+  setPageLimit: (value: number) => void;
+  setCurrentPage: (page: number) => void;
+  fromDate?: Date | null;
+  toDate?: Date | null;
+  setSearchValue: (value: string) => void;
+}
+
 const ListHeaderRow = ({
-  getLimitEntries,
-  getAccountStatement,
   searchFor,
   pageLimit,
   setPageLimit,
@@ -13,7 +21,7 @@ const ListHeaderRow = ({
   fromDate,
   toDate,
   setSearchValue,
-}: any) => {
+}: ListHeaderRowProps) => {
   return (
     <Box
       sx={{
@@ -30,7 +38,6 @@ const ListHeaderRow = ({
       }}
     >
       <NumberDropDown
-        getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
         textColor="#000"
@@ -42,7 +49,6 @@ const ListHeaderRow = ({
         toDate={toDate}
         searchFor={searchFor}
         endpoint={ApiConstants.USER.LIST}
-        getListOfUser={getAccountStatement}
         pageLimit={pageLimit}
         onChange={setSearchValue}
         setCurrentPage={setCurrentPage}

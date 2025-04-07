@@ -2,6 +2,20 @@ import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { handleNumber } from "../../../helper";
 
+interface TableDataRowProps {
+  containerStyle: object;
+  fContainerStyle: object;
+  fTextStyle: object;
+  index: number;
+  date: string;
+  closing: string | null;
+  description: string;
+  touserName: string;
+  fromuserName: string;
+  transType: string;
+  amount: any;
+}
+
 const TableDataRow = ({
   containerStyle,
   fContainerStyle,
@@ -14,8 +28,7 @@ const TableDataRow = ({
   fromuserName,
   transType,
   amount,
-  color,
-}: any) => {
+}: TableDataRowProps) => {
   return (
     <Box
       sx={[
@@ -110,7 +123,7 @@ const TableDataRow = ({
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {closing !== null ? handleNumber(parseFloat(closing), color) : ""}
+          {closing !== null ? handleNumber(parseFloat(closing), "") : ""}
         </Typography>
       </Box>
       <Box

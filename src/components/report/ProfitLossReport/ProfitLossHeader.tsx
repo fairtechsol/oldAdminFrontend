@@ -85,7 +85,6 @@ const ProfitLossHeader = ({
                 title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
-                sx={{ width: "50%" }}
               />
               <Box sx={{ width: "10px" }}></Box>
 
@@ -93,7 +92,6 @@ const ProfitLossHeader = ({
                 title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
-                sx={{ width: "50%" }}
                 limit={startDate}
               />
             </Box>

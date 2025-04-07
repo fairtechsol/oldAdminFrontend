@@ -3,7 +3,7 @@ import { ApiConstants } from "../../../utils/Constants";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import SearchInput from "../../Common/SearchInput";
 
-const ListHeaderRow = ({ getLimitEntries, setCurrentPage }: any) => {
+const ListHeaderRow = () => {
   return (
     <Box
       sx={{
@@ -19,17 +19,12 @@ const ListHeaderRow = ({ getLimitEntries, setCurrentPage }: any) => {
         py: "6px",
       }}
     >
-      <NumberDropDown
-        getLimitEntries={getLimitEntries}
-        pageLimit={15}
-        textColor="white"
-      />
+      <NumberDropDown pageLimit={15} textColor="white" />
       <SearchInput
         show={true}
         width="100%"
         placeholder="Search..."
         endpoint={ApiConstants.USER.LIST}
-        setCurrentPage={setCurrentPage}
       />
     </Box>
   );

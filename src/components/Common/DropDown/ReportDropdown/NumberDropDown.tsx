@@ -1,13 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import SmallDropDown from "../../../report/AccountStatement/SmallDropDown";
 
+interface NumberDropDownProps {
+  textColor: string;
+  setPageLimit?: (value: number) => void;
+  pageLimit: number;
+  setCurrentPage?: (value: number) => void;
+}
+
 const NumberDropDown = ({
-  getLimitEntries,
   textColor,
   setPageLimit,
   pageLimit,
   setCurrentPage,
-}: any) => {
+}: NumberDropDownProps) => {
   return (
     <Box display={"flex"} alignItems="center" sx={{ width: "100%" }}>
       <Typography
@@ -16,7 +22,6 @@ const NumberDropDown = ({
         Show
       </Typography>
       <SmallDropDown
-        getLimitEntries={getLimitEntries}
         pageLimit={pageLimit}
         setPageLimit={setPageLimit}
         setCurrentPage={setCurrentPage}

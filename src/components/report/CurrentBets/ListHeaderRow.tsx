@@ -26,7 +26,6 @@ const ListHeaderRow = ({
       }}
     >
       <NumberDropDown
-        getLimitEntries={getLimitEntries}
         textColor="#000"
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
