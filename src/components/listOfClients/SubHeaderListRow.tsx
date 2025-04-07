@@ -58,7 +58,6 @@ const SubHeaderListRow = ({ data }: any) => {
         >
           {handleNumber(parseFloat(data?.currBalance || 0), "")}
         </Typography>
-        ``
       </Box>
       <Box
         sx={{
