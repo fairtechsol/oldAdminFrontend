@@ -112,11 +112,15 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
   "session/list",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}?matchId=${requestData.matchId}&url=${requestData.url}`
+      const resp = await service.post(
+        `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}`,
+        {
+          matchId: requestData.matchId,
+          searchId: requestData.searchId,
+        }
       );
       if (resp) {
-        return resp?.data?.data;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;

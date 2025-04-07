@@ -485,7 +485,7 @@ const SingleBox = ({
   time,
   isPercent,
   rate,
-  isCommissionActive
+  isCommissionActive,
 }: any) => {
   return !header ? (
     first ? (
@@ -498,7 +498,6 @@ const SingleBox = ({
           display: { xs: "initial", lg: "flex" },
           justifyContent: { lg: "center", xs: "initial" },
           alignItems: "center",
-          
         }}
       >
         {isCommissionActive && <CommissionDot />}
