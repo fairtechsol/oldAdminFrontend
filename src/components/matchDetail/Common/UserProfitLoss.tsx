@@ -16,13 +16,21 @@ import { AppDispatch, RootState } from "../../../store/store";
 import Divider from "../../Inplay/Divider";
 import UserProfitLossListComp from "./UserProfitLossListComp";
 
+interface UserProfitLossProps {
+  title: string;
+  matchData?: any;
+  setShowUserProfitLoss?: (value: boolean) => void;
+  single: string;
+  matchDetail?: any;
+}
+
 const UserProfitLoss = ({
   title,
   matchData,
   setShowUserProfitLoss,
   single,
   matchDetail,
-}: any) => {
+}: UserProfitLossProps) => {
   const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -109,7 +117,7 @@ const UserProfitLoss = ({
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <div className="slanted" />
         </Box>
         <Box
           sx={{
@@ -129,7 +137,7 @@ const UserProfitLoss = ({
                 padding: "0px 8px",
               }}
               onClick={() => {
-                setShowUserProfitLoss(false);
+                setShowUserProfitLoss && setShowUserProfitLoss(false);
                 dispatch(resetUserProfitLoss());
               }}
             >
@@ -200,52 +208,39 @@ const UserProfitLoss = ({
               background: "#319E5B",
               height: "25px",
               width: { lg: "90%", xs: "90%" },
-              // justifyContent: { lg: "flex-end", xs: "flex-end" },
-              // overflow: "auto",
             }}
           >
-            {userProfitLossData?.markets?.map((item: any) => {
-              return (
-                <>
-                  <Box
-                    sx={{
-                      background: "#f1c550",
-                      border: "1px solid #2626264D",
-                      width: { lg: "30%", xs: "30.06%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      minWidth: "100px",
-                    }}
-                    className="wrapContent"
-                    key={item?.betId}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: {
-                          lg: "13px",
-                          md: "12px",
-                          xs: matchesMobile ? "8px" : "8px",
-                        },
-                        color: "black",
-                        fontWeight: "600",
-                        lineHeight: "0.9",
-                      }}
-                    >
-                      {item?.name}
-                    </Typography>
-                  </Box>
-                  {/* <Box
-                      sx={{
-                        width: "3px",
-                        display: "flex",
-                        background: "white",
-                      }}
-                    ></Box> */}
-                </>
-              );
-            })}
+            {userProfitLossData?.markets?.map((item: any) => (
+              <Box
+                sx={{
+                  background: "#f1c550",
+                  border: "1px solid #2626264D",
+                  width: { lg: "30%", xs: "30.06%" },
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minWidth: "100px",
+                }}
+                className="wrapContent"
+                key={item?.betId}
+              >
+                <Typography
+                  sx={{
+                    fontSize: {
+                      lg: "13px",
+                      md: "12px",
+                      xs: matchesMobile ? "8px" : "8px",
+                    },
+                    color: "black",
+                    fontWeight: "600",
+                    lineHeight: "0.9",
+                  }}
+                >
+                  {item?.name}
+                </Typography>
+              </Box>
+            ))}
           </Box>
         </Box>
         <Box
@@ -259,23 +254,21 @@ const UserProfitLoss = ({
         >
           {userProfitLossData?.profitLoss?.length > 0 &&
             userProfitLossData?.profitLoss?.map(
-              (element: any, index: number) => {
-                return (
-                  <Box
-                    key={index}
-                    sx={{
-                      width: "100%",
-                      display: element?.betStatus === 2 ? "none" : "block",
-                    }}
-                  >
-                    <UserProfitLossListComp
-                      element={element}
-                      markets={userProfitLossData?.markets}
-                    />
-                    <Divider />
-                  </Box>
-                );
-              }
+              (element: any, index: number) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: "100%",
+                    display: element?.betStatus === 2 ? "none" : "block",
+                  }}
+                >
+                  <UserProfitLossListComp
+                    element={element}
+                    markets={userProfitLossData?.markets}
+                  />
+                  <Divider />
+                </Box>
+              )
             )}
         </Box>
       </Box>

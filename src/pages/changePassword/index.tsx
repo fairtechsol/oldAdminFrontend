@@ -12,14 +12,19 @@ import { AppDispatch, RootState } from "../../store/store";
 import { ApiConstants, Constants } from "../../utils/Constants";
 import { changePasswordValidation } from "../../utils/Validations";
 
-const initialValues: any = {
+interface ChangePasswordProps {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+const initialValues: ChangePasswordProps = {
   oldPassword: "",
   newPassword: "",
   confirmPassword: "",
 };
 
-const ChangePassword = (props: any) => {
-  const { passLoader, width } = props;
+const ChangePassword = () => {
   const dispatch: AppDispatch = useDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -52,6 +57,7 @@ const ChangePassword = (props: any) => {
       setSubmitting(false);
     }
   }, [loading, error]);
+
   const debouncedInputValue = useMemo(() => {
     const debouncedFn = debounce((value) => {
       dispatch(checkOldPass({ oldPassword: value }));
@@ -76,6 +82,7 @@ const ChangePassword = (props: any) => {
       debouncedInputValue.cancel();
     };
   }, []);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -83,8 +90,8 @@ const ChangePassword = (props: any) => {
           sx={{
             width: { xs: "96vw", lg: "19vw", md: "19vw" },
             minWidth: {
-              lg: width ? width : "350px",
-              md: width ? width : "350px",
+              lg: "350px",
+              md: "350px",
               xs: "0px",
             },
             marginTop: "10px",
@@ -112,8 +119,8 @@ const ChangePassword = (props: any) => {
           >
             <Input
               required={true}
-              placeholder={"Enter Old Password"}
-              title={"Old Password"}
+              placeholder="Enter Old Password"
+              title="Old Password"
               titleStyle={{
                 color: "#222222",
                 marginLeft: "0px",
@@ -125,7 +132,7 @@ const ChangePassword = (props: any) => {
               img1={eyeLock}
               onBlur={formik.handleBlur}
               id="oldPassword"
-              name={"oldPassword"}
+              name="oldPassword"
               type="password"
               value={formik.values.oldPassword}
               onChange={handleOldPass}
@@ -137,9 +144,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter New Password"}
-              title={"New Password"}
-              name={"newPassword"}
+              placeholder="Enter New Password"
+              title="New Password"
+              name="newPassword"
               id="newPassword"
               titleStyle={{
                 color: "#222222",
@@ -162,9 +169,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter Confirm Password"}
-              title={"Confirm New Password"}
-              name={"confirmPassword"}
+              placeholder="Enter Confirm Password"
+              title="Confirm New Password"
+              name="confirmPassword"
               id="confirmPassword"
               titleStyle={{
                 color: "#222222",
@@ -194,8 +201,8 @@ const ChangePassword = (props: any) => {
                 justify: "center",
                 alignItems: "center",
                 mx: "auto",
-                marginTop: "60px",
-                marginBottom: "40px",
+                marginTop: "40px",
+                marginBottom: "30px",
                 width: "80%",
                 background: "#0B4F26",
                 borderRadius: "5px",
@@ -207,9 +214,9 @@ const ChangePassword = (props: any) => {
             >
               <Typography
                 sx={{ fontSize: { lg: "18px", xs: "20px" } }}
-                color={"white"}
+                color="#fff"
               >
-                {passLoader ? (
+                {loading ? (
                   <CircularProgress
                     sx={{
                       color: "#FFF",

@@ -247,7 +247,7 @@ const MatchListComponent = ({
                   borderRadius: "3px",
                 }}
               >
-                <Box className="wave"> </Box>
+                <Box className="wave" />
                 <Typography
                   sx={{
                     fontSize: "10px",
@@ -344,7 +344,7 @@ const MatchListComponent = ({
                     ? "0" + data?.totalBet
                     : data?.totalBet
                 }
-                team={"Total Bet"}
+                team="Total Bet"
                 mode={mode}
                 showFixed
               />
@@ -361,7 +361,7 @@ const MatchListComponent = ({
                 position: "absolute",
                 right: 0,
               }}
-            ></Box>
+            />
           )}
           {selected && mode == "1" && (
             <Box

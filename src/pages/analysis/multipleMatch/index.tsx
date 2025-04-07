@@ -46,7 +46,6 @@ const MultipleMatch = ({}) => {
     teamC: "",
   });
   const [showUserProfitLoss, setShowUserProfitLoss] = useState(false);
-  const [selectedBetData, setSelectedBetData] = useState([]);
   const { currentOdd } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -57,6 +56,7 @@ const MultipleMatch = ({}) => {
   const { placedBets, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
+
   useEffect(() => {
     if (state) {
       console.log("state?.matchIds :", state?.matchIds);
@@ -248,9 +248,6 @@ const MultipleMatch = ({}) => {
 
   useEffect(() => {
     return () => {
-      // state?.matchIds?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item);
-      // });
       state?.matchIds?.map((item: any) => {
         socketService.match.getMatchRatesOff(item);
       });
@@ -275,9 +272,6 @@ const MultipleMatch = ({}) => {
           dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         }
       } else if (document.visibilityState === "hidden") {
-        // state?.matchIds?.map((item: any) => {
-        //   socketService.match.leaveMatchRoom(item);
-        // });
         state?.matchIds?.map((item: any) => {
           socketService.match.getMatchRatesOff(item);
         });
@@ -321,89 +315,20 @@ const MultipleMatch = ({}) => {
                   return (
                     <>
                       {index === 0 ? (
-                        <>
+                        <Box
+                          key={index}
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            width: "100%",
+                          }}
+                        >
                           <Box
-                            key={index}
                             sx={{
+                              flex: 1,
+                              flexDirection: "column",
+                              minHeight: "100px",
                               display: "flex",
-                              flexWrap: "wrap",
-                              width: "100%",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                flex: 1,
-                                flexDirection: "column",
-                                minHeight: "100px",
-                                display: "flex",
-                              }}
-                            >
-                              <Layout
-                                item={item}
-                                handleClicked={handleClicked}
-                                QuicksessionData={QuicksessionData}
-                                sessionProLoss={sessionProLoss}
-                                currentOdd={currentOdd}
-                                placedBets={placedBets}
-                                setSelectedBetData={setSelectedBetData}
-                                selectedBetData={selectedBetData}
-                              />
-                            </Box>
-                            <Box
-                              sx={{
-                                flex: 1,
-                                flexDirection: "column",
-                                display: "flex",
-                                minHeight: "100px",
-                                marginX: "0.5%",
-                              }}
-                            >
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  justifyContent: "flex-end",
-                                  width: "100%",
-                                }}
-                              >
-                                <Box
-                                  sx={{
-                                    width: "150px",
-                                    marginY: ".75%",
-                                    height: "35px",
-                                  }}
-                                ></Box>
-                              </Box>
-                              <FullAllBets
-                                tag={false}
-                                IObets={Array.from(
-                                  placedBets.reduce(
-                                    (acc: any, obj: any) =>
-                                      acc.has(obj.id)
-                                        ? acc
-                                        : acc.add(obj.id) && acc,
-                                    new Set()
-                                  ),
-                                  (id) =>
-                                    placedBets.find((obj: any) => obj.id === id)
-                                ).filter(
-                                  (bet: any) =>
-                                    (bet?.match?.id || bet?.matchId) ===
-                                    item?.id
-                                )}
-                                setSelectedBetData={setSelectedBetData}
-                                selectedBetData={selectedBetData}
-                              />
-                            </Box>
-                          </Box>
-                        </>
-                      ) : (
-                        <>
-                          <Box
-                            key={index}
-                            sx={{
-                              maxWidth: matchesMobile ? "99%" : "49.5%",
-                              flex: matchesMobile ? "0 0 99%" : "0 0 49.5%",
-                              marginRight: "0.5%",
                             }}
                           >
                             <Layout
@@ -413,12 +338,70 @@ const MultipleMatch = ({}) => {
                               sessionProLoss={sessionProLoss}
                               currentOdd={currentOdd}
                               placedBets={placedBets}
-                              setSelectedBetData={setSelectedBetData}
-                              selectedBetData={selectedBetData}
-                              showBets={true}
                             />
                           </Box>
-                        </>
+                          <Box
+                            sx={{
+                              flex: 1,
+                              flexDirection: "column",
+                              display: "flex",
+                              minHeight: "100px",
+                              marginX: "0.5%",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                width: "100%",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  width: "150px",
+                                  marginY: ".75%",
+                                  height: "35px",
+                                }}
+                              />
+                            </Box>
+                            <FullAllBets
+                              tag={false}
+                              IObets={Array.from(
+                                placedBets.reduce(
+                                  (acc: any, obj: any) =>
+                                    acc.has(obj.id)
+                                      ? acc
+                                      : acc.add(obj.id) && acc,
+                                  new Set()
+                                ),
+                                (id) =>
+                                  placedBets.find((obj: any) => obj.id === id)
+                              ).filter(
+                                (bet: any) =>
+                                  (bet?.match?.id || bet?.matchId) === item?.id
+                              )}
+                            />
+                          </Box>
+                        </Box>
+                      ) : (
+                        <Box
+                          key={index}
+                          sx={{
+                            maxWidth: matchesMobile ? "99%" : "49.5%",
+                            flex: matchesMobile ? "0 0 99%" : "0 0 49.5%",
+                            marginRight: "0.5%",
+                          }}
+                        >
+                          <Layout
+                            item={item}
+                            handleClicked={handleClicked}
+                            QuicksessionData={QuicksessionData}
+                            sessionProLoss={sessionProLoss}
+                            currentOdd={currentOdd}
+                            placedBets={placedBets}
+                            showBets={true}
+                          />
+                        </Box>
                       )}
                     </>
                   );
@@ -447,10 +430,10 @@ const MultipleMatch = ({}) => {
                 }}
               >
                 <UserProfitLoss
-                  title={"User Profit Loss"}
+                  title="User Profit Loss"
                   matchData={storedMatchData}
                   setShowUserProfitLoss={setShowUserProfitLoss}
-                  single={"multiple"}
+                  single="multiple"
                 />
               </Box>
             </Box>
@@ -485,28 +468,24 @@ const MultipleMatch = ({}) => {
                     });
 
                   return (
-                    <>
-                      <Box
-                        key={item?.id}
-                        sx={{
-                          maxWidth: matchesMobile ? "99%" : "49.5%",
-                          flex: matchesMobile ? "0 0 99%" : "0 0 49.5%",
-                          marginRight: matchesMobile ? "0%" : "0.5%",
-                        }}
-                      >
-                        <Layout
-                          item={item}
-                          handleClicked={handleClicked}
-                          QuicksessionData={QuicksessionData}
-                          sessionProLoss={sessionProLoss}
-                          currentOdd={currentOdd}
-                          placedBets={placedBets}
-                          setSelectedBetData={setSelectedBetData}
-                          selectedBetData={selectedBetData}
-                          showBets={true}
-                        />
-                      </Box>
-                    </>
+                    <Box
+                      key={item?.id}
+                      sx={{
+                        maxWidth: matchesMobile ? "99%" : "49.5%",
+                        flex: matchesMobile ? "0 0 99%" : "0 0 49.5%",
+                        marginRight: matchesMobile ? "0%" : "0.5%",
+                      }}
+                    >
+                      <Layout
+                        item={item}
+                        handleClicked={handleClicked}
+                        QuicksessionData={QuicksessionData}
+                        sessionProLoss={sessionProLoss}
+                        currentOdd={currentOdd}
+                        placedBets={placedBets}
+                        showBets={true}
+                      />
+                    </Box>
                   );
                 })}
             </Box>
@@ -533,10 +512,10 @@ const MultipleMatch = ({}) => {
                 }}
               >
                 <UserProfitLoss
-                  title={"User Profit Loss"}
+                  title="User Profit Loss"
                   matchData={storedMatchData}
                   setShowUserProfitLoss={setShowUserProfitLoss}
-                  single={"multiple"}
+                  single="multiple"
                 />
               </Box>
             </Box>

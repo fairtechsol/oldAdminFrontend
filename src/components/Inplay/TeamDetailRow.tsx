@@ -1,11 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import type { TeamDetailRow } from "../../interface/inplay";
 import SeparateBox from "./SeparateBox";
-
-interface TeamDetailRow {
-  teamName: string;
-  runnerNumber: number;
-  match: any;
-}
 
 const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRow) => {
   const theme = useTheme();

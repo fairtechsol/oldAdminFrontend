@@ -10,6 +10,12 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import { loginValidationSchema } from "../../../utils/Validations";
 
+interface FormValues {
+  userName: string;
+  password: string;
+  loginType: string;
+}
+
 const Login = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -23,7 +29,7 @@ const Login = () => {
     error,
   } = useSelector((state: RootState) => state.auth);
 
-  const initialValues: any = {
+  const initialValues: FormValues = {
     userName: "",
     password: "",
     loginType: "admin",
@@ -32,7 +38,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: (values: any) => {
+    onSubmit: (values: FormValues) => {
       if (loading) {
         return;
       }

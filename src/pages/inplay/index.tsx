@@ -21,6 +21,7 @@ import {
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
+
 const Inplay = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -28,7 +29,7 @@ const Inplay = () => {
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
@@ -139,24 +140,22 @@ const Inplay = () => {
   return (
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0
-        ? matchListInplay?.matches?.map((match: any) => {
-            return (
-              <MatchComponent
-                key={match.id}
-                onClick={() => {
-                  navigate(`${Constants.oldAdmin}live_market/matches`, {
-                    state: {
-                      submit: true,
-                      matchId: match?.id,
-                    },
-                  });
-                }}
-                top={true}
-                blur={false}
-                match={match}
-              />
-            );
-          })
+        ? matchListInplay?.matches?.map((match: any) => (
+            <MatchComponent
+              key={match.id}
+              onClick={() => {
+                navigate(`${Constants.oldAdmin}live_market/matches`, {
+                  state: {
+                    submit: true,
+                    matchId: match?.id,
+                  },
+                });
+              }}
+              top={true}
+              blur={false}
+              match={match}
+            />
+          ))
         : !loading && (
             <Table>
               <TableBody>

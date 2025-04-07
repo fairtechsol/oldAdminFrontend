@@ -1,13 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
+import type { SeparateBox } from "../../interface/inplay";
 
-interface SeparateBox {
-  color: string;
-  value: number | string;
-  value2: number | string;
-}
-
-const SeparateBox = ({ color, value }: any) => {
+const SeparateBox = ({ color, value }: SeparateBox) => {
   const classes = {
     container: {
       background: color,

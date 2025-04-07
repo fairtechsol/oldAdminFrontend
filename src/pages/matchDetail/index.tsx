@@ -45,9 +45,7 @@ const MatchDetail = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const [mode, setMode] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [selectedBetData, setSelectedBetData] = useState([]);
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const { matchDetail, success } = useSelector(
@@ -80,17 +78,7 @@ const MatchDetail = () => {
         deleteReason: value,
         urlData: {},
       };
-      selectedBetData.forEach((item: any) => {
-        const { userId, betId, domain } = item;
-        if (!payload.urlData[domain]) {
-          payload.urlData[domain] = [];
-        }
-        payload.urlData[domain].push({
-          userId,
-          betId,
-          placeBetId: item.id,
-        });
-      });
+
       dispatch(AllBetDelete(payload));
     } catch (e) {
       console.log(e);
@@ -125,7 +113,6 @@ const MatchDetail = () => {
   };
   const matchDeleteBet = (event: any) => {
     try {
-      setMode(false);
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbets(event));
         dispatch(updateTeamRatesOnDelete(event));
@@ -342,7 +329,7 @@ const MatchDetail = () => {
   }, []);
   return (
     <>
-      {visible && selectedBetData.length > 0 && (
+      {visible && (
         <>
           <AddNotificationModal
             value={""}
@@ -354,7 +341,6 @@ const MatchDetail = () => {
             onClick={(e: any) => {
               e.stopPropagation();
               setVisible(false);
-              setMode(false);
             }}
           />
         </>
@@ -406,7 +392,7 @@ const MatchDetail = () => {
                 );
               })}
 
-          <Box sx={{ width: "150px", height: "3px" }}></Box>
+          <Box sx={{ width: "150px", height: "3px" }} />
           {matchDetail?.manualSessionActive &&
             matchDetail?.sessionBettings?.filter(
               (item: any) =>
@@ -415,7 +401,7 @@ const MatchDetail = () => {
             )?.length > 0 &&
             matchesMobile && (
               <SessionMarket
-                title={"Quick Session Market"}
+                title="Quick Session Market"
                 allBetsData={
                   matchDetail?.profitLossDataSession
                     ? Array.from(
@@ -548,52 +534,11 @@ const MatchDetail = () => {
 
           {matchesMobile && (
             <UserProfitLoss
-              single={"single"}
-              title={"User Profit Loss"}
+              single="single"
+              title="User Profit Loss"
               matchDetail={matchDetail}
             />
           )}
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              width: "100%",
-            }}
-          >
-            {mode && (
-              <Box
-                onClick={() => {
-                  setMode(!mode);
-                }}
-                sx={{
-                  width: "150px",
-                  marginY: ".75%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "5px",
-                  background: "#f1c550",
-                  height: "35px",
-                  border: "1.5px solid white",
-                  display: "flex",
-                  alignSelf: "flex-end",
-                  cursor: "pointer",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontWeight: "600",
-                    fontSize: "13px",
-                    color: "black",
-                    marginRight: "10px",
-                  }}
-                >
-                  {"Cancel"}
-                </Typography>
-              </Box>
-            )}
-            <Box sx={{ width: "2%" }}></Box>
-          </Box>
           {placedBets?.length > 0 && (
             <Box sx={{ mt: 0 }}>
               <FullAllBets
@@ -609,11 +554,7 @@ const MatchDetail = () => {
                       )
                     : []
                 }
-                mode={mode}
                 tag={false}
-                setSelectedBetData={setSelectedBetData}
-                selectedBetData={selectedBetData}
-                role={state.roleName}
               />
             </Box>
           )}
@@ -636,12 +577,9 @@ const MatchDetail = () => {
                 width: "100%",
               }}
             >
-              <Box sx={{ width: "2%" }}></Box>
-              <Box
-                sx={{ width: "150px", marginY: ".75%", height: "15px" }}
-              ></Box>
+              <Box sx={{ width: "150px", marginY: ".75%", height: "15px" }} />
             </Box>
-            <Box sx={{ width: "150px", height: "3px" }}></Box>
+            <Box sx={{ width: "150px", height: "3px" }} />
             {matchDetail?.manualSessionActive &&
               matchDetail?.sessionBettings?.filter(
                 (item: any) =>
@@ -649,7 +587,7 @@ const MatchDetail = () => {
                   JSON.parse(item)?.activeStatus === "live"
               )?.length > 0 && (
                 <SessionMarket
-                  title={"Quick Session Market"}
+                  title="Quick Session Market"
                   allBetsData={
                     matchDetail?.profitLossDataSession
                       ? Array.from(
@@ -668,7 +606,7 @@ const MatchDetail = () => {
                       : []
                   }
                   currentMatch={matchDetail}
-                  sessionExposer={"0.00"}
+                  sessionExposer="0.00"
                   sessionData={matchDetail?.sessionBettings?.filter(
                     (item: any) => !JSON.parse(item).selectionId
                   )}
@@ -705,8 +643,8 @@ const MatchDetail = () => {
               </Box>
             )}
             <UserProfitLoss
-              single={"single"}
-              title={"User Profit Loss"}
+              single="single"
+              title="User Profit Loss"
               matchDetail={matchDetail}
             />
           </Box>

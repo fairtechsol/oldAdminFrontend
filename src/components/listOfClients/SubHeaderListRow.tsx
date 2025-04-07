@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { handleNumber } from "../../helper";
 import StyledImage from "../Common/StyledImages";
 
-const SubHeaderListRow = ({ data, color }: any) => {
+const SubHeaderListRow = ({ data }: any) => {
   return (
     <Box
       sx={{
@@ -25,7 +25,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
           paddingX: "10px",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" }}></Typography>
+        <Typography sx={{ color: "white", fontSize: "12px" }} />
       </Box>
       <Box
         sx={{
@@ -40,7 +40,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalCreditReference || 0), color)}
+          {handleNumber(parseFloat(data?.totalCreditReference || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -56,8 +56,9 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.currBalance || 0), color)}
+          {handleNumber(parseFloat(data?.currBalance || 0), "")}
         </Typography>
+        ``
       </Box>
       <Box
         sx={{
@@ -76,7 +77,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.profitsum || 0), color)}
+          {handleNumber(parseFloat(data?.profitsum || 0), "")}
         </Typography>
         <StyledImage
           src={
@@ -109,7 +110,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.percentprofitloss || 0), color)}
+          {handleNumber(parseFloat(data?.percentprofitloss || 0), "")}
         </Typography>
         <StyledImage
           src={
@@ -138,7 +139,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalcommission || 0), color)}
+          {handleNumber(parseFloat(data?.totalcommission || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -154,7 +155,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalExposure || 0), color)}
+          {handleNumber(parseFloat(data?.totalExposure || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -170,7 +171,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.availableBalance || 0), color)}
+          {handleNumber(parseFloat(data?.availableBalance || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -183,7 +184,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
           height: "45px",
           borderRight: "2px solid white",
         }}
-      ></Box>
+      />
       <Box
         sx={{
           width: { lg: "5vw", md: "5vw", xs: "14vw" },
@@ -194,7 +195,7 @@ const SubHeaderListRow = ({ data, color }: any) => {
           height: "45px",
           borderRight: "2px solid white",
         }}
-      ></Box>
+      />
       <Box
         sx={{
           width: { lg: "8vw", md: "8vw", xs: "26.5vw" },

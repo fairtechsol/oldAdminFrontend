@@ -508,10 +508,9 @@ const AccountListRow = ({
             borderRight: "2px solid white",
           }}
         >
-          <Typography variant="h5">{element.roleName}</Typography>{" "}
+          <Typography variant="h5">{element.roleName}</Typography>
         </Box>
       </Box>
-
       {showUserModal && element?.roleName !== "expert" && (
         <Box
           sx={[
@@ -579,7 +578,7 @@ const AccountListRow = ({
                           fTextStyle,
                         ]}
                       >
-                        {element?.matchComissionType} Com {":"}{" "}
+                        {element?.matchComissionType} Com {":"}
                         {element?.matchCommission
                           ? element?.matchCommission
                           : 0}
@@ -617,7 +616,7 @@ const AccountListRow = ({
                         fTextStyle,
                       ]}
                     >
-                      Session Com {": "}{" "}
+                      Session Com {": "}
                       {element?.sessionCommission
                         ? element?.sessionCommission
                         : 0}
@@ -798,12 +797,9 @@ const AccountListRow = ({
           <AccountListModal
             endpoint={ApiConstants.USER.LIST}
             id={showSubUsers?.id}
-            show={showSubUsers?.value}
             setShow={setSubSusers}
             title={showSubUsers?.title}
             element={element}
-            // handleExport={handleExport}
-            currentPage={currentPage}
           />
         </Box>
       </ModalMUI>

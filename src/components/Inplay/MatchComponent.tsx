@@ -255,7 +255,7 @@ const MatchComponent = ({
                 width: "40%",
                 alignItems: "center",
               }}
-            ></Box>
+            />
             <Box
               sx={{
                 display: "flex",

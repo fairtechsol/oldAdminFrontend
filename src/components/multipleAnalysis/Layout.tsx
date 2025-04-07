@@ -14,8 +14,6 @@ const Layout = ({
   sessionProLoss,
   currentOdd,
   placedBets,
-  setSelectedBetData,
-  selectedBetData,
   showBets,
 }: any) => {
   return (
@@ -208,9 +206,7 @@ const Layout = ({
               new Set()
             ),
             (id) => placedBets.find((obj: any) => obj.id === id)
-          ).filter((bet: any) => bet?.matchId === item?.id)}
-          setSelectedBetData={setSelectedBetData}
-          selectedBetData={selectedBetData}
+          ).filter((bet: any) => bet?.match?.id === item?.id)}
         />
       )}
     </>

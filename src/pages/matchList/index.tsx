@@ -20,6 +20,7 @@ import {
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
+
 const Inplay = () => {
   const navigate = useNavigate();
   const { type } = useParams();
@@ -31,10 +32,12 @@ const Inplay = () => {
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
+
+  const classes = useStyles();
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -116,7 +119,6 @@ const Inplay = () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [type]);
-  const classes = useStyles();
 
   useEffect(() => {
     setTimeout(() => {
@@ -128,6 +130,7 @@ const Inplay = () => {
 
     return () => clearInterval(intervalId);
   }, [type]);
+
   return (
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0

@@ -6,12 +6,19 @@ import { AppDispatch, RootState } from "../../store/store";
 import SearchInput from "../Common/SearchInput";
 import StyledImage from "../Common/StyledImages";
 
+interface HeaderRowProps {
+  endpoint: string;
+  searchFor: string;
+  downloadPdfExcel: boolean;
+  setCurrentPage: (page: number) => void;
+}
+
 const HeaderRow = ({
   endpoint,
   searchFor,
   downloadPdfExcel,
   setCurrentPage,
-}: any) => {
+}: HeaderRowProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -27,7 +34,7 @@ const HeaderRow = ({
         background: "#F8C851",
       }}
     >
-      <Box display={"flex"} alignItems="center">
+      <Box display="flex" alignItems="center">
         {downloadPdfExcel && (
           <>
             <Box
@@ -85,7 +92,7 @@ const HeaderRow = ({
         )}
       </Box>
       <SearchInput
-        placeholder={"Search User..."}
+        placeholder="Search User..."
         show={true}
         searchFor={searchFor}
         endpoint={endpoint}

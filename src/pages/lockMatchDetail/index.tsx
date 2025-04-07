@@ -45,7 +45,6 @@ const LockMatchScreen = () => {
     (state: RootState) => state.match.lockUnlock
   );
   const { placedBets } = useSelector((state: RootState) => state.match.bets);
-  const [mode, setMode] = useState<any>(false);
   const [isSessionLock, setIsSessionLock] = useState<any>(false);
 
   useEffect(() => {
@@ -107,7 +106,6 @@ const LockMatchScreen = () => {
   };
   const matchDeleteBet = (event: any) => {
     try {
-      setMode(false);
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbets(event));
         dispatch(updateTeamRatesOnDelete(event));
@@ -392,7 +390,6 @@ const LockMatchScreen = () => {
                   )
                 : []
             }
-            mode={mode}
             tag={false}
           />
         </Box>
