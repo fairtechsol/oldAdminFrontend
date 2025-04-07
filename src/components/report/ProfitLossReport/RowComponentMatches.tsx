@@ -173,19 +173,17 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY HH:mm:ss")})
             </Typography>
           </Box>
-          {true && (
-            <StyledImage
-              src={ArrowDown}
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.matchId && showListOfUsers
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            />
-          )}
+          <StyledImage
+            src={ArrowDown}
+            sx={{
+              width: { lg: "20px", xs: "10px" },
+              height: { lg: "10px", xs: "6px" },
+              transform:
+                selectedId?.id === item?.matchId && showListOfUsers
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+            }}
+          />
         </Box>
         <Box
           onClick={(e) => {
@@ -219,6 +217,7 @@ const RowComponentMatches = ({
             width: { xs: "25%", lg: "30%" },
             height: "100%",
             marginLeft: 0.1,
+            marginRight: 0.1,
             justifyContent: "center",
             display: "flex",
             flexDirection: "column",
