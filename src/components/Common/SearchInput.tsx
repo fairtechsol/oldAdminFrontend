@@ -18,13 +18,13 @@ interface SearchInputProps {
   width?: string | number;
   onChange?: (value: string) => void;
   endpoint?: string;
-  searchFor: string;
+  searchFor?: string;
   pageLimit?: number;
   fromDate?: any;
   toDate?: any;
   userId?: string;
   roleName?: string;
-  setCurrentPage: (page: number) => void;
+  setCurrentPage?: (page: number) => void;
   getUserListModal?: (params: any) => void;
 }
 
@@ -67,7 +67,7 @@ const SearchInput = ({
       } else if (toDate) {
         filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
       }
-      setCurrentPage(1);
+      setCurrentPage?.(1);
       if (searchFor === "accountStatement") {
         dispatch(
           getAccountStatement({
