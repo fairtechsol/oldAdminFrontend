@@ -1196,7 +1196,7 @@ const AddAccount = () => {
             aria-describedby="modal-modal-description"
           >
             <CustomModal
-              modalTitle={`User Added sucessfully`}
+              modalTitle="User Added sucessfully"
               setShowModal={setShowModal}
               showModal={showModal}
               buttonMessage={"Ok"}
