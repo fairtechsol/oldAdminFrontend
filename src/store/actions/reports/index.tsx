@@ -116,6 +116,7 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
         `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}`,
         {
           matchId: requestData.matchId,
+          searchId: requestData.searchId,
         }
       );
       if (resp) {
