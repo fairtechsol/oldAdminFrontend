@@ -156,7 +156,6 @@ const Inplay = () => {
                 top={true}
                 blur={false}
                 match={match}
-                // handleUpdateMatch={handleUpdateMatch}
               />
             );
           })

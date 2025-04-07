@@ -1,19 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
 import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
-// import { socket, socketService } from "../../socketManager";
-// import { updateMatchListRates } from "../../store/actions/match/matchAction";
-// import { AppDispatch } from "../../store/store";
 import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
 
-const MatchComponent = (props: MatchComponentInterface) => {
-  const { onClick, top, blur, match } = props;
-  // const dispatch: AppDispatch = useDispatch();
+const MatchComponent = ({
+  onClick,
+  top,
+  blur,
+  match,
+}: MatchComponentInterface) => {
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
 
   function calculateTimeLeft() {
@@ -54,31 +53,12 @@ const MatchComponent = (props: MatchComponentInterface) => {
     Number(timeLeft?.hours) === 0 &&
     Number(timeLeft?.minutes) <= 30;
 
-  // const setMatchOddRatesInRedux = (event: any) => {
-  //   try {
-  //     if (match?.id === event?.id) {
-  //       dispatch(updateMatchListRates(event));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 100);
     return () => clearInterval(timer);
   }, []);
-
-  // useEffect(() => {
-  //   if (socket) {
-  //     socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
-  //     return () => {
-  //       socketService.match.getMatchRatesOff(match?.id);
-  //     };
-  //   }
-  // }, [socket]);
 
   return (
     <>
@@ -189,7 +169,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
               right: 0,
               height: "100%",
             }}
-          ></Box>
+          />
         )}
         {!upcoming && (
           <Box
@@ -254,7 +234,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 marginLeft: 1,
               }}
             >
-              <Box className="wave"> </Box>
+              <Box className="wave" />
               <Typography
                 sx={{
                   fontStyle: "italic",
@@ -304,7 +284,6 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 height: "25px",
                 width: { lg: "60%", xs: "80%" },
                 justifyContent: { lg: "flex-end", xs: "flex-end" },
-                // marginRight: { lg: "4px", xs: "2px" },
               }}
             >
               <Box
@@ -348,26 +327,24 @@ const MatchComponent = (props: MatchComponentInterface) => {
           <TeamDetailRow
             teamName={match.teamA}
             runnerNumber={0}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
             match={match}
           />
-          <Divider />
-          <TeamDetailRow
-            teamName={match.teamB}
-            runnerNumber={1}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
-            match={match}
-          />
+          {match.teamB && (
+            <>
+              <Divider />
+              <TeamDetailRow
+                teamName={match.teamB}
+                runnerNumber={1}
+                match={match}
+              />
+            </>
+          )}
           {match.teamC && (
             <>
               <Divider />
               <TeamDetailRow
                 teamName={match.teamC}
                 runnerNumber={2}
-                apiBasePath={"abc"}
-                matchOddsLive={match?.matchOdds[0]}
                 match={match}
               />
             </>
