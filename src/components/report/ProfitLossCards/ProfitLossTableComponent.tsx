@@ -17,10 +17,12 @@ const ProfitLossTableComponent = (props: any) => {
     userProfitLoss,
     getUserProfitLoss,
     setCurrentPage,
+    event,
+    setEvent,
   } = props;
 
   const dispatch: AppDispatch = useDispatch();
-  const [event, setEvent] = useState("");
+
   const { matchWiseProfitLossCountCard } = useSelector(
     (state: RootState) => state.report.cardReport
   );
