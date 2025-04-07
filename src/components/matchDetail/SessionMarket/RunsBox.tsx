@@ -6,13 +6,18 @@ import { getSessionProfitLossMatchDetailFilter } from "../../../store/actions/ma
 import { AppDispatch } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 
-const RunsBox = ({ item, currentOdd }: any) => {
+interface RunsBoxProps {
+  item: any;
+  currentOdd: any;
+}
+
+const RunsBox = ({ item, currentOdd }: RunsBoxProps) => {
   const theme = useTheme();
   const dispatch: AppDispatch = useDispatch();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const containerRef = useRef(null);
 
-  const scrollToElement = (id: any) => {
+  const scrollToElement = (id: string) => {
     const element: any = document.getElementById(id);
     const container: any = containerRef.current;
 

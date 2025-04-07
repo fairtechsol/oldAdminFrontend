@@ -329,7 +329,7 @@ const SessionMarket = ({
                 sx={{
                   width: { xs: "60%", lg: "20%", md: "60%" },
                 }}
-              ></Box>
+              />
               <Box
                 sx={{
                   width: { xs: "40%", lg: "60%", md: "40%" },
