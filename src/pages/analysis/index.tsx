@@ -28,12 +28,12 @@ const Analysis = () => {
   const [max, setMax] = useState("2");
   const [selected, setSelected] = useState<any>([]);
   const [matchIds, setMatchIds] = useState<any>([]);
-  const [selectedMatchType, setSelectedMatchType] = useState<any>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedMatchType, setSelectedMatchType] = useState<string>("");
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
@@ -48,14 +48,12 @@ const Analysis = () => {
   };
 
   const changeSelected = (match: any) => {
-    if (mode === "0") return false;
+    if (mode === "0" || !match?.id) return false;
 
-    const matchId = match?.id;
-    if (!matchId) return false;
-
-    const isSameMatchType =
-      !selectedMatchType || selectedMatchType === match?.matchType;
+    const matchId = match.id;
     const isAlreadySelected = selected.includes(matchId);
+    const isSameMatchType =
+      !selectedMatchType || selectedMatchType === match.matchType;
 
     if (!isSameMatchType) {
       toast.error("Please Select Match Of Same Category");
@@ -63,24 +61,57 @@ const Analysis = () => {
     }
 
     if (isAlreadySelected) {
-      setMatchIds((prevIds: any) =>
-        prevIds.filter((id: any) => id !== matchId)
-      );
-      setSelected((prevSelected: any) =>
-        prevSelected.filter((id: any) => id !== matchId)
-      );
+      const updatedSelected = selected.filter((id: any) => id !== matchId);
+      setSelected(updatedSelected);
+      setMatchIds(updatedSelected);
+      if (!updatedSelected.length) setSelectedMatchType("");
     } else {
       if (selected.length >= +max) {
         toast.warn(`Only ${max} allowed`);
         return false;
       }
+      setSelected([...selected, matchId]);
+      setMatchIds([...selected, matchId]);
+      if (!selectedMatchType) setSelectedMatchType(match.matchType);
+    }
+  };
 
-      setMatchIds((prevIds: any) => [...prevIds, matchId]);
-      setSelected((prevSelected: any) => [...prevSelected, matchId]);
-
-      if (!selectedMatchType) {
-        setSelectedMatchType(match?.matchType);
+  const handleSubmit = () => {
+    if (max == "2") {
+      if (selected.length != 2) {
+        toast.error("Select 2 matches");
+        return;
       }
+    } else if (max == "3") {
+      if (selected.length != 3) {
+        toast.error("Select 3 matches");
+        return;
+      }
+    } else if (max == "4") {
+      if (selected.length != 4) {
+        toast.error("Select 4 matches");
+        return;
+      }
+    }
+    if (selected) {
+      setMode("0");
+      setSelected([]);
+      setMatchIds([]);
+    }
+    if (max == "3") {
+      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
+        state: {
+          match: Number(max),
+          matchIds: matchIds,
+        },
+      });
+    } else {
+      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
+        state: {
+          match: Number(max),
+          matchIds: matchIds,
+        },
+      });
     }
   };
 
@@ -177,23 +208,17 @@ const Analysis = () => {
               }}
             >
               <CustomBox
-                onClick={() => {
-                  handleClick("2");
-                }}
+                onClick={() => handleClick("2")}
                 title="2 Match Screen"
               />
               <Box sx={{ width: "10px" }} />
               <CustomBox
-                onClick={() => {
-                  handleClick("3");
-                }}
+                onClick={() => handleClick("3")}
                 title="3 Match Screen"
               />
               <Box sx={{ width: "10px" }} />
               <CustomBox
-                onClick={() => {
-                  handleClick("4");
-                }}
+                onClick={() => handleClick("4")}
                 title="4 Match Screen"
               />
             </Box>
@@ -209,53 +234,7 @@ const Analysis = () => {
                 }}
                 title="Cancel"
               />
-              <CustomBox
-                onClick={() => {
-                  if (max == "2") {
-                    if (selected.length != 2) {
-                      toast.error("Select 2 matches");
-                      return;
-                    }
-                  } else if (max == "3") {
-                    if (selected.length != 3) {
-                      toast.error("Select 3 matches");
-                      return;
-                    }
-                  } else if (max == "4") {
-                    if (selected.length != 4) {
-                      toast.error("Select 4 matches");
-                      return;
-                    }
-                  }
-                  if (selected) {
-                    setMode("0");
-                    setSelected([]);
-                    setMatchIds([]);
-                  }
-                  if (max == "3") {
-                    navigate(
-                      `${Constants.oldAdmin}market_analysis/multiple_Match`,
-                      {
-                        state: {
-                          match: Number(max),
-                          matchIds: matchIds,
-                        },
-                      }
-                    );
-                  } else {
-                    navigate(
-                      `${Constants.oldAdmin}market_analysis/multiple_Match`,
-                      {
-                        state: {
-                          match: Number(max),
-                          matchIds: matchIds,
-                        },
-                      }
-                    );
-                  }
-                }}
-                title="Submit"
-              />
+              <CustomBox onClick={handleSubmit} title="Submit" />
               <Box sx={{ width: "10px" }} />
             </Box>
           )}

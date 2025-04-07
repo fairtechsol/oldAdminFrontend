@@ -73,6 +73,44 @@ export const getDomainProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getBetProfitLoss = createAsyncThunk<any, any>(
+  "bet/list",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.MATCH.BET_PROFIT_LOSS}?matchId=${requestData.matchId}${
+          requestData.betId ? `&betId=${requestData.betId}` : ""
+        }&isSession=${requestData.isSession}&url=${requestData.url}`
+      );
+      if (resp) {
+        return resp?.data?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getSessionProfitLoss = createAsyncThunk<any, any>(
+  "session/list",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}`,
+        {
+          matchId: requestData.matchId,
+          searchId: requestData.searchId,
+        }
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 
 export const getCommissionMatch = createAsyncThunk<any, any>(
   "commissionMatch/list",

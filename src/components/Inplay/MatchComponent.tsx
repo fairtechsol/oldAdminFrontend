@@ -159,7 +159,7 @@ const MatchComponent = ({
               right: 0,
               height: "100%",
             }}
-          ></Box>
+          />
         )}
         {!upcoming && (
           <Box
@@ -224,7 +224,7 @@ const MatchComponent = ({
                 marginLeft: 1,
               }}
             >
-              <Box className="wave"> </Box>
+              <Box className="wave" />
               <Typography
                 sx={{
                   fontStyle: "italic",
@@ -243,7 +243,7 @@ const MatchComponent = ({
               display: "flex",
               background: "#319E5B",
               height: "25px",
-              width: "99.7%",
+              width: "100%",
               alignSelf: "center",
             }}
           >
@@ -268,7 +268,7 @@ const MatchComponent = ({
               <Box
                 sx={{
                   background: "#00C0F9",
-                  width: { lg: "20%", xs: "25%" },
+                  width: { lg: "20%", xs: "24.5%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -285,7 +285,7 @@ const MatchComponent = ({
               <Box
                 sx={{
                   background: "#FF9292",
-                  width: { lg: "20%", xs: "25%" },
+                  width: { lg: "20%", xs: "24.5%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -298,12 +298,14 @@ const MatchComponent = ({
                   Lay
                 </Typography>
               </Box>
+              <Box
+                sx={{ width: ".25%", display: "flex", background: "white" }}
+              />
             </Box>
           </Box>
           <TeamDetailRow
             teamName={match.teamA}
             runnerNumber={0}
-            apiBasePath="abc"
             match={match}
           />
           {match.teamB && (
@@ -312,7 +314,6 @@ const MatchComponent = ({
               <TeamDetailRow
                 teamName={match.teamB}
                 runnerNumber={1}
-                apiBasePath={"abc"}
                 match={match}
               />
             </>
@@ -323,7 +324,6 @@ const MatchComponent = ({
               <TeamDetailRow
                 teamName={match.teamC}
                 runnerNumber={2}
-                apiBasePath="abc"
                 match={match}
               />
             </>

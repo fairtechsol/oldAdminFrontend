@@ -16,9 +16,11 @@ const ProfitLossTableComponent = ({
   userProfitLoss,
   getUserProfitLoss,
   setCurrentPage,
+  event,
+  setEvent,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [event, setEvent] = useState("");
+
   const { matchWiseProfitLossCountCard } = useSelector(
     (state: RootState) => state.report.cardReport
   );

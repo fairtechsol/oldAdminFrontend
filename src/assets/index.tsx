@@ -50,7 +50,6 @@ export { default as TREND } from "./images/trend.webp";
 export { default as UD } from "./images/UD.png";
 export { default as UnLockIcon } from "./images/unlock.svg";
 export { default as WALLET } from "./images/wallet.webp";
-
 export { default as Thirty2CardsA } from "./images/32Cards.png";
 export { default as AmarAkbarAnthony } from "./images/amarAkbarAnthony.png";
 export { default as AndarBahar2 } from "./images/andarBahar.png";

@@ -100,6 +100,7 @@ const RowHeaderMatches = ({
             width: { xs: "25%", lg: "30%" },
             height: "100%",
             marginLeft: 0.1,
+            marginRight: 0.1,
             justifyContent: "center",
             display: "flex",
             flexDirection: "column",

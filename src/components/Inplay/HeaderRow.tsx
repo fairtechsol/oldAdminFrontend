@@ -36,8 +36,7 @@ const HeaderRow = ({ match, timeLeft }: any) => {
           <span style={{ fontWeight: "500" }}>
             ({moment(match.startAt).format("LL")})
           </span>
-        </Typography>{" "}
-        {/* Today at 9:30 PM */}
+        </Typography>
       </Box>
       <div
         style={{

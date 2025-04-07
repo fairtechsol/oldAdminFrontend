@@ -1,8 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
-import { Lock } from "../../assets";
 
-const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
+interface SeparateBox {
+  color: string;
+  value: number | string;
+  value2: number | string;
+}
+
+const SeparateBox = ({ color, value }: any) => {
   const classes = {
     container: {
       background: color,
@@ -32,13 +37,9 @@ const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
 
   return (
     <Box sx={classes.container}>
-      {!empty && !lock && (
-        <Box sx={classes.emptylockWrapper}>
-          <Typography sx={classes.value1}>{value}</Typography>
-          <Typography sx={classes.value2}>{value2}</Typography>
-        </Box>
-      )}
-      {lock && <img src={Lock} style={classes.lockImage} alt="Lock" />}
+      <Box sx={classes.emptylockWrapper}>
+        <Typography sx={classes.value1}>{value}</Typography>
+      </Box>
     </Box>
   );
 };

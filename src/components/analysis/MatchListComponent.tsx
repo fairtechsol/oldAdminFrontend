@@ -197,8 +197,8 @@ const MatchListComponent = ({
               minHeight: "30px",
             }}
           >
-            <div
-              style={{
+            <Box
+              sx={{
                 background: "#f1c40f",
                 display: "flex",
                 justifyContent: "center",
@@ -213,13 +213,12 @@ const MatchListComponent = ({
                 width={25}
                 height={25}
               />
-            </div>
+            </Box>
             <Typography
               sx={{
                 fontSize: { lg: "16px", xs: "10px" },
                 fontWeight: "bold",
                 marginLeft: "5px",
-
                 overflow: "hidden",
                 display: "-webkit-box",
                 WebkitLineClamp: 2,

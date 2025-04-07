@@ -177,8 +177,7 @@ const Inplay = () => {
               Constants.pageLimit
           )}
           color="primary"
-          onChange={(e: any, value: number) => {
-            console.log(e);
+          onChange={(_: any, value: number) => {
             setCurrentPage(value);
           }}
         />

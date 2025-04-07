@@ -24,6 +24,7 @@ const ProfitLossReport = () => {
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
   const [userProfitLoss, setUserProfitLoss] = useState([]);
+  const [event, setEvent] = useState("");
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -36,6 +37,7 @@ const ProfitLossReport = () => {
   );
   const handleClick = () => {
     try {
+      setEvent("");
       let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
@@ -130,6 +132,8 @@ const ProfitLossReport = () => {
         setCurrentPage={setCurrentPage}
         userProfitLoss={userProfitLoss}
         getUserProfitLoss={getUserProfitLoss}
+        setEvent={setEvent}
+        event={event}
       />
     </>
   );
