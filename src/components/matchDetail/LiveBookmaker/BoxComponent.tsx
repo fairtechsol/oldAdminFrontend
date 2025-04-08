@@ -77,6 +77,7 @@ const BoxComponent = ({
           <MoneyBox color={color} rates={rates} />
           <Box
             sx={{
+              background: "rgba(0,0,0,1)",
               height: "40px",
               display: "flex",
               width: {
@@ -89,34 +90,18 @@ const BoxComponent = ({
               alignItems: "center",
             }}
           >
-            <Box
-              sx={{
-                background: "rgba(0,0,0,1)",
-                height: "40px",
-                display: "flex",
-                width: {
-                  xs: "39vw",
-                  lg: "10.17vw",
-                  desktop: "10.17vw",
-                  desktop2XL: "10.12vw",
-                },
-                justifyContent: { xs: "flex-end", lg: "flex-end" },
-                alignItems: "center",
+            <Typography
+              style={{
+                fontSize: matchesMobile ? "12px" : "18px",
+                textTransform: "uppercase",
+                width: "100%",
+                textAlign: "center",
+                color: "white",
+                fontWeight: "400",
               }}
             >
-              <Typography
-                style={{
-                  fontSize: matchesMobile ? "12px" : "18px",
-                  textTransform: "uppercase",
-                  width: "100%",
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "400",
-                }}
-              >
-                {status ? status : "suspended"}
-              </Typography>
-            </Box>
+              {status ? status : "suspended"}
+            </Typography>
           </Box>
         </Box>
       ) : (
@@ -172,7 +157,7 @@ const BoxComponent = ({
             </Box>
           )}
 
-          <Box sx={{ width: "3px", display: "flex", background: "pink" }}></Box>
+          <Box sx={{ width: "3px", display: "flex", background: "pink" }} />
           {ex?.availableToLay?.length > 0 &&
           ![0, "0"].includes(ex?.availableToLay[0]?.price) ? (
             <SeperateBox

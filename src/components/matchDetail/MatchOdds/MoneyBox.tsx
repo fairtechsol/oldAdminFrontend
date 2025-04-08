@@ -10,7 +10,7 @@ const MoneyBox = ({ color, rates }: any) => {
   return (
     <Box
       sx={{
-        width: "85px",
+        width: "65px",
         marginRight: { xs: "5px", lg: "15px" },
         border: "1px solid #2626264D",
         borderRadius: "5px",
