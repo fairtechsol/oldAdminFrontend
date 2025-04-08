@@ -2,7 +2,17 @@ import { Box } from "@mui/material";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import SearchInput from "../../Common/SearchInput";
 
-const ListHeaderRow = ({ setPageLimit, pageLimit, setCurrentPage }: any) => {
+interface ListHeaderRowProps {
+  setPageLimit: (value: number) => void;
+  pageLimit: number;
+  setCurrentPage: (value: number) => void;
+}
+
+const ListHeaderRow = ({
+  setPageLimit,
+  pageLimit,
+  setCurrentPage,
+}: ListHeaderRowProps) => {
   return (
     <Box
       sx={{
@@ -32,6 +42,7 @@ const ListHeaderRow = ({ setPageLimit, pageLimit, setCurrentPage }: any) => {
         searchFor="currentBets"
         placeholder="Search..."
         setCurrentPage={setCurrentPage}
+        pageLimit={pageLimit}
       />
     </Box>
   );

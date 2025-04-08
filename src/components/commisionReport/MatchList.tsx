@@ -177,55 +177,50 @@ const MatchList = ({
         </Box>
       </Box>
       {showCommisionReport && selectedId?.matchId == element?.matchId && (
-        <>
+        <Box
+          sx={{
+            width: { xs: "100%", lg: "96%" },
+            marginTop: { xs: ".25vh" },
+            marginLeft: { lg: "4%" },
+            display: "flex",
+            overflowX: "auto",
+            flexDirection: { lg: "column", xs: "column" },
+          }}
+        >
+          <HeaderRowCommissionReport />
           <Box
             sx={{
-              width: { xs: "100%", lg: "96%" },
-              marginTop: { xs: ".25vh" },
-              marginLeft: { lg: "4%" },
-              display: "flex",
-              overflowX: "auto",
-              flexDirection: { lg: "column", xs: "column" },
+              width: "100%",
+              position: "relative",
             }}
           >
-            <HeaderRowCommissionReport />
-            <Box
-              sx={{
-                width: "100%",
-                position: "relative",
-              }}
-            >
-              {commissionBetPlacedList?.length > 0 &&
-                commissionBetPlacedList.map((element: any, i: number) => (
-                  <AccountListRow
-                    key={i}
-                    showOptions={false}
-                    showChildModal={true}
-                    containerStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                      background: ["BACK", "YES"].includes(element?.betType)
-                        ? "#B3E0FF"
-                        : ["LAY", "NO"].includes(element?.betType)
-                        ? "#FF9292"
-                        : "#FFE094 ",
-                    }}
-                    profit={element.profitLoss >= 0}
-                    fContainerStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                      background:
-                        element?.commissionType === "session"
-                          ? "#319E5B"
-                          : "#F1C550",
-                    }}
-                    fTextStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                    }}
-                    element={element}
-                  />
-                ))}
-            </Box>
+            {commissionBetPlacedList?.length > 0 &&
+              commissionBetPlacedList.map((element: any, i: number) => (
+                <AccountListRow
+                  key={i}
+                  containerStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                    background: ["BACK", "YES"].includes(element?.betType)
+                      ? "#B3E0FF"
+                      : ["LAY", "NO"].includes(element?.betType)
+                      ? "#FF9292"
+                      : "#FFE094 ",
+                  }}
+                  fContainerStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                    background:
+                      element?.commissionType === "session"
+                        ? "#319E5B"
+                        : "#F1C550",
+                  }}
+                  fTextStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                  }}
+                  element={element}
+                />
+              ))}
           </Box>
-        </>
+        </Box>
       )}
     </Box>
   );

@@ -15,6 +15,8 @@ interface currentBets {
   searchBy?: any;
   keyword?: any;
   filter?: any;
+  page: number;
+  limit?: number;
 }
 
 export const getAccountStatement = createAsyncThunk<any, AccountStatement>(
@@ -44,9 +46,17 @@ export const getCurrentBets = createAsyncThunk<any, currentBets>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.WALLET.REPORTS.CURRENT_BETS}?status=PENDING&searchBy=${
-          requestData?.searchBy || ""
-        }&keyword=${requestData?.keyword || ""}&sort=betPlaced.createdAt:DESC`
+        `${ApiConstants.WALLET.REPORTS.CURRENT_BETS}`,
+        {
+          params: {
+            status: "PENDING",
+            searchBy: requestData?.searchBy,
+            keyword: requestData?.keyword,
+            sort: "betPlaced.createdAt:DESC",
+            page: requestData?.page,
+            limit: requestData?.limit,
+          },
+        }
       );
       if (resp) {
         return resp?.data;
@@ -206,4 +216,3 @@ export const updateUserSearchId = createAsyncThunk<any, any>(
 export const resetSessionProfitLoss = createAction("sessionProfitLoss/reset");
 export const resetBetProfitLoss = createAction("betProfitLoss/reset");
 export const resetDomainProfitLoss = createAction("domainProfitLoss/reset");
-

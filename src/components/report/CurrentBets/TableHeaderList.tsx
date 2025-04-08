@@ -5,7 +5,7 @@ const TableHeaderList = () => {
     <Box
       sx={{
         display: "flex",
-        width: { xs: "1070px", lg: "100%" },
+        width: { xs: "1070px", md: "100%", lg: "100%" },
         height: "35px",
         background: "#262626",
         alignItems: "center",

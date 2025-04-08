@@ -112,6 +112,8 @@ const SearchInput = ({
           getCurrentBets({
             searchBy: "user.userName",
             keyword: value,
+            page: 1,
+            limit: pageLimit,
           })
         );
       }

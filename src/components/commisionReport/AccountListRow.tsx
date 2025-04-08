@@ -3,12 +3,19 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { formatToINR } from "../../helper";
 
+interface AccountListRowProps {
+  containerStyle: any;
+  fContainerStyle: any;
+  fTextStyle: any;
+  element: any;
+}
+
 const AccountListRow = ({
   containerStyle,
   fContainerStyle,
   fTextStyle,
   element,
-}: any) => {
+}: AccountListRowProps) => {
   const prevElement = {
     name: element?.name,
     commissionAmount: formatToINR(element?.commissionAmount),
@@ -48,7 +55,6 @@ const AccountListRow = ({
           }}
         />
       )}
-
       <Box
         sx={[
           {
@@ -246,7 +252,6 @@ const AccountListRow = ({
             {elementToUDM?.stack}
           </Typography>
         </Box>
-
         <Box
           sx={{
             width: "12.5%",

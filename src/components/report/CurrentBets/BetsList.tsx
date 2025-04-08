@@ -1,29 +1,31 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentBets } from "../../../store/actions/reports";
+import { AppDispatch, RootState } from "../../../store/store";
 import Pagination from "../../Common/Pagination";
 import EmptyRow from "./EmptyRow";
 import ListHeaderRow from "./ListHeaderRow";
 import TableDataRow from "./TableDataRow";
 import TableHeaderList from "./TableHeaderList";
 
-const BetsList = ({ betHistory }: any) => {
+const BetsList = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
 
-  function paginate(array: any, pageNumber: number, pageSize: number) {
-    try {
-      --pageNumber;
-      if (array.length > 0) {
-        const startIndex = pageNumber * pageSize;
-        const endIndex = startIndex + pageSize;
-        return array?.slice(startIndex, endIndex);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  const { currentBetsList } = useSelector(
+    (state: RootState) => state.user.reportList
+  );
 
-  const currentPageData = paginate(betHistory, currentPage, pageLimit);
+  useEffect(() => {
+    dispatch(
+      getCurrentBets({
+        page: currentPage,
+        limit: pageLimit,
+      })
+    );
+  }, [currentPage, pageLimit]);
 
   return (
     <Box
@@ -54,8 +56,8 @@ const BetsList = ({ betHistory }: any) => {
       <Box sx={{ overflowX: "auto" }}>
         <TableHeaderList />
 
-        {currentPageData &&
-          currentPageData?.map((item: any, index: any) => {
+        {currentBetsList &&
+          currentBetsList?.rows?.map((item: any, index: any) => {
             return (
               <TableDataRow
                 key={item?.id}
@@ -70,7 +72,7 @@ const BetsList = ({ betHistory }: any) => {
               />
             );
           })}
-        {(!betHistory || betHistory?.length === 0) && (
+        {(!currentBetsList || currentBetsList?.count === 0) && (
           <EmptyRow containerStyle={{ background: "#FFE094" }} />
         )}
       </Box>
@@ -84,7 +86,8 @@ const BetsList = ({ betHistory }: any) => {
         <Pagination
           currentPage={currentPage}
           pages={Math.ceil(
-            parseInt(betHistory?.length ? betHistory?.length : 1) / pageLimit
+            parseInt(currentBetsList?.count ? currentBetsList?.count : 1) /
+              pageLimit
           )}
           setCurrentPage={setCurrentPage}
         />
