@@ -1,10 +1,8 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import type { TeamDetailRow } from "../../interface/inplay";
+import { Box, Typography } from "@mui/material";
+import type { TeamDetailRowProps } from "../../interface/inplay";
 import SeparateBox from "./SeparateBox";
 
-const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRow) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRowProps) => {
   return (
     <Box
       sx={{
@@ -55,7 +53,7 @@ const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRow) => {
               ? match?.back12 || match?.section?.[2]?.odds?.[0]?.odds || 0
               : 0) ?? 0
           }
-          color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
+          color="#A7DCFF"
         />
         <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
         <SeparateBox
@@ -68,7 +66,7 @@ const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRow) => {
               ? match?.lay12 || match?.section?.[2]?.odds?.[1]?.odds || 0
               : 0) ?? 0
           }
-          color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
+          color="#FFB5B5"
         />
         <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
       </Box>

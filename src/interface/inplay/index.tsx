@@ -5,13 +5,13 @@ export interface MatchComponentInterface {
   onClick: (value: any) => void;
 }
 
-export interface TeamDetailRow {
+export interface TeamDetailRowProps {
   teamName: string;
   runnerNumber: number;
   match: any;
 }
 
-export interface SeparateBox {
+export interface SeparateBoxProps {
   color: string;
   value: number | string;
 }

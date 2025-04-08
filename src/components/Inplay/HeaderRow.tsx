@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
 
-const HeaderRow = ({ match, timeLeft }: any) => {
+interface HeaderRowProps {
+  match: any;
+  timeLeft: any;
+}
+
+const HeaderRow = ({ match, timeLeft }: HeaderRowProps) => {
   return (
     <Box
       sx={{
