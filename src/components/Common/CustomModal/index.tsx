@@ -1,19 +1,26 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
-import { IoCloseCircle } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePasswordReset } from "../../../store/actions/user/userAction";
+
+interface CustomModalProps {
+  transactionMessage?: string;
+  modalTitle?: string;
+  buttonMessage?: string;
+  setShowModal: (show: boolean) => void;
+  functionDispatch: () => void;
+  navigateTo: string;
+}
 
 const CustomModal = ({
   transactionMessage,
   modalTitle,
   buttonMessage,
   setShowModal,
-  closeBtn,
   functionDispatch,
   navigateTo,
-}: any) => {
+}: CustomModalProps) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,7 +33,6 @@ const CustomModal = ({
   }, []);
 
   const handleEnterPress = (e: any) => {
-    debugger;
     if (e?.key === "Enter") {
       handleSubmit();
     }
@@ -78,24 +84,6 @@ const CustomModal = ({
               minWidth: { lg: "250px", md: "200px", xs: "0px" },
             }}
           >
-            {/* clode button  start*/}
-            {closeBtn ? (
-              <Box
-                sx={{
-                  position: "absolute",
-                  right: "-10px",
-                  top: "-15px",
-                  zIndex: 99999,
-                  color: "#fff",
-                  fontSize: "28px",
-                }}
-              >
-                <IoCloseCircle />
-              </Box>
-            ) : (
-              ""
-            )}
-            {/* clode button end */}
             <Box
               sx={{
                 maxHeight: "300px",

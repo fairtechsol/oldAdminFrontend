@@ -887,7 +887,6 @@ const AddAccount = () => {
             <CustomModal
               modalTitle="User Added sucessfully"
               setShowModal={setShowModal}
-              showModal={showModal}
               buttonMessage="Ok"
               functionDispatch={() => {}}
               navigateTo={`${Constants.oldAdmin}list_of_clients`}
