@@ -2,12 +2,7 @@ import { Box } from "@mui/material";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import SearchInput from "../../Common/SearchInput";
 
-const ListHeaderRow = ({
-  getLimitEntries,
-  setPageLimit,
-  pageLimit,
-  setCurrentPage,
-}: any) => {
+const ListHeaderRow = ({ setPageLimit, pageLimit, setCurrentPage }: any) => {
   return (
     <Box
       sx={{

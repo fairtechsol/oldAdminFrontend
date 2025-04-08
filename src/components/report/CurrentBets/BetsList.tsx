@@ -6,7 +6,7 @@ import ListHeaderRow from "./ListHeaderRow";
 import TableDataRow from "./TableDataRow";
 import TableHeaderList from "./TableHeaderList";
 
-const BetsList = ({ getLimitEntries, betHistory }: any) => {
+const BetsList = ({ betHistory }: any) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
 
@@ -46,7 +46,6 @@ const BetsList = ({ getLimitEntries, betHistory }: any) => {
       }}
     >
       <ListHeaderRow
-        getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
         setCurrentPage={setCurrentPage}
