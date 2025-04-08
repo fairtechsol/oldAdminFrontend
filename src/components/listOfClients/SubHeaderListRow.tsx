@@ -218,7 +218,6 @@ const SubHeaderListRow = ({ data }: any) => {
           justifyContent: "center",
           alignItems: "center",
           height: "45px",
-          borderRight: "2px solid white",
         }}
       />
     </Box>

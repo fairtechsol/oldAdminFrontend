@@ -505,7 +505,6 @@ const AccountListRow = ({
             paddingX: "10px",
             alignItems: "center",
             height: "45px",
-            borderRight: "2px solid white",
           }}
         >
           <Typography variant="h5">{element.roleName}</Typography>
