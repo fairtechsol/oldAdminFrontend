@@ -76,22 +76,14 @@ const BetsList = () => {
           <EmptyRow containerStyle={{ background: "#FFE094" }} />
         )}
       </Box>
-
-      <Box
-        sx={{
-          width: "100%",
-          position: "absolute",
-        }}
-      >
-        <Pagination
-          currentPage={currentPage}
-          pages={Math.ceil(
-            parseInt(currentBetsList?.count ? currentBetsList?.count : 1) /
-              pageLimit
-          )}
-          setCurrentPage={setCurrentPage}
-        />
-      </Box>
+      <Pagination
+        currentPage={currentPage}
+        pages={Math.ceil(
+          parseInt(currentBetsList?.count ? currentBetsList?.count : 1) /
+            pageLimit
+        )}
+        setCurrentPage={setCurrentPage}
+      />
     </Box>
   );
 };

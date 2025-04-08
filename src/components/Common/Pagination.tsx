@@ -15,7 +15,6 @@ const Pagination = ({
         px: { xs: "5px", lg: "10px" },
         justifyContent: "space-between",
         background: "#FAFAFA",
-        marginBottom: "20px",
       }}
     >
       <Typography
