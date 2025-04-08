@@ -40,7 +40,7 @@ const HeaderRow = ({ match, timeLeft }: any) => {
       </Box>
       <div
         style={{
-          background: "#f1c40f",
+          background: "#f1c550",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
