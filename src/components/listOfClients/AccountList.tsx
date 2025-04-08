@@ -81,43 +81,21 @@ const AccountList = (endpoint: AccountListProps) => {
             )}
             {userList?.list?.length > 0 &&
               userList?.list?.map(
-                (element: AccountListDataInterface, i: number) => {
-                  if (i % 2 === 0) {
-                    return (
-                      <AccountListRow
-                        key={element?.id}
-                        callProfile={true}
-                        showOptions={true}
-                        showUserDetails={true}
-                        showCReport={true}
-                        containerStyle={{ background: "#FFE094" }}
-                        profit={(+element?.userBal?.profitLoss || 0) >= 0}
-                        fContainerStyle={{ background: "#0B4F26" }}
-                        fTextStyle={{ color: "white" }}
-                        element={element}
-                        show={false}
-                        currentPage={currentPage}
-                      />
-                    );
-                  } else {
-                    return (
-                      <AccountListRow
-                        key={element?.id}
-                        showCReport={true}
-                        callProfile={true}
-                        showUserDetails={true}
-                        showOptions={true}
-                        containerStyle={{ background: "#ECECEC" }}
-                        profit={(+element?.userBal?.profitLoss || 0) >= 0}
-                        fContainerStyle={{ background: "#F8C851" }}
-                        fTextStyle={{ color: "#0B4F26" }}
-                        element={element}
-                        show={false}
-                        currentPage={currentPage}
-                      />
-                    );
-                  }
-                }
+                (element: AccountListDataInterface, i: number) => (
+                  <AccountListRow
+                    key={element?.id}
+                    containerStyle={{
+                      background: i % 2 === 0 ? "#FFE094" : "#ECECEC",
+                    }}
+                    profit={(+element?.userBal?.profitLoss || 0) >= 0}
+                    fContainerStyle={{
+                      background: i % 2 === 0 ? "#0B4F26" : "#F8C851",
+                    }}
+                    fTextStyle={{ color: i % 2 === 0 ? "white" : "#0B4F26" }}
+                    element={element}
+                    currentPage={currentPage}
+                  />
+                )
               )}
           </Box>
         </Box>

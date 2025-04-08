@@ -62,7 +62,6 @@ const HeaderRow = ({ match, timeLeft }: any) => {
       >
         <div className="slanted" />
       </Box>
-
       <Box
         sx={{
           flex: 1,

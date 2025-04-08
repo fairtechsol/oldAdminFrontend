@@ -74,11 +74,6 @@ const AddAccount = () => {
     },
     remarks: "",
     adminTransPassword: "",
-    logo: "",
-    base64Image: "",
-    sidebarColor: "",
-    headerColor: "",
-    footerColor: "",
   };
 
   const [AccountTypes, setAccountTypes] = useState<any>([]);
