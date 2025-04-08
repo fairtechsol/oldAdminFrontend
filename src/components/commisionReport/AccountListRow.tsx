@@ -66,9 +66,9 @@ const AccountListRow = ({
         <Box
           sx={[
             {
-              width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+              width: "12.5%",
               display: "flex",
-              paddingX: "10px",
+              paddingLeft: "10px",
               justifyContent: "space-between",
               alignItems: "center",
               height: "45px",
@@ -97,9 +97,9 @@ const AccountListRow = ({
         <Box
           sx={[
             {
-              width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+              width: "12.5%",
               display: "flex",
-              paddingX: "10px",
+              paddingLeft: "10px",
               justifyContent: "space-between",
               alignItems: "center",
               height: "45px",
@@ -128,9 +128,9 @@ const AccountListRow = ({
         <Box
           sx={[
             {
-              width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+              width: "12.5%",
               display: "flex",
-              paddingX: "10px",
+              paddingLeft: "10px",
               justifyContent: "space-between",
               alignItems: "center",
               height: "45px",
@@ -157,7 +157,7 @@ const AccountListRow = ({
         </Box>
         <Box
           sx={{
-            width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+            width: "12.5%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -180,7 +180,7 @@ const AccountListRow = ({
         </Box>
         <Box
           sx={{
-            width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+            width: "12.5%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -189,14 +189,17 @@ const AccountListRow = ({
           }}
         >
           <Typography
-            sx={[{ fontSize: "12px", fontWeight: "600" }, fTextStyle]}
+            sx={[
+              { fontSize: "12px", fontWeight: "600", lineHeight: 1 },
+              fTextStyle,
+            ]}
           >
             {elementToUDM?.teamBet}
           </Typography>
         </Box>
         <Box
           sx={{
-            width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+            width: "12.5%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -212,7 +215,7 @@ const AccountListRow = ({
         </Box>
         <Box
           sx={{
-            width: { lg: "15%", md: "15%", xs: "15%" },
+            width: "15%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -229,7 +232,7 @@ const AccountListRow = ({
         </Box>
         <Box
           sx={{
-            width: { lg: "15%", md: "15%", xs: "15%" },
+            width: "15%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -246,7 +249,7 @@ const AccountListRow = ({
 
         <Box
           sx={{
-            width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+            width: "12.5%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
@@ -262,7 +265,7 @@ const AccountListRow = ({
         </Box>
         <Box
           sx={{
-            width: { lg: "12.5%", md: "12.5%", xs: "12.5%" },
+            width: "12.5%",
             display: "flex",
             paddingLeft: "10px",
             alignItems: "center",
