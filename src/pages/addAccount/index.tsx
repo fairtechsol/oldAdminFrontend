@@ -874,21 +874,21 @@ const AddAccount = () => {
               </Box>
             </Box>
           </form>
-          <ModalMUI
-            open={showModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <CustomModal
-              modalTitle="User Added sucessfully"
-              setShowModal={setShowModal}
-              buttonMessage="Ok"
-              functionDispatch={() => {}}
-              navigateTo={`${Constants.oldAdmin}list_of_clients`}
-            />
-          </ModalMUI>
         </Box>
       )}
+      <ModalMUI
+        open={showModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <CustomModal
+          modalTitle="User Added sucessfully"
+          setShowModal={setShowModal}
+          buttonMessage="Ok"
+          functionDispatch={() => {}}
+          navigateTo={`${Constants.oldAdmin}list_of_clients`}
+        />
+      </ModalMUI>
     </>
   );
 };

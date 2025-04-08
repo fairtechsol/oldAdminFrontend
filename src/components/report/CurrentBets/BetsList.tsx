@@ -52,10 +52,8 @@ const BetsList = () => {
         pageLimit={pageLimit}
         setCurrentPage={setCurrentPage}
       />
-
       <Box sx={{ overflowX: "auto" }}>
         <TableHeaderList />
-
         {currentBetsList &&
           currentBetsList?.rows?.map((item: any, index: any) => {
             return (

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getCommissionBetPlaced,
   getCommissionMatch,
+  getSessionProfitLoss,
   resetBetProfitLoss,
   resetDomainProfitLoss,
   resetSessionProfitLoss,
@@ -56,7 +57,7 @@ const profitLossReportSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(getCommissionBetPlaced.pending, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.success = false;
         state.error = null;
         state.commissionBetPlacedList = [];
@@ -67,6 +68,18 @@ const profitLossReportSlice = createSlice({
         state.commissionBetPlacedList = action?.payload;
       })
       .addCase(getCommissionBetPlaced.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getSessionProfitLoss.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sessionProfitLossList = action?.payload;
+      })
+      .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

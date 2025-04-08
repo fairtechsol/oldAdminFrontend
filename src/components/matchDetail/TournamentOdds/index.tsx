@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { formatToINR } from "../../../helper";
@@ -358,7 +358,7 @@ const TournamentOdds = ({
               </Box>
             )}
             {liveData?.runners?.map((runner: any, index: number) => (
-              <>
+              <Fragment key={index}>
                 <BoxComponent
                   name={runner?.nat || runner?.runnerName}
                   rates={
@@ -418,7 +418,7 @@ const TournamentOdds = ({
                   marketDetails={liveData}
                 />
                 <Divider />
-              </>
+              </Fragment>
             ))}
             {locked && (
               <Box

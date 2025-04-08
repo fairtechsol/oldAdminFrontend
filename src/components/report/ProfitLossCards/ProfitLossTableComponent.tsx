@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -92,23 +92,21 @@ const ProfitLossTableComponent = ({
   return (
     <>
       {eventData?.length > 0 ? (
-        <Box>
+        <>
           {eventData?.map((item: any, index: any) => {
             return (
-              <>
-                <RowHeaderMatches
-                  key={index}
-                  item={item}
-                  index={index}
-                  getHandleReport={getHandleReport}
-                  selectedId={selectedId}
-                  getBetReport={getBetReport}
-                  userProfitLoss={userProfitLoss}
-                  getUserProfitLoss={getUserProfitLoss}
-                  eventType={event}
-                  currentPage={currentPage}
-                />
-              </>
+              <RowHeaderMatches
+                key={index}
+                item={item}
+                index={index}
+                getHandleReport={getHandleReport}
+                selectedId={selectedId}
+                getBetReport={getBetReport}
+                userProfitLoss={userProfitLoss}
+                getUserProfitLoss={getUserProfitLoss}
+                eventType={event}
+                currentPage={currentPage}
+              />
             );
           })}
           <Footer
@@ -122,21 +120,19 @@ const ProfitLossTableComponent = ({
               ) / Constants.pageLimit
             )}
           />
-        </Box>
+        </>
       ) : (
-        <Box>
-          <Typography
-            sx={{
-              color: "#fff",
-              textAlign: "center",
-              fontSize: { lg: "16px", xs: "10px" },
-              fontWeight: "600",
-              margin: "1rem",
-            }}
-          >
-            No Matching Records Found
-          </Typography>
-        </Box>
+        <Typography
+          sx={{
+            color: "#fff",
+            textAlign: "center",
+            fontSize: { lg: "16px", xs: "10px" },
+            fontWeight: "600",
+            margin: "1rem",
+          }}
+        >
+          No Matching Records Found
+        </Typography>
       )}
     </>
   );
