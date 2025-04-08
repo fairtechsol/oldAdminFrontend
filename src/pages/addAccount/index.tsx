@@ -754,7 +754,6 @@ const AddAccount = () => {
                   {!["", null, "0.00"].includes(
                     formik.values.matchCommissionType.value
                   ) && (
-                    <>
                       <SelectField
                         containerStyle={containerStyles}
                         titleStyle={titleStyles}
@@ -771,7 +770,6 @@ const AddAccount = () => {
                         }}
                         onBlur={formik.handleBlur}
                       />
-                    </>
                   )}
                   <SelectField
                     containerStyle={containerStyles}

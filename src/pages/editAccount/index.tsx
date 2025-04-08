@@ -5,6 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import ModalMUI from "@mui/material/Modal";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -699,7 +700,6 @@ const EditAccount = () => {
                 {!["", null, "0.00"].includes(
                   formik.values.matchCommissionType.value
                 ) && (
-                  <>
                     <SelectField
                       containerStyle={containerStyles}
                       titleStyle={titleStyles}
@@ -716,9 +716,7 @@ const EditAccount = () => {
                       }}
                       onBlur={formik.handleBlur}
                     />
-                  </>
                 )}
-
                 <SelectField
                   containerStyle={containerStyles}
                   titleStyle={titleStyles}
@@ -820,7 +818,11 @@ const EditAccount = () => {
           </Box>
         </form>
       </Box>
-      {showModal && (
+      <ModalMUI
+        open={showModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <CustomModal
           modalTitle="User edited successfully"
           setShowModal={setShowModal}
@@ -828,7 +830,7 @@ const EditAccount = () => {
           functionDispatch={() => {}}
           navigateTo={`${Constants.oldAdmin}list_of_clients`}
         />
-      )}
+      </ModalMUI>
     </>
   );
 };
