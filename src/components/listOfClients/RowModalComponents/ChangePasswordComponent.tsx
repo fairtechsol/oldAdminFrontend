@@ -188,7 +188,7 @@ const ChangePasswordComponent = (props: any) => {
               }}
             >
               <BoxButton
-                color={"#E32A2A"}
+                color="#E32A2A"
                 containerStyle={{
                   width: "100%",
                   background: "#E32A2A",
@@ -208,7 +208,7 @@ const ChangePasswordComponent = (props: any) => {
                 onClick={() => {
                   setSelected();
                 }}
-                title={"Cancel"}
+                title="Cancel"
               />
             </Box>
           </Box>
@@ -307,7 +307,7 @@ const ChangePasswordComponent = (props: any) => {
               }}
             >
               <BoxButton
-                color={"#0B4F26"}
+                color="#0B4F26"
                 disabled={isSubmitting}
                 loading={loading}
                 containerStyle={{
@@ -325,7 +325,7 @@ const ChangePasswordComponent = (props: any) => {
                 }}
                 isSelected={true}
                 type="submit"
-                title={"Submit"}
+                title="Submit"
               />
             </Box>
           </Box>
@@ -346,9 +346,9 @@ const ChangePasswordComponent = (props: any) => {
                   height: "35px",
                 }}
                 isSelected={true}
-                color={"#0B4F26"}
+                color="#0B4F26"
                 type="submit"
-                title={"Submit"}
+                title="Submit"
               />
             </Box>
           </Box>

@@ -1,4 +1,4 @@
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommissionMatch } from "../../store/actions/reports";
@@ -8,10 +8,18 @@ import FooterRowCommissionReport from "./FooterRowCommissionReport";
 import ListHeader from "./ListHeader";
 import MatchList from "./MatchList";
 
-const CommissionReportTable = ({ id, setShow, title }: any) => {
+interface CommissionReportTableProps {
+  id: string;
+  setShow: (show: any) => void;
+  title: string;
+}
+
+const CommissionReportTable = ({
+  id,
+  setShow,
+  title,
+}: CommissionReportTableProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const theme = useTheme();
-  const matchesxs = useMediaQuery(theme.breakpoints.down("lg"));
   const { loading, commissionMatchList } = useSelector(
     (state: RootState) => state.report.reportList
   );
@@ -54,15 +62,11 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
           <Loader />
         ) : (
           <>
-            {" "}
             <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
               <ListHeader
-                id={id}
                 userName={title}
-                title={"Commission Report"}
-                // setMatchList={setMatchList}
+                title="Commission Report"
                 setShow={setShow}
-                matchesxs={matchesxs}
               />
             </Box>
             <Box

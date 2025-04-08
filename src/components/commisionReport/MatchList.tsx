@@ -9,6 +9,16 @@ import AccountListRow from "./AccountListRow";
 import HeaderRowCommissionReport from "./HeadeRowCommissionReport";
 import StyledImage from "./StyledImage";
 
+interface MatchListProps {
+  element: any;
+  index: number;
+  showCommisionReport: boolean;
+  setShowCommisionReport: (show: boolean) => void;
+  selectedId: { matchId: string; userId: string };
+  setSelectedId: (id: { matchId: string; userId: string }) => void;
+  id: string;
+}
+
 const MatchList = ({
   element,
   index,
@@ -17,7 +27,7 @@ const MatchList = ({
   selectedId,
   setSelectedId,
   id,
-}: any) => {
+}: MatchListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { commissionBetPlacedList } = useSelector(
     (state: RootState) => state.report.reportList

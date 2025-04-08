@@ -7,7 +7,6 @@ import { DownGIcon, DownIcon, LockIcon, UnLockIcon } from "../../assets";
 import { formatToINR } from "../../helper";
 import { AccountListRowInterface } from "../../interface/listOfClients";
 import { ApiConstants, Constants } from "../../utils/Constants";
-import { Modal } from "../Common/Modal";
 import StyledImage from "../Common/StyledImages";
 import CommissionReportTable from "../commisionReport/CommissionReportTable";
 import AccountListModal from "./AccountListModal";
@@ -21,13 +20,10 @@ const AccountListRow = ({
   fTextStyle,
   profit,
   element,
-  getListOfUser,
   currentPage,
 }: AccountListRowInterface) => {
   const navigate = useNavigate();
-  const [userModal] = useState({});
   const [showUserModal, setShowUserModal] = useState(false);
-  const [showModalMessage, setShowModalMessage] = useState("No data found");
   const [showSubUsers, setSubSusers] = useState({
     value: false,
     id: "",
@@ -40,7 +36,6 @@ const AccountListRow = ({
     value: {},
     matchType: "",
   });
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [selected, setSelected] = useState(null);
 
   const [values, setValues] = useState({
@@ -697,12 +692,8 @@ const AccountListRow = ({
               selected={selected}
               element={element}
               setSelected={setSelected}
-              getListOfUser={getListOfUser}
               setShowUserModal={setShowUserModal}
               backgroundColor={containerStyle?.background}
-              userModal={userModal}
-              setShowSuccessModal={setShowSuccessModal}
-              setShowModalMessage={setShowModalMessage}
               onValueChange={handleAmountChange}
               currentPage={currentPage}
             />
@@ -731,9 +722,7 @@ const AccountListRow = ({
           <CommissionReportTable
             title={element?.userName}
             id={showCommissionReport?.id}
-            show={showCommissionReport?.value}
             setShow={setShowCommissionReport}
-            currentPage={currentPage}
           />
         </Box>
       </ModalMUI>
@@ -799,16 +788,6 @@ const AccountListRow = ({
           />
         </Box>
       </ModalMUI>
-
-      {showSuccessModal && (
-        <Modal
-          message={showModalMessage}
-          setShowSuccessModal={setShowSuccessModal}
-          showSuccessModal={showSuccessModal}
-          buttonMessage="OK"
-          navigateTo="list_of_clients"
-        />
-      )}
     </>
   );
 };

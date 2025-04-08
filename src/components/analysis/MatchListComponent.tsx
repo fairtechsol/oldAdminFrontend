@@ -7,6 +7,16 @@ import { IconConstants } from "../../helper/gameConstants";
 import { Constants } from "../../utils/Constants";
 import StockBox from "./StockBox";
 
+interface MatchListComponentProps {
+  team: string;
+  team2: string;
+  selected: boolean;
+  mode: string;
+  data: any;
+  setSelected: () => void;
+  title: string;
+}
+
 const MatchListComponent = ({
   team,
   team2,
@@ -15,7 +25,7 @@ const MatchListComponent = ({
   data,
   setSelected,
   title,
-}: any) => {
+}: MatchListComponentProps) => {
   const navigate = useNavigate();
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
@@ -268,7 +278,6 @@ const MatchListComponent = ({
                   width: "70px",
                   height: "15px",
                   top: "-10px",
-
                   left: "-1px",
                   background: "#129FFE",
                   display: "flex",
@@ -374,7 +383,7 @@ const MatchListComponent = ({
                 position: "absolute",
                 right: 0,
               }}
-            ></Box>
+            />
           )}
         </Box>
       </Box>

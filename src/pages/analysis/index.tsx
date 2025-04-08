@@ -8,7 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -207,20 +207,15 @@ const Analysis = () => {
                 },
               }}
             >
-              <CustomBox
-                onClick={() => handleClick("2")}
-                title="2 Match Screen"
-              />
-              <Box sx={{ width: "10px" }} />
-              <CustomBox
-                onClick={() => handleClick("3")}
-                title="3 Match Screen"
-              />
-              <Box sx={{ width: "10px" }} />
-              <CustomBox
-                onClick={() => handleClick("4")}
-                title="4 Match Screen"
-              />
+              {["2", "3", "4"].map((value: string, index: number) => (
+                <Fragment key={value}>
+                  <CustomBox
+                    onClick={() => handleClick(value)}
+                    title={`${value} Match Screen`}
+                  />
+                  {index !== 2 && <Box sx={{ width: "10px" }} />}
+                </Fragment>
+              ))}
             </Box>
           )}
           {mode == "1" && (

@@ -2,7 +2,15 @@ import { Box, Typography } from "@mui/material";
 import { handleNumber } from "../../helper";
 import StyledImage from "../Common/StyledImages";
 
-const StockBox = ({ team, value, up, mode, color, showFixed }: any) => {
+interface StockBoxProps {
+  team: string;
+  value: string | number | any;
+  up?: boolean;
+  mode: string;
+  showFixed?: boolean;
+}
+
+const StockBox = ({ team, value, up, mode, showFixed }: StockBoxProps) => {
   return (
     <Box
       sx={{
@@ -66,7 +74,7 @@ const StockBox = ({ team, value, up, mode, color, showFixed }: any) => {
           textAlign: { xs: "center", lg: "center" },
         }}
       >
-        {showFixed ? value : handleNumber(parseFloat(value), color)}
+        {showFixed ? value : handleNumber(parseFloat(value), "")}
       </Typography>
     </Box>
   );
