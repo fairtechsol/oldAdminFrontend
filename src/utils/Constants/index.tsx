@@ -215,22 +215,6 @@ export const matchBettingType = {
   completeManual: "completeManual",
   setWinner1: "setWinner1",
   setWinner2: "setWinner2",
-  other: "other",
-  ...Array.from({ length: 20 }, (_, index: any) => index).reduce(
-    (prev, curr) => {
-      prev[`overUnder${curr}.5`] = `overUnder${curr}.5`;
-      return prev;
-    },
-    {}
-  ),
-  ...Array.from({ length: 20 }, (_, index: any) => index).reduce(
-    (prev, curr) => {
-      prev[`firstHalfGoal${curr}.5`] = `firstHalfGoal${curr}.5`;
-      return prev;
-    },
-    {}
-  ),
-  halfTime: "halfTime",
 };
 
 export const profitLossDataForMatchConstants = {
@@ -288,48 +272,6 @@ export const profitLossDataForMatchConstants = {
     A: "yesRateComplete",
     B: "noRateComplete",
   },
-  [matchBettingType.other]: {
-    A: "userTeamARateOther",
-    B: "userTeamBRateOther",
-    C: "userTeamCRateOther",
-  },
-  ...Array.from({ length: 20 }, (_, index) => index).reduce(
-    (prev: any, curr) => {
-      prev[`overUnder${curr}.5`] = {
-        A: `yesRateUnderOver${curr}.5`,
-        B: `noRateUnderOver${curr}.5`,
-      };
-      return prev;
-    },
-    {}
-  ),
-  ...Array.from({ length: 20 }, (_, index) => index).reduce(
-    (prev: any, curr) => {
-      prev[`firstHalfGoal${curr}.5`] = {
-        A: `yesRateFirstHalfGoal${curr}.5`,
-        B: `noRateFirstHalfGoal${curr}.5`,
-      };
-      return prev;
-    },
-    {}
-  ),
-  [matchBettingType.halfTime]: {
-    A: "userTeamARateHalfTime",
-    B: "userTeamBRateHalfTime",
-    C: "userTeamCRateHalfTime",
-  },
-
-  ...Array.from({ length: 20 }, (_, index) => index).reduce(
-    (prev: any, curr) => {
-      prev[`setWinner${curr}`] = {
-        A: `userTeamARateSetWinner${curr}`,
-        B: `userTeamBRateSetWinner${curr}`,
-        C: `userTeamCRateSetWinner${curr}`,
-      };
-      return prev;
-    },
-    {}
-  ),
 };
 
 export const marketApiConst: { [key: string]: string } = {
@@ -347,7 +289,7 @@ export const gameConstants = {
   politics: "politics",
 };
 
-export const cardGamesTypeConstants: any = {
+export const cardGamesTypeConstants = {
   dragonTiger20: "dt20",
   andarBahar2: "abj",
   teen20: "teen20",

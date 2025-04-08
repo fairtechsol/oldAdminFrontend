@@ -15,7 +15,7 @@ import {
   updateMaxLossForBetOnUndeclare,
   updateMaxLossForDeleteBet,
   updateTeamRates,
-  updateTeamRatesOnDelete
+  updateTeamRatesOnDelete,
 } from "../../actions/match/matchAction";
 
 interface InitialState {
@@ -97,53 +97,7 @@ const matchListSlice = createSlice({
         state.marketAnalysis = null;
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
-        const {
-          apiSession,
-          apiTiedMatch,
-          apiTiedMatch2,
-          bookmaker,
-          bookmaker2,
-          manualTideMatch,
-          marketCompleteMatch,
-          matchOdd,
-          quickbookmaker,
-          sessionBettings,
-          completeManual,
-          marketCompleteMatch1,
-          other,
-          tournament,
-        } = action?.payload;
-
-        // let parsedSessionBettings = state?.matchDetail?.sessionBettings?.map(
-        //   (item: any) => JSON.parse(item)
-        // );
-
-        // let apiParsedSessionBettings = sessionBettings?.map((item: any) =>
-        //   JSON.parse(item)
-        // );
-
-        // apiParsedSessionBettings.forEach((apiItem: any) => {
-        //   const index = parsedSessionBettings.findIndex(
-        //     (parsedItem: any) => parsedItem.id === apiItem.id
-        //   );
-        //   if (index !== -1) {
-        //     parsedSessionBettings[index] = {
-        //       ...parsedSessionBettings[index],
-        //       ...apiItem,
-        //     };
-        //   } else parsedSessionBettings?.push(apiItem);
-        // });
-
-        // let stringifiedSessionBetting = parsedSessionBettings?.map(
-        //   (item: any) => JSON.stringify(item)
-        // );
-
-        // let updatedFormat = convertData(parsedSessionBettings);
-
-        // let updatedSessionBettings = updateSessionBettingsItem(
-        //   updatedFormat,
-        //   apiSession
-        // );
+        const { apiSession, sessionBettings, tournament } = action?.payload;
 
         const parsedSessionBettings =
           state.matchDetail?.sessionBettings?.map(JSON.parse) || [];
@@ -170,28 +124,15 @@ const matchListSlice = createSlice({
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
-          apiTideMatch: apiTiedMatch,
-          apiTideMatch2: apiTiedMatch2,
-          bookmaker: bookmaker,
-          marketBookmaker2: bookmaker2,
-          manualTiedMatch: manualTideMatch,
-          marketCompleteMatch: marketCompleteMatch,
-          marketCompleteMatch1: marketCompleteMatch1,
-          matchOdd: matchOdd,
-          quickBookmaker: quickbookmaker,
           sessionBettings: stringifiedSessionBetting,
-          manualCompleteMatch: completeManual,
-          other: other,
           updatedSessionBettings: updateSessionBettingsItem(
             convertData(parsedSessionBettings),
             apiSession
           ),
           tournament: tournament?.sort((a: any, b: any) => {
-            // Primary sort by sno (ascending)
             if (a.sno !== b.sno) {
               return a.sno - b.sno;
             }
-            // If sno values are equal, sort so that null parentId comes first
             if (a.parentBetId === null && b.parentBetId !== null) return -1;
             if (a.parentBetId !== null && b.parentBetId === null) return 1;
             return 0;
@@ -201,7 +142,7 @@ const matchListSlice = createSlice({
       .addCase(matchListReset, (state) => {
         state.success = false;
       })
-     
+
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { jobData, profitLoss } = action?.payload;
         if (state?.matchDetail?.id === jobData?.placedBet?.matchId) {
@@ -290,43 +231,11 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRates.fulfilled, (state, action) => {
         const { userRedisObj, jobData } = action?.payload;
-        if (jobData?.newBet?.marketType === "other") {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].A +
-            "_" +
-            jobData?.newBet?.betId +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamArateRedisKey],
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].B +
-            "_" +
-            jobData?.newBet?.betId +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamBrateRedisKey],
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].C +
-            "_" +
-            jobData?.newBet?.betId +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamCrateRedisKey],
-          };
-        } else if (jobData?.newBet?.marketType === "tournament") {
+        if (jobData?.newBet?.marketType === "tournament") {
           state.matchDetail.profitLossDataMatch = {
             ...state.matchDetail.profitLossDataMatch,
             [jobData?.betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
               JSON.stringify(userRedisObj),
-          };
-        } else {
-          state.matchDetail.profitLossDataMatch = {
-            ...state.matchDetail.profitLossDataMatch,
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].A +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamArateRedisKey],
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].B +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamBrateRedisKey],
-            [profitLossDataForMatchConstants[jobData?.newBet?.marketType].C +
-            "_" +
-            state.matchDetail?.id]: userRedisObj[jobData?.teamCrateRedisKey],
           };
         }
       })
@@ -411,17 +320,19 @@ const matchListSlice = createSlice({
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         let matchListFromApi = action.payload;
         if (state.matchListInplay?.matches?.length > 0) {
-          state.matchListInplay.matches = state.matchListInplay?.matches?.map((items: any) => {
-            const itemToUpdate = matchListFromApi?.find(
-              (item: any) =>
-                +item?.gameId === +items?.eventId ||
-                +item?.gmid === +items?.eventId
-            );
-            return {
-              ...items,
-              ...itemToUpdate,
-            };
-          });
+          state.matchListInplay.matches = state.matchListInplay?.matches?.map(
+            (items: any) => {
+              const itemToUpdate = matchListFromApi?.find(
+                (item: any) =>
+                  +item?.gameId === +items?.eventId ||
+                  +item?.gmid === +items?.eventId
+              );
+              return {
+                ...items,
+                ...itemToUpdate,
+              };
+            }
+          );
         }
       })
       .addCase(amountupdate.fulfilled, (state, action) => {
