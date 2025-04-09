@@ -79,10 +79,24 @@ const SeasonMarketBox = ({
                 fontSize: { lg: "9px", md: "9px", xs: "8px" },
                 marginLeft: "7px",
                 fontWeight: "500",
+                lineHeight: "10px",
               }}
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
+            {newData?.rem && (
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
+                  marginLeft: "7px",
+                  fontWeight: "600",
+                  lineHeight: "10px",
+                }}
+              >
+                {newData?.rem}
+              </Typography>
+            )}
           </Box>
         </Box>
 
