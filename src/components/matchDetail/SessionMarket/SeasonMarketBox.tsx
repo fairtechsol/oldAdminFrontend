@@ -13,6 +13,7 @@ import CommissionDot from "../../Common/CommissionDot";
 import SeperateBox from "../MatchOdds/SeperateBox";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
+import MarqueeText from "./MarqueeText";
 
 const SeasonMarketBox = (props: any) => {
   const { newData, setData, profitLossData, index, type } = props;
@@ -426,43 +427,7 @@ const SeasonMarketBox = (props: any) => {
           <Divider />
         </React.Fragment>
       ))}
-      {newData?.rem && (
-        <Box
-          sx={{
-            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
-            height: "10px",
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            position: "relative",
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: "9px",
-              fontWeight: "500",
-              display: "inline-block",
-              paddingLeft: { xs: "100%", md: "0" },
-              paddingRight: { md: "2px" },
-              textAlign: { md: "right" },
-              width: { md: "100%" },
-              animation: {
-                xs: "marquee 50s linear infinite",
-                md: "none",
-              },
-              "@keyframes marquee": {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(-100%)" },
-              },
-            }}
-          >
-            {newData?.rem}
-          </Typography>
-        </Box>
-      )}
+      {newData?.rem && <MarqueeText>{newData?.rem}</MarqueeText>}
     </>
   );
 };
