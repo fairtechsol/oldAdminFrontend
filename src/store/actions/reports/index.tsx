@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import service from "../../../service";
-import { ApiConstants } from "../../../utils/Constants";
+import { ApiConstants, Constants } from "../../../utils/Constants";
 
 interface AccountStatement {
   id: string;
@@ -124,10 +124,16 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
 
 export const getCommissionMatch = createAsyncThunk<any, any>(
   "commissionMatch/list",
-  async (userId, thunkApi) => {
+  async ({ userId, currentPage }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.COMMISSION_MATCH}/${userId}`
+        `${ApiConstants.USER.COMMISSION_MATCH}/${userId}`,
+        {
+          params: {
+            page: currentPage || 1,
+            limit: Constants.pageLimit,
+          },
+        }
       );
       if (resp) {
         return resp?.data;

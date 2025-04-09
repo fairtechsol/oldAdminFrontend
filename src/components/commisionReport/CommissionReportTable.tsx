@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCommissionMatch } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
+import { Constants } from "../../utils/Constants";
+import Pagination from "../Common/Pagination";
 import Loader from "../Loader";
-import FooterRowCommissionReport from "./FooterRowCommissionReport";
 import ListHeader from "./ListHeader";
 import MatchList from "./MatchList";
 
@@ -23,7 +24,7 @@ const CommissionReportTable = ({
   const { loading, commissionMatchList } = useSelector(
     (state: RootState) => state.report.reportList
   );
-  const [currentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showCommisionReport, setShowCommisionReport] = useState(false);
   const [selectedId, setSelectedId] = useState({
     matchId: "",
@@ -32,9 +33,9 @@ const CommissionReportTable = ({
 
   useEffect(() => {
     if (id) {
-      dispatch(getCommissionMatch(id));
+      dispatch(getCommissionMatch({ userId: id, currentPage }));
     }
-  }, [id]);
+  }, [id, currentPage]);
 
   return (
     <>
@@ -44,6 +45,7 @@ const CommissionReportTable = ({
             width: { xs: "96%", lg: "85%", md: "96%" },
             // marginX: "0.5%",
             minHeight: loading ? "50%" : "200px",
+            maxHeight: "90%",
             display: "flex",
             flexDirection: "column",
             // justifyContent: "space-between",
@@ -75,7 +77,7 @@ const CommissionReportTable = ({
                 width: { xs: "100%", lg: "100%", md: "100%" },
               }}
             >
-              {commissionMatchList?.map((element: any, index: number) => (
+              {commissionMatchList?.rows?.map((element: any, index: number) => (
                 <MatchList
                   key={element?.id}
                   element={element}
@@ -88,7 +90,15 @@ const CommissionReportTable = ({
                 />
               ))}
             </Box>
-            <FooterRowCommissionReport currentPage={currentPage} />
+            <Pagination
+              currentPage={currentPage}
+              pages={Math.ceil(
+                parseInt(
+                  commissionMatchList?.count ? commissionMatchList?.count : 1
+                ) / Constants.pageLimit
+              )}
+              setCurrentPage={setCurrentPage}
+            />
           </>
         )}
       </Box>
