@@ -13,6 +13,7 @@ import CommissionDot from "../../Common/CommissionDot";
 import SeperateBox from "../MatchOdds/SeperateBox";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
+import MarqueeText from "./MarqueeText";
 
 const SeasonMarketBox = ({
   newData,
@@ -84,19 +85,6 @@ const SeasonMarketBox = ({
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
-            {newData?.rem && (
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                  lineHeight: "10px",
-                }}
-              >
-                {newData?.rem}
-              </Typography>
-            )}
           </Box>
         </Box>
 
@@ -435,6 +423,7 @@ const SeasonMarketBox = ({
           <Divider />
         </React.Fragment>
       ))}
+      {newData?.rem && <MarqueeText index={index}>{newData?.rem}</MarqueeText>}
     </>
   );
 };
