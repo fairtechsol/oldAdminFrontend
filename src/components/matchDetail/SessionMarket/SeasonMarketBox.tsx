@@ -427,7 +427,7 @@ const SeasonMarketBox = (props: any) => {
           <Divider />
         </React.Fragment>
       ))}
-      {newData?.rem && <MarqueeText>{newData?.rem}</MarqueeText>}
+      {newData?.rem && <MarqueeText index={index}>{newData?.rem}</MarqueeText>}
     </>
   );
 };
