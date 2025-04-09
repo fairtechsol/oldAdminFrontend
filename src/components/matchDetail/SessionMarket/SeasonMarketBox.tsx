@@ -79,19 +79,6 @@ const SeasonMarketBox = (props: any) => {
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
-            {newData?.rem && (
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                  lineHeight: "10px",
-                }}
-              >
-                {newData?.rem}
-              </Typography>
-            )}
           </Box>
           {/* </Typography> */}
         </Box>
@@ -439,6 +426,43 @@ const SeasonMarketBox = (props: any) => {
           <Divider />
         </React.Fragment>
       ))}
+      {newData?.rem && (
+        <Box
+          sx={{
+            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+            height: "10px",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: "9px",
+              fontWeight: "500",
+              display: "inline-block",
+              paddingLeft: { xs: "100%", md: "0" },
+              paddingRight: { md: "2px" },
+              textAlign: { md: "right" },
+              width: { md: "100%" },
+              animation: {
+                xs: "marquee 50s linear infinite",
+                md: "none",
+              },
+              "@keyframes marquee": {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(-100%)" },
+              },
+            }}
+          >
+            {newData?.rem}
+          </Typography>
+        </Box>
+      )}
     </>
   );
 };
