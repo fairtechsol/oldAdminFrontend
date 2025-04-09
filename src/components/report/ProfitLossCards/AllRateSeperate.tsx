@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import moment from "moment";
 import { useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import { formatToINR } from "../../../helper";
@@ -494,17 +495,17 @@ const AllRateSeperate = ({
 };
 
 const RowComponent = ({ header, data }: any) => {
-  const getTime = (date: any) => {
-    const now = new Date(date);
-    const timeString = now.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
-      timeZone: "Asia/Kolkata",
-    });
-    return timeString;
-  };
+  // const getTime = (date: any) => {
+  //   const now = new Date(date);
+  //   const timeString = now.toLocaleTimeString("en-US", {
+  //     hour: "numeric",
+  //     minute: "numeric",
+  //     second: "numeric",
+  //     hour12: true,
+  //     timeZone: "Asia/Kolkata",
+  //   });
+  //   return timeString;
+  // };
   const getColor = () => {
     if (header) {
       return "black";
@@ -557,7 +558,7 @@ const RowComponent = ({ header, data }: any) => {
             data={data}
             up={true}
             header={header}
-            time={getTime(data.createdAt)}
+            time={moment(data.createdAt).format("DD-MM-YYYY HH:mm:ss")}
             boxWidth="100%"
           />
           <SingleBox
