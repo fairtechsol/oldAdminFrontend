@@ -441,21 +441,30 @@ const EditAccount = () => {
     }
   }, [editSuccess]);
 
-  // useEffect(() => {
-  //   if (formik.values.matchCommissionType.value) {
-  //     formik.setValues({
-  //       ...formik.values,
-  //       matchCommission: {
-  //         label: "0.00",
-  //         value: "0.00",
-  //       },
-  //       sessionCommission: {
-  //         label: "0.00",
-  //         value: "0.00",
-  //       },
-  //     });
-  //   }
-  // }, [formik.values.matchCommissionType.value]);
+  useEffect(() => {
+    if (formik.values.matchCommissionType.value || formik.values.matchCommissionType.value == null) {
+      formik.setValues({
+        ...formik.values,
+        // matchCommission: {
+        //   label: "0.00",
+        //   value: "0.00",
+        // },
+        // sessionCommission: {
+        //   label: "0.00",
+        //   value: "0.00",
+        // },
+
+        matchCommission: {
+          label: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.matchCommission : "0.00",
+          value: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.matchCommission : "0.00",
+        },
+        sessionCommission: {
+          label: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.sessionCommission : "0.00",
+          value: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.sessionCommission : "0.00",
+        },
+      });
+    }
+  }, [formik.values.matchCommissionType.value]);
 
   return (
     <>
