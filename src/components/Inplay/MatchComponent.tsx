@@ -23,19 +23,19 @@ const MatchComponent = ({
     const diff = moment(match?.startAt).diff(moment());
     return diff > 0
       ? {
-          days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(
-            2,
-            "0"
-          ),
-          hours: String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(
-            2,
-            "0"
-          ),
-          minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(
-            2,
-            "0"
-          ),
-        }
+        days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(
+          2,
+          "0"
+        ),
+        hours: String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(
+          2,
+          "0"
+        ),
+        minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(
+          2,
+          "0"
+        ),
+      }
       : { days: "00", hours: "00", minutes: "00" };
   };
 
