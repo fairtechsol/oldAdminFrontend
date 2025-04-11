@@ -39,7 +39,7 @@ import { Constants } from "../../utils/Constants";
 // ];
 
 const MatchCommissionTypes = [
-  { value: "0.00", label: "0.00" },
+  { value: null, label: "0.00" },
   { value: "totalLoss", label: "Total Loss" },
   { value: "entryWise", label: "Entry Wise" },
 ];
@@ -136,9 +136,10 @@ const EditAccount = () => {
         city: values.city,
         remark: values.remarks,
         sessionCommission: values.sessionCommission.value == '0.00' ? 0 : values.sessionCommission.value,
-        matchComissionType: values.matchCommission.value == '0.00' ? null : values.matchCommissionType.value,
+        matchComissionType: values.matchCommissionType.value,
         matchCommission: values.matchCommission.value == '0.00' ? 0 : values.matchCommission.value,
       };
+      console.log("commonPayload :", commonPayload)
       dispatch(updateUser(commonPayload));
     },
   });
