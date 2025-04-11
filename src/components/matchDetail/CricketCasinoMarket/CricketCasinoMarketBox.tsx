@@ -5,14 +5,19 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import SeperateBox from "../MatchOdds/SeperateBox";
 import { BallStart } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import SeperateBox from "../MatchOdds/SeperateBox";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
-const CricketCasinoMarketBox = (props: any) => {
-  const { newData, setData, profitLossData, index, sessionData } = props;
+const CricketCasinoMarketBox = ({
+  newData,
+  setData,
+  profitLossData,
+  index,
+  sessionData,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 

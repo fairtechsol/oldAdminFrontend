@@ -1,11 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Box,
-    Pagination,
-    Table,
-    TableBody,
-    TableCell,
-    TableRow,
+  Box,
+  Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -15,11 +15,12 @@ import MatchComponent from "../../components/Inplay/MatchComponent";
 import Loader from "../../components/Loader";
 import { socketService } from "../../socketManager";
 import {
-    getMatchListInplay,
-    updateMatchRatesFromApiOnList,
+  getMatchListInplay,
+  updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
+
 const Inplay = () => {
   const navigate = useNavigate();
   const { type } = useParams();
@@ -31,10 +32,12 @@ const Inplay = () => {
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
+
+  const classes = useStyles();
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -83,9 +86,6 @@ const Inplay = () => {
         socketService.match.declaredMatchResultAllUserOff();
         socketService.match.unDeclaredMatchResultAllUserOff();
         socketService.match.matchAddedOff();
-        // matchListInplay?.matches?.map((item: any) => {
-        //   socketService.match.joinMatchRoom(item?.id, profileDetail?.roleName);
-        // });
         socketService.match.matchResultDeclared(getMatchListService);
         socketService.match.matchResultUnDeclared(getMatchListService);
         socketService.match.declaredMatchResultAllUser(getMatchListService);
@@ -99,9 +99,6 @@ const Inplay = () => {
 
   useEffect(() => {
     return () => {
-      // matchListInplay?.matches?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item?.id);
-      // });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
       socketService.match.declaredMatchResultAllUserOff();
@@ -122,15 +119,18 @@ const Inplay = () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [type]);
-  const classes = useStyles();
 
   useEffect(() => {
+    setTimeout(() => {
+      getMatchListMarket(type);
+    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket(type);
-    }, 60000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, [type]);
+
   return (
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0
@@ -153,7 +153,6 @@ const Inplay = () => {
                 top={true}
                 blur={false}
                 match={match}
-                // handleUpdateMatch={handleUpdateMatch}
               />
             );
           })

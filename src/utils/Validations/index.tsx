@@ -56,7 +56,7 @@ export const changePasswordSchema = Yup.object({
     .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
     .required("Confirm Password is required"),
 });
-export const changePasswordValidation = (item: any) => {
+export const changePasswordValidation = (item: boolean) => {
   return Yup.object({
     oldPassword: Yup.string()
       .required("Old Password is required")
@@ -93,7 +93,7 @@ export const changePasswordValidation = (item: any) => {
       .required("Confirm password is required"),
   });
 };
-export const addUserValidation = (item: any) => {
+export const addUserValidation = (item: boolean) => {
   return Yup.object({
     userName: Yup.string()
       .required("Username is required")

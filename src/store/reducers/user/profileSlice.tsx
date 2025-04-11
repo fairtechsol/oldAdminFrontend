@@ -51,12 +51,10 @@ const profileSlice = createSlice({
       })
       .addCase(getUsersProfile.pending, (state) => {
         state.loading = true;
-        state.success = false;
         state.error = null;
       })
       .addCase(getUsersProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
         state.profileDetail = action?.payload;
       })
       .addCase(getUsersProfile.rejected, (state, action) => {
@@ -79,12 +77,10 @@ const profileSlice = createSlice({
       })
       .addCase(marqueeNotification.pending, (state) => {
         state.loading = true;
-        state.success = false;
         state.error = null;
       })
       .addCase(marqueeNotification.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = true;
         state.marqueeNotification = action?.payload;
       })
       .addCase(marqueeNotification.rejected, (state, action) => {

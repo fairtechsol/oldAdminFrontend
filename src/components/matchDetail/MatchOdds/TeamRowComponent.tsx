@@ -1,21 +1,20 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import StyledImage from "../../Common/StyledImages";
 import { BallStart, LockSolid } from "../../../assets";
+import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "./MoneyBox";
 import SeperateBox from "./SeperateBox";
 
-const TeamRowComponent = (props: any) => {
-  const {
-    name,
-    color,
-    align,
-    lock,
-    rates,
-    matchOddsData,
-    ballStatus,
-    status,
-    isTeamC,
-  } = props;
+const TeamRowComponent = ({
+  name,
+  color,
+  align,
+  lock,
+  rates,
+  matchOddsData,
+  ballStatus,
+  status,
+  isTeamC,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -62,7 +61,6 @@ const TeamRowComponent = (props: any) => {
 
       {ballStatus ? (
         <>
-
           <Box
             sx={{
               height: "40px",
@@ -73,20 +71,20 @@ const TeamRowComponent = (props: any) => {
             }}
           >
             <MoneyBox color={color} rates={rates} />
-          </Box><Box
+          </Box>
+          <Box
             sx={{
               height: "40px",
               display: "flex",
               width: {
                 xs: "80%",
                 lg: "27%",
-                md: "82%"
-
+                md: "82%",
               },
               justifyContent: { xs: "flex-end", lg: "flex-end" },
               alignItems: "center",
             }}
-          ></Box>
+          />
 
           <Box
             sx={{

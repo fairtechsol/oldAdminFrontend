@@ -1,16 +1,15 @@
 import { Box, Typography } from "@mui/material";
 
-const DropDownItem = (props: any) => {
-  const {
-    i,
-    CompetitionName,
-    disable,
-    setValue,
-    setOpen,
-    dropDownTextStyle,
-    setSelected,
-    name,
-  } = props;
+const DropDownItem = ({
+  i,
+  CompetitionName,
+  disable,
+  setValue,
+  setOpen,
+  dropDownTextStyle,
+  setSelected,
+  name,
+}: any) => {
   return (
     <Box
       onClick={() => {

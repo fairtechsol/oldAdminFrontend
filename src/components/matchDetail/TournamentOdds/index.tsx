@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { formatToINR } from "../../../helper";
@@ -10,25 +10,24 @@ import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BoxComponent from "../LiveBookmaker/BoxComponent";
 import SmallBox from "../MatchOdds/SmallBox";
 
-const TournamentOdds = (props: any) => {
-  const {
-    currentMatch,
-    minBet,
-    maxBet,
-    typeOfBet,
-    locked,
-    blockMatch,
-    handleShowLock,
-    selft,
-    showBox,
-    upcoming,
-    showUnlock,
-    handleBlock,
-    handleHide,
-    liveData,
-    title,
-    profitLossFromAnalysis,
-  } = props;
+const TournamentOdds = ({
+  currentMatch,
+  minBet,
+  maxBet,
+  typeOfBet,
+  locked,
+  blockMatch,
+  handleShowLock,
+  selft,
+  showBox,
+  upcoming,
+  showUnlock,
+  handleBlock,
+  handleHide,
+  liveData,
+  title,
+  profitLossFromAnalysis,
+}: any) => {
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -299,7 +298,7 @@ const TournamentOdds = (props: any) => {
               </Box>
               <Box
                 sx={{ width: "3px", display: "flex", background: "white" }}
-              ></Box>
+              />
               <Box
                 sx={{
                   background: "#FF9292",
@@ -319,7 +318,7 @@ const TournamentOdds = (props: any) => {
               </Box>
               <Box
                 sx={{ width: ".7px", display: "flex", background: "white" }}
-              ></Box>
+              />
             </Box>
           </Box>
 
@@ -333,7 +332,6 @@ const TournamentOdds = (props: any) => {
                 sx={{
                   position: "absolute",
                   height: "100%",
-                  // top: "18%",
                   width: "100%",
                   display: "flex",
                   zIndex: "999",
@@ -360,7 +358,7 @@ const TournamentOdds = (props: any) => {
               </Box>
             )}
             {liveData?.runners?.map((runner: any, index: number) => (
-              <>
+              <Fragment key={index}>
                 <BoxComponent
                   name={runner?.nat || runner?.runnerName}
                   rates={
@@ -396,7 +394,7 @@ const TournamentOdds = (props: any) => {
                         ? "#FF4D4D"
                         : "#319E5B"
                       : currentMatch?.profitLossDataMatch?.[
-                        (liveData?.parentBetId || liveData?.id) +
+                          (liveData?.parentBetId || liveData?.id) +
                             "_" +
                             "profitLoss" +
                             "_" +
@@ -420,93 +418,8 @@ const TournamentOdds = (props: any) => {
                   marketDetails={liveData}
                 />
                 <Divider />
-              </>
+              </Fragment>
             ))}
-
-            {/* <BoxComponent
-              name={
-                typeOfBet !== ("Match Odds" || "Half Time")
-                  ? "Yes"
-                  : currentMatch?.teamA
-              }
-              rates={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.A +
-                          "_" +
-                          currentMatch?.id
-                      ]
-                    : 0
-                  : 0
-              }
-              color={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.A +
-                          "_" +
-                          currentMatch?.id
-                      ] < 0
-                      ? "#FF4D4D"
-                      : "#319E5B"
-                    : "#319E5B"
-                  : "#319E5B"
-              }
-              data={liveData?.length > 0 ? liveData[0] : []}
-              lock={handleLock(liveData?.length > 0 ? liveData[0] : [])}
-            />
-            <Divider />
-            <BoxComponent
-              color={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.B +
-                          "_" +
-                          currentMatch?.id
-                      ] < 0
-                      ? "#FF4D4D"
-                      : "#319E5B"
-                    : "#319E5B"
-                  : "#319E5B"
-              }
-              name={
-                typeOfBet !== ("Match Odds" || "Half Time")
-                  ? "No"
-                  : currentMatch?.teamB
-              }
-              rates={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.B +
-                          "_" +
-                          currentMatch?.id
-                      ]
-                    : 0
-                  : 0
-              }
-              data={liveData?.length > 0 ? liveData[1] : []}
-              lock={handleLock(liveData?.length > 0 ? liveData[1] : [])}
-              align="end"
-            /> */}
             {locked && (
               <Box
                 sx={{

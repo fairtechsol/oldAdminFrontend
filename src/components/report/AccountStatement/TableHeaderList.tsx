@@ -1,5 +1,15 @@
 import { Box, Typography } from "@mui/material";
 
+const headerItems = [
+  { label: "Date", width: { xs: "14%", md: "11%", lg: "11%" } },
+  { label: "Credit", width: { xs: "16%", md: "14%", lg: "14%" } },
+  { label: "Debit", width: { xs: "16%", md: "14%", lg: "14%" } },
+  { label: "Closing", width: { xs: "14%", md: "11%", lg: "11%" } },
+  { label: "Description", width: { xs: "36%", md: "36%", lg: "36%" } },
+  { label: "From", width: { xs: "18%", md: "18%", lg: "11%" } },
+  { label: "To", width: { xs: "18%", md: "18%", lg: "11%" } },
+];
+
 const TableHeaderList = () => {
   return (
     <Box
@@ -13,101 +23,27 @@ const TableHeaderList = () => {
         borderBottom: "2px solid white",
       }}
     >
-      <Box
-        sx={{
-          width: { xs: "14%", lg: "11%", md: "11%" },
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>Date</Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "16%", lg: "14%", md: "14%" },
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Credit
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "16%", lg: "14%", md: "14%" },
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>Debit</Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "14%", lg: "11%", md: "11%" },
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Closing
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "36%", lg: "36%", md: "36%" },
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Description
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>From</Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>To</Typography>
-      </Box>
+      {headerItems.map((item, index) => (
+        <Box
+          key={index}
+          sx={{
+            width: item.width,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingLeft: "10px",
+            height: "35px",
+            borderRight:
+              index < headerItems.length - 1 ? "2px solid white" : "none",
+          }}
+        >
+          <Typography
+            sx={{ color: "white", fontSize: "12px", textAlign: "center" }}
+          >
+            {item.label}
+          </Typography>
+        </Box>
+      ))}
     </Box>
   );
 };

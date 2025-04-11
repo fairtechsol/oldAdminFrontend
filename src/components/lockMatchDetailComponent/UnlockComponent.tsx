@@ -1,14 +1,11 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { CANCEL, LockIcon, UnLockIcon, eye,eyeLock } from "../../assets";
+import { CANCEL, LockIcon, UnLockIcon, eye, eyeLock } from "../../assets";
 
 const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
   const [password, setPassword] = useState("");
-
-  
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -90,7 +87,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
             }}
           />
           <img
-            src={showPassword?eye:eyeLock}
+            src={showPassword ? eye : eyeLock}
             onClick={togglePasswordVisibility}
             style={{
               width: "12px",

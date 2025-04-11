@@ -1,6 +1,7 @@
 import { AppBar, Box, useMediaQuery, useTheme } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Draw, FgLogo } from "../../../assets/index";
 import StyledImage from "../../../components/Common/StyledImages";
 import { profileReset } from "../../../store/actions/user/userAction";
@@ -9,7 +10,6 @@ import AdminEventListing from "./AdminEventListing";
 import BoxProfile from "./BoxProfile";
 import MobileSideBar from "./MobileSideBar";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const theme = useTheme();
@@ -22,17 +22,12 @@ const Header = () => {
     (state: RootState) => state.user.profile
   );
 
-  // const initialValues: any = {
-  //   value: "",
-  // };
-
   const currentSelected = 1;
 
   const classes = {
     AppBarVal: { zIndex: (theme: any) => theme.zIndex.drawer + 1 },
     BoxCont1: [
       {
-        // flex: "1",
         width: "100%",
         minHeight: { lg: 60, md: 60, xs: 60 },
         minWidth: { lg: 60, md: 60, xs: 60 },
@@ -62,7 +57,6 @@ const Header = () => {
     BoxCont1sub1sub1StyleImg: {
       height: { lg: "24px", xs: "20px" },
       width: "100%",
-      // cursor: "pointer",
     },
     RenderLogoCompStyleImg: {
       height: { lg: "4rem", xs: "3rem" },
@@ -150,7 +144,6 @@ const Header = () => {
             <Box sx={classes.BoxCont1sub1sub1}>
               <StyledImage
                 src={Draw}
-                // onClick={() => setMobileOpen((prev) => !prev)}
                 sx={classes.BoxCont1sub1sub1StyleImg}
               />
               <StyledImage
@@ -172,7 +165,6 @@ const Header = () => {
         <MobileSideBar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
       </AppBar>
       <Box sx={classes.BoxEnd} />
-      {/* marquee start */}
       <Box
         sx={{
           height: "32px",

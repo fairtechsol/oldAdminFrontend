@@ -1,8 +1,6 @@
 import { Button, Typography } from "@mui/material";
 
-const DeleteBetButton = (props: any) => {
-  const { btnStyle, type, title } = props;
-
+const DeleteBetButton = ({ btnStyle, type, title }: any) => {
   return (
     <Button
       type={type}

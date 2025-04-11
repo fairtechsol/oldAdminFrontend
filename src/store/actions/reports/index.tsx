@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import service from "../../../service";
-import { ApiConstants } from "../../../utils/Constants";
+import { ApiConstants, Constants } from "../../../utils/Constants";
 
 interface AccountStatement {
   id: string;
@@ -15,6 +15,8 @@ interface currentBets {
   searchBy?: any;
   keyword?: any;
   filter?: any;
+  page: number;
+  limit?: number;
 }
 
 export const getAccountStatement = createAsyncThunk<any, AccountStatement>(
@@ -44,26 +46,17 @@ export const getCurrentBets = createAsyncThunk<any, currentBets>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.WALLET.REPORTS.CURRENT_BETS}?status=PENDING&searchBy=${
-          requestData?.searchBy || ""
-        }&keyword=${requestData?.keyword || ""}&sort=betPlaced.createdAt:DESC`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const getTotalProfitLoss = createAsyncThunk<any, any>(
-  "totalProfitLoss/list",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.TOTAL_PROFIT_LOSS}?${requestData.filter}`
+        `${ApiConstants.WALLET.REPORTS.CURRENT_BETS}`,
+        {
+          params: {
+            status: "PENDING",
+            searchBy: requestData?.searchBy,
+            keyword: requestData?.keyword,
+            sort: "betPlaced.createdAt:DESC",
+            page: requestData?.page,
+            limit: requestData?.limit,
+          },
+        }
       );
       if (resp) {
         return resp?.data;
@@ -112,11 +105,15 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
   "session/list",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}?matchId=${requestData.matchId}&url=${requestData.url}`
+      const resp = await service.post(
+        `${ApiConstants.MATCH.SESSION_PROFIT_LOSS}`,
+        {
+          matchId: requestData.matchId,
+          searchId: requestData.searchId,
+        }
       );
       if (resp) {
-        return resp?.data?.data;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -127,10 +124,16 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
 
 export const getCommissionMatch = createAsyncThunk<any, any>(
   "commissionMatch/list",
-  async (userId, thunkApi) => {
+  async ({ userId, currentPage }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.COMMISSION_MATCH}/${userId}`
+        `${ApiConstants.USER.COMMISSION_MATCH}/${userId}`,
+        {
+          params: {
+            page: currentPage || 1,
+            limit: Constants.pageLimit,
+          },
+        }
       );
       if (resp) {
         return resp?.data;
@@ -210,36 +213,12 @@ export const getBetProfitLossCards = createAsyncThunk<any, any>(
     }
   }
 );
-export const getUserWiseProfitLossCards = createAsyncThunk<any, any>(
-  "userWise/list/cards",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.CARD.GET_USERWISE_PROFIT_LOSS}?matchId=${requestData.matchId}&url=${requestData.url}`
-      );
-      if (resp) {
-        return resp?.data?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
 export const updateUserSearchId = createAsyncThunk<any, any>(
   "/maxLoss/updateUserSearchId",
   async (data) => {
     return data;
   }
 );
-export const resetAccountStatement = createAction("statement/reset");
 export const resetSessionProfitLoss = createAction("sessionProfitLoss/reset");
 export const resetBetProfitLoss = createAction("betProfitLoss/reset");
 export const resetDomainProfitLoss = createAction("domainProfitLoss/reset");
-export const resetSessionProfitLossCard = createAction(
-  "sessionProfitLoss/resetCard"
-);
-export const resetBetProfitLossCard = createAction("betProfitLoss/resetCard");
-export const resetDomainProfitLossCard = createAction(
-  "domainProfitLoss/resetCard"
-);

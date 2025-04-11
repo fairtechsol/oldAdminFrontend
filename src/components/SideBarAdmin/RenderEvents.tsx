@@ -1,24 +1,22 @@
-import { useState } from "react";
-import MainBox from "./MainBox";
 import { Box } from "@mui/material";
-import RenderDates from "./RenderDates";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCompetitionDates,
   resetCompetitionDates,
   resetCompetitionMatches,
 } from "../../store/actions/match/matchAction";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import MainBox from "./MainBox";
+import RenderDates from "./RenderDates";
 
-const RenderEvents = (props: any) => {
-  const {
-    i,
-    handleDrawerToggle,
-    colors,
-    selectedCompetitionId,
-    setSelectedCompetitionId,
-  } = props;
+const RenderEvents = ({
+  i,
+  handleDrawerToggle,
+  colors,
+  selectedCompetitionId,
+  setSelectedCompetitionId,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedCompetitionDate, setSelectedCompertitionDate] = useState({
     value: false,

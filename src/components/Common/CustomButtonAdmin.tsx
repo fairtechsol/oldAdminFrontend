@@ -1,8 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const CustomButtonAdmin = (props: any) => {
-  const { btnStyle, onClick } = props;
-
+const CustomButtonAdmin = ({ btnStyle, onClick }: any) => {
   return (
     <Box
       onClick={onClick}

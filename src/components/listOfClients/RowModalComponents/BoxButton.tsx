@@ -1,20 +1,33 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
 
-const BoxButton = (props: any) => {
-  const {
-    title,
-    containerStyle,
-    icon,
-    onClick,
-    isSelected,
-    deleteBtn,
-    titleStyle,
-    loading,
-    type,
-    color,
-    disabled,
-  } = props;
-  const classes = {
+interface BoxButtonProps {
+  title: string;
+  containerStyle?: object;
+  icon?: React.ReactNode;
+  onClick?: (e: any) => void;
+  isSelected?: boolean;
+  deleteBtn?: boolean;
+  titleStyle?: object;
+  loading?: boolean;
+  type?: "button" | "submit" | "reset";
+  color?: string;
+  disabled?: boolean;
+}
+
+const BoxButton = ({
+  title,
+  containerStyle,
+  icon,
+  onClick,
+  isSelected,
+  deleteBtn,
+  titleStyle,
+  loading,
+  type,
+  color,
+  disabled,
+}: BoxButtonProps) => {
+  const classes: any = {
     mainBox: [
       {
         background: isSelected ? color : color,

@@ -92,29 +92,6 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   }
 );
 
-export const getModalUserList = createAsyncThunk<any, RequestData | undefined>(
-  "user/modalList",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${requestData?.url}?searchBy=${
-          requestData?.searchBy ? requestData?.searchBy : ""
-        }&userId=${requestData?.userId}&roleName=${
-          requestData?.roleName
-        }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
-          requestData?.currentPage
-        }&limit=${Constants.pageLimit}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
 export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
   "user/balance",
   async (requestData, thunkApi) => {
@@ -152,60 +129,6 @@ export const addUser = createAsyncThunk<any, any>(
   }
 );
 
-export const addExpert = createAsyncThunk<any, any>(
-  "user/addExpert",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.ADDEXPERT}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const addUrlAdmin = createAsyncThunk<any, any>(
-  "user/addUrlAdmin",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.ADDURLADMIN}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const updateUrlAdmin = createAsyncThunk<any, any>(
-  "user/updateUrlAdmin",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.UPDATEURLADMIN}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
 export const updateUser = createAsyncThunk<any, any>(
   "user/updateUser",
   async (requestData, thunkApi) => {
@@ -223,24 +146,6 @@ export const updateUser = createAsyncThunk<any, any>(
     }
   }
 );
-export const updateExpert = createAsyncThunk<any, any>(
-  "user/updateExpert",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.UPDATEEXPERT}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
 export const getUsersProfile = createAsyncThunk(
   "user/profile",
   async (_, thunkApi) => {
@@ -413,22 +318,6 @@ export const getAlreadyUserExist = createAsyncThunk<
     throw err;
   }
 });
-export const getChildUserProfitLoss = createAsyncThunk<any, string>(
-  "user/childProfitLoss",
-  async (requestData) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.USER.CHILD_PROFIT_LOSS}/${requestData}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw err;
-    }
-  }
-);
 
 export const handleExport = createAsyncThunk<any, any>(
   "user/export",
@@ -444,7 +333,6 @@ export const handleExport = createAsyncThunk<any, any>(
 
       let blob = new Blob();
       if (requestData.type == "pdf") {
-        // window.open(`data:application/pdf;base64,${fileData}`, '_blank');
         const binaryData = new Uint8Array(
           atob(fileData)
             .split("")
@@ -457,21 +345,17 @@ export const handleExport = createAsyncThunk<any, any>(
             .split("")
             .map((char) => char.charCodeAt(0))
         );
-        // Create a Blob from the Uint8Array
         blob = new Blob([binaryData], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
       }
-      // Create a temporary URL for the Blob
       const url = window.URL.createObjectURL(blob);
-      // Create an <a> element and trigger the download
       const link = document.createElement("a");
       link.href = url;
       link.download = requestData?.name
         ? `${requestData?.name}`.replace(/[^\w\s]/g, "_")
         : "Client_List";
       link.click();
-      // Clean up by revoking the URL
       window.URL.revokeObjectURL(url);
     } catch (error: any) {
       const err = error as AxiosError;
@@ -553,29 +437,6 @@ export const getTotalBetProfitLossForModal = createAsyncThunk<any, any>(
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);
     }
-  }
-);
-export const getSessionProfitLoss = createAsyncThunk<any, any>(
-  "/sessionProfitLoss",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const handleModelActions = createAsyncThunk<any, any>(
-  "/user/handleModelActions",
-  async (data) => {
-    return data;
   }
 );
 export const getSearchClientList = createAsyncThunk<

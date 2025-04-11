@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
+import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 import {
   analysisListReset,
   updateMultipleMatchDetail,
@@ -13,8 +15,6 @@ import {
   updateTeamRatesOfMultipleMatch,
   updateTeamRatesOnDeleteForMultiMatch,
 } from "../../actions/match/multipleMatchAction";
-import { convertData, updateSessionBettingsItem } from "../../../helper";
-import { profitLossDataForMatchConstants } from "../../../utils/Constants";
 
 interface InitialState {
   analysisList: any;
@@ -70,18 +70,8 @@ const analysisListSlice = createSlice({
         state.multipleMatchDetail = state?.multipleMatchDetail?.map(
           (match: any) => {
             if (match?.id === action?.payload?.id) {
-              const {
-                apiSession,
-                apiTiedMatch,
-                bookmaker,
-                manualTideMatch,
-                marketCompleteMatch,
-                matchOdd,
-                quickbookmaker,
-                sessionBettings,
-                completeManual,
-                tournament,
-              } = action?.payload;
+              const { apiSession, sessionBettings, tournament } =
+                action?.payload;
 
               const parsedSessionBettings =
                 match?.sessionBettings?.map(JSON.parse) || [];
@@ -107,26 +97,19 @@ const analysisListSlice = createSlice({
               return {
                 ...match,
                 apiSession: apiSession,
-                apiTideMatch: apiTiedMatch,
-                bookmaker: bookmaker,
-                manualTiedMatch: manualTideMatch,
-                marketCompleteMatch: marketCompleteMatch,
-                matchOdd: matchOdd,
-                quickBookmaker: quickbookmaker,
                 sessionBettings: stringifiedSessionBetting,
-                manualCompleteMatch: completeManual,
                 updatedSessionBettings: updateSessionBettingsItem(
                   convertData(parsedSessionBettings),
                   apiSession
                 ),
                 tournament: tournament?.sort((a: any, b: any) => {
-                  // Primary sort by sno (ascending)
                   if (a.sno !== b.sno) {
                     return a.sno - b.sno;
                   }
-                  // If sno values are equal, sort so that null parentId comes first
-                  if (a.parentBetId === null && b.parentBetId !== null) return -1;
-                  if (a.parentBetId !== null && b.parentBetId === null) return 1;
+                  if (a.parentBetId === null && b.parentBetId !== null)
+                    return -1;
+                  if (a.parentBetId !== null && b.parentBetId === null)
+                    return 1;
                   return 0;
                 }),
               };
@@ -185,63 +168,13 @@ const analysisListSlice = createSlice({
         state.multipleMatchDetail = state?.multipleMatchDetail.map(
           (match: any) => {
             if (match?.id === jobData?.newBet?.matchId) {
-              if (jobData?.newBet?.marketType === "other") {
-                return {
-                  ...match,
-                  profitLossDataMatch: {
-                    ...match.profitLossDataMatch,
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].A +
-                    "_" +
-                    jobData?.newBet?.betId +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamArateRedisKey],
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].B +
-                    "_" +
-                    jobData?.newBet?.betId +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamBrateRedisKey],
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].C +
-                    "_" +
-                    jobData?.newBet?.betId +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamCrateRedisKey],
-                  },
-                };
-              } else if (jobData?.newBet?.marketType === "tournament") {
+              if (jobData?.newBet?.marketType === "tournament") {
                 return {
                   ...match,
                   profitLossDataMatch: {
                     ...match.profitLossDataMatch,
                     [jobData?.betId + "_" + "profitLoss" + "_" + match?.id]:
                       JSON.stringify(userRedisObj),
-                  },
-                };
-              } else {
-                return {
-                  ...match,
-                  profitLossDataMatch: {
-                    ...match.profitLossDataMatch,
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].A +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamArateRedisKey],
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].B +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamBrateRedisKey],
-                    [profitLossDataForMatchConstants[
-                      jobData?.newBet?.marketType
-                    ].C +
-                    "_" +
-                    match?.id]: userRedisObj[jobData?.teamCrateRedisKey],
                   },
                 };
               }

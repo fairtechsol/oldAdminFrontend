@@ -1,10 +1,9 @@
-import MainBox from "./MainBox";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Constants } from "../../utils/Constants";
+import MainBox from "./MainBox";
 
-const RenderOdds = (props: any) => {
-  const { i, handleDrawerToggle, colors } = props;
+const RenderOdds = ({ i, handleDrawerToggle, colors }: any) => {
   const navigate = useNavigate();
   return (
     <Box

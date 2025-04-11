@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import AuthBackground from "./AuthBackground";
-import StyledImage from "../../components/Common/StyledImages";
 import { FgLogo } from "../../assets";
+import StyledImage from "../../components/Common/StyledImages";
+import AuthBackground from "./AuthBackground";
 
 const Auth = () => {
   return (

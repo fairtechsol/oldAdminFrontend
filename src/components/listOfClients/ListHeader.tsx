@@ -1,15 +1,27 @@
+import { Box, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Excel, Pdf } from "../../assets";
-import StyledImage from "../Common/StyledImages";
-import { Box, Typography } from "@mui/material";
-import { AppDispatch } from "../../store/store";
 import { handleExport } from "../../store/actions/user/userAction";
+import { AppDispatch } from "../../store/store";
+import StyledImage from "../Common/StyledImages";
 
-const ListHeader = ({ id, endpoint, downloadPdfExcel, title }: any) => {
+interface ListHeaderProps {
+  id: string;
+  endpoint: string;
+  downloadPdfExcel: boolean;
+  title: string;
+}
+
+const ListHeader = ({
+  id,
+  endpoint,
+  downloadPdfExcel,
+  title,
+}: ListHeaderProps) => {
   const dispatch: AppDispatch = useDispatch();
   return (
     <Box
-      display={"flex"}
+      display="flex"
       sx={{
         justifyContent: "space-between",
         px: "10px",

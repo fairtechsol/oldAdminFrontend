@@ -6,12 +6,11 @@ import {
   useTheme,
 } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { EyeIcon, EyeSlash } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
 import MobileViewUserDetails from "./MobileViewUserDetails";
-
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,8 +21,8 @@ import {
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
+import { depositAmountValidations } from "../../../utils/Validations";
 
 const initialValues: any = {
   userId: "",
@@ -571,7 +570,7 @@ const DepositComponent = (props: any) => {
                 }}
               >
                 <BoxButton
-                  color={"#0B4F26"}
+                  color="#0B4F26"
                   loading={loading}
                   containerStyle={{
                     height: "44px",
@@ -579,10 +578,10 @@ const DepositComponent = (props: any) => {
                   }}
                   isSelected={true}
                   type="submit"
-                  title={"Submit"}
+                  title="Submit"
                 />
                 <BoxButton
-                  color={"#E32A2A"}
+                  color="#E32A2A"
                   containerStyle={{
                     background: "#E32A2A",
                     border: "0px",
@@ -594,7 +593,7 @@ const DepositComponent = (props: any) => {
                     setSelected();
                     onChangeAmount(0, element?.id, "deposite");
                   }}
-                  title={"Cancel"}
+                  title="Cancel"
                 />
               </Box>
             </Box>
@@ -614,12 +613,12 @@ const DepositComponent = (props: any) => {
             >
               <Box sx={{ display: "flex", width: "150px" }}>
                 <BoxButton
-                  color={"#0B4F26"}
+                  color="#0B4F26"
                   loading={loading}
                   disabled={isSubmitting}
                   containerStyle={{ width: "150px", height: "35px" }}
                   isSelected={true}
-                  title={"Submit"}
+                  title="Submit"
                 />
               </Box>
               <Box
@@ -630,7 +629,7 @@ const DepositComponent = (props: any) => {
                 }}
               >
                 <BoxButton
-                  color={"#E32A2A"}
+                  color="#E32A2A"
                   containerStyle={{
                     width: "150px",
                     background: "#E32A2A",
@@ -642,7 +641,7 @@ const DepositComponent = (props: any) => {
                     onChangeAmount(0, element?.id, "deposite");
                   }}
                   isSelected={true}
-                  title={"Cancel"}
+                  title="Cancel"
                 />
               </Box>
             </Box>

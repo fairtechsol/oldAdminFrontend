@@ -21,6 +21,7 @@ import {
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
+
 const Inplay = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -28,7 +29,7 @@ const Inplay = () => {
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
@@ -40,16 +41,6 @@ const Inplay = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-
-  //   useEffect(() => {
-  //     if (matchListInplay?.matches?.length && (!thirdParty || !thirdParty.connected) && success) {
-  //       const matchIds = matchListInplay.matches.map((match:any) => match.id);
-  //       matchService.connect(matchIds, profileDetail?.roleName);
-  //     }
-  //     return () => {
-  //       matchService.disconnect(); 
-  //     }; 
-  // }, [success]);
 
   const getMatchListMarket = async (matchType: string) => {
     try {
@@ -89,12 +80,6 @@ const Inplay = () => {
           socketService.match.declaredMatchResultAllUserOff();
           socketService.match.unDeclaredMatchResultAllUserOff();
           socketService.match.matchAddedOff();
-          // matchListInplay?.matches?.map((item: any) => {
-          //   socketService.match.joinMatchRoom(
-          //     item?.id,
-          //     profileDetail?.roleName
-          //   );
-          // });
           socketService.match.matchResultDeclared(getMatchListService);
           socketService.match.matchResultUnDeclared(getMatchListService);
           socketService.match.declaredMatchResultAllUser(getMatchListService);
@@ -115,9 +100,6 @@ const Inplay = () => {
 
   useEffect(() => {
     return () => {
-      // matchListInplay?.matches?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item?.id);
-      // });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
       socketService.match.declaredMatchResultAllUserOff();
@@ -132,11 +114,6 @@ const Inplay = () => {
         setCurrentPage(1);
         getMatchListService();
       }
-      //  else if (document.visibilityState === "hidden") {
-      //   matchListInplay?.matches?.map((item: any) => {
-      //     socketService.match.getMatchRatesOff(item?.id);
-      //   });
-      // }
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -146,14 +123,16 @@ const Inplay = () => {
   }, []);
 
   useEffect(() => {
-    getMatchListMarket("cricket");
-    getMatchListMarket("tennis");
-    getMatchListMarket("football");
+    setTimeout(() => {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket("cricket");
       getMatchListMarket("tennis");
       getMatchListMarket("football");
-    }, 60000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -161,24 +140,22 @@ const Inplay = () => {
   return (
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0
-        ? matchListInplay?.matches?.map((match: any) => {
-            return (
-              <MatchComponent
-                key={match.id}
-                onClick={() => {
-                  navigate(`${Constants.oldAdmin}live_market/matches`, {
-                    state: {
-                      submit: true,
-                      matchId: match?.id,
-                    },
-                  });
-                }}
-                top={true}
-                blur={false}
-                match={match}
-              />
-            );
-          })
+        ? matchListInplay?.matches?.map((match: any) => (
+            <MatchComponent
+              key={match.id}
+              onClick={() => {
+                navigate(`${Constants.oldAdmin}live_market/matches`, {
+                  state: {
+                    submit: true,
+                    matchId: match?.id,
+                  },
+                });
+              }}
+              top={true}
+              blur={false}
+              match={match}
+            />
+          ))
         : !loading && (
             <Table>
               <TableBody>
@@ -199,8 +176,7 @@ const Inplay = () => {
               Constants.pageLimit
           )}
           color="primary"
-          onChange={(e: any, value: number) => {
-            console.log(e);
+          onChange={(_: any, value: number) => {
             setCurrentPage(value);
           }}
         />

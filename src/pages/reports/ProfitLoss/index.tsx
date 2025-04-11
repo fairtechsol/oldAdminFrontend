@@ -1,17 +1,17 @@
-import { Box, Typography } from "@mui/material";
-import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
-import { useEffect, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { Typography } from "@mui/material";
+import { debounce } from "lodash";
 import moment from "moment";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossReport/ProfitLossTableComponent";
+import service from "../../../service";
+import { updateUserSearchId } from "../../../store/actions/reports";
 import {
   getSearchClientList,
   getUserTotalProfitLoss,
 } from "../../../store/actions/user/userAction";
-import { updateUserSearchId } from "../../../store/actions/reports";
-import { debounce } from "lodash";
-import service from "../../../service";
+import { AppDispatch, RootState } from "../../../store/store";
 interface FilterObject {
   searchId?: any;
   startDate?: string;
@@ -24,6 +24,7 @@ const ProfitLossReport = () => {
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
   const [userProfitLoss, setUserProfitLoss] = useState([]);
+  const [event, setEvent] = useState("");
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -36,6 +37,7 @@ const ProfitLossReport = () => {
   );
   const handleClick = () => {
     try {
+      setEvent("");
       let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
@@ -98,7 +100,7 @@ const ProfitLossReport = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <ProfitLossHeader
         title="Profit/Loss"
         onClick={handleClick}
@@ -122,19 +124,18 @@ const ProfitLossReport = () => {
       >
         Profit/Loss for Event Type
       </Typography>
-
-      <Box>
-        <ProfitLossTableComponent
-          startDate={startDate}
-          endDate={endDate}
-          eventData={userTotalProfitLoss && userTotalProfitLoss}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          userProfitLoss={userProfitLoss}
-          getUserProfitLoss={getUserProfitLoss}
-        />
-      </Box>
-    </div>
+      <ProfitLossTableComponent
+        startDate={startDate}
+        endDate={endDate}
+        eventData={userTotalProfitLoss && userTotalProfitLoss}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        userProfitLoss={userProfitLoss}
+        getUserProfitLoss={getUserProfitLoss}
+        setEvent={setEvent}
+        event={event}
+      />
+    </>
   );
 };
 

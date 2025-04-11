@@ -99,20 +99,6 @@ const AllUserListSeparate = ({
             justifyContent: "space-between",
           }}
         >
-          {/* <Typography
-            sx={{
-              fontSize: { lg: "0px", xs: "10px" },
-              color: "white",
-              marginLeft: "5px",
-              fontWeight: "500",
-              position: "absolute",
-              top: 0,
-              right: 5,
-            }}
-          >
-            ({moment(item?.betDate).format("DD-MM-YYYY")})
-          </Typography> */}
-
           <Box
             onClick={(e) => {
               e.stopPropagation();
@@ -176,7 +162,6 @@ const AllUserListSeparate = ({
             />
           )}
         </Box>
-
         <Box
           sx={{
             background: "#27AC1E",
@@ -308,11 +293,9 @@ const AllUserListSeparate = ({
                 sx={[
                   {
                     width: { xs: "96%", lg: "100%", md: "100%" },
-                    // marginX: "0.5%",
                     minHeight: "200px",
                     display: "flex",
                     flexDirection: "column",
-                    // justifyContent: "space-between",
                     borderRadius: "10px",
                     borderBottomRightRadius: "0px",
                     borderBottomLeftRadius: "0px",
@@ -432,14 +415,6 @@ const AllUserListSeparate = ({
                             setShowSessions(false);
                           }
                           setShowBets((prev) => !prev);
-                          // getBetReport({
-                          //   eventType: item?.eventType,
-                          //   matchId: matchId,
-                          //   userId: item?.userId,
-                          //   type: "all_bet",
-                          //   betId: "",
-                          //   sessionBet: false,
-                          // });
                           getBetDataForChildUser({
                             matchId,
                             user: {
@@ -537,7 +512,6 @@ const AllUserListSeparate = ({
                           sx={{
                             width: { xs: "100%", lg: "100%" },
                             marginTop: { xs: ".25vh" },
-                            // marginLeft: { lg: "4%" },
                             display: "flex",
                             flexDirection: { lg: "row", xs: "column" },
                           }}
@@ -574,9 +548,7 @@ const AllUserListSeparate = ({
               <Box
                 sx={{
                   width: { xs: "100%", lg: "100%", md: "100%" },
-                  // maxHeight: "51vh",
                   overflow: "hidden",
-                  // overflowY: "auto",
                   marginY: { xs: ".2vh", lg: "1vh" },
                   padding: 0.2,
                 }}

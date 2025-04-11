@@ -3,16 +3,15 @@ import moment from "moment";
 import { formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
 
-const TableDataRow = (props: any) => {
-  const {
-    containerStyle,
-    data,
-    fContainerStyle,
-    fTextStyle,
-    index,
-    currentPage,
-    pageLimit,
-  } = props;
+const TableDataRow = ({
+  containerStyle,
+  data,
+  fContainerStyle,
+  fTextStyle,
+  index,
+  currentPage,
+  pageLimit,
+}: any) => {
   let flag = index % 2 != 0;
   let no = (index + 1 + pageLimit * (currentPage - 1)).toString();
   return (
@@ -20,7 +19,6 @@ const TableDataRow = (props: any) => {
       sx={[
         {
           display: "flex",
-          // height: "45px",
           background: "#0B4F26",
           alignItems: "center",
           borderBottom: "1px solid white",

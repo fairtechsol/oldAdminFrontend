@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import DataShow from "../../components/myAccount/DataShow";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
 import { getMyAccountDetails } from "../../store/actions/user/userAction";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 
 const MyAccount = () => {
   const theme = useTheme();
@@ -62,7 +61,7 @@ const MyAccount = () => {
             }}
           >
             <DataShow
-              title={"Upper Level Credit Reference"}
+              title="Upper Level Credit Reference"
               value={myAccountDetails?.userCreditReference ?? 0}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
@@ -74,7 +73,7 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"Down level Occupy Balance"}
+              title="Down level Occupy Balance"
               value={myAccountDetails?.downLevelOccupyBalance ?? 0}
               containerStyle={{
                 flex: 1,
@@ -90,7 +89,7 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"Down Level Credit Reference"}
+              title="Down Level Credit Reference"
               value={myAccountDetails?.downLevelCreditReference ?? 0}
               containerStyle={{
                 flex: 1,
@@ -114,7 +113,7 @@ const MyAccount = () => {
             }}
           >
             <DataShow
-              title={"Total Master Balance"}
+              title="Total Master Balance"
               value={myAccountDetails?.totalMasterBalance ?? 0}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
@@ -126,10 +125,12 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"Upper Level"}
+              title="Upper Level"
               value={myAccountDetails?.upperLevelBalance ?? 0}
-              value2={myAccountDetails?.totalProfitLossUpperlevel ?? 0}
-              value3={myAccountDetails?.upperLevelProfitLossPercent ?? 0}
+              valueProfitLoss={myAccountDetails?.totalProfitLossUpperlevel ?? 0}
+              valuePercentage={
+                myAccountDetails?.upperLevelProfitLossPercent ?? 0
+              }
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -144,9 +145,9 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"Down Level Profit/Loss"}
+              title="Down Level Profit/Loss"
               value={myAccountDetails?.downLevelProfitLoss ?? 0}
-              value2={myAccountDetails?.totalProfitLossDownlevel ?? 0}
+              valueProfitLoss={myAccountDetails?.totalProfitLossDownlevel ?? 0}
               containerStyle={{
                 flex: 1,
                 marginTop: matchesMobile ? "10px" : "0px",
@@ -170,7 +171,7 @@ const MyAccount = () => {
             }}
           >
             <DataShow
-              title={"Available Balance"}
+              title="Available Balance"
               value={myAccountDetails?.availableBalance ?? 0}
               containerStyle={{ flex: 1 }}
               valueContainerStyle={{
@@ -182,7 +183,7 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"Available Balance With Profit/Loss"}
+              title="Available Balance With Profit/Loss"
               value={myAccountDetails?.availableBalanceWithProfitLoss ?? 0}
               containerStyle={{
                 flex: 1,
@@ -200,7 +201,7 @@ const MyAccount = () => {
               }}
             />
             <DataShow
-              title={"My Profit/Loss"}
+              title="My Profit/Loss"
               value={myAccountDetails?.profitLoss ?? 0}
               containerStyle={{
                 flex: 1,

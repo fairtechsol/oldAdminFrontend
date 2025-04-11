@@ -1,8 +1,6 @@
-// import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import MultipleMatch from "../pages/analysis/multipleMatch";
 import { Constants } from "../utils/Constants";
-
 import MainLayout from "../layout/main";
 import AddAccount from "../pages/addAccount";
 import Analysis from "../pages/analysis";
@@ -20,25 +18,6 @@ import CurrentBets from "../pages/reports/CurrentBets";
 import GeneralReport from "../pages/reports/GeneralReport";
 import ProfitLossReport from "../pages/reports/ProfitLoss";
 import ProfitLossCards from "../pages/reports/ProfitLossCards";
-import WalletSettings from "../pages/walletSettings";
-
-// const ListOfClients = Loadable(() => import("../pages/listOfClients"));
-// const ChangePassword = Loadable(() => import("../pages/changePassword"));
-// const MyAccount = Loadable(() => import("../pages/myAccount"));
-// const Inplay = Loadable(() => import("../pages/inplay"));
-// const AddAccount = Loadable(() => import("../pages/addAccount"));
-// const EditAccount = Loadable(() => import("../pages/editAccount"));
-// const Analysis = Loadable(() => import("../pages/analysis"));
-// const Reports = Loadable(() => import("../pages/reports"));
-// const MatchDetail = Loadable(() => import("../pages/matchDetail"));
-// const WalletSettings = Loadable(() => import("../pages/walletSettings"));
-// const LockMatchScreen = Loadable(() => import("../pages/lockMatchDetail"));
-// const ProfitLossReport = Loadable(() => import("../pages/reports/ProfitLoss"));
-// const AccountStatement = Loadable(
-//   () => import("../pages/reports/AccountStatement")
-// );
-// const CurrentBets = Loadable(() => import("../pages/reports/CurrentBets"));
-// const GeneralReport = Loadable(() => import("../pages/reports/GeneralReport"));
 
 const MainRoutes = {
   path: Constants.AdminMainPaths.root,
@@ -95,10 +74,6 @@ const MainRoutes = {
     {
       path: Constants.AdminMainPaths.reports,
       element: <Reports />,
-    },
-    {
-      path: Constants.AdminMainPaths.walletSettings,
-      element: <WalletSettings />,
     },
     {
       path: Constants.AdminMainPaths.myAccount,

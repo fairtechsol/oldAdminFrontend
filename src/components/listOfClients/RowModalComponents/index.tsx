@@ -1,16 +1,7 @@
 import { Box, Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import BoxButton from "./BoxButton";
-import ChangePasswordComponent from "./ChangePasswordComponent";
-import DepositComponent from "./DepositComponent";
-import LockUnlockComponent from "./LockUnlockComponent";
-import SetCreditComponent from "./SetCreditComponent";
-import SetExposureLimit from "./SetExposureLimit";
-import WithdrawComponent from "./WithdrawComponent";
-import { ApiConstants } from "../../../utils/Constants";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteIcon } from "../../../assets";
 import {
   getTotalBalance,
   getUserList,
@@ -19,19 +10,36 @@ import {
   handleSettleCommission,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../../store/store";
+import { ApiConstants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
-import { DeleteIcon } from "../../../assets";
+import BoxButton from "./BoxButton";
+import ChangePasswordComponent from "./ChangePasswordComponent";
+import DepositComponent from "./DepositComponent";
+import LockUnlockComponent from "./LockUnlockComponent";
+import SetCreditComponent from "./SetCreditComponent";
+import SetExposureLimit from "./SetExposureLimit";
+import WithdrawComponent from "./WithdrawComponent";
 
-const RowModalComponents = (props: any) => {
-  const {
-    element,
-    selected,
-    setSelected,
-    backgroundColor,
-    onValueChange,
-    currentPage,
-    setShowUserModal,
-  } = props;
+interface RowModalComponentsProps {
+  selected: number | null;
+  element: any;
+  setSelected: any;
+  setShowUserModal: (show: boolean) => void;
+  backgroundColor: string;
+  onValueChange: (amount: any, id: string, type: string) => void;
+  currentPage: number;
+}
+
+const RowModalComponents = ({
+  selected,
+  element,
+  setSelected,
+  setShowUserModal,
+  backgroundColor,
+  onValueChange,
+  currentPage,
+}: RowModalComponentsProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   const [settlementModal, setSettlementModal] = useState(false);
@@ -225,7 +233,6 @@ const RowModalComponents = (props: any) => {
       {selected === null && (
         <Box
           sx={{
-            // flex: 1,
             display: "flex",
             flexDirection: { xs: "row", lg: "row", md: "row" },
             gap: { xs: 0.5 },
@@ -236,11 +243,11 @@ const RowModalComponents = (props: any) => {
           }}
         >
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(0);
             }}
-            title={"Deposit"}
+            title="Deposit"
             isSelected={selected == 0}
             containerStyle={{
               marginLeft: { lg: "10px", xs: "0" },
@@ -250,10 +257,9 @@ const RowModalComponents = (props: any) => {
             titleStyle={{
               fontSize: { xs: "12px" },
             }}
-            labelStyle={{}}
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(1);
             }}
@@ -266,16 +272,15 @@ const RowModalComponents = (props: any) => {
               fontSize: { xs: "12px" },
             }}
             isSelected={selected == 1}
-            title={"Withdraw"}
-            labelStyle={{}}
+            title="Withdraw"
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={(e: any) => {
               e?.preventDefault();
               setSettlementModal(true);
             }}
-            title={"C_Settlement"}
+            title="C_Settlement"
             containerStyle={{
               marginLeft: { lg: "10px", xs: "0" },
               flex: 1,
@@ -284,14 +289,13 @@ const RowModalComponents = (props: any) => {
             titleStyle={{
               fontSize: { xs: "12px" },
             }}
-            labelStyle={{}}
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(3);
             }}
-            title={"Change Password"}
+            title="Change Password"
             isSelected={selected == 3}
             containerStyle={{
               marginLeft: { lg: "10px", xs: "0" },
@@ -303,11 +307,11 @@ const RowModalComponents = (props: any) => {
             }}
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(4);
             }}
-            title={"Lock/Unlock"}
+            title="Lock/Unlock"
             containerStyle={{
               marginLeft: { lg: "10px", xs: "0" },
               flex: 1,
@@ -319,13 +323,12 @@ const RowModalComponents = (props: any) => {
             isSelected={selected == 4}
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(2);
             }}
-            title={"set Credit Reference"}
+            title="set Credit Reference"
             isSelected={selected == 2}
-            labelStyle={{}}
             containerStyle={{
               marginLeft: { lg: "10px", xs: "0" },
               flex: 1,
@@ -336,7 +339,7 @@ const RowModalComponents = (props: any) => {
             }}
           />
           <BoxButton
-            color={"#0B4F26"}
+            color="#0B4F26"
             onClick={() => {
               setSelected(5);
             }}
@@ -348,12 +351,11 @@ const RowModalComponents = (props: any) => {
             titleStyle={{
               fontSize: { xs: "12px" },
             }}
-            title={"Set Exposure Limit"}
-            labelStyle={{}}
+            title="Set Exposure Limit"
             isSelected={selected == 5}
           />
           <BoxButton
-            color={"#E32A2A"}
+            color="#E32A2A"
             deleteBtn={true}
             onClick={() => {
               setShowDeleteModal((prev: boolean) => !prev);
@@ -363,14 +365,13 @@ const RowModalComponents = (props: any) => {
               flex: 1,
               borderColor: "white",
             }}
-            title={"Delete User"}
+            title="Delete User"
             titleStyle={{
               fontSize: { xs: "12px" },
             }}
             icon={
               <StyledImage src={DeleteIcon} sx={classes.BoxButtonStyledImage} />
             }
-            // containerStyle={classes.BoxButtonContStyle}
           />
           <Dialog
             open={settlementModal}
@@ -379,7 +380,7 @@ const RowModalComponents = (props: any) => {
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"Are you sure want to settle this commission ?"}
+              Are you sure want to settle this commission ?
             </DialogTitle>
             <DialogActions>
               <Button
@@ -412,7 +413,7 @@ const RowModalComponents = (props: any) => {
             aria-describedby="alert-dialog-description"
           >
             <DialogTitle id="alert-dialog-title">
-              {"Are you sure want to delete this user?"}
+              Are you sure want to delete this user?
             </DialogTitle>
             <DialogActions>
               <Button

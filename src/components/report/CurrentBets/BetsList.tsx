@@ -1,69 +1,61 @@
 import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentBets } from "../../../store/actions/reports";
+import { AppDispatch, RootState } from "../../../store/store";
 import Pagination from "../../Common/Pagination";
 import EmptyRow from "./EmptyRow";
-import TableHeaderList from "./TableHeaderList";
-import TableDataRow from "./TableDataRow";
 import ListHeaderRow from "./ListHeaderRow";
-import { useState } from "react";
+import TableDataRow from "./TableDataRow";
+import TableHeaderList from "./TableHeaderList";
 
-const BetsList = (props: any) => {
-  const { getLimitEntries, betHistory } = props;
-
+const BetsList = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
 
-  function paginate(array: any, pageNumber: number, pageSize: number) {
-    try {
-      --pageNumber;
-      if (array.length > 0) {
-        const startIndex = pageNumber * pageSize;
-        const endIndex = startIndex + pageSize;
-        return array?.slice(startIndex, endIndex);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  const { currentBetsList } = useSelector(
+    (state: RootState) => state.user.reportList
+  );
 
-  const currentPageData = paginate(betHistory, currentPage, pageLimit);
+  useEffect(() => {
+    dispatch(
+      getCurrentBets({
+        page: currentPage,
+        limit: pageLimit,
+      })
+    );
+  }, [currentPage, pageLimit]);
 
   return (
     <Box
-      sx={[
-        {
-          marginX: "0.5%",
-          minHeight: "200px",
-          borderTopRightRadius: {
-            xs: "10px",
-            lg: "0px",
-            md: "10px",
-          },
-          position: "relative",
-          borderRadius: {
-            xs: "10px 10px 0 0",
-            lg: "10px 10px 0 0",
-            md: "10px 10px 0 0",
-          },
-          border: "2px solid white",
-          backgroundColor: "white",
+      sx={{
+        marginX: "0.5%",
+        minHeight: "200px",
+        borderTopRightRadius: {
+          xs: "10px",
+          lg: "0px",
+          md: "10px",
         },
-        // (theme: any) => ({
-        //   backgroundImage: `${theme.palette.primary.headerGradient}`,
-        // }),
-      ]}
+        position: "relative",
+        borderRadius: {
+          xs: "10px 10px 0 0",
+          lg: "10px 10px 0 0",
+          md: "10px 10px 0 0",
+        },
+        border: "2px solid white",
+        backgroundColor: "white",
+      }}
     >
       <ListHeaderRow
-        getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
         setCurrentPage={setCurrentPage}
       />
-
       <Box sx={{ overflowX: "auto" }}>
         <TableHeaderList />
-
-        {currentPageData &&
-          currentPageData?.map((item: any, index: any) => {
+        {currentBetsList &&
+          currentBetsList?.rows?.map((item: any, index: any) => {
             return (
               <TableDataRow
                 key={item?.id}
@@ -78,26 +70,18 @@ const BetsList = (props: any) => {
               />
             );
           })}
-        {(!betHistory || betHistory?.length === 0) && (
+        {(!currentBetsList || currentBetsList?.count === 0) && (
           <EmptyRow containerStyle={{ background: "#FFE094" }} />
         )}
       </Box>
-
-      <Box
-        sx={{
-          width: "100%",
-          position: "absolute",
-        }}
-      >
-        <Pagination
-          currentPage={currentPage}
-          // pages={+(betHistory?.length / pageLimit)}/// giving Nan
-          pages={Math.ceil(
-            parseInt(betHistory?.length ? betHistory?.length : 1) / pageLimit
-          )}
-          setCurrentPage={setCurrentPage}
-        />
-      </Box>
+      <Pagination
+        currentPage={currentPage}
+        pages={Math.ceil(
+          parseInt(currentBetsList?.count ? currentBetsList?.count : 1) /
+            pageLimit
+        )}
+        setCurrentPage={setCurrentPage}
+      />
     </Box>
   );
 };

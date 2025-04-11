@@ -1,13 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  addExpert,
   addReset,
-  addUrlAdmin,
   addUser,
   getUsersDetail,
-  updateExpert,
   updateReset,
-  updateUrlAdmin,
   updateUser,
   updateUserReset,
 } from "../../actions/user/userAction";
@@ -48,42 +44,6 @@ const userUpdateSlice = createSlice({
         state.loading = false;
         state.error = action?.error?.message;
       })
-      .addCase(addExpert.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(addExpert.fulfilled, (state) => {
-        state.addSuccess = true;
-        state.loading = false;
-      })
-      .addCase(addExpert.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(addUrlAdmin.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(addUrlAdmin.fulfilled, (state) => {
-        state.addSuccess = true;
-        state.loading = false;
-      })
-      .addCase(addUrlAdmin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(updateUrlAdmin.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateUrlAdmin.fulfilled, (state) => {
-        state.editSuccess = true;
-        state.loading = false;
-      })
-      .addCase(updateUrlAdmin.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -93,18 +53,6 @@ const userUpdateSlice = createSlice({
         state.loading = false;
       })
       .addCase(updateUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(updateExpert.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateExpert.fulfilled, (state) => {
-        state.editSuccess = true;
-        state.loading = false;
-      })
-      .addCase(updateExpert.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })

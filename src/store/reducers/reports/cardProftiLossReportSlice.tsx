@@ -3,10 +3,6 @@ import {
   getBetProfitLossCards,
   getMatchWiseProfitLossCards,
   getUserTotalProfitLossCards,
-  getUserWiseProfitLossCards,
-  resetBetProfitLossCard,
-  resetDomainProfitLossCard,
-  resetSessionProfitLossCard,
 } from "../../actions/reports";
 
 interface InitialState {
@@ -94,94 +90,7 @@ const profitLossReportCardSlice = createSlice({
       .addCase(getBetProfitLossCards.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
-      })
-      .addCase(getUserWiseProfitLossCards.pending, (state) => {
-        state.loading = false;
-        state.success = false;
-        state.error = null;
-      })
-
-      .addCase(getUserWiseProfitLossCards.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.userWiseProfitLossListCards = action?.payload;
-      })
-      .addCase(getUserWiseProfitLossCards.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      // .addCase(getTotalBetProfitLossForModal.pending, (state) => {
-      //   state.loading = true;
-      //   state.success = false;
-      //   state.totalBetProfitLossModalCard = [];
-      // })
-      // .addCase(getTotalBetProfitLossForModal.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.success = true;
-      //   state.totalBetProfitLossModalCard = action?.payload;
-      // })
-      // .addCase(getSessionProfitLoss.pending, (state) => {
-      //   state.loading = false;
-      //   state.success = false;
-      //   state.error = null;
-      //   state.sessionProfitLossListCard = [];
-      // })
-      // .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
-      //   state.success = true;
-      //   state.loading = false;
-      //   state.sessionProfitLossListCard = action?.payload;
-      // })
-      // .addCase(getSessionProfitLoss.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action?.error?.message;
-      // })
-      // .addCase(getCommissionMatch.pending, (state) => {
-      //   state.loading = false;
-      //   state.success = false;
-      //   state.error = null;
-      //   state.commissionMatchListCard = [];
-      // })
-      // .addCase(getCommissionMatch.fulfilled, (state, action) => {
-      //   state.success = true;
-      //   state.loading = false;
-      //   state.commissionMatchListCard = action?.payload;
-      // })
-      // .addCase(getCommissionMatch.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action?.error?.message;
-      // })
-      // .addCase(getCommissionBetPlaced.pending, (state) => {
-      //   state.loading = false;
-      //   state.success = false;
-      //   state.error = null;
-      //   state.commissionBetPlacedListCard = [];
-      // })
-      // .addCase(getCommissionBetPlaced.fulfilled, (state, action) => {
-      //   state.success = true;
-      //   state.loading = false;
-      //   state.commissionBetPlacedListCard = action?.payload;
-      // })
-      // .addCase(getCommissionBetPlaced.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action?.error?.message;
-      // })
-      .addCase(resetDomainProfitLossCard, (state) => {
-        return { ...state, domainProfitLossList: [] };
-      })
-      .addCase(resetSessionProfitLossCard, (state) => {
-        return { ...state, sessionProfitLossList: [] };
-      })
-      .addCase(resetBetProfitLossCard, (state) => {
-        return { ...state, betProfitLossList: [] };
       });
-    // .addCase(updateUserSearchId.fulfilled, (state, action) => {
-    //   state.success = true;
-    //   state.loading = false;
-    //   state.user = action?.payload?.search;
-    // })
-    // .addCase(resetUpdateUserSearchId, (state) => {
-    //   return { ...state, user: {} };
-    // });
   },
 });
 

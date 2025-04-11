@@ -1,24 +1,23 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import StyledImage from "../../Common/StyledImages";
 import { EyeIcon, EyeSlash } from "../../../assets";
+import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
 
-const MobileViewUserDetails = (props: any) => {
-  const {
-    value,
-    onChange,
-    setShowPass,
-    showPass,
-    onCancel,
-    initialBalance,
-    backgroundColor,
-    loading,
-    title,
-    userName,
-    elementToUDM,
-    titleBackgroundColor,
-    type,
-  } = props;
+const MobileViewUserDetails = ({
+  value,
+  onChange,
+  setShowPass,
+  showPass,
+  onCancel,
+  initialBalance,
+  backgroundColor,
+  loading,
+  title,
+  userName,
+  elementToUDM,
+  titleBackgroundColor,
+  type,
+}: any) => {
   const formatIndianCurrency = (amount: number) => {
     const formatter = new Intl.NumberFormat("en-IN", {
       currency: "INR",
@@ -27,9 +26,7 @@ const MobileViewUserDetails = (props: any) => {
   };
 
   const numberWithCommas = (numString: any) => {
-    // console.log('numString',numString)
     let stringWithoutCommas = numString?.replace(/,/g, "");
-    // console.log('stringWithoutCommas', stringWithoutCommas)
     if (!stringWithoutCommas?.includes(".")) {
       if (stringWithoutCommas?.length > 3) {
         let mainArray = stringWithoutCommas.slice(0, -3);
@@ -40,9 +37,8 @@ const MobileViewUserDetails = (props: any) => {
         for (let i = 0; i < reversedStr.length; i += 2) {
           result += reversedStr.substr(i, 2) + ",";
         }
-        result = result.slice(0, -1); // Remove the last comma
+        result = result.slice(0, -1);
         let reversedStr1 = result.split("").reverse().join("");
-        // console.log(reversedStr1,' jnknk ',reversedStr);
         return reversedStr1 + "," + lastThreeDigitsArray;
       } else {
         let data = stringWithoutCommas?.replace(/,/g, "");
@@ -58,9 +54,8 @@ const MobileViewUserDetails = (props: any) => {
         for (let i = 0; i < reversedStr.length; i += 2) {
           result += reversedStr.substr(i, 2) + ",";
         }
-        result = result.slice(0, -1); // Remove the last comma
+        result = result.slice(0, -1);
         let reversedStr1 = result.split("").reverse().join("");
-        // console.log(reversedStr1,' jnknk ',reversedStr);
         return reversedStr1 + "," + lastThreeDigitsArray + "." + parts[1];
       } else {
         let data = stringWithoutCommas?.replace(/,/g, "");
@@ -95,7 +90,7 @@ const MobileViewUserDetails = (props: any) => {
         }}
       >
         <Box
-          display={"flex"}
+          display="flex"
           sx={{
             justifyContent: "space-between",
             alignItems: "center",
@@ -104,11 +99,7 @@ const MobileViewUserDetails = (props: any) => {
             py: "6px",
           }}
         >
-          <Box
-            display={"flex"}
-            alignItems="center"
-            sx={{ alignItems: "center" }}
-          >
+          <Box display="flex" alignItems="center" sx={{ alignItems: "center" }}>
             <Typography
               sx={{
                 fontSize: {
@@ -421,7 +412,6 @@ const MobileViewUserDetails = (props: any) => {
                 alignItems: "center",
               }}
             >
-              {" "}
               {formatIndianCurrency(
                 parseFloat(elementToUDM?.userBal?.profitLoss)
               )}
@@ -530,7 +520,6 @@ const MobileViewUserDetails = (props: any) => {
                   color: "white",
                 },
               }}
-              // type={"Number"}
             />
           </Box>
         </Box>
@@ -570,7 +559,6 @@ const MobileViewUserDetails = (props: any) => {
               Remarks
             </Typography>
           </Box>
-
           <Box
             sx={{
               borderRadius: "5px",
@@ -700,7 +688,7 @@ const MobileViewUserDetails = (props: any) => {
         }}
       >
         <BoxButton
-          color={"#E32A2A"}
+          color="#E32A2A"
           containerStyle={{
             width: "150px",
             background: "#E32A2A",
@@ -709,15 +697,15 @@ const MobileViewUserDetails = (props: any) => {
           }}
           isSelected={true}
           onClick={onCancel}
-          title={"Cancel"}
+          title="Cancel"
         />
         <BoxButton
-          color={"#0B4F26"}
+          color="#0B4F26"
           loading={loading}
           containerStyle={{ width: "150px", height: "45px" }}
           isSelected={true}
           type="submit"
-          title={"Submit"}
+          title="Submit"
         />
       </Box>
     </Box>

@@ -6,7 +6,7 @@ import {
   useTheme,
 } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { EyeIcon, EyeSlash } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
@@ -22,8 +22,8 @@ import {
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
+import { depositAmountValidations } from "../../../utils/Validations";
 
 const initialValues: any = {
   userId: "",
@@ -33,20 +33,18 @@ const initialValues: any = {
   transactionType: "withDraw",
 };
 
-const WithdrawComponent = (props: any) => {
-  const {
-    endpoint,
-    isWallet,
-    walletAccountDetail,
-    element,
-    backgroundColor,
-    selected,
-    setSelected,
-    titleBackgroundColor,
-    onChangeAmount,
-    currentPage,
-  } = props;
-
+const WithdrawComponent = ({
+  endpoint,
+  isWallet,
+  walletAccountDetail,
+  element,
+  backgroundColor,
+  selected,
+  setSelected,
+  titleBackgroundColor,
+  onChangeAmount,
+  currentPage,
+}: any) => {
   const [showPass, setShowPass] = useState(false);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -323,8 +321,6 @@ const WithdrawComponent = (props: any) => {
                     required={true}
                     id="amount"
                     name="amount"
-                    // onKeyDown={handleKeyDown}
-                    // value={withDrawObj.amount}
                     value={numberWithCommas(formik.values.amount?.toString())}
                     variant="standard"
                     type="text"
@@ -345,8 +341,6 @@ const WithdrawComponent = (props: any) => {
                   />
                 </Box>
               </Box>
-
-              {/* wallet */}
               <Box
                 sx={{
                   width: { xs: "41%", lg: "100%" },
@@ -376,7 +370,6 @@ const WithdrawComponent = (props: any) => {
                   sx={{
                     width: { xs: "100%", lg: "43%", md: "43%" },
                     height: "45px",
-                    // background: "#FFECBC",
                     background: "#ECECEC",
                     display: "flex",
                     alignItems: "center",
@@ -455,7 +448,6 @@ const WithdrawComponent = (props: any) => {
                     Transaction Password
                   </Typography>
                 </Box>
-
                 <Box
                   sx={{
                     width: { xs: "100%", lg: "43%", md: "43%" },
@@ -525,8 +517,6 @@ const WithdrawComponent = (props: any) => {
                 flexDirection: "row-reverse",
               }}
             >
-              {/* Remark */}
-
               <Box
                 sx={{
                   flex: 1,
@@ -563,7 +553,6 @@ const WithdrawComponent = (props: any) => {
                   }}
                 />
               </Box>
-
               <Box
                 sx={{
                   display: "flex",
@@ -575,7 +564,7 @@ const WithdrawComponent = (props: any) => {
                 }}
               >
                 <BoxButton
-                  color={"#0B4F26"}
+                  color="#0B4F26"
                   loading={loading}
                   disabled={isSubmitting}
                   containerStyle={{
@@ -584,10 +573,10 @@ const WithdrawComponent = (props: any) => {
                   }}
                   isSelected={true}
                   type="submit"
-                  title={"Submit"}
+                  title="Submit"
                 />
                 <BoxButton
-                  color={"#E32A2A"}
+                  color="#E32A2A"
                   containerStyle={{
                     maxWidth: "150px !important",
                     background: "#E32A2A",
@@ -599,7 +588,7 @@ const WithdrawComponent = (props: any) => {
                     setSelected();
                     onChangeAmount(0, element?.id, "withdraw");
                   }}
-                  title={"Cancel"}
+                  title="Cancel"
                 />
               </Box>
             </Box>
@@ -620,11 +609,11 @@ const WithdrawComponent = (props: any) => {
             >
               <Box sx={{ display: "flex", width: "150px" }}>
                 <BoxButton
-                  color={"#0B4F26"}
+                  color="#0B4F26"
                   loading={loading}
                   containerStyle={{ width: "150px", height: "35px" }}
                   isSelected={true}
-                  title={"Submit"}
+                  title="Submit"
                 />
               </Box>
               <Box
@@ -635,7 +624,7 @@ const WithdrawComponent = (props: any) => {
                 }}
               >
                 <BoxButton
-                  color={"#E32A2A"}
+                  color="#E32A2A"
                   containerStyle={{
                     width: "150px",
                     background: "#E32A2A",
@@ -647,7 +636,7 @@ const WithdrawComponent = (props: any) => {
                     setSelected();
                     onChangeAmount(0, element?.id, "withdraw");
                   }}
-                  title={"Cancel"}
+                  title="Cancel"
                 />
               </Box>
             </Box>

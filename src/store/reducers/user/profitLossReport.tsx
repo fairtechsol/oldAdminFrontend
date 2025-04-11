@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   getMatchWiseProfitLoss,
-  getSessionProfitLoss,
   getTotalBetProfitLoss,
   getTotalBetProfitLossForModal,
   getUserTotalProfitLoss,
@@ -92,20 +91,6 @@ const profitLossReportSlice = createSlice({
         state.totalBetProfitLossModal = action?.payload;
       })
       .addCase(getTotalBetProfitLossForModal.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getSessionProfitLoss.pending, (state) => {
-        state.loading = true;
-        state.success = false;
-        state.totalSessionProfitLoss = [];
-      })
-      .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.totalSessionProfitLoss = action?.payload;
-      })
-      .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       });

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { debounce } from "lodash";
 import moment from "moment";
 import { useEffect, useMemo, useState } from "react";
@@ -25,6 +25,7 @@ const ProfitLossCards = () => {
   const [startDate, setStartDate] = useState<any>();
   const [endDate, setEndDate] = useState<any>();
   const [userProfitLoss, setUserProfitLoss] = useState([]);
+  const [event, setEvent] = useState("");
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -37,6 +38,7 @@ const ProfitLossCards = () => {
   );
   const handleClick = () => {
     try {
+      setEvent("");
       let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
@@ -102,7 +104,7 @@ const ProfitLossCards = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <ProfitLossHeader
         title="Profit/Loss"
         onClick={handleClick}
@@ -126,19 +128,18 @@ const ProfitLossCards = () => {
       >
         Profit/Loss for Event Type
       </Typography>
-
-      <Box>
-        <ProfitLossTableComponent
-          startDate={startDate}
-          endDate={endDate}
-          eventData={totalProfitLossListCard && totalProfitLossListCard}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          userProfitLoss={userProfitLoss}
-          getUserProfitLoss={getUserProfitLoss}
-        />
-      </Box>
-    </div>
+      <ProfitLossTableComponent
+        startDate={startDate}
+        endDate={endDate}
+        eventData={totalProfitLossListCard && totalProfitLossListCard}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        userProfitLoss={userProfitLoss}
+        getUserProfitLoss={getUserProfitLoss}
+        event={event}
+        setEvent={setEvent}
+      />
+    </>
   );
 };
 

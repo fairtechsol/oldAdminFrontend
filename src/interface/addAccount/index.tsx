@@ -22,10 +22,6 @@ export interface AddAccountInterface {
     label: string;
     value: string;
   };
-  // sessionCommission?: {
-  //   label: string;
-  //   value: string;
-  // };
   remarks?: string;
   adminTransPassword?: string;
   allPrivilege?: boolean;

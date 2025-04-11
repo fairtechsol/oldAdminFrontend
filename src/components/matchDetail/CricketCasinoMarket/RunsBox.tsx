@@ -1,11 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useRef } from "react";
-import { memo } from "react";
-import StyledImage from "../../Common/StyledImages";
+import { memo, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { CANCEL } from "../../../assets";
 import { getSessionProfitLossMatchDetailFilter } from "../../../store/actions/match/matchAction";
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
+import StyledImage from "../../Common/StyledImages";
 
 const RunsBox = ({ item, currentOdd }: any) => {
   const theme = useTheme();
@@ -47,7 +46,7 @@ const RunsBox = ({ item, currentOdd }: any) => {
         borderRadius: "10px",
         backgroundColor: "white",
         display: "flex",
-        width: {lg:"19.5%", xs: "23.5%"},
+        width: { lg: "19.5%", xs: "23.5%" },
         marginX: "1px",
         border: "3px solid #0B4F26",
       }}

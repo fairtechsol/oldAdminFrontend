@@ -2,32 +2,33 @@ import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { handleNumber } from "../../../helper";
 
-const TableDataRow = (props: any) => {
-  const {
-    containerStyle,
-    fContainerStyle,
-    fTextStyle,
-    index,
-    date,
-    closing,
-    description,
-    touserName,
-    fromuserName,
-    transType,
-    amount,
-    color
-  } = props;
+interface TableDataRowProps {
+  containerStyle: object;
+  fContainerStyle: object;
+  fTextStyle: object;
+  index: number;
+  date: string;
+  closing: string | null;
+  description: string;
+  touserName: string;
+  fromuserName: string;
+  transType: string;
+  amount: any;
+}
 
-  // const dateString = date;
-  // const dateObj = new Date(dateString);
-  // const formattedDate = dateObj.toLocaleDateString("en-US", {
-  //   year: "numeric",
-  //   month: "2-digit",
-  //   day: "2-digit",
-  //   hour: "2-digit",
-  //   minute: "2-digit",
-  // });
-
+const TableDataRow = ({
+  containerStyle,
+  fContainerStyle,
+  fTextStyle,
+  index,
+  date,
+  closing,
+  description,
+  touserName,
+  fromuserName,
+  transType,
+  amount,
+}: TableDataRowProps) => {
   return (
     <Box
       sx={[
@@ -66,7 +67,7 @@ const TableDataRow = (props: any) => {
             fTextStyle,
           ]}
         >
-          {moment.utc(date).utcOffset('+05:30').format("DD-MM-YYYY HH:mm:ss")}
+          {moment.utc(date).utcOffset("+05:30").format("DD-MM-YYYY HH:mm:ss")}
         </Typography>
       </Box>
       <Box
@@ -122,12 +123,7 @@ const TableDataRow = (props: any) => {
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {/* {new Intl.NumberFormat("en-IN", { currency: "INR" }).format(closing)} */}
-          {closing !== null
-            ? handleNumber(
-               parseFloat( closing), color
-              )
-            : ""}
+          {closing !== null ? handleNumber(parseFloat(closing), "") : ""}
         </Typography>
       </Box>
       <Box

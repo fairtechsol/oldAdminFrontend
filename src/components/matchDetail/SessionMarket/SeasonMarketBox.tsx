@@ -13,9 +13,15 @@ import CommissionDot from "../../Common/CommissionDot";
 import SeperateBox from "../MatchOdds/SeperateBox";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
+import MarqueeText from "./MarqueeText";
 
-const SeasonMarketBox = (props: any) => {
-  const { newData, setData, profitLossData, index, type } = props;
+const SeasonMarketBox = ({
+  newData,
+  setData,
+  profitLossData,
+  index,
+  type,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -74,12 +80,12 @@ const SeasonMarketBox = (props: any) => {
                 fontSize: { lg: "9px", md: "9px", xs: "8px" },
                 marginLeft: "7px",
                 fontWeight: "500",
+                lineHeight: "10px",
               }}
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
           </Box>
-          {/* </Typography> */}
         </Box>
 
         <Box
@@ -131,11 +137,8 @@ const SeasonMarketBox = (props: any) => {
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
-                // marginLeft: "-2px",
                 height: "38px",
-                // position: "absolute",
                 marginLeft: { lg: "20%", md: "0%", xs: "0%" },
-                // right: 0,
                 width: { lg: "36.5%", md: "60%", xs: "60.5%" },
                 justifyContent: { xs: "center", lg: "center" },
                 alignItems: "center",
@@ -194,7 +197,7 @@ const SeasonMarketBox = (props: any) => {
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
+                  />
                   <SeperateBox
                     session={true}
                     value={Math.floor(newData?.yesRate)}
@@ -226,7 +229,7 @@ const SeasonMarketBox = (props: any) => {
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
+                  />
                   <SeperateBox
                     session={true}
                     value={newData.ex?.availableToBack[0]?.price ?? 0}
@@ -245,9 +248,7 @@ const SeasonMarketBox = (props: any) => {
             </>
           )}
 
-          <Box
-            sx={{ width: ".45%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".45%", display: "flex", background: "pink" }} />
         </Box>
       </Box>
       <Divider />
@@ -260,7 +261,7 @@ const SeasonMarketBox = (props: any) => {
             ) - 1,
         },
         (_, i) => i + 1
-      )?.map((item: number,index:number) => (
+      )?.map((item: number, index: number) => (
         <React.Fragment key={index}>
           <Box
             sx={{
@@ -282,7 +283,7 @@ const SeasonMarketBox = (props: any) => {
                   background: "rgba(0,0,0,0.5)",
                   zIndex: 2,
                 }}
-              ></Box>
+              />
             )}
             <Box
               sx={{
@@ -292,7 +293,7 @@ const SeasonMarketBox = (props: any) => {
                 alignItems: "center",
                 background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
               }}
-            ></Box>
+            />
             <Box
               sx={{
                 display: "flex",
@@ -312,11 +313,8 @@ const SeasonMarketBox = (props: any) => {
                 <Box
                   sx={{
                     background: "rgba(0,0,0,1)",
-                    // marginLeft: "-2px",
                     height: "38px",
-                    // position: "absolute",
                     marginLeft: { lg: "20%", md: "0%", xs: "0%" },
-                    // right: 0,
                     width: { lg: "36.5%", md: "60%", xs: "60.5%" },
                     justifyContent: { xs: "center", lg: "center" },
                     alignItems: "center",
@@ -388,7 +386,7 @@ const SeasonMarketBox = (props: any) => {
                       display: "flex",
                       background: "pink",
                     }}
-                  ></Box>
+                  />
                   <SeperateBox
                     session={true}
                     value={
@@ -419,12 +417,13 @@ const SeasonMarketBox = (props: any) => {
 
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box>
+              />
             </Box>
           </Box>
           <Divider />
         </React.Fragment>
       ))}
+      {newData?.rem && <MarqueeText index={index}>{newData?.rem}</MarqueeText>}
     </>
   );
 };
