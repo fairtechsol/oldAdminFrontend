@@ -1,84 +1,55 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
-// import { useDispatch } from "react-redux";
-import { formatToINR } from "../../helper";
 import { MatchComponentInterface } from "../../interface/inplay";
-// import { socket, socketService } from "../../socketManager";
-// import { updateMatchListRates } from "../../store/actions/match/matchAction";
-// import { AppDispatch } from "../../store/store";
+import BackLayRow from "./BackLayRow";
 import Divider from "./Divider";
 import HeaderRow from "./HeaderRow";
 import TeamDetailRow from "./TeamDetailRow";
 
-const MatchComponent = (props: MatchComponentInterface) => {
-  const { onClick, top, blur, match } = props;
-  // const dispatch: AppDispatch = useDispatch();
-  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
+const MatchComponent = ({
+  onClick,
+  top,
+  blur,
+  match,
+}: MatchComponentInterface) => {
+  const [timeLeft, setTimeLeft] = useState({
+    days: "00",
+    hours: "00",
+    minutes: "00",
+  });
 
-  function calculateTimeLeft() {
-    try {
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const targetDate = moment(match?.startAt).tz(timezone);
-      const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-      let timeLeft = {};
-      if (difference > 0) {
-        timeLeft = {
-          days:
-            ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) ||
-            0,
-          hours:
-            ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(
-              -2
-            ) || 0,
-          minutes:
-            ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
-          seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
-        };
-      } else {
-        timeLeft = {
-          days: "00",
-          hours: "00",
-          minutes: "00",
-        };
+  const calculateTimeLeft = () => {
+    const diff = moment(match?.startAt).diff(moment());
+    return diff > 0
+      ? {
+        days: String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(
+          2,
+          "0"
+        ),
+        hours: String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(
+          2,
+          "0"
+        ),
+        minutes: String(Math.floor((diff / (1000 * 60)) % 60)).padStart(
+          2,
+          "0"
+        ),
       }
-
-      return timeLeft;
-    } catch (e) {
-      console.log(e);
-    }
-  }
+      : { days: "00", hours: "00", minutes: "00" };
+  };
 
   const upcoming: any =
     Number(timeLeft?.days) === 0 &&
     Number(timeLeft?.hours) === 0 &&
     Number(timeLeft?.minutes) <= 30;
 
-  // const setMatchOddRatesInRedux = (event: any) => {
-  //   try {
-  //     if (match?.id === event?.id) {
-  //       dispatch(updateMatchListRates(event));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 100);
     return () => clearInterval(timer);
-  }, []);
-
-  // useEffect(() => {
-  //   if (socket) {
-  //     socketService.match.getMatchRates(match?.id, setMatchOddRatesInRedux);
-  //     return () => {
-  //       socketService.match.getMatchRatesOff(match?.id);
-  //     };
-  //   }
-  // }, [socket]);
+  }, [match?.startAt]);
 
   return (
     <>
@@ -189,7 +160,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
               right: 0,
               height: "100%",
             }}
-          ></Box>
+          />
         )}
         {!upcoming && (
           <Box
@@ -254,7 +225,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 marginLeft: 1,
               }}
             >
-              <Box className="wave"> </Box>
+              <Box className="wave" />
               <Typography
                 sx={{
                   fontStyle: "italic",
@@ -268,111 +239,34 @@ const MatchComponent = (props: MatchComponentInterface) => {
             </Box>
           )}
           <HeaderRow match={match} timeLeft={timeLeft} />
-          <Box
-            sx={{
-              display: "flex",
-              background: "#319E5B",
-              height: "25px",
-              width: "99.7%",
-              alignSelf: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                background: "'#319E5B'",
-                height: "25px",
-                width: "40%",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: { lg: "11px", xs: "9px" },
-                  marginLeft: "7px",
-                }}
-              >
-                MIN: {formatToINR(Math.floor(match?.matchOdds?.[0]?.minBet))} MAX:{" "}
-                {formatToINR(Math.floor(match?.matchOdds?.[0]?.maxBet))}
-
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                background: "#319E5B",
-                height: "25px",
-                width: { lg: "60%", xs: "80%" },
-                justifyContent: { lg: "flex-end", xs: "flex-end" },
-                marginRight: { lg: "4px", xs: "2px" },
-              }}
-            >
-              <Box
-                sx={{
-                  background: "#00C0F9",
-                  width: { lg: "20%", xs: "25%" },
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
-                >
-                  Back
-                </Typography>
-              </Box>
-              <Box sx={{ width: ".35%", display: "flex" }}></Box>
-
-              <Box
-                sx={{
-                  background: "#FF9292",
-                  width: { lg: "20%", xs: "25%" },
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
-                  sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
-                >
-                  Lay
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
+          <BackLayRow />
           <TeamDetailRow
             teamName={match.teamA}
             runnerNumber={0}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds?.[0]}
             match={match}
           />
-          <Divider />
-          <TeamDetailRow
-            teamName={match.teamB}
-            runnerNumber={1}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds?.[0]}
-            match={match}
-          />
+          {match.teamB && (
+            <>
+              <Divider />
+              <TeamDetailRow
+                teamName={match.teamB}
+                runnerNumber={1}
+                match={match}
+              />
+            </>
+          )}
           {match.teamC && (
             <>
               <Divider />
               <TeamDetailRow
                 teamName={match.teamC}
                 runnerNumber={2}
-                apiBasePath={"abc"}
-                matchOddsLive={match?.matchOdds?.[0]}
                 match={match}
               />
             </>
           )}
         </Box>
-      </Box >
+      </Box>
     </>
   );
 };
