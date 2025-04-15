@@ -152,11 +152,11 @@ export const getUsersProfile = createAsyncThunk(
     try {
       const resp = await service.get(`${ApiConstants.USER.PROFILE}`);
       if (resp) {
-        if (resp?.data[0][0]?.loginAt === null) {
+        if (resp?.data?.loginAt === null) {
           window.location.replace("/admin/login");
           sessionStorage.clear();
         } else {
-          return resp?.data[0][0];
+          return resp?.data;
         }
       }
     } catch (error: any) {
@@ -173,7 +173,7 @@ export const getUsersDetail = createAsyncThunk<any, string>(
         `${ApiConstants.USER.PROFILE}?userId=${requestData}`
       );
       if (resp) {
-        return resp?.data[0][0];
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
