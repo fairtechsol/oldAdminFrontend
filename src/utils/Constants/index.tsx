@@ -166,7 +166,6 @@ export const Constants = {
     profitLossCards: "/admin/reports/profit_loss_cards",
     accountStatement: "/admin/reports/account_statement",
     currentBet: "/admin/reports/current_bet",
-    generalReport: "/admin/reports/general_report",
   },
   pageCount: 10,
   listOfClientCountLimit: 15,
