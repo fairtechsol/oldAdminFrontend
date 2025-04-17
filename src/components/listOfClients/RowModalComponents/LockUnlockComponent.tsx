@@ -137,7 +137,6 @@ const LockUnlockComponent = ({
                 width: { xs: "100%", lg: "35%", md: "35%" },
                 fontWeight: "600",
                 marginRight: { xs: 0, lg: "20px", md: "20px" },
-
                 visibility: "hidden",
                 display: { xs: "none", lg: "block" },
               }}

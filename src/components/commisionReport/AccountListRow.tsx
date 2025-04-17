@@ -146,17 +146,15 @@ const AccountListRow = ({
           ]}
         >
           <Typography
-            sx={[
-              {
-                fontSize: { xs: "10px", lg: "12px", md: "10px" },
-                fontWeight: "600",
-                cursor: "pointer",
-                display: " -webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              },
-            ]}
+            sx={{
+              fontSize: { xs: "10px", lg: "12px", md: "10px" },
+              fontWeight: "600",
+              cursor: "pointer",
+              display: " -webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
           >
             {elementToUDM?.name}
           </Typography>

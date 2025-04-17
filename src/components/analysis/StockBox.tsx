@@ -21,7 +21,6 @@ const StockBox = ({ team, value, up, mode, showFixed }: StockBoxProps) => {
         flexDirection: "column",
         justifyContent: "center",
         marginLeft: { xs: mode == "1" ? "2px" : 0, lg: "10px" },
-
         padding: { xs: "3px", md: "5px", lg: "5px" },
         paddingTop: { xs: "1px", md: "5px", lg: "5px" },
       }}
@@ -40,7 +39,6 @@ const StockBox = ({ team, value, up, mode, showFixed }: StockBoxProps) => {
             color: "white",
             fontSize: { xs: "9px", md: "12px", lg: "14px" },
             fontWeight: "700",
-
             overflow: "hidden",
             display: "-webkit-box",
             WebkitLineClamp: 1,

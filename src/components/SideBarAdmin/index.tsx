@@ -22,8 +22,7 @@ const datas = [
     value: "hockey",
   },
 ];
-const SideBarAdmin = (props: any) => {
-  const { handleDrawerToggle } = props;
+const SideBarAdmin = ({ handleDrawerToggle }: any) => {
   const [selected, setSelected] = useState({
     value: false,
     matchType: "",

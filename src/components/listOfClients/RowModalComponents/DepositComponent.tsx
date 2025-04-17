@@ -32,20 +32,18 @@ const initialValues: any = {
   transactionType: "add",
 };
 
-const DepositComponent = (props: any) => {
-  const {
-    endpoint,
-    isWallet,
-    walletAccountDetail,
-    element,
-    backgroundColor,
-    setSelected,
-    selected,
-    titleBackgroundColor,
-    onChangeAmount,
-    currentPage,
-  } = props;
-
+const DepositComponent = ({
+  endpoint,
+  isWallet,
+  walletAccountDetail,
+  element,
+  backgroundColor,
+  setSelected,
+  selected,
+  titleBackgroundColor,
+  onChangeAmount,
+  currentPage,
+}: any) => {
   const [showPass, setShowPass] = useState(false);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));

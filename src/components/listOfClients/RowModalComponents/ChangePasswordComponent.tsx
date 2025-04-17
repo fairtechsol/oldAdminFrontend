@@ -20,8 +20,12 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
-const ChangePasswordComponent = (props: any) => {
-  const { setSelected, element, walletAccountDetail, endpoint } = props;
+const ChangePasswordComponent = ({
+  setSelected,
+  element,
+  walletAccountDetail,
+  endpoint,
+}: any) => {
   const [showPass, setShowPass] = useState(false);
   const [showPassTransaction, setShowPassTransaction] = useState(false);
 
@@ -145,7 +149,6 @@ const ChangePasswordComponent = (props: any) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={touched.newPassword && Boolean(errors.newPassword)}
-                    // helperText={touched.newPassword && errors.newPassword}
                     sx={{ width: "100%", height: "45px", color: "white" }}
                     variant="standard"
                     InputProps={{
@@ -162,7 +165,6 @@ const ChangePasswordComponent = (props: any) => {
                       },
                     }}
                   />
-
                   <Box
                     onClick={() => {
                       setShowPass(!showPass);
@@ -240,7 +242,6 @@ const ChangePasswordComponent = (props: any) => {
               >
                 Transaction Password
               </Typography>
-
               <Box
                 sx={{
                   width: { xs: "100%", lg: "32.5", md: "60%" },
@@ -298,7 +299,6 @@ const ChangePasswordComponent = (props: any) => {
                 />
               </Box>
             </Box>
-
             <Box
               sx={{
                 display: "flex",
@@ -329,7 +329,6 @@ const ChangePasswordComponent = (props: any) => {
               />
             </Box>
           </Box>
-
           <Box
             sx={{
               display: "none",

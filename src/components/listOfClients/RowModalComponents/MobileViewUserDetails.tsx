@@ -150,7 +150,6 @@ const MobileViewUserDetails = ({
               gap: 1,
               alignItems: "center",
               width: "100%",
-
               justifyContent: "flex-end",
             }}
           >
@@ -160,7 +159,6 @@ const MobileViewUserDetails = ({
                 alignItems: "center",
                 width: "40%",
                 flexDirection: "row",
-
                 justifyContent: "space-between",
                 position: "relative",
                 marginTop: "0",
@@ -231,7 +229,6 @@ const MobileViewUserDetails = ({
                   style: {
                     fontSize: "13px",
                     height: "45px",
-
                     fontWeight: "600",
                   },
                 }}
@@ -262,7 +259,6 @@ const MobileViewUserDetails = ({
                 alignItems: "center",
                 width: "40%",
                 flexDirection: "row",
-
                 justifyContent: "space-between",
                 position: "relative",
                 marginTop: "0",
@@ -369,7 +365,6 @@ const MobileViewUserDetails = ({
               alignItems: "center",
               width: "40%",
               flexDirection: "row",
-
               justifyContent: "space-between",
               position: "relative",
               marginTop: "0",
@@ -378,7 +373,6 @@ const MobileViewUserDetails = ({
             <Typography
               sx={{
                 fontSize: "3.2vw",
-
                 width: "100%",
                 fontWeight: "600",
                 marginRight: 0,
@@ -479,7 +473,6 @@ const MobileViewUserDetails = ({
             <Typography
               sx={{
                 fontSize: "3.2vw",
-
                 width: "100%",
                 fontWeight: "600",
                 marginRight: 0,
@@ -539,7 +532,6 @@ const MobileViewUserDetails = ({
               alignItems: "center",
               width: "40%",
               flexDirection: "row",
-
               justifyContent: "space-between",
               position: "relative",
               marginTop: "0",
@@ -588,7 +580,6 @@ const MobileViewUserDetails = ({
                 style: {
                   fontSize: "13px",
                   minHeight: "45px",
-
                   fontWeight: "600",
                 },
               }}
@@ -610,7 +601,6 @@ const MobileViewUserDetails = ({
               alignItems: "center",
               width: "40%",
               flexDirection: "row",
-
               justifyContent: "space-between",
               position: "relative",
               marginTop: "0",
@@ -619,7 +609,6 @@ const MobileViewUserDetails = ({
             <Typography
               sx={{
                 fontSize: "3vw",
-
                 width: "100%",
                 fontWeight: "600",
                 marginRight: 0,
@@ -631,7 +620,6 @@ const MobileViewUserDetails = ({
               Transaction
             </Typography>
           </Box>
-
           <Box
             sx={{
               width: "60%",

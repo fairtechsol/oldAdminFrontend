@@ -128,7 +128,7 @@ const EventWiseMatchListModal = ({
                   &times;
                 </Typography>
               </Box>
-            </Box>{" "}
+            </Box>
             <TableContainer sx={{ maxHeight: 600 }}>
               <Table
                 sx={{
