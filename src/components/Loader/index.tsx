@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { memo } from "react";
 import { LoaderInterface } from "../../interface/common";
 import "./styles.css";
 
@@ -27,4 +26,4 @@ const Loader = ({ text, height, width }: LoaderInterface) => {
   );
 };
 
-export default memo(Loader);
+export default Loader;

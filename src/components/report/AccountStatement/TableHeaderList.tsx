@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { memo } from "react";
 
 const headerItems = [
   { label: "Date", width: { xs: "14%", md: "11%", lg: "11%" } },
@@ -49,4 +48,4 @@ const TableHeaderList = () => {
   );
 };
 
-export default memo(TableHeaderList);
+export default TableHeaderList;

@@ -94,26 +94,24 @@ const AccountStatement = () => {
         />
       </Box>
       <Box
-        sx={[
-          {
-            marginX: { xs: "2vw", lg: "1vw" },
-            minHeight: "100px",
-            borderRadius: "2px",
-            border: "2px solid white",
-            width: "97.5%",
-            borderTopRightRadius: {
-              xs: "10px",
-              lg: "0px",
-              md: "10px",
-            },
-            borderTopLeftRadius: {
-              xs: "10px",
-              lg: "0px",
-              md: "10px",
-            },
-            background: "#F8C851",
+        sx={{
+          marginX: { xs: "2vw", lg: "1vw" },
+          minHeight: "100px",
+          borderRadius: "2px",
+          border: "2px solid white",
+          width: "97.5%",
+          borderTopRightRadius: {
+            xs: "10px",
+            lg: "0px",
+            md: "10px",
           },
-        ]}
+          borderTopLeftRadius: {
+            xs: "10px",
+            lg: "0px",
+            md: "10px",
+          },
+          background: "#F8C851",
+        }}
       >
         <ListHeaderRow
           searchFor="accountStatement"

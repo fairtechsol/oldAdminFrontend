@@ -9,7 +9,6 @@ import Footer from "../../Common/Footer";
 import RowHeaderMatches from "./RowHeaderMatches";
 
 const ProfitLossTableComponent = ({
-  eventData,
   currentPage,
   endDate,
   startDate,
@@ -20,7 +19,9 @@ const ProfitLossTableComponent = ({
   setEvent,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
-
+  const { userTotalProfitLoss } = useSelector(
+    (state: RootState) => state.user.profitLoss
+  );
   const { matchWiseProfitLossCount } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
@@ -91,9 +92,9 @@ const ProfitLossTableComponent = ({
 
   return (
     <>
-      {eventData?.length > 0 ? (
+      {userTotalProfitLoss?.length > 0 ? (
         <>
-          {eventData?.map((item: any, index: any) => (
+          {userTotalProfitLoss?.map((item: any, index: any) => (
             <RowHeaderMatches
               key={index}
               item={item}

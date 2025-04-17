@@ -29,9 +29,7 @@ const ProfitLossReport = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const { userTotalProfitLoss } = useSelector(
-    (state: RootState) => state.user.profitLoss
-  );
+
   const { searchUserList } = useSelector(
     (state: RootState) => state.user.userList
   );
@@ -127,7 +125,6 @@ const ProfitLossReport = () => {
       <ProfitLossTableComponent
         startDate={startDate}
         endDate={endDate}
-        eventData={userTotalProfitLoss && userTotalProfitLoss}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         userProfitLoss={userProfitLoss}
