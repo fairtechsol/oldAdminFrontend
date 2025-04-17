@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
@@ -654,4 +654,4 @@ const MatchDetail = () => {
   );
 };
 
-export default MatchDetail;
+export default memo(MatchDetail);

@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ArrowDown } from "../../assets";
 import { formatToINR } from "../../helper";
@@ -226,4 +227,4 @@ const MatchList = ({
   );
 };
 
-export default MatchList;
+export default memo(MatchList);

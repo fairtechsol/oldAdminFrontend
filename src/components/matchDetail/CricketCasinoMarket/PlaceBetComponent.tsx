@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { handleNumber } from "../../../helper";
 
 const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
@@ -51,4 +52,4 @@ const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
   );
 };
 
-export default PlaceBetComponent;
+export default memo(PlaceBetComponent);

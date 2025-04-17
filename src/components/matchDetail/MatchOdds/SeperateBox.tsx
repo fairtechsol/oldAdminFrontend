@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { Lock } from "../../../assets";
 
 const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
@@ -50,4 +51,4 @@ const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
   );
 };
 
-export default SeperateBox;
+export default memo(SeperateBox);

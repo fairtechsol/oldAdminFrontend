@@ -1,5 +1,5 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { EyeIcon, EyeSlash } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
@@ -326,4 +326,4 @@ const SetExposureLimit = ({
   );
 };
 
-export default SetExposureLimit;
+export default memo(SetExposureLimit);

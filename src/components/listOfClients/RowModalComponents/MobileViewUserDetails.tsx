@@ -1,4 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { memo } from "react";
 import { EyeIcon, EyeSlash } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
@@ -712,4 +713,4 @@ const MobileViewUserDetails = ({
   );
 };
 
-export default MobileViewUserDetails;
+export default memo(MobileViewUserDetails);

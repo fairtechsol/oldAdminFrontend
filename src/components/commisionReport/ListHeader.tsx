@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface ListHeaderProps {
   title: string;
@@ -44,4 +45,4 @@ const ListHeader = ({ title, setShow, userName }: ListHeaderProps) => {
   );
 };
 
-export default ListHeader;
+export default memo(ListHeader);

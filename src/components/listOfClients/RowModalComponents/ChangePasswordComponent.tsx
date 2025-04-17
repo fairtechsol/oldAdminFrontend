@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { EyeIconWhite, EyeSlashWhite } from "../../../assets";
 import {
@@ -358,4 +358,4 @@ const ChangePasswordComponent = (props: any) => {
   );
 };
 
-export default ChangePasswordComponent;
+export default memo(ChangePasswordComponent);

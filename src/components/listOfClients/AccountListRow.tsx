@@ -1,7 +1,7 @@
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Box, Typography } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DownGIcon, DownIcon, LockIcon, UnLockIcon } from "../../assets";
 import { formatToINR } from "../../helper";
@@ -792,4 +792,4 @@ const AccountListRow = ({
   );
 };
 
-export default AccountListRow;
+export default memo(AccountListRow);

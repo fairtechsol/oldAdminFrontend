@@ -1,6 +1,6 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { CANCEL, LockIcon, UnLockIcon, eye, eyeLock } from "../../assets";
 
 const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
@@ -126,4 +126,4 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
     </Box>
   );
 };
-export default UnlockComponent;
+export default memo(UnlockComponent);

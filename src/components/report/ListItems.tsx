@@ -1,4 +1,5 @@
 import { Box, MenuItem, Typography } from "@mui/material";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ListItems = ({ menutItems1, title }: any) => {
@@ -85,4 +86,4 @@ const ListItems = ({ menutItems1, title }: any) => {
   );
 };
 
-export default ListItems;
+export default memo(ListItems);

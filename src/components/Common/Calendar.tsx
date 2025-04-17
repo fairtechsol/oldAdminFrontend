@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarImage } from "../../assets";
@@ -69,4 +69,4 @@ const Calendar = ({ title, startDate, setStartDate, limit }: CalendarProps) => {
   );
 };
 
-export default Calendar;
+export default memo(Calendar);

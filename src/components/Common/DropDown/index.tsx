@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
 import { DropdownInterface } from "../../../interface/addAccount";
 import StyledImage from "../StyledImages";
@@ -159,4 +159,4 @@ const DropDown = ({
   );
 };
 
-export default DropDown;
+export default memo(DropDown);

@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Excel, Pdf } from "../../assets";
 import { handleExport } from "../../store/actions/user/userAction";
@@ -102,4 +103,4 @@ const HeaderRow = ({
   );
 };
 
-export default HeaderRow;
+export default memo(HeaderRow);

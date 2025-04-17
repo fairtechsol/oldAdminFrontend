@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import LargeBox from "./LargeBox";
 import SmallBox from "./SmallBox";
 
@@ -15,4 +16,4 @@ const Row = ({ values, index }: any) => {
     </Box>
   );
 };
-export default Row;
+export default memo(Row);

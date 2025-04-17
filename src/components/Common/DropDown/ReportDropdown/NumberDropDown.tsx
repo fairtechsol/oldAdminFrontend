@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import SmallDropDown from "../../../report/AccountStatement/SmallDropDown";
 
 interface NumberDropDownProps {
@@ -35,4 +36,4 @@ const NumberDropDown = ({
   );
 };
 
-export default NumberDropDown;
+export default memo(NumberDropDown);

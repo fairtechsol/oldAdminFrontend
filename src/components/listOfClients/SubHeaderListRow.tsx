@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { handleNumber } from "../../helper";
 import StyledImage from "../Common/StyledImages";
 
@@ -224,4 +225,4 @@ const SubHeaderListRow = ({ data }: any) => {
   );
 };
 
-export default SubHeaderListRow;
+export default memo(SubHeaderListRow);

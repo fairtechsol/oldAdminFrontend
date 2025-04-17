@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { memo } from "react";
 import { IconConstants } from "../../helper/gameConstants";
 
 interface HeaderRowProps {
@@ -214,4 +215,4 @@ const HeaderRow = ({ match, timeLeft }: HeaderRowProps) => {
   );
 };
 
-export default HeaderRow;
+export default memo(HeaderRow);

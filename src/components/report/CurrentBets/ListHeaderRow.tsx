@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
 import SearchInput from "../../Common/SearchInput";
+import { memo } from "react";
 
 interface ListHeaderRowProps {
   setPageLimit: (value: number) => void;
@@ -48,4 +49,4 @@ const ListHeaderRow = ({
   );
 };
 
-export default ListHeaderRow;
+export default memo(ListHeaderRow);

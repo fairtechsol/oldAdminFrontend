@@ -1,5 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { handleNumber } from "../../../helper";
+import { memo } from "react";
 
 const MoneyBox = ({ color, rates }: any) => {
   const theme = useTheme();
@@ -35,4 +36,4 @@ const MoneyBox = ({ color, rates }: any) => {
   );
 };
 
-export default MoneyBox;
+export default memo(MoneyBox);

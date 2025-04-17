@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const UserProfitLossListComp = ({ element, markets }: any) => {
   return (
@@ -148,4 +149,4 @@ const UserProfitLossListComp = ({ element, markets }: any) => {
   );
 };
 
-export default UserProfitLossListComp;
+export default memo(UserProfitLossListComp);

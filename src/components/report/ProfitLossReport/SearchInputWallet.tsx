@@ -1,5 +1,5 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
 
 const SearchInputWallet = ({
@@ -124,4 +124,4 @@ const SearchInputWallet = ({
   );
 };
 
-export default SearchInputWallet;
+export default memo(SearchInputWallet);

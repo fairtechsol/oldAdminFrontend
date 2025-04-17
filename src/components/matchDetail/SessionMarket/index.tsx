@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { customSort } from "../../../helper";
@@ -461,4 +461,4 @@ const SessionMarket = ({
   );
 };
 
-export default SessionMarket;
+export default memo(SessionMarket);

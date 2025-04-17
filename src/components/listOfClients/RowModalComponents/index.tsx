@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteIcon } from "../../../assets";
 import {
@@ -440,4 +440,4 @@ const RowModalComponents = ({
   );
 };
 
-export default RowModalComponents;
+export default memo(RowModalComponents);

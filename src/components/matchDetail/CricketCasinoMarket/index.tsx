@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { RootState } from "../../../store/store";
@@ -422,4 +422,4 @@ const CricketCasinoMarket = ({
   );
 };
 
-export default CricketCasinoMarket;
+export default memo(CricketCasinoMarket);

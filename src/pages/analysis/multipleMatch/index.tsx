@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import FullAllBets from "../../../components/matchDetail/Common/FullAllBets";
@@ -526,4 +526,4 @@ const MultipleMatch = ({}) => {
   );
 };
 
-export default MultipleMatch;
+export default memo(MultipleMatch);

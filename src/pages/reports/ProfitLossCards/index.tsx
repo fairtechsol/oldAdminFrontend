@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { debounce } from "lodash";
 import moment from "moment";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossCards/ProfitLossTableComponent";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
@@ -143,4 +143,4 @@ const ProfitLossCards = () => {
   );
 };
 
-export default ProfitLossCards;
+export default memo(ProfitLossCards);

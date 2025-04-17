@@ -1,8 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import type { TeamDetailRowProps } from "../../interface/inplay";
 import SeparateBox from "./SeparateBox";
 
-const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRowProps) => {
+const TeamDetailRow = ({
+  teamName,
+  runnerNumber,
+  match,
+}: TeamDetailRowProps) => {
   return (
     <Box
       sx={{
@@ -74,4 +79,4 @@ const TeamDetailRow = ({ teamName, runnerNumber, match }: TeamDetailRowProps) =>
   );
 };
 
-export default TeamDetailRow;
+export default memo(TeamDetailRow);

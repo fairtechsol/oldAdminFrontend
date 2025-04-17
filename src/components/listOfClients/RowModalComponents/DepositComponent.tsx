@@ -6,13 +6,10 @@ import {
   useTheme,
 } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
-import { useEffect, useState } from "react";
-import { EyeIcon, EyeSlash } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import BoxButton from "./BoxButton";
-import MobileViewUserDetails from "./MobileViewUserDetails";
 import { useFormik } from "formik";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { EyeIcon, EyeSlash } from "../../../assets";
 import {
   changeAmmountUser,
   getTotalBalance,
@@ -23,6 +20,9 @@ import {
 import { AppDispatch, RootState } from "../../../store/store";
 import { ApiConstants } from "../../../utils/Constants";
 import { depositAmountValidations } from "../../../utils/Validations";
+import StyledImage from "../../Common/StyledImages";
+import BoxButton from "./BoxButton";
+import MobileViewUserDetails from "./MobileViewUserDetails";
 
 const initialValues: any = {
   userId: "",
@@ -652,4 +652,4 @@ const DepositComponent = (props: any) => {
   );
 };
 
-export default DepositComponent;
+export default memo(DepositComponent);

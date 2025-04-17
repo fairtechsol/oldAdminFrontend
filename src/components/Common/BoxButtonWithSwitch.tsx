@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import MaterialUISwitch from "./MaterialUISwitch";
 
 const BoxButtonWithSwitch = ({
@@ -53,4 +53,4 @@ const BoxButtonWithSwitch = ({
   );
 };
 
-export default BoxButtonWithSwitch;
+export default memo(BoxButtonWithSwitch);

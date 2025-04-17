@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { PaginationInterface } from "../../interface/common";
 
 const Footer = ({
@@ -102,4 +103,4 @@ const Footer = ({
   );
 };
 
-export default Footer;
+export default memo(Footer);

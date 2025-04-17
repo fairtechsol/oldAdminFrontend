@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { formatToINR } from "../../helper";
 
 interface AccountListRowProps {
@@ -289,4 +289,4 @@ const AccountListRow = ({
   );
 };
 
-export default AccountListRow;
+export default memo(AccountListRow);

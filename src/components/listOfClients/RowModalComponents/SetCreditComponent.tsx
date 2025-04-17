@@ -1,6 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeSlash } from "../../../assets";
@@ -348,4 +348,4 @@ const SetCreditComponent = ({
   );
 };
 
-export default SetCreditComponent;
+export default memo(SetCreditComponent);

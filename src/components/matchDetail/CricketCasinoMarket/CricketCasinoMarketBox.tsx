@@ -5,6 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { memo } from "react";
 import { BallStart } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import SeperateBox from "../MatchOdds/SeperateBox";
@@ -181,4 +182,4 @@ const CricketCasinoMarketBox = ({
   );
 };
 
-export default CricketCasinoMarketBox;
+export default memo(CricketCasinoMarketBox);

@@ -1,4 +1,5 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface BoxButtonProps {
   title: string;
@@ -90,4 +91,4 @@ const BoxButton = ({
   );
 };
 
-export default BoxButton;
+export default memo(BoxButton);

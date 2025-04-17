@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 import SearchInputWallet from "./SearchInputWallet";
+import { memo } from "react";
 
 const ProfitLossHeader = ({
   type,
@@ -126,4 +127,4 @@ const ProfitLossHeader = ({
   );
 };
 
-export default ProfitLossHeader;
+export default memo(ProfitLossHeader);

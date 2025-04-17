@@ -8,6 +8,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import { Constants } from "../../../utils/Constants";
@@ -210,4 +211,4 @@ const EventWiseMatchListModal = ({
   );
 };
 
-export default EventWiseMatchListModal;
+export default memo(EventWiseMatchListModal);

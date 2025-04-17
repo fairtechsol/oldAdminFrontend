@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import Select from "react-select";
 
 const SelectField = ({
@@ -66,4 +67,4 @@ const SelectField = ({
   );
 };
 
-export default SelectField;
+export default memo(SelectField);

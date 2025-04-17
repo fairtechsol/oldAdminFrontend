@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCompetitionList,
@@ -80,4 +80,4 @@ const RenderGames = ({
   );
 };
 
-export default RenderGames;
+export default memo(RenderGames);

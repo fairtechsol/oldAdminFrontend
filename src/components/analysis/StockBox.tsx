@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { handleNumber } from "../../helper";
 import StyledImage from "../Common/StyledImages";
 
@@ -80,4 +81,4 @@ const StockBox = ({ team, value, up, mode, showFixed }: StockBoxProps) => {
   );
 };
 
-export default StockBox;
+export default memo(StockBox);

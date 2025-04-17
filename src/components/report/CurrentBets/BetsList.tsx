@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentBets } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -86,4 +86,4 @@ const BetsList = () => {
   );
 };
 
-export default BetsList;
+export default memo(BetsList);

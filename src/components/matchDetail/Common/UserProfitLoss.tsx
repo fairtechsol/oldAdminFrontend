@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Refresh } from "../../../assets";
 import {
@@ -276,4 +276,4 @@ const UserProfitLoss = ({
   );
 };
 
-export default UserProfitLoss;
+export default memo(UserProfitLoss);

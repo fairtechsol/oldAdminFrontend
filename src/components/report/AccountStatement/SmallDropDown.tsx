@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
 
 interface SmallDropDownProps {
@@ -84,4 +84,4 @@ const SmallDropDown = ({
   );
 };
 
-export default SmallDropDown;
+export default memo(SmallDropDown);

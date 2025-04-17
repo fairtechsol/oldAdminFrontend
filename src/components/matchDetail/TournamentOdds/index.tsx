@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Fragment, memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { formatToINR } from "../../../helper";
@@ -509,4 +509,4 @@ const TournamentOdds = ({
   );
 };
 
-export default TournamentOdds;
+export default memo(TournamentOdds);

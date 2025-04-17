@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { Excel, Pdf } from "../../assets";
 import { handleExport } from "../../store/actions/user/userAction";
@@ -104,4 +105,4 @@ const ListHeader = ({
   );
 };
 
-export default ListHeader;
+export default memo(ListHeader);

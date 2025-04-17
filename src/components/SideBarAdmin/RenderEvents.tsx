@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCompetitionDates,
@@ -85,4 +85,4 @@ const RenderEvents = ({
   );
 };
 
-export default RenderEvents;
+export default memo(RenderEvents);

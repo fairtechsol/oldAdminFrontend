@@ -1,4 +1,5 @@
 import { Box } from "@mui/system";
+import { memo } from "react";
 import { NavLink } from "react-router-dom";
 import {
   ADDACCOUNT,
@@ -66,4 +67,4 @@ const AdminEventListing = () => {
   );
 };
 
-export default AdminEventListing;
+export default memo(AdminEventListing);

@@ -1,4 +1,5 @@
 import { Button, Typography } from "@mui/material";
+import { memo } from "react";
 
 const DeleteBetButton = ({ btnStyle, type, title }: any) => {
   return (
@@ -28,4 +29,4 @@ const DeleteBetButton = ({ btnStyle, type, title }: any) => {
   );
 };
 
-export default DeleteBetButton;
+export default memo(DeleteBetButton);

@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const headerItems = [
   {
@@ -82,4 +83,4 @@ const ListHeaderRow = () => {
   );
 };
 
-export default ListHeaderRow;
+export default memo(ListHeaderRow);

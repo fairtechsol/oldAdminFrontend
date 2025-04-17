@@ -3,6 +3,7 @@ import { BallStart, LockSolid } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "./MoneyBox";
 import SeperateBox from "./SeperateBox";
+import { memo } from "react";
 
 const TeamRowComponent = ({
   name,
@@ -220,4 +221,4 @@ const TeamRowComponent = ({
   );
 };
 
-export default TeamRowComponent;
+export default memo(TeamRowComponent);

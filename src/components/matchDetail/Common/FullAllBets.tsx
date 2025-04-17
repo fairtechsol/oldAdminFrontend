@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP } from "../../../assets";
 import { formatToINR } from "../../../helper";
@@ -350,4 +350,4 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
   );
 };
 
-export default FullAllBets;
+export default memo(FullAllBets);

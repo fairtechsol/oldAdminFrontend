@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
@@ -700,4 +700,4 @@ const SingleBox = ({
     )
   );
 };
-export default AllRateSeperate;
+export default memo(AllRateSeperate);

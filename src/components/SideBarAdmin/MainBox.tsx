@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { ARROWDROPDOWN } from "../../assets";
+import { memo } from "react";
 
 const MainBox = ({ title, width, color, under, selected, sub }: any) => {
   return (
@@ -79,4 +80,4 @@ const MainBox = ({ title, width, color, under, selected, sub }: any) => {
   );
 };
 
-export default MainBox;
+export default memo(MainBox);

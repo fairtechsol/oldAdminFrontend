@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const CustomButtonAdmin = ({ btnStyle, onClick }: any) => {
   return (
@@ -27,4 +28,4 @@ const CustomButtonAdmin = ({ btnStyle, onClick }: any) => {
   );
 };
 
-export default CustomButtonAdmin;
+export default memo(CustomButtonAdmin);

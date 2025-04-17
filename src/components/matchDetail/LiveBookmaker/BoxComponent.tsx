@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import { LockSolid } from "../../../assets";
 import { formatNumber } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
@@ -199,4 +200,4 @@ const BoxComponent = ({
   );
 };
 
-export default BoxComponent;
+export default memo(BoxComponent);

@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 
@@ -131,4 +132,4 @@ const YellowHeader = ({
   );
 };
 
-export default YellowHeader;
+export default memo(YellowHeader);

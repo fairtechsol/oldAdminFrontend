@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface CustomBoxProps {
   onClick: () => void;
@@ -36,4 +37,4 @@ const CustomBox = ({ onClick, title, bg }: CustomBoxProps) => {
   );
 };
 
-export default CustomBox;
+export default memo(CustomBox);

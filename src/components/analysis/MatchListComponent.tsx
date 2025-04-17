@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CHECK } from "../../assets";
 import { IconConstants } from "../../helper/gameConstants";
@@ -391,4 +391,4 @@ const MatchListComponent = ({
   );
 };
 
-export default MatchListComponent;
+export default memo(MatchListComponent);

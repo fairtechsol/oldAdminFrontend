@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DataShow from "../../components/myAccount/DataShow";
 import { getMyAccountDetails } from "../../store/actions/user/userAction";
@@ -222,4 +222,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default memo(MyAccount);

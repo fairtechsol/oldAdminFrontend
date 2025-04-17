@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { handleNumber } from "../../helper";
 import { DataShowInterface } from "../../interface/myAccount";
 
@@ -83,4 +84,4 @@ const DataShow = ({
   );
 };
 
-export default DataShow;
+export default memo(DataShow);

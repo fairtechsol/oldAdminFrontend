@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePasswordReset } from "../../../store/actions/user/userAction";
@@ -124,4 +124,4 @@ const CustomModal = ({
   );
 };
 
-export default CustomModal;
+export default memo(CustomModal);

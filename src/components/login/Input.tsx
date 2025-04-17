@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { numberInputOnWheelPreventChange } from "../../helper";
 import { InputInterface } from "../../interface/common";
 import isMobile from "../../utils/isMobile";
@@ -121,4 +121,4 @@ const Input: React.FC<InputInterface> = ({
   );
 };
 
-export default Input;
+export default memo(Input);

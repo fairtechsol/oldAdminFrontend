@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../../../helper";
 import {
@@ -131,4 +132,4 @@ const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
   );
 };
 
-export default PlaceBetComponent;
+export default memo(PlaceBetComponent);

@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import { BallStart } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
@@ -428,4 +428,4 @@ const SeasonMarketBox = ({
   );
 };
 
-export default SeasonMarketBox;
+export default memo(SeasonMarketBox);

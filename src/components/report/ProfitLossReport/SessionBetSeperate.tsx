@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
@@ -644,4 +644,4 @@ const SingleBox = ({
     </Box>
   );
 };
-export default SessionBetSeperate;
+export default memo(SessionBetSeperate);
