@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import * as React from "react";
 import AccountList from "../../components/listOfClients/AccountList";
 import { ApiConstants } from "../../utils/Constants";
 
@@ -30,4 +29,4 @@ const ListOfClients = () => {
   );
 };
 
-export default React.memo(ListOfClients);
+export default ListOfClients;

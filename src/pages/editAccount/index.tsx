@@ -100,7 +100,6 @@ const EditAccount = () => {
     initialValues: formDataSchema,
     //   validationSchema: addUserValidation,
     onSubmit: (values: any) => {
-      console.log("values :", values)
       const commonPayload = {
         id: state?.id,
         transactionPassword: values.adminTransPassword,
@@ -108,11 +107,17 @@ const EditAccount = () => {
         phoneNumber: values.phoneNumber.toString(),
         city: values.city,
         remark: values.remarks,
-        sessionCommission: values.sessionCommission.value == '0.00' ? 0 : values.sessionCommission.value,
+        sessionCommission:
+          values.sessionCommission.value == "0.00"
+            ? 0
+            : values.sessionCommission.value,
         matchComissionType: values.matchCommissionType.value,
-        matchCommission: values.matchCommission.value == '0.00' ? 0 : values.matchCommission.value,
+        matchCommission:
+          values.matchCommission.value == "0.00"
+            ? 0
+            : values.matchCommission.value,
       };
-      console.log("commonPayload :", commonPayload)
+      console.log("commonPayload :", commonPayload);
       dispatch(updateUser(commonPayload));
     },
   });
@@ -343,7 +348,10 @@ const EditAccount = () => {
   }, [editSuccess]);
 
   useEffect(() => {
-    if (formik.values.matchCommissionType.value || formik.values.matchCommissionType.value == null) {
+    if (
+      formik.values.matchCommissionType.value ||
+      formik.values.matchCommissionType.value == null
+    ) {
       formik.setValues({
         ...formik.values,
         // matchCommission: {
@@ -356,12 +364,28 @@ const EditAccount = () => {
         // },
 
         matchCommission: {
-          label: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.matchCommission : "0.00",
-          value: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.matchCommission : "0.00",
+          label:
+            userDetail?.matchComissionType ==
+            formik.values.matchCommissionType.value
+              ? userDetail?.matchCommission
+              : "0.00",
+          value:
+            userDetail?.matchComissionType ==
+            formik.values.matchCommissionType.value
+              ? userDetail?.matchCommission
+              : "0.00",
         },
         sessionCommission: {
-          label: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.sessionCommission : "0.00",
-          value: userDetail?.matchComissionType == formik.values.matchCommissionType.value ? userDetail?.sessionCommission : "0.00",
+          label:
+            userDetail?.matchComissionType ==
+            formik.values.matchCommissionType.value
+              ? userDetail?.sessionCommission
+              : "0.00",
+          value:
+            userDetail?.matchComissionType ==
+            formik.values.matchCommissionType.value
+              ? userDetail?.sessionCommission
+              : "0.00",
         },
       });
     }
@@ -727,23 +751,23 @@ const EditAccount = () => {
                 {!["", null, "0.00"].includes(
                   formik.values.matchCommissionType.value
                 ) && (
-                    <SelectField
-                      containerStyle={containerStyles}
-                      titleStyle={titleStyles}
-                      id="matchCommission"
-                      name="matchCommission"
-                      label="Match Commission (%)*"
-                      options={matchComissionArray}
-                      value={formik.values.matchCommission}
-                      onChange={(matchComissionArray: any) => {
-                        formik.setFieldValue(
-                          "matchCommission",
-                          matchComissionArray
-                        );
-                      }}
-                      onBlur={formik.handleBlur}
-                    />
-                  )}
+                  <SelectField
+                    containerStyle={containerStyles}
+                    titleStyle={titleStyles}
+                    id="matchCommission"
+                    name="matchCommission"
+                    label="Match Commission (%)*"
+                    options={matchComissionArray}
+                    value={formik.values.matchCommission}
+                    onChange={(matchComissionArray: any) => {
+                      formik.setFieldValue(
+                        "matchCommission",
+                        matchComissionArray
+                      );
+                    }}
+                    onBlur={formik.handleBlur}
+                  />
+                )}
                 <SelectField
                   containerStyle={containerStyles}
                   titleStyle={titleStyles}
@@ -760,8 +784,8 @@ const EditAccount = () => {
                   }}
                   onBlur={formik.handleBlur}
                 />
-              </Box >
-            </Box >
+              </Box>
+            </Box>
             <Box sx={{ flex: 2 }} className="addAccountRemark">
               <Box
                 sx={{
@@ -842,9 +866,9 @@ const EditAccount = () => {
                 {state?.id ? "Update" : "Create"}
               </Button>
             </Box>
-          </Box >
-        </form >
-      </Box >
+          </Box>
+        </form>
+      </Box>
       <ModalMUI
         open={showModal}
         aria-labelledby="modal-modal-title"
@@ -854,7 +878,7 @@ const EditAccount = () => {
           modalTitle="User edited successfully"
           setShowModal={setShowModal}
           buttonMessage="Ok"
-          functionDispatch={() => { }}
+          functionDispatch={() => {}}
           navigateTo={`${Constants.oldAdmin}list_of_clients`}
         />
       </ModalMUI>
