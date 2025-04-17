@@ -316,9 +316,6 @@ const TournamentOdds = ({
                   Lay
                 </Typography>
               </Box>
-              <Box
-                sx={{ width: ".7px", display: "flex", background: "white" }}
-              />
             </Box>
           </Box>
 
