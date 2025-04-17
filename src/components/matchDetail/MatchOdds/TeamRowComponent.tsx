@@ -1,9 +1,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import { BallStart, LockSolid } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "./MoneyBox";
 import SeperateBox from "./SeperateBox";
-import { memo } from "react";
 
 const TeamRowComponent = ({
   name,
@@ -185,9 +185,7 @@ const TeamRowComponent = ({
                 </Box>
               )}
 
-              <Box
-                sx={{ width: "3px", display: "flex", background: "pink" }}
-              ></Box>
+              <Box sx={{ width: "3px", display: "flex", background: "pink" }} />
               {!lock && ![0, "0"].includes(matchOddsData?.lay) ? (
                 <SeperateBox
                   align={align}

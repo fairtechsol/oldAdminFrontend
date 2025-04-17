@@ -11,9 +11,9 @@ import { formatNumber, formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
 import CommissionDot from "../../Common/CommissionDot";
 import SeperateBox from "../MatchOdds/SeperateBox";
+import MarqueeText from "./MarqueeText";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
-import MarqueeText from "./MarqueeText";
 
 const SeasonMarketBox = ({
   newData,
@@ -46,7 +46,7 @@ const SeasonMarketBox = ({
               background: "rgba(0,0,0,0.5)",
               zIndex: 2,
             }}
-          ></Box>
+          />
         )}
         <Box
           sx={{

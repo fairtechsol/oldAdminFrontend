@@ -44,7 +44,7 @@ const CricketCasinoMarketBox = ({
               background: "rgba(0,0,0,0.5)",
               zIndex: 2,
             }}
-          ></Box>
+          />
         )}
         <Box
           sx={{
@@ -166,15 +166,13 @@ const CricketCasinoMarketBox = ({
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
+                  />
                 </>
               ))}
             </>
           )}
 
-          <Box
-            sx={{ width: ".45%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".45%", display: "flex", background: "pink" }} />
         </Box>
       </Box>
       <Divider />

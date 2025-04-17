@@ -223,7 +223,7 @@ const RunsBox = ({ item, currentOdd }: any) => {
                 height: "25px",
                 borderTop: "1px solid #306A47",
               }}
-            ></Box>
+             />
           </>
         )}
       </Box>

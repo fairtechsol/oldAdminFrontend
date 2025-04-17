@@ -204,7 +204,7 @@ const SessionBetSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && betHistory === undefined && (
@@ -222,7 +222,7 @@ const SessionBetSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                         <Box
                           sx={{
                             width: mark2 ? "65%" : "65%",
@@ -536,7 +536,7 @@ const SingleBox = ({
         >
           {data.time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             fontWeight: "600",

@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 import SearchInputWallet from "./SearchInputWallet";
-import { memo } from "react";
 
 const ProfitLossHeader = ({
   type,
@@ -68,7 +68,7 @@ const ProfitLossHeader = ({
                 width: { xs: "100%", lg: "40%" },
               }}
             >
-              <Box sx={{ width: "10px" }}></Box>
+              <Box sx={{ width: "10px" }} />
               <SearchInputWallet
                 containerStyle={{ width: "100% !important " }}
                 data={clientData}
@@ -87,7 +87,7 @@ const ProfitLossHeader = ({
                 startDate={startDate}
                 setStartDate={setStartDate}
               />
-              <Box sx={{ width: "10px" }}></Box>
+              <Box sx={{ width: "10px" }} />
 
               <Calendar
                 title="To"
@@ -96,7 +96,7 @@ const ProfitLossHeader = ({
                 limit={startDate}
               />
             </Box>
-            <Box sx={{ width: "10px" }}></Box>
+            <Box sx={{ width: "10px" }} />
             <Box
               sx={{
                 width: { xs: "40%", lg: "30%" },

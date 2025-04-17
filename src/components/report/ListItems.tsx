@@ -42,47 +42,45 @@ const ListItems = ({ menutItems1, title }: any) => {
   };
 
   return (
-    <>
-      <Box sx={{ width: "100%" }}>
-        <Box sx={classes.Menusx}>
-          <Typography
-            sx={[
-              {
-                fontSize: { lg: "18px", xs: "16px" },
-                fontWeight: "600",
-                fontFamily: "Poppins, sans-serif",
-                color: "#fff",
-                textTransform: "uppercase",
-                marginLeft: "0.5%",
-              },
-            ]}
-          >
-            {title}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            background: "#F8C851",
-            padding: "10px",
-            margin: "1%",
-            borderRadius: "5px",
-          }}
+    <Box sx={{ width: "100%" }}>
+      <Box sx={classes.Menusx}>
+        <Typography
+          sx={[
+            {
+              fontSize: { lg: "18px", xs: "16px" },
+              fontWeight: "600",
+              fontFamily: "Poppins, sans-serif",
+              color: "#fff",
+              textTransform: "uppercase",
+              marginLeft: "0.5%",
+            },
+          ]}
         >
-          {menutItems1.map((x: any, index: any) => (
-            <MenuItem
-              key={index}
-              dense={true}
-              sx={classes.MenuItemsx}
-              onClick={() => {
-                navigate(x.link);
-              }}
-            >
-              {x.title}
-            </MenuItem>
-          ))}
-        </Box>
+          {title}
+        </Typography>
       </Box>
-    </>
+      <Box
+        sx={{
+          background: "#F8C851",
+          padding: "10px",
+          margin: "1%",
+          borderRadius: "5px",
+        }}
+      >
+        {menutItems1.map((x: any, index: any) => (
+          <MenuItem
+            key={index}
+            dense={true}
+            sx={classes.MenuItemsx}
+            onClick={() => {
+              navigate(x.link);
+            }}
+          >
+            {x.title}
+          </MenuItem>
+        ))}
+      </Box>
+    </Box>
   );
 };
 

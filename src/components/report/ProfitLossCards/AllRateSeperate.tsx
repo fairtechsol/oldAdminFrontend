@@ -294,7 +294,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {profit && !i?.deleteReason && (
