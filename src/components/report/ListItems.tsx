@@ -1,8 +1,7 @@
 import { Box, MenuItem, Typography } from "@mui/material";
-import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ListItems = ({ menutItems1, title }: any) => {
+const ListItems = ({ menutItems, title }: any) => {
   const navigate = useNavigate();
   const classes = {
     Menusx: {
@@ -67,7 +66,7 @@ const ListItems = ({ menutItems1, title }: any) => {
           borderRadius: "5px",
         }}
       >
-        {menutItems1.map((x: any, index: any) => (
+        {menutItems.map((x: any, index: any) => (
           <MenuItem
             key={index}
             dense={true}
@@ -84,4 +83,4 @@ const ListItems = ({ menutItems1, title }: any) => {
   );
 };
 
-export default memo(ListItems);
+export default ListItems;

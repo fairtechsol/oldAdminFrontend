@@ -73,7 +73,6 @@ const HeaderRow = ({ match, timeLeft }: HeaderRowProps) => {
           flex: 1,
           background: "#262626",
           display: "flex",
-
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MatchComponentInterface } from "../../interface/inplay";
 import BackLayRow from "./BackLayRow";
 import Divider from "./Divider";
@@ -271,4 +271,4 @@ const MatchComponent = ({
   );
 };
 
-export default memo(MatchComponent);
+export default MatchComponent;

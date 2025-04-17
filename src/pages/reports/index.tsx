@@ -2,7 +2,7 @@ import ListItems from "../../components/report/ListItems";
 import { Constants } from "../../utils/Constants";
 
 const Reports = () => {
-  const menutItems1 = [
+  const menutItems = [
     { title: "Profit/Loss", link: `${Constants.oldAdmin}reports/profit_loss` },
     {
       title: "Profit/Loss Cards",
@@ -15,7 +15,7 @@ const Reports = () => {
     { title: "Current Bet", link: `${Constants.oldAdmin}reports/current_bet` },
   ];
 
-  return <ListItems title={"Report"} menutItems1={menutItems1} />;
+  return <ListItems title="Report" menutItems={menutItems} />;
 };
 
 export default Reports;
