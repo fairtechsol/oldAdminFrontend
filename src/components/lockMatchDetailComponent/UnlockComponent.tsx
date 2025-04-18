@@ -3,7 +3,19 @@ import { Box } from "@mui/system";
 import { memo, useState } from "react";
 import { CANCEL, LockIcon, UnLockIcon, eye, eyeLock } from "../../assets";
 
-const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
+interface UnlockComponentProps {
+  onSubmit: (val: any) => void;
+  title: string;
+  unlock: boolean;
+  handleHide: () => void;
+}
+
+const UnlockComponent = ({
+  onSubmit,
+  title,
+  unlock,
+  handleHide,
+}: UnlockComponentProps) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
