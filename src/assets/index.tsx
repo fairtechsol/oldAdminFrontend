@@ -70,4 +70,3 @@ export { default as UD } from "./images/UD.png";
 export { default as UnLockIcon } from "./images/unlock.svg";
 export { default as WALLET } from "./images/wallet.webp";
 export { default as WorliMatka } from "./images/worliMatka.webp";
-
