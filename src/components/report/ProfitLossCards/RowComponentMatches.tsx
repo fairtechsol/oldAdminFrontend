@@ -133,20 +133,18 @@ const RowComponentMatches = ({
               {item?.gameName}
             </Typography>
           </Box>
-          {true && (
-            <StyledImage
-              src={ArrowDown}
-              alt="arrow down"
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.gameId && showListOfUsers
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            />
-          )}
+          <StyledImage
+            src={ArrowDown}
+            alt="arrow down"
+            sx={{
+              width: { lg: "20px", xs: "10px" },
+              height: { lg: "10px", xs: "6px" },
+              transform:
+                selectedId?.id === item?.gameId && showListOfUsers
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+            }}
+          />
         </Box>
         <Box
           onClick={(e) => {
