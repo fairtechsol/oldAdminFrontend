@@ -137,6 +137,7 @@ const Header = () => {
         sx={{
           width: "100%",
           zIndex: (theme: any) => theme.zIndex.drawer + 1,
+          padding: "0 !important",
         }}
       >
         <Box sx={classes.BoxCont1}>
