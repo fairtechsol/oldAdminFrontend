@@ -238,7 +238,7 @@ const RowComponentMatches = ({
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
                 transform:
-                  selectedId?.id === item?.matchId &&
+                  selectedId?.id === item?.gameId &&
                   selectedId?.type === "all_bet" &&
                   showBets
                     ? "rotate(180deg)"
