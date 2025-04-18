@@ -18,7 +18,7 @@ import CustomModal from "../../components/Common/CustomModal";
 import SelectField from "../../components/Common/DropDown/SelectField";
 import Loader from "../../components/Loader";
 import Input from "../../components/login/Input";
-import { formatToINR } from "../../helper";
+import { formatToINR, setTypeForAccountType } from "../../helper";
 import {
   addReset,
   addUser,
@@ -208,35 +208,6 @@ const AddAccount = () => {
     sessionComissionArray.push({ label: i?.toFixed(2), value: i?.toFixed(2) });
   }
 
-  const setTypeForAccountType = () => {
-    try {
-      const roleName = profileDetail?.roleName as keyof typeof accountTypeMap;
-
-      const accountTypeMap = {
-        superAdmin: [
-          { value: "admin", label: "Admin" },
-          { value: "superMaster", label: "Super Master" },
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        admin: [
-          { value: "superMaster", label: "Super Master" },
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        superMaster: [
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        master: [{ value: "user", label: "User" }],
-      };
-
-      setAccountTypes(accountTypeMap[roleName] ?? []);
-    } catch (error) {
-      console.error("Error setting account types:", error);
-    }
-  };
-
   const handleUpline = () => {
     try {
       const {
@@ -284,7 +255,7 @@ const AddAccount = () => {
 
   useEffect(() => {
     try {
-      setTypeForAccountType();
+      setTypeForAccountType(profileDetail, setAccountTypes);
       if (profileDetail && profileDetail.roleName) {
         const res = handleUpline();
         formik.setValues({
@@ -754,22 +725,22 @@ const AddAccount = () => {
                   {!["", null, "0.00"].includes(
                     formik.values.matchCommissionType.value
                   ) && (
-                      <SelectField
-                        containerStyle={containerStyles}
-                        titleStyle={titleStyles}
-                        id="matchCommission"
-                        name="matchCommission"
-                        label="Match Commission (%)*"
-                        options={matchComissionArray}
-                        value={formik.values.matchCommission}
-                        onChange={(matchComissionArray: any) => {
-                          formik.setFieldValue(
-                            "matchCommission",
-                            matchComissionArray
-                          );
-                        }}
-                        onBlur={formik.handleBlur}
-                      />
+                    <SelectField
+                      containerStyle={containerStyles}
+                      titleStyle={titleStyles}
+                      id="matchCommission"
+                      name="matchCommission"
+                      label="Match Commission (%)*"
+                      options={matchComissionArray}
+                      value={formik.values.matchCommission}
+                      onChange={(matchComissionArray: any) => {
+                        formik.setFieldValue(
+                          "matchCommission",
+                          matchComissionArray
+                        );
+                      }}
+                      onBlur={formik.handleBlur}
+                    />
                   )}
                   <SelectField
                     containerStyle={containerStyles}

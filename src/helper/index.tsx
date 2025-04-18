@@ -142,3 +142,35 @@ export const customSortBySessionMarketName = (
   const orderB = order[nameB] || Infinity;
   return orderA - orderB;
 };
+
+export const setTypeForAccountType = (
+  profileDetail: any,
+  setAccountTypes: any
+) => {
+  try {
+    const roleName = profileDetail?.roleName;
+
+    const accountTypeMap: any = {
+      superAdmin: [
+        { value: "admin", label: "Admin" },
+        { value: "superMaster", label: "Super Master" },
+        { value: "master", label: "Master" },
+        { value: "user", label: "User" },
+      ],
+      admin: [
+        { value: "superMaster", label: "Super Master" },
+        { value: "master", label: "Master" },
+        { value: "user", label: "User" },
+      ],
+      superMaster: [
+        { value: "master", label: "Master" },
+        { value: "user", label: "User" },
+      ],
+      master: [{ value: "user", label: "User" }],
+    };
+
+    setAccountTypes(accountTypeMap[roleName] || []);
+  } catch (e) {
+    console.error(e);
+  }
+};

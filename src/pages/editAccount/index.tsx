@@ -16,7 +16,7 @@ import CustomModal from "../../components/Common/CustomModal";
 import SelectField from "../../components/Common/DropDown/SelectField";
 import Loader from "../../components/Loader";
 import Input from "../../components/login/Input";
-import { formatToINR } from "../../helper";
+import { formatToINR, setTypeForAccountType } from "../../helper";
 import {
   getUsersDetail,
   updateReset,
@@ -162,37 +162,8 @@ const EditAccount = () => {
     sessionComissionArray.push({ label: i?.toFixed(2), value: i?.toFixed(2) });
   }
 
-  const setTypeForAccountType = () => {
-    try {
-      const roleName = profileDetail?.roleName;
-
-      const accountTypeMap: any = {
-        superAdmin: [
-          { value: "admin", label: "Admin" },
-          { value: "superMaster", label: "Super Master" },
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        admin: [
-          { value: "superMaster", label: "Super Master" },
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        superMaster: [
-          { value: "master", label: "Master" },
-          { value: "user", label: "User" },
-        ],
-        master: [{ value: "user", label: "User" }],
-      };
-
-      setAccountTypes(accountTypeMap[roleName] || []);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
-    setTypeForAccountType();
+    setTypeForAccountType(profileDetail, setAccountTypes);
   }, [profileDetail, state?.id]);
 
   useEffect(() => {
@@ -204,7 +175,6 @@ const EditAccount = () => {
           ...formik.values,
           userName: state?.expertMatchDetail?.userName,
           fullName: state?.expertMatchDetail?.fullName,
-
           city: state?.expertMatchDetail?.city,
           phoneNumber: state?.expertMatchDetail?.phoneNumber,
           roleName: {
@@ -354,15 +324,6 @@ const EditAccount = () => {
     ) {
       formik.setValues({
         ...formik.values,
-        // matchCommission: {
-        //   label: "0.00",
-        //   value: "0.00",
-        // },
-        // sessionCommission: {
-        //   label: "0.00",
-        //   value: "0.00",
-        // },
-
         matchCommission: {
           label:
             userDetail?.matchComissionType ==
