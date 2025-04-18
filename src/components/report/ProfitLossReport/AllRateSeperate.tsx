@@ -93,6 +93,7 @@ const AllRateSeperate = ({
                 setVisible(!visible);
               }}
               src={ARROWUP}
+              alt="arrow up"
               style={{
                 transform: visible ? "rotate(180deg)" : "rotate(0deg)",
                 width: "15px",
@@ -331,6 +332,7 @@ const AllRateSeperate = ({
                                 height: { xs: "5px", lg: "7px" },
                               }}
                               src={i?.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
+                              alt="arrow"
                             />
                           )}
                         </Box>
@@ -355,6 +357,7 @@ const AllRateSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{
@@ -390,6 +393,7 @@ const AllRateSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{

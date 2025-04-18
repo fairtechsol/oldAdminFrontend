@@ -73,6 +73,7 @@ const MainBox = ({ title, width, color, under, selected, sub }: any) => {
                 selected?.value && under ? "rotate(0deg)" : "rotate(180deg)",
             }}
             src={ARROWDROPDOWN}
+            alt="arrow down"
           />
         </Box>
       )}

@@ -89,6 +89,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, index }: any) => {
           <img
             src={UD}
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
+            alt="icon"
           />
         </Box>
       </Box>

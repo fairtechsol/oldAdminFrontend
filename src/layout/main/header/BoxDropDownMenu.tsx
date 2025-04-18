@@ -76,7 +76,11 @@ const BoxDropDownMenu = ({ handleClose }: any) => {
           alignItems: "center",
         }}
       >
-        <StyledImage src={Logout} sx={{ width: "35%", height: "auto" }} />
+        <StyledImage
+          src={Logout}
+          sx={{ width: "35%", height: "auto" }}
+          alt="logout"
+        />
       </Box>
     </Box>
   );

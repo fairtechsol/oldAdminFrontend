@@ -66,6 +66,7 @@ const BoxProfile = ({ value, containerStyle, balance, color }: any) => {
         </Box>
         <StyledImage
           src={ArrowDown}
+          alt="arrow down"
           sx={{
             height: "6px",
             width: "10px",

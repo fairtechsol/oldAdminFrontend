@@ -130,6 +130,7 @@ const CricketCasinoMarketBox = ({
               newData?.status === "ball start" ? (
                 <img
                   src={BallStart}
+                  alt="ball start"
                   style={{ width: "113px", height: "32px" }}
                 />
               ) : (

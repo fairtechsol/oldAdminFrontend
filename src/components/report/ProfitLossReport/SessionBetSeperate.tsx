@@ -93,6 +93,7 @@ const SessionBetSeperate = ({
                 setVisible(!visible);
               }}
               src={ARROWUP}
+              alt="arrow up"
               style={{
                 transform: visible ? "rotate(180deg)" : "rotate(0deg)",
                 width: "15px",
@@ -296,6 +297,7 @@ const SessionBetSeperate = ({
                                 height: { xs: "12px", lg: "15px" },
                               }}
                               src={i.myProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
+                              alt="arrow"
                             />
                           )}
                         </Box>
@@ -322,6 +324,7 @@ const SessionBetSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{
@@ -361,6 +364,7 @@ const SessionBetSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{

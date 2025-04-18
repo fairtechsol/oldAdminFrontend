@@ -25,6 +25,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
           handleHide();
         }}
         src={CANCEL}
+        alt="cancel"
         style={{
           width: "25px",
           height: "25px",
@@ -43,6 +44,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
       >
         <img
           src={unlock ? UnLockIcon : LockIcon}
+          alt="lock unlock"
           style={{ width: "20px", height: "25px" }}
         />
         <Typography sx={{ fontWeight: "700", marginLeft: "5px" }}>
@@ -89,6 +91,7 @@ const UnlockComponent = ({ onSubmit, title, unlock, handleHide }: any) => {
           <img
             src={showPassword ? eye : eyeLock}
             onClick={togglePasswordVisibility}
+            alt="eye"
             style={{
               width: "12px",
               height: "9px",

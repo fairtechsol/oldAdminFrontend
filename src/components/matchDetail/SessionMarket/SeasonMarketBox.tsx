@@ -154,6 +154,7 @@ const SeasonMarketBox = ({
                 ) <= 1 && (
                   <img
                     src={BallStart}
+                    alt="ball start"
                     style={{ width: "113px", height: "32px" }}
                   />
                 )
@@ -327,6 +328,7 @@ const SeasonMarketBox = ({
                     item === 1 && (
                       <img
                         src={BallStart}
+                        alt="ball start"
                         style={{ width: "113px", height: "32px" }}
                       />
                     )

@@ -108,6 +108,7 @@ const TournamentOdds = ({
             <img
               onClick={() => (selft ? handleShowLock(true, typeOfBet) : "")}
               src={locked ? LOCKED : LOCKOPEN}
+              alt="lock"
               style={{ width: "14px", height: "20px" }}
             />
           )}
@@ -228,6 +229,7 @@ const TournamentOdds = ({
               setVisible(!visible);
             }}
             src={ARROWUP}
+            alt="arrow up"
             style={{
               transform: visible ? "rotate(180deg)" : "rotate(0deg)",
               width: "15px",
@@ -442,7 +444,11 @@ const TournamentOdds = ({
                     display: "flex",
                   }}
                 >
-                  <img src={LOCKED} style={{ width: "35px", height: "40px" }} />
+                  <img
+                    src={LOCKED}
+                    style={{ width: "35px", height: "40px" }}
+                    alt="locked"
+                  />
 
                   <Typography
                     sx={{

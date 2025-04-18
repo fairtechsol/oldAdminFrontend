@@ -93,6 +93,7 @@ const SideBarAdmin = ({ handleDrawerToggle }: any) => {
                 height: "8px",
               }}
               src={ARROWDROPDOWN}
+              alt="arrow down"
             />
           </Box>
         </Box>

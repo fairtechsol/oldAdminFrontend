@@ -259,6 +259,7 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
               setVisible(!visible);
             }}
             src={ARROWUP}
+            alt="arrow up"
             style={{
               transform: visible ? "rotate(180deg)" : "rotate(0deg)",
               width: "15px",

@@ -101,7 +101,11 @@ const TeamRowComponent = ({
               display: "flex",
             }}
           >
-            <img src={BallStart} style={{ width: "113px", height: "32px" }} />
+            <img
+              src={BallStart}
+              style={{ width: "113px", height: "32px" }}
+              alt="ball start"
+            />
           </Box>
         </>
       ) : (
@@ -180,6 +184,7 @@ const TeamRowComponent = ({
                 >
                   <StyledImage
                     src={LockSolid}
+                    alt="lock"
                     sx={{ height: "20px", width: "20px" }}
                   />
                 </Box>
@@ -207,6 +212,7 @@ const TeamRowComponent = ({
                 >
                   <StyledImage
                     src={LockSolid}
+                    alt="lock"
                     sx={{ height: "20px", width: "20px" }}
                   />
                 </Box>

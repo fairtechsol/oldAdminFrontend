@@ -46,7 +46,9 @@ const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
           </Typography>
         </Box>
       )}
-      {lock && <img src={Lock} style={{ width: "10px", height: "15px" }} />}
+      {lock && (
+        <img src={Lock} style={{ width: "10px", height: "15px" }} alt="lock" />
+      )}
     </Box>
   );
 };

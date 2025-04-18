@@ -153,6 +153,7 @@ const BoxComponent = ({
             >
               <StyledImage
                 src={LockSolid}
+                alt="lock"
                 sx={{ height: "20px", width: "20px" }}
               />
             </Box>
@@ -190,6 +191,7 @@ const BoxComponent = ({
             >
               <StyledImage
                 src={LockSolid}
+                alt="lock"
                 sx={{ height: "20px", width: "20px" }}
               />
             </Box>

@@ -101,6 +101,7 @@ const UserProfitLoss = ({
                 dispatch(getUserProfitLoss(matchData?.matchId));
               }}
               src={Refresh}
+              alt="refresh"
               style={{
                 width: "25px",
                 height: "25px",
@@ -149,6 +150,7 @@ const UserProfitLoss = ({
                 dispatch(getUserProfitLoss(matchDetail?.id));
               }}
               src={Refresh}
+              alt="refresh"
               style={{
                 width: "25px",
                 height: "25px",

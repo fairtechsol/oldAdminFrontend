@@ -122,6 +122,7 @@ const RowHeaderDomain = ({
         </Typography>
         <StyledImage
           src={ArrowDown}
+          alt="arrow down"
           sx={{
             width: { lg: "20px", xs: "10px" },
             transform: showMatchList ? "rotate(180deg)" : "rotate(0deg)",
@@ -161,6 +162,7 @@ const RowHeaderDomain = ({
           </Typography>
           <StyledImage
             src={item?.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
+            alt="arrow"
             sx={{
               width: { lg: "25px", xs: "15px" },
               height: { lg: "12px", xs: "8px" },

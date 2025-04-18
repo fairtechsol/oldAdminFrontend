@@ -144,10 +144,12 @@ const Header = () => {
             <Box sx={classes.BoxCont1sub1sub1}>
               <StyledImage
                 src={Draw}
+                alt="draw"
                 sx={classes.BoxCont1sub1sub1StyleImg}
               />
               <StyledImage
                 src={FgLogo}
+                alt="fairgame"
                 sx={classes.RenderLogoCompStyleImg}
                 onClick={() => navigate("/admin/list_of_clients")}
               />

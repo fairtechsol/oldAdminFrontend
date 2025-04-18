@@ -202,6 +202,7 @@ const RunsBox = ({ item, currentOdd }: any) => {
                   </Typography>
                   <StyledImage
                     src={getSVG(v?.profitLoss)}
+                    alt="proloss"
                     sx={{
                       height: "15px",
                       marginLeft: "5px",
@@ -223,7 +224,7 @@ const RunsBox = ({ item, currentOdd }: any) => {
                 height: "25px",
                 borderTop: "1px solid #306A47",
               }}
-             />
+            />
           </>
         )}
       </Box>

@@ -232,6 +232,7 @@ const SetExposureLimit = ({
               >
                 <StyledImage
                   src={showPass ? EyeIcon : EyeSlash}
+                  alt="eye icon"
                   sx={{ height: "14px", width: "20px" }}
                 />
               </Box>

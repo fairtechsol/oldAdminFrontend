@@ -89,6 +89,7 @@ const SearchInputWallet = ({
         />
         <img
           src={ARROWDROPDOWN}
+          alt="arrow down"
           style={{
             width: "11px",
             height: "6px",

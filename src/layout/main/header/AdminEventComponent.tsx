@@ -25,6 +25,7 @@ const AdminEventComponent = ({ data }: any) => {
     >
       <img
         src={data.image}
+        alt="image"
         style={{ width: "40px", height: "40px", alignSelf: "center" }}
       />
       <Typography

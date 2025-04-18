@@ -35,6 +35,7 @@ const SmallDropDown = ({
         <Typography sx={{ fontSize: "12px" }}>{pageLimit}</Typography>
         <img
           src={ARROWDROPDOWN}
+          alt="arrow down"
           style={{
             width: "12px",
             height: "7px",

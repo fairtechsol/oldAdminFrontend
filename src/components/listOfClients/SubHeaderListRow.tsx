@@ -84,6 +84,7 @@ const SubHeaderListRow = ({ data }: any) => {
               ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
               : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
           }
+          alt="arrow up down"
           sx={{
             height: "15px",
             marginLeft: "5px",
@@ -117,6 +118,7 @@ const SubHeaderListRow = ({ data }: any) => {
               ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
               : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
           }
+          alt="arrow up down"
           sx={{
             height: "15px",
             marginLeft: "5px",

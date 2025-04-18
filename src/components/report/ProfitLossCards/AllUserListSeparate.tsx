@@ -151,6 +151,7 @@ const AllUserListSeparate = ({
                 }
               }}
               src={ArrowDown}
+              alt="arrow down"
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
@@ -194,6 +195,7 @@ const AllUserListSeparate = ({
             </Typography>
             <StyledImage
               src={ARROW_UP}
+              alt="arrow up"
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -246,6 +248,7 @@ const AllUserListSeparate = ({
             </Typography>
             <StyledImage
               src={ARROWDOWN}
+              alt="arrow down"
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -457,6 +460,7 @@ const AllUserListSeparate = ({
                         </Typography>
                         <StyledImage
                           src={item?.rateProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
+                          alt="arrow"
                           sx={{
                             width: { lg: "25px", xs: "15px" },
                             height: { lg: "12px", xs: "8px" },
@@ -494,6 +498,7 @@ const AllUserListSeparate = ({
                         </Typography>
                         <StyledImage
                           src={ArrowDown}
+                          alt="arrow down"
                           sx={{
                             width: { lg: "20px", xs: "10px" },
                             height: { lg: "10px", xs: "6px" },

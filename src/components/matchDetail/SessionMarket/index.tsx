@@ -90,6 +90,7 @@ const SessionMarket = ({
                   : ""
               }
               src={locked ? LOCKED : LOCKOPEN}
+              alt="lock"
               style={{ width: "14px", height: "20px" }}
             />
           )}
@@ -198,6 +199,7 @@ const SessionMarket = ({
               setVisible(!visible);
             }}
             src={ARROWUP}
+            alt="arrow up"
             style={{
               transform: visible ? "rotate(180deg)" : "rotate(0deg)",
               width: "15px",
@@ -339,7 +341,11 @@ const SessionMarket = ({
                   alignItems: "center",
                 }}
               >
-                <img src={LOCKED} style={{ width: "35px", height: "40px" }} />
+                <img
+                  src={LOCKED}
+                  style={{ width: "35px", height: "40px" }}
+                  alt="locked"
+                />
                 <Typography
                   sx={{
                     fontWeight: "600",

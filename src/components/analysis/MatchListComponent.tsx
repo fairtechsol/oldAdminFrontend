@@ -190,7 +190,11 @@ const MatchListComponent = ({
                 background: !selected ? "#46CF4D" : "rgba(0,0,0,.5)",
               }}
             >
-              <img src={CHECK} style={{ width: "40px", height: "40px" }} />
+              <img
+                src={CHECK}
+                style={{ width: "40px", height: "40px" }}
+                alt="tick"
+              />
             </Box>
           )}
           <Box
