@@ -154,8 +154,6 @@ const CricketCasinoMarketBox = ({
                 <>
                   <SeperateBox
                     key={index}
-                    session={true}
-                    back={true}
                     value={item?.odds ?? 0}
                     value2={item?.size ?? 0}
                     lock={
@@ -163,7 +161,7 @@ const CricketCasinoMarketBox = ({
                         ? true
                         : false
                     }
-                    color={"#B3E0FF"}
+                    color="#B3E0FF"
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}

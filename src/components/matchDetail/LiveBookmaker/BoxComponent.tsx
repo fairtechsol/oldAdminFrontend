@@ -6,14 +6,7 @@ import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "../MatchOdds/MoneyBox";
 import SeperateBox from "../MatchOdds/SeperateBox";
 
-const BoxComponent = ({
-  name,
-  color,
-  align,
-  rates,
-  data,
-  marketDetails,
-}: any) => {
+const BoxComponent = ({ name, color, rates, data, marketDetails }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};
@@ -123,7 +116,6 @@ const BoxComponent = ({
             ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]?.price
           ) ? (
             <SeperateBox
-              align={align}
               value={
                 ex?.availableToBack?.length > 0
                   ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
@@ -163,7 +155,6 @@ const BoxComponent = ({
           {ex?.availableToLay?.length > 0 &&
           ![0, "0"].includes(ex?.availableToLay[0]?.price) ? (
             <SeperateBox
-              align={align}
               value={
                 ex?.availableToLay?.length > 0
                   ? ex?.availableToLay[0]?.price

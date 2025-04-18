@@ -186,8 +186,6 @@ const SeasonMarketBox = ({
               {newData?.isManual ? (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={Math.floor(newData?.noRate)}
                     value2={Math.floor(newData?.noPercent)}
                     lock={
@@ -200,7 +198,6 @@ const SeasonMarketBox = ({
                     sx={{ width: "3px", display: "flex", background: "pink" }}
                   />
                   <SeperateBox
-                    session={true}
                     value={Math.floor(newData?.yesRate)}
                     value2={formatNumber(Math.floor(newData?.yesPercent))}
                     lock={
@@ -213,8 +210,6 @@ const SeasonMarketBox = ({
               ) : (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={newData.ex?.availableToLay[0]?.price ?? 0}
                     value2={newData.ex?.availableToLay[0]?.size ?? 0}
                     lock={
@@ -232,7 +227,6 @@ const SeasonMarketBox = ({
                     sx={{ width: "3px", display: "flex", background: "pink" }}
                   />
                   <SeperateBox
-                    session={true}
                     value={newData.ex?.availableToBack[0]?.price ?? 0}
                     value2={newData.ex?.availableToBack[0]?.size ?? 0}
                     lock={
@@ -355,8 +349,6 @@ const SeasonMarketBox = ({
               ) : (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={
                       sessionBettingType.oddEven === type
                         ? newData.ex?.availableToBack[item]?.price ?? 0
@@ -390,7 +382,6 @@ const SeasonMarketBox = ({
                     }}
                   />
                   <SeperateBox
-                    session={true}
                     value={
                       sessionBettingType.oddEven === type
                         ? newData.ex?.availableToLay[item]?.price ?? 0

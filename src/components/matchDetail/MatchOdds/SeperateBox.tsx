@@ -2,7 +2,14 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { Lock } from "../../../assets";
 
-const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
+interface SeperateBoxProps {
+  color: string;
+  value: number;
+  value2: number | null;
+  lock?: boolean;
+}
+
+const SeperateBox = ({ color, value, value2, lock }: SeperateBoxProps) => {
   return (
     <Box
       onClick={() => {
@@ -13,7 +20,7 @@ const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
       sx={{
         background: lock ? "#FDF21A" : color,
         border: color != "white" ? "1px solid #2626264D" : "0px solid white",
-        width: { xs: "30%", lg: width ? `${width}vw` : "5vw" },
+        width: { xs: "30%", lg: "5vw" },
         height: "94%",
         display: "flex",
         justifyContent: "center",
@@ -21,7 +28,7 @@ const SeperateBox = ({ color, empty, value, value2, lock, width }: any) => {
         flexDirection: "column",
       }}
     >
-      {!empty && !lock && (
+      {!lock && (
         <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
           <Typography
             sx={{
