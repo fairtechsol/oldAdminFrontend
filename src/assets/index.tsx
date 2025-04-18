@@ -51,7 +51,7 @@ export { default as LoginBg } from "./images/loginBg_webp.webp";
 export { default as FgLogo } from "./images/logo02.webp";
 export { default as Logout } from "./images/logout.png";
 export { default as Lucky7A } from "./images/lucky7A.png";
-export { default as MAC88 } from "./images/mac88.png";
+export { default as MAC88 } from "./images/mac88.webp";
 export { default as mail } from "./images/mail.png";
 export { default as MYACCOUNT } from "./images/my-account.webp";
 export { default as NOT } from "./images/not.png";
