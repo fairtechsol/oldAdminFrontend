@@ -318,19 +318,23 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
-        let matchListFromApi = action.payload;
-        if (state.matchListInplay?.matches?.length > 0) {
-          state.matchListInplay.matches = state.matchListInplay?.matches?.map(
-            (items: any) => {
-              const itemToUpdate = matchListFromApi?.find(
-                (item: any) =>
-                  +item?.gameId === +items?.eventId ||
-                  +item?.gmid === +items?.eventId
-              );
-              return {
-                ...items,
-                ...itemToUpdate,
-              };
+        const matchListFromApi = action.payload;
+
+        if (
+          state.matchListInplay?.matches?.length &&
+          matchListFromApi?.length
+        ) {
+          const apiMatchMap = new Map();
+
+          matchListFromApi.forEach((item: any) => {
+            if (item?.gameId) apiMatchMap.set(+item.gameId, item);
+            if (item?.gmid) apiMatchMap.set(+item.gmid, item);
+          });
+
+          state.matchListInplay.matches = state.matchListInplay.matches.map(
+            (match: any) => {
+              const matchFromApi = apiMatchMap.get(+match.eventId);
+              return matchFromApi ? { ...match, ...matchFromApi } : match;
             }
           );
         }
