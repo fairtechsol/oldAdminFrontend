@@ -87,7 +87,7 @@ const SetExposureLimit = ({
           })
         );
       }
-      dispatch(getTotalBalance());
+      dispatch(getTotalBalance({}));
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }

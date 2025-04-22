@@ -102,7 +102,7 @@ const RowModalComponents = ({
         })
       );
       setShowUserModal(false);
-      dispatch(getTotalBalance());
+      dispatch(getTotalBalance({}));
       dispatch(getUsersProfile());
       dispatch(userListSuccessReset());
     }
@@ -370,7 +370,11 @@ const RowModalComponents = ({
               fontSize: { xs: "12px" },
             }}
             icon={
-              <StyledImage src={DeleteIcon} sx={classes.BoxButtonStyledImage} alt="delete" />
+              <StyledImage
+                src={DeleteIcon}
+                sx={classes.BoxButtonStyledImage}
+                alt="delete"
+              />
             }
           />
           <Dialog

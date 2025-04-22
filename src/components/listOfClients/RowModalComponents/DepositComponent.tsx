@@ -179,7 +179,7 @@ const DepositComponent = ({
             url: { endpoint: ApiConstants.USER.LIST },
           })
         );
-        dispatch(getTotalBalance());
+        dispatch(getTotalBalance({}));
         dispatch(getUsersProfile());
       }
       setSubmitting(false);

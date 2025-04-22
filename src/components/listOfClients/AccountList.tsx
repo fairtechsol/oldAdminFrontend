@@ -29,7 +29,7 @@ const AccountList = (endpoint: AccountListProps) => {
 
   useEffect(() => {
     dispatch(getUserList({ currentPage: currentPage, url: endpoint }));
-    dispatch(getTotalBalance());
+    dispatch(getTotalBalance({}));
   }, [currentPage]);
 
   return (
