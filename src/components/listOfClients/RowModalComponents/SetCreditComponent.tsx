@@ -105,7 +105,7 @@ const SetCreditComponent = ({
           })
         );
       }
-      dispatch(getTotalBalance());
+      dispatch(getTotalBalance({}));
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
