@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import service from "../../../service";
 import { ApiConstants } from "../../../utils/Constants";
-import { AxiosError } from "axios";
 
 export const updateUserMatchLock = createAsyncThunk<any, any>(
   "/userMatchLock",
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.USER_MATCH_LOCK}`,
+        ApiConstants.USER.USER_MATCH_LOCK,
         requestData
       );
       if (resp) {
-        return resp?.data;  
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -25,7 +25,10 @@ export const getUserDetailsOfLock = createAsyncThunk<any, any>(
   async (id, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.USER_CHECK_CHILD_DEACTIVATE}?matchId=${id}`
+        ApiConstants.USER.USER_CHECK_CHILD_DEACTIVATE,
+        {
+          params: { matchId: id },
+        }
       );
       if (resp) {
         return resp?.data;

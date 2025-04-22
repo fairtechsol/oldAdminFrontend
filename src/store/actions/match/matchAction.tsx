@@ -191,7 +191,7 @@ export const AllBetDelete = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.MATCH.BETDELETE}`,
+        ApiConstants.MATCH.BETDELETE,
         requestData
       );
       if (resp) {
