@@ -88,23 +88,37 @@ export const updateSessionBettingsItem = (
   try {
     if (!apiResponseBettings || Object.keys(apiResponseBettings).length === 0) {
       for (const key in matchDetailBettings) {
-        if (matchDetailBettings.hasOwnProperty(key)) {
-          const matchDetailSections = matchDetailBettings[key]?.section;
-          matchDetailSections?.forEach((section: any) => {
-            section.isComplete = true;
-          });
-        }
+        // if (matchDetailBettings.hasOwnProperty(key)) {
+        const matchDetailSections = matchDetailBettings[key]?.section;
+        matchDetailSections?.forEach((section: any) => {
+          section.isComplete = true;
+        });
+        // }
       }
       return matchDetailBettings;
-    } else
+    } else {
+      let apiSessionIdWiseIndex = Object.keys(apiResponseBettings)?.reduce(
+        (prev: any, curr: any) => {
+          let ind = 0;
+          prev[curr] = apiResponseBettings[curr]?.section?.reduce(
+            (prevSec: any, currSec: any) => {
+              prevSec[currSec?.id] = ind;
+              ind++;
+              return prevSec;
+            },
+            {}
+          );
+          return prev;
+        },
+        {}
+      );
       for (const key in matchDetailBettings) {
         if (apiResponseBettings.hasOwnProperty(key)) {
           const apiSections = apiResponseBettings[key].section;
           const matchDetailSections = matchDetailBettings[key]?.section;
           for (const apiSection of apiSections) {
-            const matchDetailSectionIndex = matchDetailSections?.findIndex(
-              (section: any) => section?.id === apiSection?.id
-            );
+            const matchDetailSectionIndex =
+              apiSessionIdWiseIndex[key]?.[matchDetailSections?.id];
             if (matchDetailSectionIndex !== -1) {
               matchDetailBettings[key].section[matchDetailSectionIndex] = {
                 ...matchDetailBettings[key].section[matchDetailSectionIndex],
@@ -128,6 +142,7 @@ export const updateSessionBettingsItem = (
           }
         }
       }
+    }
     return matchDetailBettings;
   } catch (error) {
     console.log(error);

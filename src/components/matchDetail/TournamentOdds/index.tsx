@@ -54,7 +54,6 @@ const TournamentOdds = ({
   };
   return (
     <Box
-      key="odds"
       sx={{
         position: "relative",
         display: "flex",
@@ -62,8 +61,7 @@ const TournamentOdds = ({
         padding: 0.2,
         flexDirection: "column",
         width: "100%",
-        marginTop: typeOfBet == "Quick Bookmaker" ? "0" : "3px",
-        marginBottom: typeOfBet == "Quick Bookmaker" ? "3px" : "0",
+        marginBottom: "3px",
         alignSelf: {
           xs: "center",
           md: "center",
@@ -97,11 +95,7 @@ const TournamentOdds = ({
               marginLeft: "7px",
             }}
           >
-            {typeOfBet === "MANUAL BOOKMAKER"
-              ? "QUICK BOOKMAKER"
-              : title
-              ? title
-              : typeOfBet}
+            {title}
           </Typography>
           {liveData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
@@ -119,7 +113,7 @@ const TournamentOdds = ({
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <div className="slanted" />
         </Box>
         <Box
           sx={{

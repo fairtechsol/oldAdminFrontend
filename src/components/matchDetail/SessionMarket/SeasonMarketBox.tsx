@@ -215,7 +215,7 @@ const SeasonMarketBox = ({
                     lock={
                       [null, 0, "0"].includes(
                         Math.floor(newData.ex?.availableToLay[0]?.price ?? 0)
-                      ) || type === "khado"
+                      )
                         ? true
                         : false
                     }

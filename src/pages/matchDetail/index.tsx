@@ -330,20 +330,18 @@ const MatchDetail = () => {
   return (
     <>
       {visible && (
-        <>
-          <AddNotificationModal
-            value={""}
-            title={"Add Remark"}
-            visible={visible}
-            loadingDeleteBet={loading}
-            setVisible={setVisible}
-            onDone={handleDeleteBet}
-            onClick={(e: any) => {
-              e.stopPropagation();
-              setVisible(false);
-            }}
-          />
-        </>
+        <AddNotificationModal
+          value={""}
+          title={"Add Remark"}
+          visible={visible}
+          loadingDeleteBet={loading}
+          setVisible={setVisible}
+          onDone={handleDeleteBet}
+          onClick={(e: any) => {
+            e.stopPropagation();
+            setVisible(false);
+          }}
+        />
       )}
       <Box
         sx={{
@@ -374,7 +372,14 @@ const MatchDetail = () => {
           </Typography>
           {matchDetail?.tournament &&
             matchDetail?.tournament
-              ?.filter((items: any) => items.activeStatus === "live")
+              ?.filter(
+                (items: any) =>
+                  items.activeStatus === "live" &&
+                  !["completed_match", "tied_match"].includes(
+                    items?.name?.toLowerCase()
+                  )
+              )
+              ?.sort((a: any, b: any) => a.sNo - b.sNo)
               ?.map((market: any, index: any) => {
                 return (
                   <TournamentOdds
@@ -382,7 +387,7 @@ const MatchDetail = () => {
                     currentMatch={matchDetail}
                     minBet={Math.floor(market?.minBet) || 0}
                     maxBet={Math.floor(market?.maxBet) || 0}
-                    typeOfBet={market?.name}
+                    title={market?.name}
                     liveData={market}
                     profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
                       (item: any) =>
@@ -506,7 +511,32 @@ const MatchDetail = () => {
                   />
                 );
               })}
-
+          {matchDetail?.tournament &&
+            matchDetail?.tournament
+              ?.filter(
+                (items: any) =>
+                  items.activeStatus === "live" &&
+                  ["completed_match", "tied_match"].includes(
+                    items?.name?.toLowerCase()
+                  )
+              )
+              ?.sort((a: any, b: any) => a.sNo - b.sNo)
+              ?.map((market: any, index: any) => {
+                return (
+                  <TournamentOdds
+                    key={index}
+                    currentMatch={matchDetail}
+                    minBet={Math.floor(market?.minBet) || 0}
+                    maxBet={Math.floor(market?.maxBet) || 0}
+                    title={market?.name}
+                    liveData={market}
+                    profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
+                      (item: any) =>
+                        item?.betId === (market?.parentBetId || market?.id)
+                    )}
+                  />
+                );
+              })}
           {sessionProLoss?.length > 0 && matchesMobile && (
             <Box
               sx={{
