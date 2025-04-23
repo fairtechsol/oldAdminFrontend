@@ -15,6 +15,7 @@ import {
   updateMaxLossForDeleteBet,
   updateTeamRates,
   updateTeamRatesOnDelete,
+  updateTeamRatesOnMarketUndeclare,
 } from "../../actions/match/matchAction";
 
 interface InitialState {
@@ -243,6 +244,19 @@ const matchListSlice = createSlice({
           ...state.matchDetail.profitLossDataMatch,
           [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
             JSON.stringify(teamRate),
+        };
+      })
+      .addCase(updateTeamRatesOnMarketUndeclare.fulfilled, (state, action) => {
+        const { betId, profitLossData } = action?.payload;
+
+        state.matchDetail.profitLossDataMatch = {
+          ...state.matchDetail.profitLossDataMatch,
+          [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
+            JSON.stringify(
+              profitLossData?.[
+                betId + "_" + "profitLoss" + "_" + state.matchDetail?.id
+              ]
+            ),
         };
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {

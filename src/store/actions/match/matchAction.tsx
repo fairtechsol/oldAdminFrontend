@@ -246,6 +246,12 @@ export const updateTeamRatesOnDelete = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const updateTeamRatesOnMarketUndeclare = createAsyncThunk<any, any>(
+  "/teamRates/updateOnMarketUndeclare",
+  async (data) => {
+    return data;
+  }
+);
 export const getSessionProfitLossMatchDetailFilter = createAsyncThunk<any, any>(
   "getSessionProfitLossMatchDetail/filter",
   async (requestData) => {

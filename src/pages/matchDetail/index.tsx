@@ -33,6 +33,7 @@ import {
   updateProfitLoss,
   updateTeamRates,
   updateTeamRatesOnDelete,
+  updateTeamRatesOnMarketUndeclare,
 } from "../../store/actions/match/matchAction";
 import { resetSessionProfitLoss } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
@@ -95,16 +96,22 @@ const MatchDetail = () => {
     }
   };
   const matchResultDeclared = (event: any) => {
+    debugger;
     try {
-      if (event?.matchId === state?.matchId && event.isMatchDeclare) {
-        if (location.pathname.includes("market_analysis")) {
-          navigate(`${Constants.oldAdmin}market_analysis`);
-        } else {
-          navigate(`${Constants.oldAdmin}live_market`);
-        }
+      if (event?.matchId !== state?.matchId) return;
+
+      if (event?.isMatchDeclare) {
+        const path = location.pathname.includes("market_analysis")
+          ? "market_analysis"
+          : "live_market";
+        navigate(`${Constants.oldAdmin}${path}`);
       } else {
-        getPlacedBets(
-          `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""}`
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
         );
       }
     } catch (e) {
@@ -116,7 +123,7 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbets(event));
         dispatch(updateTeamRatesOnDelete(event));
-      }
+      } else return;
     } catch (e) {
       console.log(e);
     }
@@ -141,7 +148,7 @@ const MatchDetail = () => {
             odds: event?.jobData?.placedBet?.odds,
           })
         );
-      }
+      } else return;
     } catch (e) {
       console.log(e);
     }
@@ -152,7 +159,7 @@ const MatchDetail = () => {
       if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData));
         dispatch(updateTeamRates(event));
-      }
+      } else return;
     } catch (e) {
       console.log(e);
     }
@@ -169,7 +176,7 @@ const MatchDetail = () => {
           )
         );
         dispatch(amountupdate(event));
-      }
+      } else return;
     } catch (error) {
       console.log(error);
     }
@@ -179,7 +186,7 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbets(event));
         dispatch(updateMaxLossForDeleteBet(event));
-      }
+      } else return;
     } catch (e) {
       console.log(e);
     }
@@ -189,7 +196,7 @@ const MatchDetail = () => {
     try {
       if (event?.matchId === state?.matchId) {
         dispatch(updatePlacedbetsDeleteReason(event));
-      }
+      } else return;
     } catch (e) {
       console.log(e);
     }
@@ -206,7 +213,24 @@ const MatchDetail = () => {
             }`
           )
         );
-      }
+      } else return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMarketResultUndeclared = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(updateTeamRatesOnMarketUndeclare(event));
+        dispatch(
+          getPlacedBets(
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
+            }`
+          )
+        );
+      } else return;
     } catch (error) {
       console.log(error);
     }
@@ -265,6 +289,9 @@ const MatchDetail = () => {
             handleSessionResultUnDeclare
           );
           socketService.match.updateDeleteReason(handleDeleteReasonUpdate);
+          socketService.match.matchResultUnDeclared(
+            handleMarketResultUndeclared
+          );
         }
       }
     } catch (e) {
