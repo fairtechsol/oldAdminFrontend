@@ -222,7 +222,12 @@ const MatchDetail = () => {
   const handleMarketResultUndeclared = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
-        dispatch(updateTeamRatesOnMarketUndeclare(event));
+        if (event?.betType) {
+          dispatch(updateTeamRatesOnMarketUndeclare(event));
+        } else {
+          dispatch(getMatchDetail(state?.matchId));
+          dispatch(getUserProfitLoss(state?.matchId));
+        }
         dispatch(
           getPlacedBets(
             `eq${state?.matchId}${
