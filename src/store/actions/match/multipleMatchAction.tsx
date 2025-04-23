@@ -78,3 +78,10 @@ export const updateMaxLossForDeleteBetForMultiMatch = createAsyncThunk<
 >("/maxLoss/updateMaxLossForDeleteBetForMultiMatch", async (data) => {
   return data;
 });
+
+export const updateMatchRatesOnMarketUndeclareForMulti = createAsyncThunk<
+  any,
+  any
+>("/maxLoss/updateMatchRatesOnMarketUndeclareForMulti", async (data) => {
+  return data;
+});

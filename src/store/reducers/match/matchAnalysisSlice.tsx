@@ -9,6 +9,7 @@ import {
   getAnalysisList,
   getMultipleMatchDetail,
   updateBetDataOnDeclareOfMultipleMatch,
+  updateMatchRatesOnMarketUndeclareForMulti,
   updateMaxLossForBetForMultipleMatch,
   updateMaxLossForBetOnUndeclareForMultipleMatch,
   updateMaxLossForDeleteBetForMultiMatch,
@@ -425,6 +426,26 @@ const analysisListSlice = createSlice({
             }
           );
           // });
+        }
+      )
+      .addCase(
+        updateMatchRatesOnMarketUndeclareForMulti.fulfilled,
+        (state, action) => {
+          const { profitLossData, betId, matchId } = action?.payload;
+          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
+            (match: any) => {
+              if (match?.id === matchId) {
+                return {
+                  ...match,
+                  profitLossDataMatch: {
+                    ...match?.profitLossDataMatch,
+                    [betId + "_" + "profitLoss" + "_" + match?.id]:
+                      JSON.stringify(profitLossData),
+                  },
+                };
+              } else return match;
+            }
+          );
         }
       )
       .addCase(analysisListReset, (state) => {

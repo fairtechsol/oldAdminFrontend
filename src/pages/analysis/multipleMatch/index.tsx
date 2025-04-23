@@ -21,6 +21,7 @@ import {
 import {
   getMultipleMatchDetail,
   updateBetDataOnDeclareOfMultipleMatch,
+  updateMatchRatesOnMarketUndeclareForMulti,
   updateMaxLossForBetForMultipleMatch,
   updateMaxLossForBetOnUndeclareForMultipleMatch,
   updateMaxLossForDeleteBetForMultiMatch,
@@ -195,6 +196,17 @@ const MultipleMatch = ({}) => {
     }
   };
 
+  const handleMatchResultUndeclared = (event: any) => {
+    try {
+      if (state?.matchIds.includes(event?.matchId)) {
+        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(updateMatchRatesOnMarketUndeclareForMulti(event));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     try {
       if (state?.matchIds) {
@@ -243,6 +255,7 @@ const MultipleMatch = ({}) => {
         socketService.match.updateDeleteReason(
           updateMultiplePlacedbetsDeleteReason
         );
+        socketService.match.matchResultUnDeclared(handleMatchResultUndeclared);
         dispatch(analysisListReset());
       }
     } catch (e) {
