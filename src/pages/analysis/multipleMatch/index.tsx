@@ -121,7 +121,11 @@ const MultipleMatch = ({}) => {
   const matchMultiResultDeclared = (event: any) => {
     try {
       if (state?.matchIds.includes(event?.matchId)) {
-        navigate(`/admin/market_analysis`);
+        if (event?.isMatchDeclare) {
+          navigate(`/admin/market_analysis`);
+        } else {
+          dispatch(getPlacedBets(`eq${state?.matchId}`));
+        }
       }
     } catch (error) {
       console.log(error);

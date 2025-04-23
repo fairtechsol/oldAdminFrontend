@@ -55,18 +55,26 @@ const Layout = ({
         </Button>
       </Typography>
       {item?.tournament &&
-        item?.tournament?.map((market: any, index: any) => {
-          return (
-            <TournamentOdds
-              key={index}
-              currentMatch={item}
-              minBet={Math.floor(market?.minBet) || 0}
-              maxBet={Math.floor(market?.maxBet) || 0}
-              title={market?.name}
-              liveData={market}
-            />
-          );
-        })}
+        item?.tournament
+          ?.filter(
+            (items: any) =>
+              items.activeStatus === "live" &&
+              !["completed_match", "tied_match"].includes(
+                items?.name?.toLowerCase()
+              )
+          )
+          ?.map((market: any, index: any) => {
+            return (
+              <TournamentOdds
+                key={index}
+                currentMatch={item}
+                minBet={Math.floor(market?.minBet) || 0}
+                maxBet={Math.floor(market?.maxBet) || 0}
+                title={market?.name}
+                liveData={market}
+              />
+            );
+          })}
       {item?.manualSessionActive && (
         <SessionMarket
           title="Quick Session Market"
@@ -165,6 +173,27 @@ const Layout = ({
                 min={formatToINR(item?.betFairSessionMinBet) || 0}
                 max={formatToINR(item?.betFairSessionMaxBet) || 0}
                 type={sessionBettingType.cricketCasino}
+              />
+            );
+          })}
+      {item?.tournament &&
+        item?.tournament
+          ?.filter(
+            (items: any) =>
+              items.activeStatus === "live" &&
+              ["completed_match", "tied_match"].includes(
+                items?.name?.toLowerCase()
+              )
+          )
+          ?.map((market: any, index: any) => {
+            return (
+              <TournamentOdds
+                key={index}
+                currentMatch={item}
+                minBet={Math.floor(market?.minBet) || 0}
+                maxBet={Math.floor(market?.maxBet) || 0}
+                title={market?.name}
+                liveData={market}
               />
             );
           })}
