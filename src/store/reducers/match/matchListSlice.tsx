@@ -180,34 +180,38 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMaxLossForDeleteBet.fulfilled, (state, action) => {
         const { bets, betId, profitLoss } = action.payload;
-        if (bets?.length > 0 && state?.matchDetail?.id === bets[0]?.matchId) {
-          const updatedProfitLossDataSession =
-            state?.matchDetail?.profitLossDataSession?.map((item: any) => {
-              if (betId !== item?.betId) return item;
+        const match = state?.matchDetail;
+
+        if (!bets?.length || match?.id !== bets?.[0]?.matchId) return;
+
+        let updated = false;
+        const updatedProfitLossDataSession =
+          match.profitLossDataSession?.map((item: any) => {
+            if (item.betId === betId) {
+              updated = true;
               return {
                 ...item,
                 maxLoss: profitLoss?.maxLoss,
                 totalBet: profitLoss?.totalBet,
                 profitLoss: profitLoss?.betPlaced,
               };
-            });
+            }
+            return item;
+          }) || [];
 
-          const betIndex = updatedProfitLossDataSession?.findIndex(
-            (item: any) => item?.betId === betId
-          );
-          if (betIndex === -1) {
-            updatedProfitLossDataSession?.push({
-              betId: betId,
-              maxLoss: profitLoss?.maxLoss,
-              profitLoss: profitLoss?.betPlaced,
-              totalBet: 1,
-            });
-          }
-          state.matchDetail = {
-            ...state.matchDetail,
-            profitLossDataSession: updatedProfitLossDataSession,
-          };
+        if (!updated) {
+          updatedProfitLossDataSession.push({
+            betId,
+            maxLoss: profitLoss?.maxLoss,
+            profitLoss: profitLoss?.betPlaced,
+            totalBet: 1,
+          });
         }
+
+        state.matchDetail = {
+          ...match,
+          profitLossDataSession: updatedProfitLossDataSession,
+        };
       })
       .addCase(updateMaxLossForBetOnUndeclare.fulfilled, (state, action) => {
         const { betId, matchId, profitLossData } = action.payload;
