@@ -96,15 +96,18 @@ const MatchDetail = () => {
     }
   };
   const matchResultDeclared = (event: any) => {
-    debugger;
     try {
       if (event?.matchId !== state?.matchId) return;
 
       if (event?.isMatchDeclare) {
-        const path = location.pathname.includes("market_analysis")
-          ? "market_analysis"
-          : "live_market";
-        navigate(`${Constants.oldAdmin}${path}`);
+        navigate(
+          location.pathname.split("/")[2] === "live_market" ||
+            location.pathname.split("/")[2] === "market_analysis"
+            ? `${Constants.oldAdmin}${location.pathname.split("/")[2]}`
+            : `${Constants.oldAdmin}${location.pathname.split("/")[2]}/${
+                state.matchType || event?.gameType
+              }`
+        );
       } else {
         dispatch(
           getPlacedBets(
