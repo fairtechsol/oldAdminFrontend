@@ -1,3 +1,5 @@
+import { accountTypeMap } from "../utils/Constants";
+
 const order: any = {
   session: 1,
   overByover: 2,
@@ -163,25 +165,6 @@ export const setTypeForAccountType = (
 ) => {
   try {
     const roleName = profileDetail?.roleName;
-
-    const accountTypeMap: any = {
-      superAdmin: [
-        { value: "admin", label: "Admin" },
-        { value: "superMaster", label: "Super Master" },
-        { value: "master", label: "Master" },
-        { value: "user", label: "User" },
-      ],
-      admin: [
-        { value: "superMaster", label: "Super Master" },
-        { value: "master", label: "Master" },
-        { value: "user", label: "User" },
-      ],
-      superMaster: [
-        { value: "master", label: "Master" },
-        { value: "user", label: "User" },
-      ],
-      master: [{ value: "user", label: "User" }],
-    };
 
     setAccountTypes(accountTypeMap[roleName] || []);
   } catch (e) {

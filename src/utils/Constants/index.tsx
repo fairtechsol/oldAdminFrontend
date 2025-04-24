@@ -199,84 +199,29 @@ export const baseUrls = {
   expertSocket: import.meta.env.VITE_EXPERT_BASE_URL,
 };
 
-export const matchBettingType = {
-  matchOdd: "matchOdd",
-  bookmaker: "bookmaker",
-  bookmaker2: "bookmaker2",
-  quickbookmaker1: "quickbookmaker1",
-  quickbookmaker2: "quickbookmaker2",
-  quickbookmaker3: "quickbookmaker3",
-  tiedMatch1: "tiedMatch1",
-  tiedMatch2: "tiedMatch2",
-  tiedMatch3: "tiedMatch3",
-  completeMatch: "completeMatch",
-  completeMatch1: "completeMatch1",
-  completeManual: "completeManual",
-  setWinner1: "setWinner1",
-  setWinner2: "setWinner2",
-};
-
-export const profitLossDataForMatchConstants = {
-  [matchBettingType.matchOdd]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.bookmaker]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.bookmaker2]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker1]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker2]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker3]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.tiedMatch1]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.tiedMatch2]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.tiedMatch3]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.completeMatch]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-  [matchBettingType.completeMatch1]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-  [matchBettingType.completeManual]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-};
-
 export const marketApiConst: { [key: string]: string } = {
   cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
   football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
   tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
+};
+
+export const accountTypeMap: any = {
+  superAdmin: [
+    { value: "admin", label: "Admin" },
+    { value: "superMaster", label: "Super Master" },
+    { value: "master", label: "Master" },
+    { value: "user", label: "User" },
+  ],
+  admin: [
+    { value: "superMaster", label: "Super Master" },
+    { value: "master", label: "Master" },
+    { value: "user", label: "User" },
+  ],
+  superMaster: [
+    { value: "master", label: "Master" },
+    { value: "user", label: "User" },
+  ],
+  master: [{ value: "user", label: "User" }],
 };
 
 export const gameConstants = {
