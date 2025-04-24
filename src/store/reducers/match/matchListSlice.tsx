@@ -142,38 +142,41 @@ const matchListSlice = createSlice({
       .addCase(matchListReset, (state) => {
         state.success = false;
       })
-
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { jobData, profitLoss } = action.payload;
-        if (state?.matchDetail?.id === jobData?.placedBet?.matchId) {
-          const updatedProfitLossDataSession =
-            state?.matchDetail?.profitLossDataSession?.map((item: any) => {
-              if (item?.betId !== jobData?.placedBet?.betId) return item;
+        const match = state?.matchDetail;
+        const placedBet = jobData?.placedBet;
+
+        if (match?.id !== placedBet?.matchId) return;
+
+        let updated = false;
+        const updatedProfitLossDataSession =
+          match.profitLossDataSession?.map((item: any) => {
+            if (item.betId === placedBet.betId) {
+              updated = true;
               return {
                 ...item,
                 maxLoss: profitLoss?.maxLoss,
                 totalBet: profitLoss?.totalBet,
                 profitLoss: profitLoss?.betPlaced,
               };
-            });
+            }
+            return item;
+          }) || [];
 
-          const betIndex = updatedProfitLossDataSession?.findIndex(
-            (item: any) => item?.betId === jobData?.placedBet?.betId
-          );
-          if (betIndex === -1) {
-            updatedProfitLossDataSession?.push({
-              betId: jobData?.placedBet?.betId,
-              maxLoss: profitLoss?.maxLoss,
-              profitLoss: profitLoss?.betPlaced,
-              totalBet: 1,
-            });
-          }
-
-          state.matchDetail = {
-            ...state.matchDetail,
-            profitLossDataSession: updatedProfitLossDataSession,
-          };
+        if (!updated) {
+          updatedProfitLossDataSession.push({
+            betId: placedBet.betId,
+            maxLoss: profitLoss?.maxLoss,
+            profitLoss: profitLoss?.betPlaced,
+            totalBet: 1,
+          });
         }
+
+        state.matchDetail = {
+          ...match,
+          profitLossDataSession: updatedProfitLossDataSession,
+        };
       })
       .addCase(updateMaxLossForDeleteBet.fulfilled, (state, action) => {
         const { bets, betId, profitLoss } = action.payload;
