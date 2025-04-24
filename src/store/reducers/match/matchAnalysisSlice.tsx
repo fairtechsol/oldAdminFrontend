@@ -67,10 +67,9 @@ const analysisListSlice = createSlice({
         state.error = action.error?.message;
       })
       .addCase(updateMultipleMatchDetail.fulfilled, (state, action) => {
+        const { apiSession, sessionBettings, tournament, id } = action.payload;
         state.multipleMatchDetail = state?.multipleMatchDetail?.map(
           (match: any) => {
-            const { apiSession, sessionBettings, tournament, id } =
-              action.payload;
             if (match?.id !== id) return match;
 
             const parsedSessionBettings =

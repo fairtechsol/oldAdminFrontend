@@ -53,8 +53,7 @@ const betsSlice = createSlice({
         state.error = action.error?.message;
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
-        const { newBet, myStake, userName } = action.payload;
-        const betId = action.payload?.betId;
+        const { newBet, myStake, userName, betId } = action.payload;
         const user = {
           userName: userName,
         };
