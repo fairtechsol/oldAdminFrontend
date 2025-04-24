@@ -283,7 +283,7 @@ const analysisListSlice = createSlice({
                     totalBet: 1,
                   });
                 }
-                match = {
+                return {
                   ...match,
                   profitLossDataSession: updatedProfitLossDataSession,
                 };
