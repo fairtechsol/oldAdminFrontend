@@ -148,15 +148,13 @@ const matchListSlice = createSlice({
         if (state?.matchDetail?.id === jobData?.placedBet?.matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetail?.profitLossDataSession?.map((item: any) => {
-              if (item?.betId === jobData?.placedBet?.betId) {
-                return {
-                  ...item,
-                  maxLoss: profitLoss?.maxLoss,
-                  totalBet: profitLoss?.totalBet,
-                  profitLoss: profitLoss?.betPlaced,
-                };
-              }
-              return item;
+              if (item?.betId !== jobData?.placedBet?.betId) return item;
+              return {
+                ...item,
+                maxLoss: profitLoss?.maxLoss,
+                totalBet: profitLoss?.totalBet,
+                profitLoss: profitLoss?.betPlaced,
+              };
             });
 
           const betIndex = updatedProfitLossDataSession?.findIndex(
@@ -182,15 +180,13 @@ const matchListSlice = createSlice({
         if (bets?.length > 0 && state?.matchDetail?.id === bets[0]?.matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetail?.profitLossDataSession?.map((item: any) => {
-              if (betId === item?.betId) {
-                return {
-                  ...item,
-                  maxLoss: profitLoss?.maxLoss,
-                  totalBet: profitLoss?.totalBet,
-                  profitLoss: profitLoss?.betPlaced,
-                };
-              }
-              return item;
+              if (betId !== item?.betId) return item;
+              return {
+                ...item,
+                maxLoss: profitLoss?.maxLoss,
+                totalBet: profitLoss?.totalBet,
+                profitLoss: profitLoss?.betPlaced,
+              };
             });
 
           const betIndex = updatedProfitLossDataSession?.findIndex(
