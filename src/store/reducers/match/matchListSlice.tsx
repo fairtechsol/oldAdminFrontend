@@ -98,11 +98,9 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const { apiSession, sessionBettings, tournament } = action.payload;
-
         const parsedSessionBettings =
           state.matchDetail?.sessionBettings?.map(JSON.parse) || [];
         const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
-
         apiParsedSessionBettings.forEach((apiItem: any) => {
           const index = parsedSessionBettings.findIndex(
             (parsedItem: any) => parsedItem.id === apiItem.id
@@ -119,7 +117,6 @@ const matchListSlice = createSlice({
         const stringifiedSessionBetting = parsedSessionBettings.map(
           JSON.stringify
         );
-
         state.matchDetail = {
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -146,9 +143,7 @@ const matchListSlice = createSlice({
         const { jobData, profitLoss } = action.payload;
         const match = state?.matchDetail;
         const placedBet = jobData?.placedBet;
-
         if (match?.id !== placedBet?.matchId) return;
-
         let updated = false;
         const updatedProfitLossDataSession =
           match.profitLossDataSession?.map((item: any) => {
@@ -163,7 +158,6 @@ const matchListSlice = createSlice({
             }
             return item;
           }) || [];
-
         if (!updated) {
           updatedProfitLossDataSession.push({
             betId: placedBet.betId,
@@ -172,7 +166,6 @@ const matchListSlice = createSlice({
             totalBet: 1,
           });
         }
-
         state.matchDetail = {
           ...match,
           profitLossDataSession: updatedProfitLossDataSession,
@@ -181,9 +174,7 @@ const matchListSlice = createSlice({
       .addCase(updateMaxLossForDeleteBet.fulfilled, (state, action) => {
         const { bets, betId, profitLoss } = action.payload;
         const match = state?.matchDetail;
-
         if (!bets?.length || match?.id !== bets?.[0]?.matchId) return;
-
         let updated = false;
         const updatedProfitLossDataSession =
           match.profitLossDataSession?.map((item: any) => {
@@ -198,7 +189,6 @@ const matchListSlice = createSlice({
             }
             return item;
           }) || [];
-
         if (!updated) {
           updatedProfitLossDataSession.push({
             betId,
@@ -207,7 +197,6 @@ const matchListSlice = createSlice({
             totalBet: 1,
           });
         }
-
         state.matchDetail = {
           ...match,
           profitLossDataSession: updatedProfitLossDataSession,
@@ -242,7 +231,6 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
         const { betId, teamRate } = action.payload;
-
         state.matchDetail.profitLossDataMatch = {
           ...state.matchDetail.profitLossDataMatch,
           [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
@@ -251,7 +239,6 @@ const matchListSlice = createSlice({
       })
       .addCase(updateTeamRatesOnMarketUndeclare.fulfilled, (state, action) => {
         const { betId, profitLossData } = action.payload;
-
         state.matchDetail.profitLossDataMatch = {
           ...state.matchDetail.profitLossDataMatch,
           [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
@@ -264,18 +251,15 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         const matchListFromApi = action.payload;
-
         if (
           state.matchListInplay?.matches?.length &&
           matchListFromApi?.length
         ) {
           const apiMatchMap = new Map();
-
           matchListFromApi.forEach((item: any) => {
             if (item?.gameId) apiMatchMap.set(+item.gameId, item);
             if (item?.gmid) apiMatchMap.set(+item.gmid, item);
           });
-
           state.matchListInplay.matches = state.matchListInplay.matches.map(
             (match: any) => {
               const matchFromApi = apiMatchMap.get(+match.eventId);
@@ -291,7 +275,6 @@ const matchListSlice = createSlice({
             state?.matchDetail?.profitLossDataSession?.filter(
               (item: any) => betId !== item?.betId
             );
-
           state.matchDetail = {
             ...state.matchDetail,
             profitLossDataSession: updatedProfitLossDataSession,

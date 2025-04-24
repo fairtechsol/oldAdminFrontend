@@ -28,11 +28,13 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.error = null;
     })
     .addCase(login.fulfilled, (state, action) => {
+      const { roleName, forceChangePassword, isTransPasswordCreated } =
+        action.payload;
       state.loading = false;
       state.success = true;
-      state.userRole = action.payload?.roleName;
-      state.forceChangePassword = action.payload?.forceChangePassword;
-      state.isTransPasswordCreated = action.payload?.isTransPasswordCreated;
+      state.userRole = roleName;
+      state.forceChangePassword = forceChangePassword;
+      state.isTransPasswordCreated = isTransPasswordCreated;
     })
     .addCase(login.rejected, (state, action) => {
       state.loading = false;

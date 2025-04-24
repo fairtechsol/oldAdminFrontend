@@ -117,36 +117,33 @@ const analysisListSlice = createSlice({
         updateMaxLossForBetForMultipleMatch.fulfilled,
         (state, action) => {
           const { jobData, profitLoss } = action.payload;
-
+          const placedBet = jobData?.placedBet;
+          if (!placedBet) return;
           state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
-              if (match?.id !== jobData?.placedBet?.matchId) return match;
-
-              const updatedProfitLossDataSession =
-                match?.profitLossDataSession?.map((item: any) => {
-                  if (item?.betId === jobData?.placedBet?.betId) {
-                    return {
-                      ...item,
-                      maxLoss: profitLoss?.maxLoss,
-                      totalBet: profitLoss?.totalBet,
-                      profitLoss: profitLoss?.betPlaced,
-                    };
-                  }
-                  return item;
-                });
-
-              const betIndex = updatedProfitLossDataSession?.findIndex(
-                (item: any) => item?.betId === jobData?.placedBet?.betId
+              if (match?.id !== placedBet?.matchId) return match;
+              const existingData = match?.profitLossDataSession || [];
+              let found = false;
+              const updatedProfitLossDataSession = existingData.map(
+                (item: any) => {
+                  if (item?.betId !== placedBet?.betId) return item;
+                  found = true;
+                  return {
+                    ...item,
+                    maxLoss: profitLoss?.maxLoss,
+                    totalBet: profitLoss?.totalBet,
+                    profitLoss: profitLoss?.betPlaced,
+                  };
+                }
               );
-              if (betIndex === -1) {
-                updatedProfitLossDataSession?.push({
-                  betId: jobData?.placedBet?.betId,
+              if (!found) {
+                updatedProfitLossDataSession.push({
+                  betId: placedBet?.betId,
                   maxLoss: profitLoss?.maxLoss,
                   profitLoss: profitLoss?.betPlaced,
                   totalBet: 1,
                 });
               }
-
               return {
                 ...match,
                 profitLossDataSession: updatedProfitLossDataSession,
@@ -178,7 +175,6 @@ const analysisListSlice = createSlice({
           state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id !== matchId) return match;
-
               const updatedProfitLoss = Array.from(
                 new Set([
                   ...match.profitLossDataSession,
@@ -205,12 +201,10 @@ const analysisListSlice = createSlice({
           state.multipleMatchDetail = state?.multipleMatchDetail?.map(
             (match: any) => {
               if (match?.id !== matchId) return match;
-
               const updatedProfitLossDataSession =
                 match?.profitLossDataSession?.filter(
                   (item: any) => item?.betId !== betId
                 );
-
               return {
                 ...match,
                 profitLossDataSession: updatedProfitLossDataSession,
@@ -242,11 +236,9 @@ const analysisListSlice = createSlice({
         updateMaxLossForDeleteBetForMultiMatch.fulfilled,
         (state, action) => {
           const { betId, matchId, profitLoss } = action.payload;
-
           state.multipleMatchDetail = state.multipleMatchDetail?.map(
             (match: any) => {
               if (match.id !== matchId) return match;
-
               let updated = false;
               const updatedProfitLossDataSession =
                 match.profitLossDataSession?.map((item: any) => {
@@ -261,7 +253,6 @@ const analysisListSlice = createSlice({
                   }
                   return item;
                 }) || [];
-
               if (!updated) {
                 updatedProfitLossDataSession.push({
                   betId,
@@ -270,7 +261,6 @@ const analysisListSlice = createSlice({
                   totalBet: 1,
                 });
               }
-
               return {
                 ...match,
                 profitLossDataSession: updatedProfitLossDataSession,

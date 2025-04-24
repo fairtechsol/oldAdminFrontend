@@ -93,7 +93,6 @@ const betsSlice = createSlice({
               item?.id === jobData?.betPlaceObject?.betPlacedData?.betId
                 ? {
                     ...item,
-
                     proLoss: [
                       JSON.stringify(profitLoss),
                       ...item.proLoss.slice(1),
@@ -101,7 +100,6 @@ const betsSlice = createSlice({
                   }
                 : item
           );
-
           state.sessionProLoss = updatedSessionProLoss;
         }
       })
@@ -123,9 +121,8 @@ const betsSlice = createSlice({
       .addCase(
         getSessionProfitLossMatchDetailFilter.fulfilled,
         (state, action) => {
-          const idToRemove = action.payload;
           state.sessionProLoss = state?.sessionProLoss?.filter(
-            (item: any) => item?.id !== idToRemove
+            (item: any) => item?.id !== action.payload
           );
         }
       )
