@@ -8,7 +8,7 @@ interface InitialState {
   isTransPasswordCreated: boolean;
   userRole: string;
   error: any;
-  oldPasswordMatched:boolean;
+  oldPasswordMatched: boolean;
 }
 
 const initialState: InitialState = {
@@ -30,9 +30,9 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      state.userRole = action?.payload?.roleName;
-      state.forceChangePassword = action?.payload?.forceChangePassword;
-      state.isTransPasswordCreated = action?.payload?.isTransPasswordCreated;
+      state.userRole = action.payload?.roleName;
+      state.forceChangePassword = action.payload?.forceChangePassword;
+      state.isTransPasswordCreated = action.payload?.isTransPasswordCreated;
     })
     .addCase(login.rejected, (state, action) => {
       state.loading = false;
@@ -49,7 +49,7 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(checkOldPass.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      state.oldPasswordMatched = action?.payload
+      state.oldPasswordMatched = action.payload;
     })
     .addCase(checkOldPass.rejected, (state, action) => {
       state.loading = false;

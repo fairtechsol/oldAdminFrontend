@@ -54,11 +54,11 @@ const profitLossReportCardSlice = createSlice({
       .addCase(getUserTotalProfitLossCards.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.totalProfitLossListCard = action?.payload;
+        state.totalProfitLossListCard = action.payload;
       })
       .addCase(getUserTotalProfitLossCards.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getMatchWiseProfitLossCards.pending, (state) => {
         state.loading = true;
@@ -69,12 +69,12 @@ const profitLossReportCardSlice = createSlice({
       .addCase(getMatchWiseProfitLossCards.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLossCard = action?.payload?.result;
-        state.matchWiseProfitLossCountCard = action?.payload?.count;
+        state.matchWiseProfitLossCard = action.payload?.result;
+        state.matchWiseProfitLossCountCard = action.payload?.count;
       })
       .addCase(getMatchWiseProfitLossCards.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getBetProfitLossCards.pending, (state) => {
         state.loading = false;
@@ -85,11 +85,11 @@ const profitLossReportCardSlice = createSlice({
       .addCase(getBetProfitLossCards.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.betProfitLossListCards = action?.payload;
+        state.betProfitLossListCards = action.payload;
       })
       .addCase(getBetProfitLossCards.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       });
   },
 });

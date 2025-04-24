@@ -44,7 +44,7 @@ const lockUnlockSlice = createSlice({
       })
       .addCase(getUserDetailsOfLock.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateUserMatchLock.pending, (state) => {
         state.loading = true;
@@ -59,7 +59,7 @@ const lockUnlockSlice = createSlice({
       })
       .addCase(updateUserMatchLock.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       });
   },
 });

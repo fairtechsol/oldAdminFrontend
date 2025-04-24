@@ -43,11 +43,11 @@ const profileSlice = createSlice({
       .addCase(changePassword.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.transactionPassword = action?.payload;
+        state.transactionPassword = action.payload;
       })
       .addCase(changePassword.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getUsersProfile.pending, (state) => {
         state.loading = true;
@@ -55,11 +55,11 @@ const profileSlice = createSlice({
       })
       .addCase(getUsersProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.profileDetail = action?.payload;
+        state.profileDetail = action.payload;
       })
       .addCase(getUsersProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getMyAccountDetails.pending, (state) => {
         state.loading = true;
@@ -69,11 +69,11 @@ const profileSlice = createSlice({
       .addCase(getMyAccountDetails.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.myAccountDetails = action?.payload;
+        state.myAccountDetails = action.payload;
       })
       .addCase(getMyAccountDetails.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(marqueeNotification.pending, (state) => {
         state.loading = true;
@@ -81,11 +81,11 @@ const profileSlice = createSlice({
       })
       .addCase(marqueeNotification.fulfilled, (state, action) => {
         state.loading = false;
-        state.marqueeNotification = action?.payload;
+        state.marqueeNotification = action.payload;
       })
       .addCase(marqueeNotification.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateBalanceOfLoggedUser.fulfilled, (state, action) => {
         state.profileDetail = {
