@@ -255,42 +255,42 @@ const analysisListSlice = createSlice({
       .addCase(
         updateMaxLossForDeleteBetForMultiMatch.fulfilled,
         (state, action) => {
-          const { betId, matchId, profitLoss } = action?.payload;
-          state.multipleMatchDetail = state?.multipleMatchDetail?.map(
-            (match: any) => {
-              if (match?.id === matchId) {
-                const updatedProfitLossDataSession =
-                  match?.profitLossDataSession?.map((item: any) => {
-                    if (betId === item?.betId) {
-                      return {
-                        ...item,
-                        maxLoss: profitLoss?.maxLoss,
-                        totalBet: profitLoss?.totalBet,
-                        profitLoss: profitLoss?.betPlaced,
-                      };
-                    }
-                    return item;
-                  });
+          const { betId, matchId, profitLoss } = action.payload;
 
-                const betIndex = updatedProfitLossDataSession?.findIndex(
-                  (item: any) => item?.betId === betId
-                );
-                if (betIndex === -1) {
-                  updatedProfitLossDataSession?.push({
-                    betId: betId,
-                    maxLoss: profitLoss?.maxLoss,
-                    profitLoss: profitLoss?.betPlaced,
-                    totalBet: 1,
-                  });
-                }
-                return {
-                  ...match,
-                  profitLossDataSession: updatedProfitLossDataSession,
-                };
-              } else return match;
+          state.multipleMatchDetail = state.multipleMatchDetail?.map(
+            (match: any) => {
+              if (match.id !== matchId) return match;
+
+              let updated = false;
+              const updatedProfitLossDataSession =
+                match.profitLossDataSession?.map((item: any) => {
+                  if (item.betId === betId) {
+                    updated = true;
+                    return {
+                      ...item,
+                      maxLoss: profitLoss?.maxLoss,
+                      totalBet: profitLoss?.totalBet,
+                      profitLoss: profitLoss?.betPlaced,
+                    };
+                  }
+                  return item;
+                }) || [];
+
+              if (!updated) {
+                updatedProfitLossDataSession.push({
+                  betId,
+                  maxLoss: profitLoss?.maxLoss,
+                  profitLoss: profitLoss?.betPlaced,
+                  totalBet: 1,
+                });
+              }
+
+              return {
+                ...match,
+                profitLossDataSession: updatedProfitLossDataSession,
+              };
             }
           );
-          // });
         }
       )
       .addCase(
