@@ -242,16 +242,14 @@ const analysisListSlice = createSlice({
               let updated = false;
               const updatedProfitLossDataSession =
                 match.profitLossDataSession?.map((item: any) => {
-                  if (item.betId === betId) {
-                    updated = true;
-                    return {
-                      ...item,
-                      maxLoss: profitLoss?.maxLoss,
-                      totalBet: profitLoss?.totalBet,
-                      profitLoss: profitLoss?.betPlaced,
-                    };
-                  }
-                  return item;
+                  if (item.betId !== betId) return item;
+                  updated = true;
+                  return {
+                    ...item,
+                    maxLoss: profitLoss?.maxLoss,
+                    totalBet: profitLoss?.totalBet,
+                    profitLoss: profitLoss?.betPlaced,
+                  };
                 }) || [];
               if (!updated) {
                 updatedProfitLossDataSession.push({
