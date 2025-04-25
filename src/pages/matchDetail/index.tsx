@@ -366,8 +366,8 @@ const MatchDetail = () => {
     <>
       {visible && (
         <AddNotificationModal
-          value={""}
-          title={"Add Remark"}
+          value=""
+          title="Add Remark"
           visible={visible}
           loadingDeleteBet={loading}
           setVisible={setVisible}

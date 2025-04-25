@@ -29,7 +29,7 @@ const RenderOdds = ({ i, handleDrawerToggle, colors }: any) => {
           under={false}
           color={colors[4]}
           width={70}
-          title={"Tied Match"}
+          title="Tied Match"
         />
       )}
       {true && (
@@ -38,7 +38,7 @@ const RenderOdds = ({ i, handleDrawerToggle, colors }: any) => {
           under={false}
           color={colors[4]}
           width={70}
-          title={"Match Odds"}
+          title="Match Odds"
         />
       )}
     </Box>

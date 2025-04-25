@@ -29,7 +29,6 @@ const MainBox = ({ title, width, color, under, selected, sub }: any) => {
       <Box
         sx={{
           display: "flex",
-
           width: "100%",
           alignItems: "center",
         }}
