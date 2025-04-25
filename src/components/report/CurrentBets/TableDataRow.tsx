@@ -119,18 +119,19 @@ const TableDataRow = ({
           borderRight: "2px solid white",
         }}
       >
-        <Typography
+        <Box
           sx={{
             fontSize: { xs: "9px", md: "9px", lg: "12px" },
             fontWeight: "600",
             color: "black",
             display: "flex",
+            fontFamily: "Poppins, sans-serif",
             alignItems: "center",
           }}
         >
           {data?.isCommissionActive && <CommissionDot />}
           {data?.user?.userName}
-        </Typography>
+        </Box>
       </Box>
       <Box
         sx={{
