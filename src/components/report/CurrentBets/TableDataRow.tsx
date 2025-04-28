@@ -28,28 +28,24 @@ const TableDataRow = ({
       ]}
     >
       <Box
-        sx={[
-          {
-            width: "5%",
-            minWidth: "70px",
-            justifyContent: "center",
-            display: "flex",
-            alignItems: "center",
-            height: "45px",
-            background: "black",
-            borderRight: "2px solid white",
-          },
-        ]}
+        sx={{
+          width: "5%",
+          minWidth: "70px",
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+          height: "45px",
+          background: "black",
+          borderRight: "2px solid white",
+        }}
       >
         <Typography
-          sx={[
-            {
-              fontSize: "12px",
-              fontWeight: "600",
-              color: "white",
-              textAlign: "center",
-            },
-          ]}
+          sx={{
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "white",
+            textAlign: "center",
+          }}
         >
           {(no > 9 ? "" : "0") + no}
         </Typography>
