@@ -55,7 +55,7 @@ const CricketCasinoMarketBox = ({
             background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
           }}
         >
-          <Typography>
+          <Box>
             <Typography
               sx={{
                 color: "black",
@@ -77,7 +77,7 @@ const CricketCasinoMarketBox = ({
             >
               max: {formatToINR(newData?.maxBet || newData?.max)}
             </Typography>
-          </Typography>
+          </Box>
         </Box>
         <Box
           sx={{
@@ -162,9 +162,6 @@ const CricketCasinoMarketBox = ({
                         : false
                     }
                     color="#B3E0FF"
-                  />
-                  <Box
-                    sx={{ width: "3px", display: "flex", background: "pink" }}
                   />
                 </>
               ))}
