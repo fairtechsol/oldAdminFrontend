@@ -72,7 +72,7 @@ const ProfitLossHeader = ({
               <SearchInputWallet
                 containerStyle={{ width: "100% !important " }}
                 data={clientData}
-                title={"Search By Client Name"}
+                title="Search By Client Name"
                 setSearch={setSearch}
                 search={search}
                 setSelectedUser={setSelectedUser}
