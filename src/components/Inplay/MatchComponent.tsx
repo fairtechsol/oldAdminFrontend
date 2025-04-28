@@ -149,47 +149,47 @@ const MatchComponent = ({
         }}
       >
         {!upcoming && (
-          <Box
-            onClick={onClick}
-            sx={{
-              position: "absolute",
-              cursor: "pointer",
-              zIndex: 2,
-              background: "rgba(0,0,0,0.5)",
-              width: "100%",
-              right: 0,
-              height: "100%",
-            }}
-          />
-        )}
-        {!upcoming && (
-          <Box
-            sx={{
-              width: "70px",
-              zIndex: 3,
-              border: "1px solid white",
-              height: { xs: "20px", lg: "13px" },
-              justifyContent: "center",
-              display: "flex",
-              alignItems: "center",
-              background: "#129FFE",
-              position: "absolute",
-              marginTop: { xs: "-10px", lg: -1 },
-              borderRadius: "3px",
-              marginLeft: { xs: "0", lg: "0" },
-            }}
-          >
-            <Typography
+          <>
+            <Box
+              onClick={onClick}
               sx={{
-                fontStyle: "italic",
-                fontSize: { lg: "10px", xs: "10px" },
-                fontWeight: "600",
-                color: "white",
+                position: "absolute",
+                cursor: "pointer",
+                zIndex: 2,
+                background: "rgba(0,0,0,0.5)",
+                width: "100%",
+                right: 0,
+                height: "100%",
+              }}
+            />
+            <Box
+              sx={{
+                width: "70px",
+                zIndex: 3,
+                border: "1px solid white",
+                height: { xs: "20px", lg: "13px" },
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+                background: "#129FFE",
+                position: "absolute",
+                marginTop: { xs: "-10px", lg: -1 },
+                borderRadius: "3px",
+                marginLeft: { xs: "0", lg: "0" },
               }}
             >
-              UPCOMING
-            </Typography>
-          </Box>
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                  fontSize: { lg: "10px", xs: "10px" },
+                  fontWeight: "600",
+                  color: "white",
+                }}
+              >
+                UPCOMING
+              </Typography>
+            </Box>
+          </>
         )}
         <Box
           onClick={onClick}

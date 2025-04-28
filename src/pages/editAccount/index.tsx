@@ -775,7 +775,7 @@ const EditAccount = () => {
                   value={formik.values.remarks}
                   onChange={formik.handleChange}
                 />
-                <div>
+                <>
                   <Input
                     containerStyle={{ ...containerStyles, width: "100%" }}
                     img={EyeIcon}
@@ -801,7 +801,7 @@ const EditAccount = () => {
                     touched={touched.adminTransPassword}
                     errors={errors.adminTransPassword}
                   />
-                </div>
+                </>
               </Box>
               <Button
                 className="cursor-pointer"

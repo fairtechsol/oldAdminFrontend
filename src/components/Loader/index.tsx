@@ -15,12 +15,12 @@ const Loader = ({ text, height, width }: LoaderInterface) => {
         flexDirection: "column",
       }}
     >
-      <div className="loading-wrap">
-        <div className="loading">
-          <div />
-          <div />
-        </div>
-      </div>
+      <Box className="loading-wrap">
+        <Box className="loading">
+          <Box />
+          <Box />
+        </Box>
+      </Box>
       <Typography sx={{ marginTop: "-40px" }}>{text}</Typography>
     </Box>
   );

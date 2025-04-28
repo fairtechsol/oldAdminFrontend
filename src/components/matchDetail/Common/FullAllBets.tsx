@@ -208,7 +208,7 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
             background: "#262626",
           }}
         >
-          <div className="slanted" />
+          <Box className="slanted" />
         </Box>
         <Box
           sx={{
@@ -274,7 +274,7 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
       {visible && (
         <>
           <HeaderRow tag={tag} />
-          <div
+          <Box
             className="myScroll"
             style={{ maxHeight: "80vh", overflowY: "auto" }}
           >
@@ -282,7 +282,7 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
               const num = newData.length - k;
               const formattedNum = num < 10 ? "0" + num : num.toString();
               return (
-                <div key={k} style={{ display: "flex", position: "relative" }}>
+                <Box key={k} style={{ display: "flex", position: "relative" }}>
                   <Box
                     sx={{
                       width: "5.3%",
@@ -341,10 +341,10 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
                       </Box>
                     </Box>
                   )}
-                </div>
+                </Box>
               );
             })}
-          </div>
+          </Box>
         </>
       )}
     </Box>

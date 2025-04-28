@@ -176,11 +176,11 @@ const Header = () => {
           alignItems: "center",
         }}
       >
-        <div className="marquee-container nav-marquee text-white">
-          <div className="marquee-content">
+        <Box className="marquee-container nav-marquee text-white">
+          <Box className="marquee-content">
             {marqueeNotification?.value ? marqueeNotification?.value : ""}
-          </div>
-        </div>
+          </Box>
+        </Box>
       </Box>
 
       <Box

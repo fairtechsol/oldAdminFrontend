@@ -44,8 +44,8 @@ const HeaderRow = ({ match, timeLeft }: HeaderRowProps) => {
           </span>
         </Typography>
       </Box>
-      <div
-        style={{
+      <Box
+        sx={{
           background: "#f1c550",
           display: "flex",
           justifyContent: "center",
@@ -59,14 +59,14 @@ const HeaderRow = ({ match, timeLeft }: HeaderRowProps) => {
           width={25}
           height={25}
         />
-      </div>
+      </Box>
       <Box
         sx={{
           flex: 0.1,
           background: "#262626",
         }}
       >
-        <div className="slanted" />
+        <Box className="slanted" />
       </Box>
       <Box
         sx={{
