@@ -18,10 +18,12 @@ interface FilterObject {
   endDate?: string;
 }
 const ProfitLossReport = () => {
+  const defaultDate = new Date();
+  defaultDate.setDate(defaultDate.getDate() - 15);
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<any>("");
-  const [startDate, setStartDate] = useState<any>();
+  const [startDate, setStartDate] = useState<any>(defaultDate);
   const [endDate, setEndDate] = useState<any>();
   const [userProfitLoss, setUserProfitLoss] = useState([]);
   const [event, setEvent] = useState("");
@@ -94,7 +96,19 @@ const ProfitLossReport = () => {
   }, [search]);
 
   useEffect(() => {
-    dispatch(getUserTotalProfitLoss({ filter: "" }));
+    let filter: FilterObject = {};
+    if (startDate && endDate) {
+      filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+      filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
+    } else {
+      if (startDate) {
+        filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+      }
+      if (endDate) {
+        filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
+      }
+    }
+    dispatch(getUserTotalProfitLoss({ filter }));
   }, []);
 
   return (

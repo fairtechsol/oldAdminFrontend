@@ -12,10 +12,12 @@ import { getAccountStatement } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
 
 const AccountStatement = () => {
+  const defaultDate = new Date();
+  defaultDate.setDate(defaultDate.getDate() - 15);
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
-  const [fromDate, setFromDate] = useState<any>();
+  const [fromDate, setFromDate] = useState<any>(defaultDate);
   const [toDate, setToDate] = useState<any>();
   const [searchValue, setSearchValue] = useState("");
   const { profileDetail } = useSelector(
