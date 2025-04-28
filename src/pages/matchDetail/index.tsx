@@ -477,10 +477,10 @@ const MatchDetail = () => {
               )
               ?.slice()
               ?.sort(customSortBySessionMarketName)
-              ?.map(([key, value]: any) => {
+              ?.map(([key, value]: any, index: number) => {
                 return (
                   <SessionMarket
-                    key={key}
+                    key={index}
                     title={value?.mname || key}
                     allBetsData={
                       matchDetail?.profitLossDataSession
@@ -516,10 +516,10 @@ const MatchDetail = () => {
                     item?.activeStatus === "result"
                   )
               )
-              ?.map((item: any) => {
+              ?.map((item: any, index: number) => {
                 return (
                   <CricketCasinoMarket
-                    key={item?.selectionId}
+                    key={index}
                     title={item?.RunnerName}
                     allBetsData={
                       matchDetail?.profitLossDataSession
