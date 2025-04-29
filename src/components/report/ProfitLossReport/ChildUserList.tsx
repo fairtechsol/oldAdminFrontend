@@ -16,6 +16,7 @@ const ChildUserList = ({
 
   const getChildUserList = async () => {
     try {
+      setData([]);
       let payload = {
         user: {
           id,

@@ -72,6 +72,7 @@ const ProfitLossReport = () => {
 
   const getUserProfitLoss = async (matchId: string) => {
     try {
+      setUserProfitLoss([]);
       let payload = {
         matchId: matchId,
         searchId: search?.id ? search?.id : "",

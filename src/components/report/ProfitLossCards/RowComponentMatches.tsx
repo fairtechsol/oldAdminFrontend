@@ -250,43 +250,41 @@ const RowComponentMatches = ({
       {selectedId?.id === item?.gameId && (
         <>
           {showListOfUsers && (
-            <>
-              <Box
-                sx={{
-                  width: { xs: "100%", lg: "99%" },
-                  marginTop: { xs: ".25vh" },
-                  marginLeft: { lg: "1%" },
-                  display: "flex",
-                  flexDirection: { lg: "row", xs: "column" },
-                }}
-              >
-                <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
-                  <Box
-                    sx={{
-                      width: { xs: "100%", lg: "100%", md: "100%" },
-                      overflow: "hidden",
-                      marginY: { xs: ".2vh", lg: "1vh" },
-                      padding: 0.2,
-                    }}
-                  >
-                    {userProfitLoss?.map((profitLoss: any, index: any) => {
-                      return (
-                        <AllUserListSeparate
-                          key={index}
-                          item={profitLoss}
-                          index={index + 1}
-                          matchId={item?.gameId}
-                          userId={item?.userId}
-                          showListOfUsers={showListOfUsers}
-                          getBetReport={getBetReport}
-                          selectedId={selectedId}
-                        />
-                      );
-                    })}
-                  </Box>
+            <Box
+              sx={{
+                width: { xs: "100%", lg: "99%" },
+                marginTop: { xs: ".25vh" },
+                marginLeft: { lg: "1%" },
+                display: "flex",
+                flexDirection: { lg: "row", xs: "column" },
+              }}
+            >
+              <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
+                <Box
+                  sx={{
+                    width: { xs: "100%", lg: "100%", md: "100%" },
+                    overflow: "hidden",
+                    marginY: { xs: ".2vh", lg: "1vh" },
+                    padding: 0.2,
+                  }}
+                >
+                  {userProfitLoss?.map((profitLoss: any, index: any) => {
+                    return (
+                      <AllUserListSeparate
+                        key={index}
+                        item={profitLoss}
+                        index={index + 1}
+                        matchId={item?.gameId}
+                        userId={item?.userId}
+                        showListOfUsers={showListOfUsers}
+                        getBetReport={getBetReport}
+                        selectedId={selectedId}
+                      />
+                    );
+                  })}
                 </Box>
               </Box>
-            </>
+            </Box>
           )}
           {selectedId?.type === "all_bet" && showBets && (
             <>
