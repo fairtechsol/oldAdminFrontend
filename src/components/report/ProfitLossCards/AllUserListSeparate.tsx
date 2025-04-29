@@ -58,6 +58,26 @@ const AllUserListSeparate = ({
     }
   };
 
+  const handleShowSubUsers = () => {
+    if (!["user"].includes(item?.roleName)) {
+      if (showSubUsers?.value && showSubUsers?.id === item?.userId) {
+        setSubSusers({
+          value: false,
+          id: "",
+          roleName: "",
+        });
+        setShowChildUserList(false);
+      } else {
+        setSubSusers({
+          value: true,
+          id: item?.userId,
+          roleName: item?.roleName,
+        });
+        setShowChildUserList(true);
+      }
+    }
+  };
+
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
@@ -127,40 +147,28 @@ const AllUserListSeparate = ({
             </Typography>
           </Box>
           {item?.roleName !== "user" && (
-            <StyledImage
-              onClick={() => {
-                if (!["user"].includes(item?.roleName)) {
-                  if (
-                    showSubUsers?.value &&
-                    showSubUsers?.id === item?.userId
-                  ) {
-                    setSubSusers({
-                      value: false,
-                      id: "",
-                      roleName: "",
-                    });
-                    setShowChildUserList(false);
-                  } else {
-                    setSubSusers({
-                      value: true,
-                      id: item?.userId,
-                      roleName: item?.roleName,
-                    });
-                    setShowChildUserList(true);
-                  }
-                }
-              }}
-              src={ArrowDown}
-              alt="arrow down"
+            <Box
               sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  showSubUsers?.id === item?.userId && showChildUserList
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
               }}
-            />
+              onClick={handleShowSubUsers}
+            >
+              <StyledImage
+                src={ArrowDown}
+                alt="arrow down"
+                sx={{
+                  width: { lg: "20px", xs: "10px" },
+                  height: { lg: "10px", xs: "6px" },
+                  transform:
+                    showSubUsers?.id === item?.userId && showChildUserList
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+              />{" "}
+            </Box>
           )}
         </Box>
         <Box
