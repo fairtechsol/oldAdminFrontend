@@ -61,7 +61,7 @@ const Calendar = ({ title, startDate, setStartDate, limit }: CalendarProps) => {
         }}
       >
         <Typography sx={{ fontSize: "11px", fontWeight: "500" }}>
-          {startDate ? moment(startDate).format("YYYY-DD-MM") : "select date"}
+          {startDate ? moment(startDate).format("YYYY-MM-DD") : "select date"}
         </Typography>
         <img
           src={CalendarImage}
