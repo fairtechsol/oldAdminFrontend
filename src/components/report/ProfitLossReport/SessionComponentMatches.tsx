@@ -35,77 +35,80 @@ const SessionComponentMatches = ({
     (state: RootState) => state.report.reportList
   );
 
+  const handleSessionBetClick = () => {
+    if (
+      selectedId?.betId === item?.betId ||
+      selectedChildBetId === item?.betId
+    ) {
+      setShowSessionBets((prev: any) => !prev);
+      if (!showSessionBets) {
+        if (user) {
+          dispatch(
+            getTotalBetProfitLossForModal({
+              betId: item?.betId,
+              matchId: item?.matchid || item?.matchId || matchId,
+              isSession: true,
+              searchId: userData?.id,
+              user,
+            })
+          );
+          setSelectedChildBetId(item?.betId);
+        } else {
+          dispatch(
+            getTotalBetProfitLoss({
+              betId: item?.betId,
+              matchId: item?.matchid || item?.matchId || matchId,
+              isSession: true,
+              searchId: userData?.id,
+            })
+          );
+        }
+      }
+    } else {
+      setShowSessionBets(true);
+      if (user) {
+        dispatch(
+          getTotalBetProfitLossForModal({
+            betId: item?.betId,
+            matchId: item?.matchid || item?.matchId || matchId,
+            isSession: true,
+            searchId: userData?.id,
+            user,
+          })
+        );
+        setSelectedChildBetId(item?.betId);
+      } else {
+        getBetReport({
+          eventType: item?.eventType,
+          matchId: item?.matchid || item?.matchId || matchId,
+          userId: userId,
+          type: "session_bet",
+          betId: item?.betId,
+          sessionBet: true,
+        });
+        dispatch(
+          getTotalBetProfitLoss({
+            betId: item?.betId,
+            matchId: item?.matchid || item?.matchId || matchId,
+            isSession: true,
+            searchId: userData?.id,
+          })
+        );
+      }
+    }
+  };
+
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
-        onClick={() => {
-          if (
-            selectedId?.betId === item?.betId ||
-            selectedChildBetId === item?.betId
-          ) {
-            setShowSessionBets((prev: any) => !prev);
-            if (!showSessionBets) {
-              if (user) {
-                dispatch(
-                  getTotalBetProfitLossForModal({
-                    betId: item?.betId,
-                    matchId: item?.matchid || item?.matchId || matchId,
-                    isSession: true,
-                    searchId: userData?.id,
-                    user,
-                  })
-                );
-                setSelectedChildBetId(item?.betId);
-              } else {
-                dispatch(
-                  getTotalBetProfitLoss({
-                    betId: item?.betId,
-                    matchId: item?.matchid || item?.matchId || matchId,
-                    isSession: true,
-                    searchId: userData?.id,
-                  })
-                );
-              }
-            }
-          } else {
-            setShowSessionBets(true);
-            if (user) {
-              dispatch(
-                getTotalBetProfitLossForModal({
-                  betId: item?.betId,
-                  matchId: item?.matchid || item?.matchId || matchId,
-                  isSession: true,
-                  searchId: userData?.id,
-                  user,
-                })
-              );
-              setSelectedChildBetId(item?.betId);
-            } else {
-              getBetReport({
-                eventType: item?.eventType,
-                matchId: item?.matchid || item?.matchId || matchId,
-                userId: userId,
-                type: "session_bet",
-                betId: item?.betId,
-                sessionBet: true,
-              });
-              dispatch(
-                getTotalBetProfitLoss({
-                  betId: item?.betId,
-                  matchId: item?.matchid || item?.matchId || matchId,
-                  isSession: true,
-                  searchId: userData?.id,
-                })
-              );
-            }
-          }
-        }}
+        onClick={handleSessionBetClick}
         sx={{
           width: "100%",
           height: "45px",
           background: "white",
           display: "flex",
           padding: 0.1,
+          cursor: "pointer",
         }}
       >
         <Box

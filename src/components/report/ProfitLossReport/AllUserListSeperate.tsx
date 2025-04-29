@@ -55,7 +55,7 @@ const AllUserListSeparate = ({
         searchId: userData?.id ? userData?.id : "",
       };
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_BET_PROFITLOSS,
         payload
       );
       if (resp) {
@@ -73,7 +73,7 @@ const AllUserListSeparate = ({
         searchId: userData?.id ? userData?.id : "",
       };
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_SESSION_PROFITLOSS,
         payload
       );
       if (resp) {
@@ -81,6 +81,26 @@ const AllUserListSeparate = ({
       }
     } catch (error: any) {
       console.log(error);
+    }
+  };
+
+  const handleArrowClick = () => {
+    if (!["user"].includes(item?.roleName)) {
+      if (showSubUsers?.value && showSubUsers?.id === item?.userId) {
+        setSubSusers({
+          value: false,
+          id: "",
+          roleName: "",
+        });
+        setShowChildUserList(false);
+      } else {
+        setSubSusers({
+          value: true,
+          id: item?.userId,
+          roleName: item?.roleName,
+        });
+        setShowChildUserList(true);
+      }
     }
   };
 
@@ -134,6 +154,7 @@ const AllUserListSeparate = ({
               flexDirection: "row",
               display: "flex",
               alignItems: "center",
+              cursor: "pointer",
             }}
           >
             <Typography
@@ -146,47 +167,33 @@ const AllUserListSeparate = ({
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 lineClamp: 2,
-                cursor: "pointer",
               }}
             >
               {item?.userName}
             </Typography>
           </Box>
           {item?.roleName !== "user" && (
-            <StyledImage
-              onClick={() => {
-                if (!["user"].includes(item?.roleName)) {
-                  if (
-                    showSubUsers?.value &&
-                    showSubUsers?.id === item?.userId
-                  ) {
-                    setSubSusers({
-                      value: false,
-                      id: "",
-                      roleName: "",
-                    });
-                    setShowChildUserList(false);
-                  } else {
-                    setSubSusers({
-                      value: true,
-                      id: item?.userId,
-                      roleName: item?.roleName,
-                    });
-                    setShowChildUserList(true);
-                  }
-                }
-              }}
-              src={ArrowDown}
-              alt="arrow down"
+            <Box
               sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  showSubUsers?.id === item?.userId && showChildUserList
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
               }}
-            />
+              onClick={handleArrowClick}
+            >
+              <StyledImage
+                src={ArrowDown}
+                alt="arrow down"
+                sx={{
+                  width: { lg: "20px", xs: "10px" },
+                  transform:
+                    showSubUsers?.id === item?.userId && showChildUserList
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+              />
+            </Box>
           )}
         </Box>
 

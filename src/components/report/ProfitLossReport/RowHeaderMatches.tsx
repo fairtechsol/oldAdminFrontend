@@ -45,6 +45,7 @@ const RowHeaderMatches = ({
           background: "white",
           display: "flex",
           padding: 0.1,
+          cursor: "pointer",
         }}
       >
         <Box

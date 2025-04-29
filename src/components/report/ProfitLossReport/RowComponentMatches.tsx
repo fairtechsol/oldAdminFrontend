@@ -41,51 +41,81 @@ const RowComponentMatches = ({
   const [showSessionBets, setShowSessionBets] = useState(false);
   const [showListOfUsers, setShowListOfUsers] = useState(false);
 
+  const handleRateProLossClick = (e: any) => {
+    e.stopPropagation();
+    if (selectedId?.id === item?.matchId) {
+      if (showListOfUsers) {
+        setShowListOfUsers((prev) => !prev);
+        getBetReport({
+          eventType: "",
+          matchId: "",
+          type: "users_list",
+          betId: "",
+          sessionBet: false,
+        });
+      } else {
+        getUserProfitLoss(item?.matchId);
+        getBetReport({
+          eventType: item?.eventType,
+          matchId: item?.matchId,
+          type: "users_list",
+          betId: "",
+          sessionBet: false,
+        });
+        setShowListOfUsers((prev) => !prev);
+      }
+    } else {
+      setShowListOfUsers(true);
+      setShowBets(false);
+      getUserProfitLoss(item?.matchId);
+      getBetReport({
+        eventType: item?.eventType,
+        matchId: item?.matchId,
+        type: "users_list",
+        betId: "",
+        sessionBet: false,
+      });
+    }
+  };
+
+  const handleSessionProLossClick = (e: any) => {
+    e.stopPropagation();
+    if (
+      selectedId?.id === item?.matchId &&
+      selectedId?.type === "session_bet"
+    ) {
+      setShowSessions((prev) => !prev);
+      setShowListOfUsers(false);
+    } else {
+      setShowListOfUsers(false);
+      setShowSessions(true);
+      getBetReport({
+        eventType: item?.eventType,
+        matchId: item?.matchId,
+        type: "session_bet",
+        betId: "",
+        sessionBet: false,
+      });
+      dispatch(
+        getSessionProfitLoss({
+          matchId: item?.matchId,
+          searchId: userData?.id,
+        })
+      );
+    }
+  };
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        onClick={(e) => {
-          e.stopPropagation();
-          if (selectedId?.id === item?.matchId) {
-            if (showListOfUsers) {
-              setShowListOfUsers((prev) => !prev);
-              getBetReport({
-                eventType: "",
-                matchId: "",
-                type: "users_list",
-                betId: "",
-                sessionBet: false,
-              });
-            } else {
-              getUserProfitLoss(item?.matchId);
-              getBetReport({
-                eventType: item?.eventType,
-                matchId: item?.matchId,
-                type: "users_list",
-                betId: "",
-                sessionBet: false,
-              });
-              setShowListOfUsers((prev) => !prev);
-            }
-          } else {
-            setShowListOfUsers(true);
-            setShowBets(false);
-            getUserProfitLoss(item?.matchId);
-            getBetReport({
-              eventType: item?.eventType,
-              matchId: item?.matchId,
-              type: "users_list",
-              betId: "",
-              sessionBet: false,
-            });
-          }
-        }}
+        onClick={handleRateProLossClick}
         sx={{
           width: "100%",
           height: "50px",
           background: "white",
           display: "flex",
           padding: 0.1,
+          cursor: "pointer",
         }}
       >
         <Box
@@ -157,7 +187,6 @@ const RowComponentMatches = ({
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: "vertical",
                 lineClamp: 2,
-                cursor: "pointer",
               }}
             >
               {item?.title}
@@ -288,32 +317,7 @@ const RowComponentMatches = ({
         </Box>
         {["cricket", "politics"].includes(item?.eventType) && (
           <Box
-            onClick={(e) => {
-              e.stopPropagation();
-              if (
-                selectedId?.id === item?.matchId &&
-                selectedId?.type === "session_bet"
-              ) {
-                setShowSessions((prev) => !prev);
-                setShowListOfUsers(false);
-              } else {
-                setShowListOfUsers(false);
-                setShowSessions(true);
-                getBetReport({
-                  eventType: item?.eventType,
-                  matchId: item?.matchId,
-                  type: "session_bet",
-                  betId: "",
-                  sessionBet: false,
-                });
-                dispatch(
-                  getSessionProfitLoss({
-                    matchId: item?.matchId,
-                    searchId: userData?.id,
-                  })
-                );
-              }
-            }}
+            onClick={handleSessionProLossClick}
             sx={{
               background: item.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
               paddingX: "2px",
@@ -493,7 +497,6 @@ const RowComponentMatches = ({
                           setShowSessionBets={setShowSessionBets}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          // sessionBetData={sessionBetData}
                         />
                       );
                     })}
@@ -517,7 +520,6 @@ const RowComponentMatches = ({
                             : []
                         }
                         betHistory={false}
-                        // placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}
                       />
