@@ -1,7 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const UserProfitLossListComp = ({ element, markets }: any) => {
+interface UserProfitLossListCompProps {
+  element: any;
+  markets: any;
+}
+
+const UserProfitLossListComp = ({
+  element,
+  markets,
+}: UserProfitLossListCompProps) => {
   return (
     <Box
       sx={{

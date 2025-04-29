@@ -95,7 +95,6 @@ const Layout = ({
           }
           currentMatch={item}
           sessionData={QuicksessionData}
-          max={item?.betFairSessionMaxBet}
           min={item?.betFairSessionMinBet}
           type="session"
         />

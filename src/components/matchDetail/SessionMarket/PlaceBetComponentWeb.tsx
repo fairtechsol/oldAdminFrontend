@@ -9,9 +9,19 @@ import {
 } from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
+interface PlaceBetComponentWebProps {
+  newData: any;
+  profitLoss: any;
+  type: string;
+}
+
+const PlaceBetComponentWeb = ({
+  newData,
+  profitLoss,
+  type,
+}: PlaceBetComponentWebProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), "");
 
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList

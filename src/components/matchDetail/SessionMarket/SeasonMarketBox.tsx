@@ -15,13 +15,19 @@ import MarqueeText from "./MarqueeText";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
+interface SeasonMarketBoxProps {
+  newData: any;
+  profitLossData: any;
+  index: number;
+  type: string;
+}
+
 const SeasonMarketBox = ({
   newData,
-  setData,
   profitLossData,
   index,
   type,
-}: any) => {
+}: SeasonMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -114,14 +120,12 @@ const SeasonMarketBox = ({
               type={type}
               newData={newData}
               profitLoss={profitLossData && profitLossData[0]}
-              setData={setData}
             />
           ) : (
             <PlaceBetComponentWeb
               type={type}
               newData={newData}
               profitLoss={profitLossData && profitLossData[0]}
-              setData={setData}
             />
           )}
 

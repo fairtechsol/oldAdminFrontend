@@ -19,7 +19,7 @@ const MyAccount = () => {
 
   useEffect(() => {
     dispatch(getMyAccountDetails());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

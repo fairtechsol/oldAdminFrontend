@@ -10,6 +10,22 @@ import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BetsCountBox from "./BetsCountBox";
 import SeasonMarketBox from "./SeasonMarketBox";
 
+interface SessionMarketProps {
+  blockMatch?: boolean;
+  showUnlock?: boolean;
+  locked?: any;
+  handleShowLock?: (value: boolean, title: string) => void;
+  selft?: boolean;
+  title: string | number;
+  min: string | number;
+  sessionData: any[];
+  allBetsData: any[];
+  currentMatch: any;
+  type: string;
+  handleBlock?: (value: any, locked: boolean, type: string) => void;
+  handleHide?: any;
+}
+
 const SessionMarket = ({
   blockMatch,
   showUnlock,
@@ -24,7 +40,7 @@ const SessionMarket = ({
   type,
   handleBlock,
   handleHide,
-}: any) => {
+}: SessionMarketProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [visible, setVisible] = useState(true);
@@ -32,7 +48,7 @@ const SessionMarket = ({
     (state: RootState) => state.match.matchList
   );
   const onSubmit = (value: any) => {
-    handleBlock(value, !locked, "SESSION");
+    handleBlock?.(value, !locked, "SESSION");
   };
   return (
     <Box
@@ -86,7 +102,7 @@ const SessionMarket = ({
             <img
               onClick={() =>
                 selft || selft == undefined
-                  ? handleShowLock(true, `${title}`)
+                  ? handleShowLock?.(true, `${title}`)
                   : ""
               }
               src={locked ? LOCKED : LOCKOPEN}

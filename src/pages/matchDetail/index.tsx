@@ -464,7 +464,6 @@ const MatchDetail = () => {
                   (item: any) => !JSON.parse(item).selectionId
                 )}
                 min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
                 type="session"
               />
             )}
@@ -502,7 +501,6 @@ const MatchDetail = () => {
                     currentMatch={matchDetail}
                     sessionData={value?.section}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                    max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
                     type={key || value?.gtype}
                   />
                 );
@@ -671,12 +669,10 @@ const MatchDetail = () => {
                       : []
                   }
                   currentMatch={matchDetail}
-                  sessionExposer="0.00"
                   sessionData={matchDetail?.sessionBettings?.filter(
                     (item: any) => !JSON.parse(item).selectionId
                   )}
                   min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                  max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
                   type="session"
                 />
               )}
