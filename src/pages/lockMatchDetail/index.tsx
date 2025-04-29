@@ -328,7 +328,6 @@ const LockMatchScreen = () => {
               currentMatch={matchDetail}
               sessionData={matchDetail?.apiSession}
               min={Math.floor(matchDetail?.betFairSessionMinBet)}
-              max={Math.floor(matchDetail?.betFairSessionMaxBet)}
               blockMatch={true}
               locked={childStatus?.allChildSessionDeactive}
               selft={true}
@@ -361,7 +360,6 @@ const LockMatchScreen = () => {
                 (item: any) => !JSON.parse(item).selectionId
               )}
               min={matchDetail?.betFairSessionMinBet || 0}
-              max={matchDetail?.betFairSessionMaxBet || 0}
               blockMatch={false}
               locked={childStatus?.allChildSessionDeactive}
               selft={true}

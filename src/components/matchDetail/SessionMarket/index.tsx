@@ -21,7 +21,7 @@ interface SessionMarketProps {
   sessionData: any[];
   allBetsData: any[];
   currentMatch: any;
-  type: string;
+  type?: string | any;
   handleBlock?: (value: any, locked: boolean, type: string) => void;
   handleHide?: any;
 }
