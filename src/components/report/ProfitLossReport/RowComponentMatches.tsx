@@ -41,7 +41,7 @@ const RowComponentMatches = ({
   const [showSessionBets, setShowSessionBets] = useState(false);
   const [showListOfUsers, setShowListOfUsers] = useState(false);
 
-  const handleMatchNameClick = (e: any) => {
+  const handleMatchClick = (e: any) => {
     e.stopPropagation();
     if (selectedId?.id === item?.matchId) {
       if (showListOfUsers) {
@@ -78,7 +78,7 @@ const RowComponentMatches = ({
     }
   };
 
-  const handleRateProLossClick = (e: any) => {
+  const handleBetClick = (e: any) => {
     e.stopPropagation();
     if (selectedId?.id === item?.matchId && selectedId?.type === "all_bet") {
       setShowBets((prev) => !prev);
@@ -101,7 +101,7 @@ const RowComponentMatches = ({
     }
   };
 
-  const handleSessionProLossClick = (e: any) => {
+  const handleSessionClick = (e: any) => {
     e.stopPropagation();
     if (
       selectedId?.id === item?.matchId &&
@@ -131,7 +131,7 @@ const RowComponentMatches = ({
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        onClick={handleMatchNameClick}
+        onClick={handleMatchClick}
         sx={{
           width: "100%",
           height: "50px",
@@ -239,7 +239,7 @@ const RowComponentMatches = ({
           />
         </Box>
         <Box
-          onClick={handleRateProLossClick}
+          onClick={handleBetClick}
           sx={{
             background: item.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
@@ -316,7 +316,7 @@ const RowComponentMatches = ({
         </Box>
         {["cricket", "politics"].includes(item?.eventType) && (
           <Box
-            onClick={handleSessionProLossClick}
+            onClick={handleSessionClick}
             sx={{
               background: item.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
               paddingX: "2px",
