@@ -41,7 +41,7 @@ const RowComponentMatches = ({
   const [showSessionBets, setShowSessionBets] = useState(false);
   const [showListOfUsers, setShowListOfUsers] = useState(false);
 
-  const handleRateProLossClick = (e: any) => {
+  const handleMatchNameClick = (e: any) => {
     e.stopPropagation();
     if (selectedId?.id === item?.matchId) {
       if (showListOfUsers) {
@@ -78,6 +78,29 @@ const RowComponentMatches = ({
     }
   };
 
+  const handleRateProLossClick = (e: any) => {
+    e.stopPropagation();
+    if (selectedId?.id === item?.matchId && selectedId?.type === "all_bet") {
+      setShowBets((prev) => !prev);
+    } else {
+      setShowListOfUsers(false);
+      setShowBets(true);
+      getBetReport({
+        eventType: item?.eventType,
+        matchId: item?.matchId,
+        type: "all_bet",
+        betId: "",
+        sessionBet: false,
+      });
+      dispatch(
+        getTotalBetProfitLoss({
+          matchId: item?.matchId,
+          searchId: userData?.id ? userData?.id : "",
+        })
+      );
+    }
+  };
+
   const handleSessionProLossClick = (e: any) => {
     e.stopPropagation();
     if (
@@ -108,7 +131,7 @@ const RowComponentMatches = ({
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        onClick={handleRateProLossClick}
+        onClick={handleMatchNameClick}
         sx={{
           width: "100%",
           height: "50px",
@@ -216,31 +239,7 @@ const RowComponentMatches = ({
           />
         </Box>
         <Box
-          onClick={(e) => {
-            e.stopPropagation();
-            if (
-              selectedId?.id === item?.matchId &&
-              selectedId?.type === "all_bet"
-            ) {
-              setShowBets((prev) => !prev);
-            } else {
-              setShowListOfUsers(false);
-              setShowBets(true);
-              getBetReport({
-                eventType: item?.eventType,
-                matchId: item?.matchId,
-                type: "all_bet",
-                betId: "",
-                sessionBet: false,
-              });
-              dispatch(
-                getTotalBetProfitLoss({
-                  matchId: item?.matchId,
-                  searchId: userData?.id ? userData?.id : "",
-                })
-              );
-            }
-          }}
+          onClick={handleRateProLossClick}
           sx={{
             background: item.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
