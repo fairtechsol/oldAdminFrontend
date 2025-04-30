@@ -137,7 +137,7 @@ const BoxComponent = ({ name, color, rates, data, marketDetails }: any) => {
                 height: "94%",
                 background: "#FDF21A",
                 border: "1px solid #2626264D",
-                width: { xs: "30%", lg: "5vw" },
+                width: { xs: "29.9%", lg: "5vw" },
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
