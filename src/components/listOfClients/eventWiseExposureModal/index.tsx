@@ -188,8 +188,8 @@ const EventWiseExposureModal = ({
                     </TableRow>
                   ) : (
                     Object.entries(userWiseExposureList || {}).map(
-                      ([key, value]: any) => (
-                        <TableRow key={value}>
+                      ([key, value]: any, index: number) => (
+                        <TableRow key={index}>
                           <TableCell
                             sx={{
                               color: "#fff",
