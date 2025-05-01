@@ -131,7 +131,6 @@ const Layout = ({
                 currentMatch={item}
                 sessionData={value?.section}
                 min={formatToINR(item?.betFairSessionMinBet) || 0}
-                max={formatToINR(item?.betFairSessionMaxBet) || 0}
                 type={key || value?.gtype}
               />
             );
