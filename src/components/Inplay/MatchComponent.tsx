@@ -293,8 +293,8 @@ const MatchComponent = (props: MatchComponentInterface) => {
                   marginLeft: "7px",
                 }}
               >
-                MIN: {formatToINR(Math.floor(match?.matchOdds[0]?.minBet))} MAX:{" "}
-                {formatToINR(Math.floor(match?.matchOdds[0]?.maxBet))}
+                MIN: {formatToINR(Math.floor(match?.matchOdds?.[0]?.minBet))}{" "}
+                MAX: {formatToINR(Math.floor(match?.matchOdds?.[0]?.maxBet))}
               </Typography>
             </Box>
             <Box
@@ -347,17 +347,21 @@ const MatchComponent = (props: MatchComponentInterface) => {
             teamName={match.teamA}
             runnerNumber={0}
             apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
+            matchOddsLive={match?.matchOdds?.[0]}
             match={match}
           />
-          <Divider />
-          <TeamDetailRow
-            teamName={match.teamB}
-            runnerNumber={1}
-            apiBasePath={"abc"}
-            matchOddsLive={match?.matchOdds[0]}
-            match={match}
-          />
+          {match.teamB && (
+            <>
+              <Divider />
+              <TeamDetailRow
+                teamName={match.teamB}
+                runnerNumber={1}
+                apiBasePath={"abc"}
+                matchOddsLive={match?.matchOdds?.[0]}
+                match={match}
+              />
+            </>
+          )}
           {match.teamC && (
             <>
               <Divider />
@@ -365,7 +369,7 @@ const MatchComponent = (props: MatchComponentInterface) => {
                 teamName={match.teamC}
                 runnerNumber={2}
                 apiBasePath={"abc"}
-                matchOddsLive={match?.matchOdds[0]}
+                matchOddsLive={match?.matchOdds?.[0]}
                 match={match}
               />
             </>
