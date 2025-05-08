@@ -90,13 +90,10 @@ const analysisListSlice = createSlice({
                 parsedSessionBettings.push(apiItem);
               }
             });
-            const stringifiedSessionBetting = parsedSessionBettings.map(
-              JSON.stringify
-            );
             return {
               ...match,
               apiSession: apiSession,
-              sessionBettings: stringifiedSessionBetting,
+              sessionBettings: sessionBettings,
               updatedSessionBettings: updateSessionBettingsItem(
                 convertData(parsedSessionBettings),
                 apiSession

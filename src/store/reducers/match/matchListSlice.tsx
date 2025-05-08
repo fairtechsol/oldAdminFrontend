@@ -114,14 +114,11 @@ const matchListSlice = createSlice({
             parsedSessionBettings.push(apiItem);
           }
         });
-        const stringifiedSessionBetting = parsedSessionBettings.map(
-          JSON.stringify
-        );
         state.matchDetail = {
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
-          sessionBettings: stringifiedSessionBetting,
+          sessionBettings: sessionBettings,
           updatedSessionBettings: updateSessionBettingsItem(
             convertData(parsedSessionBettings),
             apiSession
