@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { convertData, updateSessionBettingsItem } from "../../../helper";
 import {
   amountupdate,
   getMatchDetail,
@@ -98,31 +97,11 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const { apiSession, sessionBettings, tournament } = action.payload;
-        const parsedSessionBettings =
-          state.matchDetail?.sessionBettings?.map(JSON.parse) || [];
-        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
-        apiParsedSessionBettings.forEach((apiItem: any) => {
-          const index = parsedSessionBettings.findIndex(
-            (parsedItem: any) => parsedItem.id === apiItem.id
-          );
-          if (index !== -1) {
-            parsedSessionBettings[index] = {
-              ...parsedSessionBettings[index],
-              ...apiItem,
-            };
-          } else {
-            parsedSessionBettings.push(apiItem);
-          }
-        });
         state.matchDetail = {
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
           sessionBettings: sessionBettings,
-          updatedSessionBettings: updateSessionBettingsItem(
-            convertData(parsedSessionBettings),
-            apiSession
-          ),
           tournament: tournament?.sort((a: any, b: any) => {
             if (a.sno !== b.sno) {
               return a.sno - b.sno;
