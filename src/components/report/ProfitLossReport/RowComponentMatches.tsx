@@ -128,6 +128,8 @@ const RowComponentMatches = ({
     }
   };
 
+  const isCricketOrPolitics = ["cricket", "politics"].includes(item?.eventType);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -160,12 +162,8 @@ const RowComponentMatches = ({
         <Box
           sx={{
             width: {
-              xs: ["cricket", "politics"].includes(item?.eventType)
-                ? "40%"
-                : "65%",
-              lg: ["cricket", "politics"].includes(item?.eventType)
-                ? "60%"
-                : "65%",
+              xs: isCricketOrPolitics ? "40%" : "65%",
+              lg: isCricketOrPolitics ? "60%" : "65%",
             },
             position: "relative",
             height: "100%",
@@ -314,7 +312,7 @@ const RowComponentMatches = ({
             />
           </Box>
         </Box>
-        {["cricket", "politics"].includes(item?.eventType) && (
+        {isCricketOrPolitics && (
           <Box
             onClick={handleSessionClick}
             sx={{
