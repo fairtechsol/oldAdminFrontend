@@ -8,6 +8,17 @@ import { Constants } from "../../../utils/Constants";
 import Footer from "../../Common/Footer";
 import RowHeaderMatches from "./RowHeaderMatches";
 
+interface ProfitLossTableComponentProps {
+  currentPage: number;
+  endDate: any;
+  startDate: any;
+  userProfitLoss: any;
+  getUserProfitLoss: (val: any) => void;
+  setCurrentPage: (val: number) => void;
+  event: string;
+  setEvent: (val: string) => void;
+}
+
 const ProfitLossTableComponent = ({
   currentPage,
   endDate,
@@ -17,7 +28,7 @@ const ProfitLossTableComponent = ({
   setCurrentPage,
   event,
   setEvent,
-}: any) => {
+}: ProfitLossTableComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
