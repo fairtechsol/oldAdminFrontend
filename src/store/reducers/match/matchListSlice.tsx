@@ -97,11 +97,32 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const { apiSession, sessionBettings, tournament } = action.payload;
+
+        const parsedSessionBettings =
+          state.matchDetail?.sessionBettings?.map(JSON.parse) || [];
+        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
+        apiParsedSessionBettings.forEach((apiItem: any) => {
+          const index = parsedSessionBettings.findIndex(
+            (parsedItem: any) => parsedItem.id === apiItem.id
+          );
+          if (index !== -1) {
+            parsedSessionBettings[index] = {
+              ...parsedSessionBettings[index],
+              ...apiItem,
+            };
+          } else {
+            parsedSessionBettings.push(apiItem);
+          }
+        });
+        const stringifiedSessionBetting = parsedSessionBettings.map(
+          JSON.stringify
+        );
+
         state.matchDetail = {
           ...state.matchDetail,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
-          sessionBettings: sessionBettings,
+          sessionBettings: stringifiedSessionBetting,
           tournament: tournament?.sort((a: any, b: any) => {
             if (a.sno !== b.sno) {
               return a.sno - b.sno;

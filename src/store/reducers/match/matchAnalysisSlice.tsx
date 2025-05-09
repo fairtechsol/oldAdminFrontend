@@ -70,10 +70,33 @@ const analysisListSlice = createSlice({
         state.multipleMatchDetail = state?.multipleMatchDetail?.map(
           (match: any) => {
             if (match?.id !== id) return match;
+
+            const parsedSessionBettings =
+              match?.sessionBettings?.map(JSON.parse) || [];
+            const apiParsedSessionBettings =
+              sessionBettings?.map(JSON.parse) || [];
+
+            apiParsedSessionBettings.forEach((apiItem: any) => {
+              const index = parsedSessionBettings.findIndex(
+                (parsedItem: any) => parsedItem.id === apiItem.id
+              );
+              if (index !== -1) {
+                parsedSessionBettings[index] = {
+                  ...parsedSessionBettings[index],
+                  ...apiItem,
+                };
+              } else {
+                parsedSessionBettings.push(apiItem);
+              }
+            });
+            const stringifiedSessionBetting = parsedSessionBettings.map(
+              JSON.stringify
+            );
+
             return {
               ...match,
               apiSession: apiSession,
-              sessionBettings: sessionBettings,
+              sessionBettings: stringifiedSessionBetting,
               tournament: tournament?.sort((a: any, b: any) => {
                 if (a.sno !== b.sno) {
                   return a.sno - b.sno;
