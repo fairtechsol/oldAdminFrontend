@@ -740,12 +740,22 @@ const AccountListRow = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <EventWiseExposureModal
-          setShowUserWiseExposureModal={setShowUserWiseExposureModal}
-          userName={element?.userName}
-          userId={element?.id}
-          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
-        />
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <EventWiseExposureModal
+            setShowUserWiseExposureModal={setShowUserWiseExposureModal}
+            userName={element?.userName}
+            userId={element?.id}
+            setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+          />
+        </Box>
       </ModalMUI>
       <ModalMUI
         open={showUserWiseMatchListModal?.status}
@@ -759,14 +769,24 @@ const AccountListRow = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <EventWiseMatchListModal
-          setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
-          userName={element?.userName}
-          data={showUserWiseMatchListModal?.value}
-          userId={element?.id}
-          roleName={element?.roleName}
-          matchType={showUserWiseMatchListModal?.matchType}
-        />
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <EventWiseMatchListModal
+            setShowUserWiseMatchListModal={setShowUserWiseMatchListModal}
+            userName={element?.userName}
+            data={showUserWiseMatchListModal?.value}
+            userId={element?.id}
+            roleName={element?.roleName}
+            matchType={showUserWiseMatchListModal?.matchType}
+          />
+        </Box>
       </ModalMUI>
       <ModalMUI
         open={showSubUsers?.value}
