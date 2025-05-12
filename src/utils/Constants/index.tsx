@@ -151,7 +151,7 @@ export const Constants = {
     liveMarket: "live_market",
     liveMarketMatches: "live_market/matches",
     addAccount: "add_account",
-    editAccount: "edit_account",
+    editAccount: "add_account/:id",
     marketAnalysis: "market_analysis",
     marketAnalysisMatches: "market_analysis/matches",
     multipleMatch: "market_analysis/multiple_Match",

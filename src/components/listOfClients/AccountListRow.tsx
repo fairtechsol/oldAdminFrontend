@@ -242,11 +242,7 @@ const AccountListRow = ({
           <EditOutlinedIcon
             fontSize="medium"
             onClick={() => {
-              navigate(`${Constants.oldAdmin}edit_account`, {
-                state: {
-                  id: element?.id,
-                },
-              });
+              navigate(`${Constants.oldAdmin}add_account/${element?.id}`);
             }}
             sx={{
               color:
