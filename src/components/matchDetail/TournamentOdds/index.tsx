@@ -1,33 +1,35 @@
 import { Box, Typography } from "@mui/material";
 import { Fragment, memo, useState } from "react";
 import { useSelector } from "react-redux";
-import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
+import { ARROWUP } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import { RootState } from "../../../store/store";
 import CommissionDot from "../../Common/CommissionDot";
 import Divider from "../../Inplay/Divider";
-import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BoxComponent from "../LiveBookmaker/BoxComponent";
 import SmallBox from "../MatchOdds/SmallBox";
+
+interface TournamentOddsProps {
+  currentMatch: any;
+  minBet: any;
+  maxBet: any;
+  liveData: any;
+  title: any;
+  showBox?: boolean;
+  upcoming?: boolean;
+  profitLossFromAnalysis?: any;
+}
 
 const TournamentOdds = ({
   currentMatch,
   minBet,
   maxBet,
-  typeOfBet,
-  locked,
-  blockMatch,
-  handleShowLock,
-  selft,
   showBox,
   upcoming,
-  showUnlock,
-  handleBlock,
-  handleHide,
   liveData,
   title,
   profitLossFromAnalysis,
-}: any) => {
+}: TournamentOddsProps) => {
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -49,9 +51,9 @@ const TournamentOdds = ({
     return data?.ex?.availableToBack?.length > 0 ? false : true;
   };
 
-  const onSubmit = (value: any) => {
-    handleBlock(value, !locked, typeOfBet);
-  };
+  // const onSubmit = (value: any) => {
+  //   handleBlock(value, !locked, typeOfBet);
+  // };
   return (
     <Box
       sx={{
@@ -98,14 +100,14 @@ const TournamentOdds = ({
             {title}
           </Typography>
           {liveData?.isCommissionActive && <CommissionDot />}
-          {blockMatch && (
+          {/* {blockMatch && (
             <img
               onClick={() => (selft ? handleShowLock(true, typeOfBet) : "")}
               src={locked ? LOCKED : LOCKOPEN}
               alt="lock"
               style={{ width: "14px", height: "20px" }}
             />
-          )}
+          )} */}
         </Box>
         <Box
           sx={{
@@ -413,7 +415,7 @@ const TournamentOdds = ({
                 <Divider />
               </Fragment>
             ))}
-            {locked && (
+            {/* {locked && (
               <Box
                 sx={{
                   background: "rgba(0,0,0,.5)",
@@ -457,11 +459,11 @@ const TournamentOdds = ({
                   </Typography>
                 </Box>
               </Box>
-            )}
+            )} */}
           </Box>
         </>
       )}
-      {false && (
+      {/* {false && (
         <Box
           sx={{
             position: "absolute",
@@ -501,7 +503,7 @@ const TournamentOdds = ({
             onSubmit={onSubmit}
           />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };
