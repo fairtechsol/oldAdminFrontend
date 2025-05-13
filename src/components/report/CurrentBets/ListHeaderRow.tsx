@@ -1,9 +1,19 @@
 import { Box } from "@mui/material";
-import SearchInput from "../../Common/SearchInput";
 import NumberDropDown from "../../Common/DropDown/ReportDropdown/NumberDropDown";
-// import { ApiConstants } from "../../../utils/Constants";
+import SearchInput from "../../Common/SearchInput";
+import { memo } from "react";
 
-const ListHeaderRow = ({ getLimitEntries, setPageLimit, pageLimit, setCurrentPage }: any) => {
+interface ListHeaderRowProps {
+  setPageLimit: (value: number) => void;
+  pageLimit: number;
+  setCurrentPage: (value: number) => void;
+}
+
+const ListHeaderRow = ({
+  setPageLimit,
+  pageLimit,
+  setCurrentPage,
+}: ListHeaderRowProps) => {
   return (
     <Box
       sx={{
@@ -22,21 +32,21 @@ const ListHeaderRow = ({ getLimitEntries, setPageLimit, pageLimit, setCurrentPag
       }}
     >
       <NumberDropDown
-        getLimitEntries={getLimitEntries}
-        textColor={"000"}
+        textColor="#000"
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
         setCurrentPage={setCurrentPage}
       />
       <SearchInput
         show={true}
-        width={"100%"}
-        searchFor={"currentBets"}
-        placeholder={"Search..."}
+        width="100%"
+        searchFor="currentBets"
+        placeholder="Search..."
         setCurrentPage={setCurrentPage}
+        pageLimit={pageLimit}
       />
     </Box>
   );
 };
 
-export default ListHeaderRow;
+export default memo(ListHeaderRow);

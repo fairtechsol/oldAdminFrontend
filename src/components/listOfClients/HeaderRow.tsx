@@ -1,25 +1,32 @@
-import { useDispatch } from "react-redux";
+import { Box } from "@mui/material";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Excel, Pdf } from "../../assets";
+import { handleExport } from "../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../store/store";
 import SearchInput from "../Common/SearchInput";
 import StyledImage from "../Common/StyledImages";
-import { Box } from "@mui/material";
-import { AppDispatch, RootState } from "../../store/store";
-import { handleExport } from "../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
+
+interface HeaderRowProps {
+  endpoint: string;
+  searchFor: string;
+  downloadPdfExcel: boolean;
+  setCurrentPage: (page: number) => void;
+}
 
 const HeaderRow = ({
   endpoint,
   searchFor,
   downloadPdfExcel,
   setCurrentPage,
-}: any) => {
+}: HeaderRowProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
   return (
     <Box
-      display={"flex"}
+      display="flex"
       sx={{
         justifyContent: "space-between",
         px: "10px",
@@ -28,7 +35,7 @@ const HeaderRow = ({
         background: "#F8C851",
       }}
     >
-      <Box display={"flex"} alignItems="center">
+      <Box display="flex" alignItems="center">
         {downloadPdfExcel && (
           <>
             <Box
@@ -45,6 +52,7 @@ const HeaderRow = ({
               <StyledImage
                 src={Excel}
                 sx={{ height: "25px" }}
+                alt="excel"
                 onClick={() =>
                   dispatch(
                     handleExport({
@@ -71,6 +79,7 @@ const HeaderRow = ({
               <StyledImage
                 src={Pdf}
                 sx={{ height: "25px" }}
+                alt="pdf"
                 onClick={() =>
                   dispatch(
                     handleExport({
@@ -86,7 +95,7 @@ const HeaderRow = ({
         )}
       </Box>
       <SearchInput
-        placeholder={"Search User..."}
+        placeholder="Search User..."
         show={true}
         searchFor={searchFor}
         endpoint={endpoint}
@@ -96,4 +105,4 @@ const HeaderRow = ({
   );
 };
 
-export default HeaderRow;
+export default memo(HeaderRow);

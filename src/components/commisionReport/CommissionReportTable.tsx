@@ -1,22 +1,30 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getCommissionMatch } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import MatchList from "./MatchList";
-import FooterRowCommissionReport from "./FooterRowCommissionReport";
-import ListHeader from "./ListHeader";
-import { useSelector } from "react-redux";
+import { Constants } from "../../utils/Constants";
+import Pagination from "../Common/Pagination";
 import Loader from "../Loader";
+import ListHeader from "./ListHeader";
+import MatchList from "./MatchList";
 
-const CommissionReportTable = ({ id, setShow, title }: any) => {
+interface CommissionReportTableProps {
+  id: string;
+  setShow: (show: any) => void;
+  title: string;
+}
+
+const CommissionReportTable = ({
+  id,
+  setShow,
+  title,
+}: CommissionReportTableProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const theme = useTheme();
-  const matchesxs = useMediaQuery(theme.breakpoints.down("lg"));
   const { loading, commissionMatchList } = useSelector(
     (state: RootState) => state.report.reportList
   );
-  const [currentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showCommisionReport, setShowCommisionReport] = useState(false);
   const [selectedId, setSelectedId] = useState({
     matchId: "",
@@ -25,9 +33,9 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getCommissionMatch(id));
+      dispatch(getCommissionMatch({ userId: id, currentPage }));
     }
-  }, [id]);
+  }, [id, currentPage]);
 
   return (
     <>
@@ -37,6 +45,7 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
             width: { xs: "96%", lg: "85%", md: "96%" },
             // marginX: "0.5%",
             minHeight: loading ? "50%" : "200px",
+            maxHeight: "90%",
             display: "flex",
             flexDirection: "column",
             // justifyContent: "space-between",
@@ -55,15 +64,11 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
           <Loader />
         ) : (
           <>
-            {" "}
             <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
               <ListHeader
-                id={id}
                 userName={title}
-                title={"Commission Report"}
-                // setMatchList={setMatchList}
+                title="Commission Report"
                 setShow={setShow}
-                matchesxs={matchesxs}
               />
             </Box>
             <Box
@@ -72,7 +77,7 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
                 width: { xs: "100%", lg: "100%", md: "100%" },
               }}
             >
-              {commissionMatchList?.map((element: any, index: number) => (
+              {commissionMatchList?.rows?.map((element: any, index: number) => (
                 <MatchList
                   key={element?.id}
                   element={element}
@@ -81,63 +86,18 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
                   setSelectedId={setSelectedId}
                   showCommisionReport={showCommisionReport}
                   setShowCommisionReport={setShowCommisionReport}
-                  // getCommisionReport={getCommisionReport}
                   id={id}
                 />
               ))}
-              {/* <ListHeaderT />
-              <Box
-                sx={{
-                  display: matchesBreakPoint ? "inline-block" : "block",
-                  width: "100%",
-                  position: "relative",
-                }}
-              >
-                {data1?.map((element, i) => (
-                  <AccountListRow
-                    key={i}
-                    showOptions={false}
-                    showChildModal={true}
-                    containerStyle={{
-                      background:
-                        element?.ComissionType === "commission setteled"
-                          ? "#135a2e"
-                          : ["back", "yes"].includes(
-                              element?.bet_place_id?.bet_type
-                            )
-                          ? "#B3E0FF"
-                          : ["lay", "no"].includes(
-                              element?.bet_place_id?.bet_type
-                            )
-                          ? "#FF9292"
-                          : "#FFE094 ",
-                    }}
-                    profit={element.profit_loss >= 0}
-                    fContainerStyle={{
-                      background:
-                        element?.ComissionType === "session"
-                          ? "#319E5B"
-                          : element?.ComissionType === "commission setteled"
-                          ? "#135a2e"
-                          : "#F1C550",
-                    }}
-                    fTextStyle={{
-                      color:
-                        ["commission setteled"].includes(
-                          element?.ComissionType
-                        ) && "white",
-                    }}
-                    element={element}
-                    getListOfUser={getListOfUser}
-                    currentPage={currentPage}
-                  />
-                ))}
-              </Box> */}
             </Box>
-            <FooterRowCommissionReport
+            <Pagination
               currentPage={currentPage}
-              // pages={pageCount}
-              // callPage={callPage}
+              pages={Math.ceil(
+                parseInt(
+                  commissionMatchList?.count ? commissionMatchList?.count : 1
+                ) / Constants.pageLimit
+              )}
+              setCurrentPage={setCurrentPage}
             />
           </>
         )}
@@ -146,4 +106,4 @@ const CommissionReportTable = ({ id, setShow, title }: any) => {
   );
 };
 
-export default CommissionReportTable;
+export default memo(CommissionReportTable);

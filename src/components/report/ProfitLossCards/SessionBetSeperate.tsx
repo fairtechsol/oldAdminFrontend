@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDOWN, ARROWUP, ARROW_UP, DeleteIcon } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
@@ -72,17 +72,15 @@ const SessionBetSeperate = ({
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
-            <div className="slanted"></div>
+            <Box className="slanted" />
           </Box>
 
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -93,6 +91,7 @@ const SessionBetSeperate = ({
                 setVisible(!visible);
               }}
               src={ARROWUP}
+              alt="arrow up"
               style={{
                 transform: visible ? "rotate(180deg)" : "rotate(0deg)",
                 width: "15px",
@@ -108,7 +107,6 @@ const SessionBetSeperate = ({
             <Box sx={{ display: "flex", flexDirection: "row", gap: "1px" }}>
               <Box
                 sx={{
-                  // margin: { xs: "1px", lg: "0.5px" },
                   height: "25px",
                   width: "30px",
                   display: "flex",
@@ -136,7 +134,6 @@ const SessionBetSeperate = ({
                     background: "#319E5B",
                     justifyContent: "center",
                     alignItems: "center",
-                    // margin: { xs: "1px", lg: "1px" },
                   }}
                 >
                   <Typography
@@ -174,7 +171,6 @@ const SessionBetSeperate = ({
                     <Box
                       sx={{
                         height: "40px",
-                        // margin: { xs: "1px", lg: "1px" },
                         marginBottom: { xs: "1px", lg: "1px" },
                         width: "30px",
                         display: "flex",
@@ -209,7 +205,7 @@ const SessionBetSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && betHistory === undefined && (
@@ -227,7 +223,7 @@ const SessionBetSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                         <Box
                           sx={{
                             width: mark2 ? "65%" : "65%",
@@ -260,7 +256,6 @@ const SessionBetSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px", my: 0 },
                           background: i.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                         }}
                       >
@@ -296,6 +291,7 @@ const SessionBetSeperate = ({
                                 height: { xs: "12px", lg: "15px" },
                               }}
                               src={i.myProfitLoss > 0 ? ARROW_UP : ARROWDOWN}
+                              alt="arrow"
                             />
                           )}
                         </Box>
@@ -322,6 +318,7 @@ const SessionBetSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{
@@ -345,7 +342,6 @@ const SessionBetSeperate = ({
                           width: "30%",
                           margin: { xs: "1px", lg: "1px" },
                           display: "flex",
-                          // background: "black",
                           justifyContent: "center",
                           alignItems: "center",
                           paddingX: "2px",
@@ -361,6 +357,7 @@ const SessionBetSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DeleteIcon}
+                          alt="delete"
                         />
                         <Typography
                           sx={{
@@ -387,7 +384,6 @@ const SessionBetSeperate = ({
     </>
   );
 };
-// value2 = { formatNumber(newData?.rate_percent?.split("-")[0])}
 const RowComponent = ({ header, data }: any) => {
   const getTime = (date: any) => {
     const now = new Date(date);
@@ -404,10 +400,8 @@ const RowComponent = ({ header, data }: any) => {
     if (header) {
       return "black";
     } else if (data?.betType === "BACK" || data?.betType == "YES") {
-      // return "#00C0F9";
       return "#CEEBFF";
     } else if (data?.betType === "LAY" || data?.betType == "NO") {
-      // return "#FF9292";
       return "#F2CBCB";
     }
   };
@@ -421,7 +415,6 @@ const RowComponent = ({ header, data }: any) => {
         alignItems: "center",
         display: "flex",
         gap: "1px",
-        // marginTop: "1px"
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >
@@ -429,7 +422,6 @@ const RowComponent = ({ header, data }: any) => {
         <>
           <SingleBox
             color={getColor}
-            // data={}
             first={true}
             header={header}
             time={getTime(data.createdAt)}
@@ -485,7 +477,7 @@ const SingleBox = ({
   time,
   isPercent,
   rate,
-  isCommissionActive
+  isCommissionActive,
 }: any) => {
   return !header ? (
     first ? (
@@ -498,7 +490,6 @@ const SingleBox = ({
           display: { xs: "initial", lg: "flex" },
           justifyContent: { lg: "center", xs: "initial" },
           alignItems: "center",
-          
         }}
       >
         {isCommissionActive && <CommissionDot />}
@@ -549,7 +540,7 @@ const SingleBox = ({
         >
           {data.time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             fontWeight: "600",
@@ -568,7 +559,6 @@ const SingleBox = ({
           width: "100%",
           height: "40px",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -609,7 +599,6 @@ const SingleBox = ({
         width: "140%",
         height: "25px",
         background: "#319E5B",
-        // marginX: { xs: "1px", lg: "1px" },
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -652,4 +641,4 @@ const SingleBox = ({
     </Box>
   );
 };
-export default SessionBetSeperate;
+export default memo(SessionBetSeperate);

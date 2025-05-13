@@ -1,22 +1,22 @@
 import { Box, Typography } from "@mui/material";
-import SearchInputWallet from "./SearchInputWallet";
+import { memo } from "react";
 import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
+import SearchInputWallet from "./SearchInputWallet";
 
-const ProfitLossHeader = (props: any) => {
-  const {
-    type,
-    clientData,
-    setSearch,
-    search,
-    startDate,
-    setEndDate,
-    setStartDate,
-    endDate,
-    onClick,
-    title,
-    setSelectedUser
-  } = props;
+const ProfitLossHeader = ({
+  type,
+  clientData,
+  setSearch,
+  search,
+  startDate,
+  setEndDate,
+  setStartDate,
+  endDate,
+  onClick,
+  title,
+  setSelectedUser,
+}: any) => {
   return (
     <Box
       sx={{
@@ -68,43 +68,35 @@ const ProfitLossHeader = (props: any) => {
                 width: { xs: "100%", lg: "40%" },
               }}
             >
-              <Box sx={{ width: "10px" }}></Box>
+              <Box sx={{ width: "10px" }} />
               <SearchInputWallet
                 containerStyle={{ width: "100% !important " }}
                 data={clientData}
-                title={"Search By Client Name"}
+                title="Search By Client Name"
                 setSearch={setSearch}
                 search={search}
                 setSelectedUser={setSelectedUser}
               />
             </Box>
           )}
-
-          <Box sx={{ width: "10px" }}></Box>
-
-          <Box
-            sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}
-          >
-            <Box
-              sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}
-            >
+          <Box sx={{ width: "10px" }} />
+          <Box sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}>
+            <Box sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}>
               <Calendar
-                title={"From"}
+                title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
-                sx={{ width: "50%" }}
               />
-              <Box sx={{ width: "10px" }}></Box>
+              <Box sx={{ width: "10px" }} />
 
               <Calendar
-                title={"To"}
+                title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
-                sx={{ width: "50%" }}
                 limit={startDate}
               />
             </Box>
-            <Box sx={{ width: "10px" }}></Box>
+            <Box sx={{ width: "10px" }} />
             <Box
               sx={{
                 width: { xs: "40%", lg: "30%" },
@@ -135,4 +127,4 @@ const ProfitLossHeader = (props: any) => {
   );
 };
 
-export default ProfitLossHeader;
+export default memo(ProfitLossHeader);

@@ -1,16 +1,15 @@
-import { useState } from "react";
-import MainBox from "./MainBox";
-import RenderEvents from "./RenderEvents";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
+import { Box } from "@mui/material";
+import { memo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCompetitionList,
   resetCompetitionDates,
   resetCompetitionMatches,
   resetcompetitionList,
 } from "../../store/actions/match/matchAction";
-import { useSelector } from "react-redux";
-import { Box } from "@mui/material";
+import { AppDispatch, RootState } from "../../store/store";
+import MainBox from "./MainBox";
+import RenderEvents from "./RenderEvents";
 
 const RenderGames = ({
   games,
@@ -81,4 +80,4 @@ const RenderGames = ({
   );
 };
 
-export default RenderGames;
+export default memo(RenderGames);

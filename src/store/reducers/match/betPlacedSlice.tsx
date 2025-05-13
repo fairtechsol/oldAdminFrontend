@@ -45,16 +45,15 @@ const betsSlice = createSlice({
       })
       .addCase(getPlacedBets.fulfilled, (state, action) => {
         state.success = true;
-        state.placedBets = action?.payload?.rows;
+        state.placedBets = action.payload?.rows;
         state.loading = false;
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
-        const { newBet, myStake, userName } = action?.payload;
-        const betId = action?.payload?.betId;
+        const { newBet, myStake, userName, betId } = action.payload;
         const user = {
           userName: userName,
         };
@@ -73,28 +72,27 @@ const betsSlice = createSlice({
       .addCase(getSessionProLoss.fulfilled, (state, action) => {
         state.loadingProLoss = false;
         state.successProLoss = true;
-        const idToAdd = action?.payload?.id;
+        const { id } = action.payload;
 
         if (
-          idToAdd &&
-          !state?.sessionProLoss?.some((item: any) => item?.id === idToAdd)
+          id &&
+          !state?.sessionProLoss?.some((item: any) => item?.id === id)
         ) {
-          state?.sessionProLoss?.push(action?.payload);
+          state?.sessionProLoss?.push(action.payload);
         }
       })
       .addCase(getSessionProLoss.rejected, (state, action) => {
         state.loadingProLoss = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateProfitLoss.fulfilled, (state, action) => {
-        const { jobData, profitLoss } = action?.payload;
+        const { jobData, profitLoss } = action.payload;
         if (jobData?.betPlaceObject?.betPlacedData?.betId) {
           const updatedSessionProLoss = state?.sessionProLoss?.map(
             (item: any) =>
               item?.id === jobData?.betPlaceObject?.betPlacedData?.betId
                 ? {
                     ...item,
-
                     proLoss: [
                       JSON.stringify(profitLoss),
                       ...item.proLoss.slice(1),
@@ -102,22 +100,20 @@ const betsSlice = createSlice({
                   }
                 : item
           );
-
           state.sessionProLoss = updatedSessionProLoss;
         }
       })
       .addCase(addRunAmount.fulfilled, (state, action) => {
-        const data = action?.payload;
-        let idToAdd=data.id
+        const { id } = action.payload;
         if (
-          idToAdd &&
-          !state?.sessionProLoss?.find((item: any) => item?.id === idToAdd)
+          id &&
+          !state?.sessionProLoss?.find((item: any) => item?.id === id)
         ) {
           state?.sessionProLoss?.push(action?.payload);
         }
       })
       .addCase(removeRunAmount.fulfilled, (state, action) => {
-        const { betId } = action?.payload;
+        const { betId } = action.payload;
         state.sessionProLoss = state?.sessionProLoss?.filter(
           (item: any) => item?.id !== betId
         );
@@ -125,9 +121,8 @@ const betsSlice = createSlice({
       .addCase(
         getSessionProfitLossMatchDetailFilter.fulfilled,
         (state, action) => {
-          const idToRemove = action?.payload;
           state.sessionProLoss = state?.sessionProLoss?.filter(
-            (item: any) => item?.id !== idToRemove
+            (item: any) => item?.id !== action.payload
           );
         }
       )
@@ -138,7 +133,7 @@ const betsSlice = createSlice({
           profitLoss,
           betId,
           isPermanentDelete,
-        } = action?.payload;
+        } = action.payload;
 
         const updateDeleteReason = (bet: any) => {
           if (betPlacedId?.includes(bet?.id)) {
@@ -173,7 +168,7 @@ const betsSlice = createSlice({
         }
       })
       .addCase(updatePlacedbetsDeleteReason.fulfilled, (state, action) => {
-        const { betIds, deleteReason } = action?.payload;
+        const { betIds, deleteReason } = action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betIds?.includes(bet?.id)) {
             bet.deleteReason = deleteReason;

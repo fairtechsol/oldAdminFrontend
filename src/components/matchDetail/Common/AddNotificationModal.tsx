@@ -1,8 +1,7 @@
-import { memo } from "react";
-import { useState } from "react";
 import { Box, Modal, TextField, Typography } from "@mui/material";
-import DeleteBetButton from "../../Common/DeleteBetButton";
+import { memo, useState } from "react";
 import { CancelDark } from "../../../assets";
+import DeleteBetButton from "../../Common/DeleteBetButton";
 
 const AddNotificationModal = ({
   visible,
@@ -81,6 +80,7 @@ const AddNotificationModal = ({
               <img
                 style={{ width: "25px", height: "25px", cursor: "pointer" }}
                 onClick={() => setVisible(false)}
+                alt="cancel"
                 src={CancelDark}
               />
             </Box>

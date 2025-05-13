@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getBetProfitLoss,
   getCommissionBetPlaced,
   getCommissionMatch,
   getSessionProfitLoss,
-  getTotalProfitLoss,
   resetBetProfitLoss,
   resetDomainProfitLoss,
   resetSessionProfitLoss,
@@ -43,48 +41,6 @@ const profitLossReportSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getTotalProfitLoss.pending, (state) => {
-        state.loading = false;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getTotalProfitLoss.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.totalProfitLossList = action?.payload;
-      })
-      .addCase(getTotalProfitLoss.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getBetProfitLoss.pending, (state) => {
-        state.loading = false;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getBetProfitLoss.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.betProfitLossList = action?.payload;
-      })
-      .addCase(getBetProfitLoss.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getSessionProfitLoss.pending, (state) => {
-        state.loading = false;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
-        state.success = true;
-        state.loading = false;
-        state.sessionProfitLossList = action?.payload;
-      })
-      .addCase(getSessionProfitLoss.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
       .addCase(getCommissionMatch.pending, (state) => {
         state.loading = false;
         state.success = false;
@@ -94,14 +50,14 @@ const profitLossReportSlice = createSlice({
       .addCase(getCommissionMatch.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.commissionMatchList = action?.payload;
+        state.commissionMatchList = action.payload;
       })
       .addCase(getCommissionMatch.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getCommissionBetPlaced.pending, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.success = false;
         state.error = null;
         state.commissionBetPlacedList = [];
@@ -109,11 +65,23 @@ const profitLossReportSlice = createSlice({
       .addCase(getCommissionBetPlaced.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.commissionBetPlacedList = action?.payload;
+        state.commissionBetPlacedList = action.payload;
       })
       .addCase(getCommissionBetPlaced.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
+      })
+      .addCase(getSessionProfitLoss.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
+        state.loading = false;
+        state.sessionProfitLossList = action.payload;
+      })
+      .addCase(getSessionProfitLoss.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error?.message;
       })
       .addCase(resetDomainProfitLoss, (state) => {
         state.domainProfitLossList = [];
@@ -127,7 +95,7 @@ const profitLossReportSlice = createSlice({
       .addCase(updateUserSearchId.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.userData = action?.payload?.search;
+        state.userData = action.payload?.search;
       });
   },
 });

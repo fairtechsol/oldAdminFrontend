@@ -1,27 +1,22 @@
 import { Box, MenuItem } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Logout } from "../../../assets";
 import StyledImage from "../../../components/Common/StyledImages";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
+import { memo } from "react";
 
 const menutItems = [
-  // { title: "Secure Auth Verification" },
   { title: "Change Password", link: `${Constants.oldAdmin}change-password` },
 ];
-const BoxDropDownMenu = (props: any) => {
-  const { handleClose } = props;
+const BoxDropDownMenu = ({ handleClose }: any) => {
   const navigate = useNavigate();
-
   const dispatch: AppDispatch = useDispatch();
-  // const innerRef = useOuterClick((ev: any) => {
-  //   handleClose();
-  // });
+
   return (
     <Box
-      // ref={innerRef}
       sx={{
         position: "absolute",
         background: "white",
@@ -81,10 +76,14 @@ const BoxDropDownMenu = (props: any) => {
           alignItems: "center",
         }}
       >
-        <StyledImage src={Logout} sx={{ width: "35%", height: "auto" }} />
+        <StyledImage
+          src={Logout}
+          sx={{ width: "35%", height: "auto" }}
+          alt="logout"
+        />
       </Box>
     </Box>
   );
 };
 
-export default BoxDropDownMenu;
+export default memo(BoxDropDownMenu);

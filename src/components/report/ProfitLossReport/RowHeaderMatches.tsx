@@ -11,7 +11,6 @@ import RowComponentMatches from "./RowComponentMatches";
 const RowHeaderMatches = ({
   item,
   getHandleReport,
-  // show,
   color,
   selectedId,
   getBetReport,
@@ -46,6 +45,7 @@ const RowHeaderMatches = ({
           background: "white",
           display: "flex",
           padding: 0.1,
+          cursor: "pointer",
         }}
       >
         <Box
@@ -60,6 +60,7 @@ const RowHeaderMatches = ({
         >
           <StyledImage
             src={gameIconConstants[item?.eventType]}
+            alt={item?.eventType}
             sx={{ width: { lg: "35px", xs: "25px" } }}
           />
         </Box>
@@ -87,6 +88,7 @@ const RowHeaderMatches = ({
           </Typography>
           <StyledImage
             src={ArrowDown}
+            alt="arrow down"
             sx={{
               width: { lg: "20px", xs: "10px" },
               transform: show ? "rotate(180deg)" : "rotate(0deg)",
@@ -127,6 +129,7 @@ const RowHeaderMatches = ({
             </Typography>
             <StyledImage
               src={item?.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
+              alt="arrow"
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },

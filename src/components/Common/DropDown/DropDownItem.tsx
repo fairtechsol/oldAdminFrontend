@@ -1,16 +1,16 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
-const DropDownItem = (props: any) => {
-  const {
-    i,
-    CompetitionName,
-    disable,
-    setValue,
-    setOpen,
-    dropDownTextStyle,
-    setSelected,
-    name,
-  } = props;
+const DropDownItem = ({
+  i,
+  CompetitionName,
+  disable,
+  setValue,
+  setOpen,
+  dropDownTextStyle,
+  setSelected,
+  name,
+}: any) => {
   return (
     <Box
       onClick={() => {
@@ -44,4 +44,4 @@ const DropDownItem = (props: any) => {
   );
 };
 
-export default DropDownItem;
+export default memo(DropDownItem);

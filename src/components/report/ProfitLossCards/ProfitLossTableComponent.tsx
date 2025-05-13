@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLossCards } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -8,19 +8,19 @@ import { Constants } from "../../../utils/Constants";
 import Footer from "../../Common/Footer";
 import RowHeaderMatches from "./RowHeaderMatches";
 
-const ProfitLossTableComponent = (props: any) => {
-  const {
-    eventData,
-    currentPage,
-    endDate,
-    startDate,
-    userProfitLoss,
-    getUserProfitLoss,
-    setCurrentPage,
-  } = props;
-
+const ProfitLossTableComponent = ({
+  eventData,
+  currentPage,
+  endDate,
+  startDate,
+  userProfitLoss,
+  getUserProfitLoss,
+  setCurrentPage,
+  event,
+  setEvent,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [event, setEvent] = useState("");
+
   const { matchWiseProfitLossCountCard } = useSelector(
     (state: RootState) => state.report.cardReport
   );
@@ -89,45 +89,27 @@ const ProfitLossTableComponent = (props: any) => {
     );
   }, [currentPage]);
 
-  // function paginate(array: any, pageNumber: number, pageSize: number) {
-  //   try {
-  //     --pageNumber;
-  //     if (array.length > 0) {
-  //       const startIndex = pageNumber * pageSize;
-  //       const endIndex = startIndex + pageSize;
-  //       return array?.slice(startIndex, endIndex);
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  // const currentPageData = paginate(matchWiseProfitLoss, currentPage, 1);
-
   return (
     <>
       {eventData?.length > 0 ? (
-        <Box>
+        <>
           {eventData?.map((item: any, index: any) => {
             return (
-              <>
-                <RowHeaderMatches
-                  key={index}
-                  item={item}
-                  index={index}
-                  getHandleReport={getHandleReport}
-                  selectedId={selectedId}
-                  getBetReport={getBetReport}
-                  userProfitLoss={userProfitLoss}
-                  getUserProfitLoss={getUserProfitLoss}
-                  eventType={event}
-                  currentPage={currentPage}
-                />
-              </>
+              <RowHeaderMatches
+                key={index}
+                item={item}
+                index={index}
+                getHandleReport={getHandleReport}
+                selectedId={selectedId}
+                getBetReport={getBetReport}
+                userProfitLoss={userProfitLoss}
+                getUserProfitLoss={getUserProfitLoss}
+                eventType={event}
+                currentPage={currentPage}
+              />
             );
           })}
           <Footer
-            // getListOfUser={() => handleReport(event)}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             pages={Math.ceil(
@@ -137,26 +119,23 @@ const ProfitLossTableComponent = (props: any) => {
                   : 1
               ) / Constants.pageLimit
             )}
-            // callPage={callPage}
           />
-        </Box>
+        </>
       ) : (
-        <Box>
-          <Typography
-            sx={{
-              color: "#fff",
-              textAlign: "center",
-              fontSize: { lg: "16px", xs: "10px" },
-              fontWeight: "600",
-              margin: "1rem",
-            }}
-          >
-            No Matching Records Found
-          </Typography>
-        </Box>
+        <Typography
+          sx={{
+            color: "#fff",
+            textAlign: "center",
+            fontSize: { lg: "16px", xs: "10px" },
+            fontWeight: "600",
+            margin: "1rem",
+          }}
+        >
+          No Matching Records Found
+        </Typography>
       )}
     </>
   );
 };
 
-export default ProfitLossTableComponent;
+export default memo(ProfitLossTableComponent);

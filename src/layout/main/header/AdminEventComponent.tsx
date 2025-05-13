@@ -1,9 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const AdminEventComponent = (props: any) => {
-  const { data } = props;
-
+const AdminEventComponent = ({ data }: any) => {
   return (
     <Box
       className="eventTab"
@@ -27,6 +25,7 @@ const AdminEventComponent = (props: any) => {
     >
       <img
         src={data.image}
+        alt="image"
         style={{ width: "40px", height: "40px", alignSelf: "center" }}
       />
       <Typography

@@ -1,10 +1,10 @@
-import MainBox from "./MainBox";
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Constants } from "../../utils/Constants";
+import MainBox from "./MainBox";
 
-const RenderOdds = (props: any) => {
-  const { i, handleDrawerToggle, colors } = props;
+const RenderOdds = ({ i, handleDrawerToggle, colors }: any) => {
   const navigate = useNavigate();
   return (
     <Box
@@ -29,7 +29,7 @@ const RenderOdds = (props: any) => {
           under={false}
           color={colors[4]}
           width={70}
-          title={"Tied Match"}
+          title="Tied Match"
         />
       )}
       {true && (
@@ -38,10 +38,10 @@ const RenderOdds = (props: any) => {
           under={false}
           color={colors[4]}
           width={70}
-          title={"Match Odds"}
+          title="Match Odds"
         />
       )}
     </Box>
   );
 };
-export default RenderOdds;
+export default memo(RenderOdds);

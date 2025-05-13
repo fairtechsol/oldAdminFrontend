@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 
 const MarqueeText = ({ children, index }: any) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -67,4 +67,4 @@ const MarqueeText = ({ children, index }: any) => {
   );
 };
 
-export default MarqueeText;
+export default memo(MarqueeText);

@@ -1,9 +1,16 @@
 import { Box, Button, Typography } from "@mui/material";
+import { memo } from "react";
 
-const ListHeader = ({ title, setShow, userName }: any) => {
+interface ListHeaderProps {
+  title: string;
+  setShow: (show: any) => void;
+  userName: string;
+}
+
+const ListHeader = ({ title, setShow, userName }: ListHeaderProps) => {
   return (
     <Box
-      display={"flex"}
+      display="flex"
       sx={{
         justifyContent: "space-between",
         alignItems: "center",
@@ -12,7 +19,7 @@ const ListHeader = ({ title, setShow, userName }: any) => {
         height: "100%",
       }}
     >
-      <Box display={"flex"} alignItems="center">
+      <Box display="flex" alignItems="center">
         <Typography
           sx={{
             fontSize: { xs: "14px", lg: "18px", md: "18px" },
@@ -22,7 +29,7 @@ const ListHeader = ({ title, setShow, userName }: any) => {
             marginRight: { xs: "10px", lg: "20px", md: "20px" },
           }}
         >
-          {userName ? `${userName} -` : ""} ({title}){" "}
+          {userName ? `${userName} -` : ""} ({title})
         </Typography>
       </Box>
 
@@ -38,4 +45,4 @@ const ListHeader = ({ title, setShow, userName }: any) => {
   );
 };
 
-export default ListHeader;
+export default memo(ListHeader);

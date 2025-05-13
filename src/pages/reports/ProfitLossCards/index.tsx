@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { debounce } from "lodash";
 import moment from "moment";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfitLossTableComponent from "../../../components/report/ProfitLossCards/ProfitLossTableComponent";
 import ProfitLossHeader from "../../../components/report/ProfitLossReport/ProfitLossHeader";
@@ -19,12 +19,15 @@ interface FilterObject {
   endDate?: string;
 }
 const ProfitLossCards = () => {
+  const defaultDate = new Date();
+  defaultDate.setDate(defaultDate.getDate() - 15);
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [search, setSearch] = useState<any>("");
-  const [startDate, setStartDate] = useState<any>();
+  const [startDate, setStartDate] = useState<any>(defaultDate);
   const [endDate, setEndDate] = useState<any>();
   const [userProfitLoss, setUserProfitLoss] = useState([]);
+  const [event, setEvent] = useState("");
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -37,6 +40,7 @@ const ProfitLossCards = () => {
   );
   const handleClick = () => {
     try {
+      setEvent("");
       let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
@@ -98,11 +102,23 @@ const ProfitLossCards = () => {
   }, [search]);
 
   useEffect(() => {
-    dispatch(getUserTotalProfitLossCards({ filter: "" }));
+    let filter: FilterObject = {};
+    if (startDate && endDate) {
+      filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+      filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
+    } else {
+      if (startDate) {
+        filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+      }
+      if (endDate) {
+        filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
+      }
+    }
+    dispatch(getUserTotalProfitLossCards({ filter }));
   }, []);
 
   return (
-    <div>
+    <>
       <ProfitLossHeader
         title="Profit/Loss"
         onClick={handleClick}
@@ -126,20 +142,19 @@ const ProfitLossCards = () => {
       >
         Profit/Loss for Event Type
       </Typography>
-
-      <Box>
-        <ProfitLossTableComponent
-          startDate={startDate}
-          endDate={endDate}
-          eventData={totalProfitLossListCard && totalProfitLossListCard}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          userProfitLoss={userProfitLoss}
-          getUserProfitLoss={getUserProfitLoss}
-        />
-      </Box>
-    </div>
+      <ProfitLossTableComponent
+        startDate={startDate}
+        endDate={endDate}
+        eventData={totalProfitLossListCard && totalProfitLossListCard}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        userProfitLoss={userProfitLoss}
+        getUserProfitLoss={getUserProfitLoss}
+        event={event}
+        setEvent={setEvent}
+      />
+    </>
   );
 };
 
-export default ProfitLossCards;
+export default memo(ProfitLossCards);

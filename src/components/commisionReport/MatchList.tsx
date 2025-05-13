@@ -1,14 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import StyledImage from "./StyledImage";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ArrowDown } from "../../assets";
+import { formatToINR } from "../../helper";
+import { getCommissionBetPlaced } from "../../store/actions/reports";
+import { AppDispatch, RootState } from "../../store/store";
 import AccountListRow from "./AccountListRow";
 import HeaderRowCommissionReport from "./HeadeRowCommissionReport";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { getCommissionBetPlaced } from "../../store/actions/reports";
-import { useSelector } from "react-redux";
-import { formatToINR } from "../../helper";
+import StyledImage from "./StyledImage";
+
+interface MatchListProps {
+  element: any;
+  index: number;
+  showCommisionReport: boolean;
+  setShowCommisionReport: (show: boolean) => void;
+  selectedId: { matchId: string; userId: string };
+  setSelectedId: (id: { matchId: string; userId: string }) => void;
+  id: string;
+}
 
 const MatchList = ({
   element,
@@ -18,7 +28,7 @@ const MatchList = ({
   selectedId,
   setSelectedId,
   id,
-}: any) => {
+}: MatchListProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { commissionBetPlacedList } = useSelector(
     (state: RootState) => state.report.reportList
@@ -155,6 +165,7 @@ const MatchList = ({
             )}
             <StyledImage
               src={ArrowDown}
+              alt="arrow down"
               sx={{
                 width: { lg: "20px", xs: "10px" },
                 height: { lg: "10px", xs: "6px" },
@@ -168,62 +179,53 @@ const MatchList = ({
         </Box>
       </Box>
       {showCommisionReport && selectedId?.matchId == element?.matchId && (
-        <>
+        <Box
+          sx={{
+            width: { xs: "100%", lg: "96%" },
+            marginTop: { xs: ".25vh" },
+            marginLeft: { lg: "4%" },
+            display: "flex",
+            overflowX: "auto",
+            flexDirection: { lg: "column", xs: "column" },
+          }}
+        >
+          <HeaderRowCommissionReport />
           <Box
             sx={{
-              width: { xs: "100%", lg: "96%" },
-              marginTop: { xs: ".25vh" },
-              marginLeft: { lg: "4%" },
-              display: "flex",
-              overflowX: "auto",
-              // flexDirection: { lg: "row", xs: "column" },
-              flexDirection: { lg: "column", xs: "column" },
+              width: "100%",
+              position: "relative",
             }}
           >
-            <HeaderRowCommissionReport />
-            <Box
-              sx={{
-                // display: matchesBreakPoint ? "inline-block" : "block",
-                width: "100%",
-                position: "relative",
-              }}
-            >
-              {commissionBetPlacedList?.length > 0 &&
-                commissionBetPlacedList.map((element: any, i: number) => (
-                  <AccountListRow
-                    key={i}
-                    showOptions={false}
-                    showChildModal={true}
-                    containerStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                      background: ["BACK", "YES"].includes(element?.betType)
-                        ? "#B3E0FF"
-                        : ["LAY", "NO"].includes(element?.betType)
-                        ? "#FF9292"
-                        : "#FFE094 ",
-                    }}
-                    profit={element.profitLoss >= 0}
-                    fContainerStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                      background:
-                        element?.commissionType === "session"
-                          ? "#319E5B"
-                          : "#F1C550",
-                    }}
-                    fTextStyle={{
-                      filter: element?.settled && "grayscale(0.5)",
-                    }}
-                    element={element}
-                    // getListOfUser={getListOfUser}
-                    // currentPage={currentPage}
-                  />
-                ))}
-            </Box>
+            {commissionBetPlacedList?.length > 0 &&
+              commissionBetPlacedList.map((element: any, i: number) => (
+                <AccountListRow
+                  key={i}
+                  containerStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                    background: ["BACK", "YES"].includes(element?.betType)
+                      ? "#B3E0FF"
+                      : ["LAY", "NO"].includes(element?.betType)
+                      ? "#FF9292"
+                      : "#FFE094 ",
+                  }}
+                  fContainerStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                    background:
+                      element?.commissionType === "session"
+                        ? "#319E5B"
+                        : "#F1C550",
+                  }}
+                  fTextStyle={{
+                    filter: element?.settled && "grayscale(0.5)",
+                  }}
+                  element={element}
+                />
+              ))}
           </Box>
-        </>
+        </Box>
       )}
     </Box>
   );
 };
 
-export default MatchList;
+export default memo(MatchList);

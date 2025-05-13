@@ -42,12 +42,12 @@ const sidebarListSlice = createSlice({
       })
       .addCase(getCompetitionList.fulfilled, (state, action) => {
         state.success = true;
-        state.competitionList = action?.payload;
+        state.competitionList = action.payload;
         state.loading = false;
       })
       .addCase(getCompetitionList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getCompetitionDates.pending, (state) => {
         state.loading = false;
@@ -56,12 +56,12 @@ const sidebarListSlice = createSlice({
       })
       .addCase(getCompetitionDates.fulfilled, (state, action) => {
         state.success = true;
-        state.competitionDates = action?.payload;
+        state.competitionDates = action.payload;
         state.loading = false;
       })
       .addCase(getCompetitionDates.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(AllBetDelete.pending, (state) => {
         state.loading = false;
@@ -70,12 +70,12 @@ const sidebarListSlice = createSlice({
       })
       .addCase(AllBetDelete.fulfilled, (state, action) => {
         state.success = true;
-        state.betDeleteAll = action?.payload;
+        state.betDeleteAll = action.payload;
         state.loading = false;
       })
       .addCase(AllBetDelete.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getCompetitionMatches.pending, (state) => {
         state.loading = false;
@@ -84,12 +84,12 @@ const sidebarListSlice = createSlice({
       })
       .addCase(getCompetitionMatches.fulfilled, (state, action) => {
         state.success = true;
-        state.competitionMatches = action?.payload;
+        state.competitionMatches = action.payload;
         state.loading = false;
       })
       .addCase(getCompetitionMatches.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(resetcompetitionList, (state) => {
         state.competitionList = [];

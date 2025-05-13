@@ -1,18 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { memo } from "react";
 import { formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
 
-const TableDataRow = (props: any) => {
-  const {
-    containerStyle,
-    data,
-    fContainerStyle,
-    fTextStyle,
-    index,
-    currentPage,
-    pageLimit,
-  } = props;
+const TableDataRow = ({
+  containerStyle,
+  data,
+  fContainerStyle,
+  fTextStyle,
+  index,
+  currentPage,
+  pageLimit,
+}: any) => {
   let flag = index % 2 != 0;
   let no = (index + 1 + pageLimit * (currentPage - 1)).toString();
   return (
@@ -20,7 +20,6 @@ const TableDataRow = (props: any) => {
       sx={[
         {
           display: "flex",
-          // height: "45px",
           background: "#0B4F26",
           alignItems: "center",
           borderBottom: "1px solid white",
@@ -29,28 +28,24 @@ const TableDataRow = (props: any) => {
       ]}
     >
       <Box
-        sx={[
-          {
-            width: "5%",
-            minWidth: "70px",
-            justifyContent: "center",
-            display: "flex",
-            alignItems: "center",
-            height: "45px",
-            background: "black",
-            borderRight: "2px solid white",
-          },
-        ]}
+        sx={{
+          width: "5%",
+          minWidth: "70px",
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+          height: "45px",
+          background: "black",
+          borderRight: "2px solid white",
+        }}
       >
         <Typography
-          sx={[
-            {
-              fontSize: "12px",
-              fontWeight: "600",
-              color: "white",
-              textAlign: "center",
-            },
-          ]}
+          sx={{
+            fontSize: "12px",
+            fontWeight: "600",
+            color: "white",
+            textAlign: "center",
+          }}
         >
           {(no > 9 ? "" : "0") + no}
         </Typography>
@@ -120,18 +115,19 @@ const TableDataRow = (props: any) => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography
+        <Box
           sx={{
             fontSize: { xs: "9px", md: "9px", lg: "12px" },
             fontWeight: "600",
             color: "black",
             display: "flex",
+            fontFamily: "Poppins, sans-serif",
             alignItems: "center",
           }}
         >
           {data?.isCommissionActive && <CommissionDot />}
           {data?.user?.userName}
-        </Typography>
+        </Box>
       </Box>
       <Box
         sx={{
@@ -345,4 +341,4 @@ const TableDataRow = (props: any) => {
   );
 };
 
-export default TableDataRow;
+export default memo(TableDataRow);

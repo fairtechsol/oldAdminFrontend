@@ -1,8 +1,12 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { PaginationInterface } from "../../interface/common";
 
-const Pagination = (props: PaginationInterface) => {
-  const { currentPage, pages, setCurrentPage } = props;
+const Pagination = ({
+  currentPage,
+  pages,
+  setCurrentPage,
+}: PaginationInterface) => {
   return (
     <Box
       sx={{
@@ -12,7 +16,6 @@ const Pagination = (props: PaginationInterface) => {
         px: { xs: "5px", lg: "10px" },
         justifyContent: "space-between",
         background: "#FAFAFA",
-        marginBottom: "20px",
       }}
     >
       <Typography
@@ -97,4 +100,4 @@ const Pagination = (props: PaginationInterface) => {
   );
 };
 
-export default Pagination;
+export default memo(Pagination);

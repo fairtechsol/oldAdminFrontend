@@ -3,8 +3,6 @@ import { memo, useEffect, useState } from "react";
 import service from "../../../service";
 import { ApiConstants } from "../../../utils/Constants";
 import AllUserListSeparate from "./AllUserListSeparate";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../../store/store";
 
 const ChildUserList = ({
   id,
@@ -16,9 +14,6 @@ const ChildUserList = ({
   bet1Data,
 }: any) => {
   const [data1, setData] = useState([]);
-  // const { userData } = useSelector(
-  //   (state: RootState) => state.report.reportList
-  // );
 
   const getChildUserList = async () => {
     try {
@@ -28,7 +23,6 @@ const ChildUserList = ({
           roleName,
         },
         gameId: matchId,
-        // searchId: userData?.id ? userData?.id : "",
       };
       const { data } = await service.post(
         `${ApiConstants.CARD.GET_USERWISE_PROFIT_LOSS}`,

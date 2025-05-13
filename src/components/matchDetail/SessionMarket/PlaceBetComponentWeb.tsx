@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UD } from "../../../assets";
 import { handleNumber } from "../../../helper";
@@ -8,9 +9,19 @@ import {
 } from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
+interface PlaceBetComponentWebProps {
+  newData: any;
+  profitLoss: any;
+  type: string;
+}
+
+const PlaceBetComponentWeb = ({
+  newData,
+  profitLoss,
+  type,
+}: PlaceBetComponentWebProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), "");
 
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
@@ -115,12 +126,12 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
               color: "white",
             }}
           >
-            {" "}
             {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
           </Typography>
           <img
             src={UD}
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
+            alt="ud"
           />
         </Box>
       </Box>
@@ -128,4 +139,4 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, type }: any) => {
   );
 };
 
-export default PlaceBetComponentWeb;
+export default memo(PlaceBetComponentWeb);

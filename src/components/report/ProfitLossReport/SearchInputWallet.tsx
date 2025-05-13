@@ -1,44 +1,17 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
+import Block from "./Block";
 
-const SearchInputWallet = (props: any) => {
-  const {
-    title,
-    data,
-    containerStyle,
-    inputContainerStyle,
-    setSearch,
-    search,
-  } = props;
-
+const SearchInputWallet = ({
+  title,
+  data,
+  containerStyle,
+  inputContainerStyle,
+  setSearch,
+  search,
+}: any) => {
   const [open, setOpen] = useState(false);
-
-  const Block = ({ i }: any) => {
-    return (
-      <>
-        <Typography
-          onClick={() => {
-            setSearch(i);
-            setOpen(false);
-          }}
-          sx={{
-            paddingY: "5px",
-            paddingLeft: "10px",
-            fontSize: "10px",
-            fontWeight: "500",
-            color: "black",
-            "&:hover": {
-              cursor: "pointer",
-              background: "#3498ff33",
-            },
-          }}
-        >
-          {i?.userName}
-        </Typography>
-      </>
-    );
-  };
 
   return (
     <Box
@@ -93,6 +66,7 @@ const SearchInputWallet = (props: any) => {
         />
         <img
           src={ARROWDROPDOWN}
+          alt="arrow down"
           style={{
             width: "11px",
             height: "6px",
@@ -120,7 +94,14 @@ const SearchInputWallet = (props: any) => {
               k?.userName?.toLowerCase().includes(search?.toLowerCase())
             )
             .map((i: any, idx: any) => {
-              return <Block key={idx} i={i} />;
+              return (
+                <Block
+                  key={idx}
+                  i={i}
+                  setSearch={setSearch}
+                  setOpen={setOpen}
+                />
+              );
             })}
         </Box>
       )}
@@ -128,4 +109,4 @@ const SearchInputWallet = (props: any) => {
   );
 };
 
-export default SearchInputWallet;
+export default memo(SearchInputWallet);

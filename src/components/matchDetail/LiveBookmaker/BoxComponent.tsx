@@ -1,12 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import { LockSolid } from "../../../assets";
 import { formatNumber } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "../MatchOdds/MoneyBox";
 import SeperateBox from "../MatchOdds/SeperateBox";
 
-const BoxComponent = (props: any) => {
-  const { name, color, align, rates, data, marketDetails } = props;
+const BoxComponent = ({ name, color, rates, data, marketDetails }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};
@@ -39,27 +39,12 @@ const BoxComponent = (props: any) => {
             alignItems: "center",
           }}
         >
-          {/* {teamImage !== null && (
-            <>
-              <img
-                src={`${"wallet"}/${teamImage}`}
-                style={{
-                  width: "22px",
-                  height: "25px",
-                  marginLeft: "10px",
-                  backgroundSize: "contains",
-                }}
-                alt={name}
-              />
-            </>
-          )} */}
           <Typography
             sx={{
               color: "black",
               fontSize: { lg: "14px", xs: "13px" },
               fontWeight: "600",
               marginLeft: "10px",
-              // overflow: "hidden",
               whiteSpace: "nowrap",
               textOverflow: "ellipsis",
               maxWidth: "88px",
@@ -76,11 +61,9 @@ const BoxComponent = (props: any) => {
       ) ? (
         <Box
           sx={{
-            // background: "rgba(0,0,0,1)",
             height: "40px",
             display: "flex",
             width: { lg: "60%", xs: "80%" },
-            // // width: { xs: "60%", lg: "10.2vw" },
             justifyContent: { xs: "flex-end", lg: "flex-end" },
             alignItems: "center",
           }}
@@ -88,11 +71,11 @@ const BoxComponent = (props: any) => {
           <MoneyBox color={color} rates={rates} />
           <Box
             sx={{
-              // background: "rgba(0,0,0,1)",
+              background: "rgba(0,0,0,1)",
               height: "40px",
               display: "flex",
               width: {
-                xs: "39vw",
+                xs: "38vw",
                 lg: "10.17vw",
                 desktop: "10.17vw",
                 desktop2XL: "10.12vw",
@@ -101,35 +84,18 @@ const BoxComponent = (props: any) => {
               alignItems: "center",
             }}
           >
-            <Box
-              sx={{
-                background: "rgba(0,0,0,1)",
-                height: "40px",
-                display: "flex",
-                // width: { xs: "100%", lg: "10.2vw" },
-                width: {
-                  xs: "39vw",
-                  lg: "10.17vw",
-                  desktop: "10.17vw",
-                  desktop2XL: "10.12vw",
-                },
-                justifyContent: { xs: "flex-end", lg: "flex-end" },
-                alignItems: "center",
+            <Typography
+              style={{
+                fontSize: matchesMobile ? "12px" : "18px",
+                textTransform: "uppercase",
+                width: "100%",
+                textAlign: "center",
+                color: "white",
+                fontWeight: "400",
               }}
             >
-              <Typography
-                style={{
-                  fontSize: matchesMobile ? "12px" : "18px",
-                  textTransform: "uppercase",
-                  width: "100%",
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "400",
-                }}
-              >
-                {status ? status : "suspended"}
-              </Typography>
-            </Box>
+              {status ? status : "suspended"}
+            </Typography>
           </Box>
         </Box>
       ) : (
@@ -150,7 +116,6 @@ const BoxComponent = (props: any) => {
             ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]?.price
           ) ? (
             <SeperateBox
-              align={align}
               value={
                 ex?.availableToBack?.length > 0
                   ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
@@ -172,7 +137,7 @@ const BoxComponent = (props: any) => {
                 height: "94%",
                 background: "#FDF21A",
                 border: "1px solid #2626264D",
-                width: { xs: "30%", lg: "5vw" },
+                width: { xs: "29.9%", lg: "5vw" },
                 justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
@@ -180,17 +145,16 @@ const BoxComponent = (props: any) => {
             >
               <StyledImage
                 src={LockSolid}
+                alt="lock"
                 sx={{ height: "20px", width: "20px" }}
               />
             </Box>
           )}
 
-          <Box sx={{ width: "3px", display: "flex", background: "pink" }}></Box>
-          {/* {!lock ? */}
+          <Box sx={{ width: "3px", display: "flex", background: "pink" }} />
           {ex?.availableToLay?.length > 0 &&
           ![0, "0"].includes(ex?.availableToLay[0]?.price) ? (
             <SeperateBox
-              align={align}
               value={
                 ex?.availableToLay?.length > 0
                   ? ex?.availableToLay[0]?.price
@@ -218,6 +182,7 @@ const BoxComponent = (props: any) => {
             >
               <StyledImage
                 src={LockSolid}
+                alt="lock"
                 sx={{ height: "20px", width: "20px" }}
               />
             </Box>
@@ -228,4 +193,4 @@ const BoxComponent = (props: any) => {
   );
 };
 
-export default BoxComponent;
+export default memo(BoxComponent);

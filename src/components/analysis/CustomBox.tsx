@@ -1,7 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
-const CustomBox = (props: any) => {
-  const { onClick, title, bg } = props;
+interface CustomBoxProps {
+  onClick: () => void;
+  title: string;
+  bg?: string;
+}
+
+const CustomBox = ({ onClick, title, bg }: CustomBoxProps) => {
   return (
     <Box onClick={onClick} sx={{ position: "relative" }}>
       <Box
@@ -31,4 +37,4 @@ const CustomBox = (props: any) => {
   );
 };
 
-export default CustomBox;
+export default memo(CustomBox);

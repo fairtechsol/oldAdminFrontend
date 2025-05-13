@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getMatchLockAllChild,
-  getUserDetailsForParent,
   getUserDetailsOfLock,
   updateUserMatchLock,
 } from "../../actions/match/marketLockUnlockAction";
@@ -46,7 +44,7 @@ const lockUnlockSlice = createSlice({
       })
       .addCase(getUserDetailsOfLock.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateUserMatchLock.pending, (state) => {
         state.loading = true;
@@ -61,35 +59,7 @@ const lockUnlockSlice = createSlice({
       })
       .addCase(updateUserMatchLock.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getMatchLockAllChild.pending, (state) => {
-        state.loading = true;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getMatchLockAllChild.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.matchLockAllChild = action.payload;
-      })
-      .addCase(getMatchLockAllChild.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getUserDetailsForParent.pending, (state) => {
-        state.loading = true;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(getUserDetailsForParent.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.userDetailsForParent = action.payload;
-      })
-      .addCase(getUserDetailsForParent.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       });
   },
 });
