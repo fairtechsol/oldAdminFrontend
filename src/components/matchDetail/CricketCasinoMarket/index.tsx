@@ -8,6 +8,22 @@ import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BetsCountBox from "./BetsCountBox";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 
+interface CricketCasinoMarketProps {
+  blockMatch?: any;
+  showUnlock?: any;
+  locked?: any;
+  handleShowLock?: any;
+  selft?: any;
+  title: string;
+  min: number | string;
+  sessionData: any;
+  allBetsData: any;
+  currentMatch: any;
+  handleBlock?: any;
+  handleHide?: any;
+  type: string;
+}
+
 const CricketCasinoMarket = ({
   blockMatch,
   showUnlock,
@@ -22,7 +38,7 @@ const CricketCasinoMarket = ({
   handleBlock,
   handleHide,
   type,
-}: any) => {
+}: CricketCasinoMarketProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [visible, setVisible] = useState(true);

@@ -179,7 +179,6 @@ const Layout = ({
                 currentMatch={item}
                 sessionData={item}
                 min={formatToINR(item?.betFairSessionMinBet) || 0}
-                max={formatToINR(item?.betFairSessionMaxBet) || 0}
                 type={sessionBettingType.cricketCasino}
               />
             );
