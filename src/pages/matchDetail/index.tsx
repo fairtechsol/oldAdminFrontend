@@ -536,7 +536,6 @@ const MatchDetail = () => {
                     currentMatch={matchDetail}
                     sessionData={item}
                     min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                    max={formatToINR(matchDetail?.betFairSessionMaxBet) || 0}
                     type={sessionBettingType.cricketCasino}
                   />
                 );
