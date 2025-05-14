@@ -144,11 +144,11 @@ export const getUsersProfile = createAsyncThunk(
     try {
       const resp = await service.get(ApiConstants.USER.PROFILE);
       if (resp) {
-        if (resp?.data?.loginAt === null) {
+        if (resp?.data[0][0]?.loginAt === null) {
           window.location.replace("/admin/login");
           sessionStorage.clear();
         } else {
-          return resp?.data;
+          return resp?.data[0][0];
         }
       }
     } catch (error: any) {
