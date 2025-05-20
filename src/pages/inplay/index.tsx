@@ -131,6 +131,7 @@ const Inplay = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+  
   useEffect(() => {
     if (matchListInplaySuccess) {
       getMatchListMarket("cricket");
