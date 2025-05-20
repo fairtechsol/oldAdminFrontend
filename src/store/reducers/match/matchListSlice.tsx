@@ -4,6 +4,7 @@ import {
   getMatchDetail,
   getMatchDetailMarketAnalysis,
   getMatchListInplay,
+  matchListInplaySuccessReset,
   matchListReset,
   resetMarketAnalysys,
   setCurrentOdd,
@@ -19,6 +20,7 @@ import {
 
 interface InitialState {
   matchListInplay: any;
+  matchListInplaySuccess: boolean;
   matchDetail: any;
   success: boolean;
   loading: boolean;
@@ -32,6 +34,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   matchListInplay: null,
+  matchListInplaySuccess: false,
   matchDetail: null,
   loading: false,
   success: false,
@@ -58,11 +61,15 @@ const matchListSlice = createSlice({
       .addCase(getMatchListInplay.fulfilled, (state, action) => {
         state.matchListInplay = action.payload;
         state.loading = false;
+        state.matchListInplaySuccess = true;
         state.success = true;
       })
       .addCase(getMatchListInplay.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error?.message;
+      })
+      .addCase(matchListInplaySuccessReset, (state) => {
+        state.matchListInplaySuccess = false
       })
       .addCase(getMatchDetail.pending, (state) => {
         state.loading = true;

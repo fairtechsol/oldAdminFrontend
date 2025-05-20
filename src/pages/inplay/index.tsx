@@ -16,6 +16,7 @@ import Loader from "../../components/Loader";
 import { socket, socketService } from "../../socketManager";
 import {
   getMatchListInplay,
+  matchListInplaySuccessReset,
   matchListReset,
   updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchAction";
@@ -34,9 +35,8 @@ const Inplay = () => {
     },
   });
   const classes = useStyles();
-  const { loading, matchListInplay, success } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const { loading, matchListInplay, success, matchListInplaySuccess } =
+    useSelector((state: RootState) => state.match.matchList);
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -123,11 +123,6 @@ const Inplay = () => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      getMatchListMarket("cricket");
-      getMatchListMarket("tennis");
-      getMatchListMarket("football");
-    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket("cricket");
       getMatchListMarket("tennis");
@@ -136,6 +131,14 @@ const Inplay = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+  useEffect(() => {
+    if (matchListInplaySuccess) {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+      dispatch(matchListInplaySuccessReset());
+    }
+  }, [matchListInplaySuccess]);
 
   return (
     <>

@@ -16,6 +16,7 @@ import Loader from "../../components/Loader";
 import { socketService } from "../../socketManager";
 import {
   getMatchListInplay,
+  matchListInplaySuccessReset,
   updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
@@ -26,9 +27,8 @@ const Inplay = () => {
   const { type } = useParams();
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { loading, matchListInplay, success } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const { loading, matchListInplay, success, matchListInplaySuccess } =
+    useSelector((state: RootState) => state.match.matchList);
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
@@ -121,15 +121,19 @@ const Inplay = () => {
   }, [type]);
 
   useEffect(() => {
-    setTimeout(() => {
-      getMatchListMarket(type);
-    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket(type);
     }, 3000);
 
     return () => clearInterval(intervalId);
   }, [type]);
+
+  useEffect(() => {
+    if (matchListInplaySuccess) {
+      getMatchListMarket(type);
+      dispatch(matchListInplaySuccessReset());
+    }
+  }, [matchListInplaySuccess]);
 
   return (
     <>

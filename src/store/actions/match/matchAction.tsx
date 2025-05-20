@@ -322,3 +322,6 @@ export const resetMarketAnalysys = createAction("marketAnalysis/reset");
 export const resetBetSessionProfitLossGraph = createAction(
   "betSessionProfitLossGraph/reset"
 );
+export const matchListInplaySuccessReset = createAction(
+  "matchListInplaySuccess/reset"
+);
