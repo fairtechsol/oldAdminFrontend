@@ -89,7 +89,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.RUN_AMOUNT}/${requestData?.id}`
+        `${ApiConstants.USER.RUN_AMOUNT}/${requestData?.id}?matchId=${requestData?.matchId}`
       );
       if (resp?.data && resp?.data?.profitLoss[0]) {
         return {
