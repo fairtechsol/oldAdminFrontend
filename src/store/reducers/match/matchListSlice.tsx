@@ -25,7 +25,6 @@ interface InitialState {
   success: boolean;
   loading: boolean;
   error: any;
-  getProfile: any;
   matchDetails: any;
   betPlaceData: any;
   currentOdd: any;
@@ -41,7 +40,6 @@ const initialState: InitialState = {
   error: null,
   matchDetails: null,
   betPlaceData: [],
-  getProfile: null,
   currentOdd: null,
   marketAnalysis: null,
 };
@@ -69,7 +67,7 @@ const matchListSlice = createSlice({
         state.error = action.error?.message;
       })
       .addCase(matchListInplaySuccessReset, (state) => {
-        state.matchListInplaySuccess = false
+        state.matchListInplaySuccess = false;
       })
       .addCase(getMatchDetail.pending, (state) => {
         state.loading = true;
