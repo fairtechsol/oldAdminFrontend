@@ -255,8 +255,8 @@ const matchListSlice = createSlice({
         ) {
           const apiMatchMap = new Map();
           matchListFromApi.forEach((item: any) => {
-            if (item?.gameId) apiMatchMap.set(+item.gameId, item);
-            if (item?.gmid) apiMatchMap.set(+item.gmid, item);
+            const id = Number(item.beventId || item.gmid);
+            apiMatchMap.set(id, item);
           });
           state.matchListInplay.matches = state.matchListInplay.matches.map(
             (match: any) => {
