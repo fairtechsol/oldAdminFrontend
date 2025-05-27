@@ -7,6 +7,7 @@ import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BetsCountBox from "./BetsCountBox";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
+import CommissionDot from "../../Common/CommissionDot";
 
 interface CricketCasinoMarketProps {
   blockMatch?: any;
@@ -99,6 +100,7 @@ const CricketCasinoMarket = ({
           >
             {title}
           </Typography>
+          {sessionData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
             <img
               onClick={() =>
