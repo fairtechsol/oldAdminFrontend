@@ -223,28 +223,23 @@ const matchListSlice = createSlice({
         const { userRedisObj, jobData } = action.payload;
         state.matchDetail.profitLossDataMatch = {
           ...state.matchDetail.profitLossDataMatch,
-          [jobData?.betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
-            JSON.stringify(userRedisObj),
+          [jobData?.betId + "_profitLoss_" + state.matchDetail?.id]:
+            userRedisObj,
         };
       })
       .addCase(updateTeamRatesOnDelete.fulfilled, (state, action) => {
         const { betId, teamRate } = action.payload;
         state.matchDetail.profitLossDataMatch = {
           ...state.matchDetail.profitLossDataMatch,
-          [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
-            JSON.stringify(teamRate),
+          [betId + "_profitLoss_" + state.matchDetail?.id]: teamRate,
         };
       })
       .addCase(updateTeamRatesOnMarketUndeclare.fulfilled, (state, action) => {
         const { betId, profitLossData } = action.payload;
         state.matchDetail.profitLossDataMatch = {
           ...state.matchDetail.profitLossDataMatch,
-          [betId + "_" + "profitLoss" + "_" + state.matchDetail?.id]:
-            JSON.stringify(
-              profitLossData?.[
-                betId + "_" + "profitLoss" + "_" + state.matchDetail?.id
-              ]
-            ),
+          [betId + "_profitLoss_" + state.matchDetail?.id]:
+            profitLossData?.[betId + "_profitLoss_" + state.matchDetail?.id],
         };
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
