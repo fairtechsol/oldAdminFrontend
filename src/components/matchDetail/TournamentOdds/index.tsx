@@ -246,7 +246,7 @@ const TournamentOdds = ({
                 display: "flex",
                 background: "'#319E5B'",
                 height: "25px",
-                width: "40%",
+                width: "58%",
                 alignItems: "center",
               }}
             >
@@ -265,7 +265,7 @@ const TournamentOdds = ({
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: { lg: "60%", xs: "80%" },
+                width: { lg: "60%", xs: "43.4%" },
                 justifyContent: { lg: "flex-end", xs: "flex-end" },
               }}
             >
@@ -273,7 +273,7 @@ const TournamentOdds = ({
                 sx={{
                   background: "#00C0F9",
                   border: "1px solid #2626264D",
-                  width: { lg: "5vw", xs: "30%" },
+                  width: { lg: "5vw", xs: "47%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -293,7 +293,7 @@ const TournamentOdds = ({
                 sx={{
                   background: "#FF9292",
                   border: "1px solid #2626264D",
-                  width: { lg: "5vw", xs: "30%" },
+                  width: { lg: "5vw", xs: "47%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
