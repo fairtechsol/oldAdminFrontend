@@ -167,7 +167,7 @@ export const getUsersDetail = createAsyncThunk<any, string>(
         },
       });
       if (resp) {
-        return resp?.data[0][0];
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
