@@ -93,7 +93,10 @@ const betsSlice = createSlice({
               item?.id === jobData?.betPlaceObject?.betPlacedData?.betId
                 ? {
                     ...item,
-                    proLoss: profitLoss,
+                    proLoss: [
+                      JSON.stringify(profitLoss),
+                      ...item.proLoss.slice(1),
+                    ],
                   }
                 : item
           );
