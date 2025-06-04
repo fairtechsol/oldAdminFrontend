@@ -68,7 +68,7 @@ const SeasonMarketBox = ({
             <Typography
               sx={{
                 color: "black",
-                fontSize: { lg: "12px", md: "11px", xs: "10px" },
+                fontSize: { lg: "12px", md: "11px", xs: "9px" },
                 marginLeft: "7px",
                 fontWeight: "600",
                 lineHeight: "10px",
@@ -80,17 +80,27 @@ const SeasonMarketBox = ({
                   }`
                 : newData?.name ?? newData?.RunnerName}
             </Typography>
-            <Typography
+            <Box
               sx={{
-                color: "black",
-                fontSize: { lg: "9px", md: "9px", xs: "8px" },
-                marginLeft: "7px",
-                fontWeight: "500",
-                lineHeight: "10px",
+                display: "flex",
+                alignItems: "center",
+                textAlign: "start",
+                gap: 1,
               }}
             >
-              max: {formatToINR(newData?.maxBet || newData?.max)}
-            </Typography>
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: { lg: "9px", md: "9px", xs: "8px" },
+                  marginLeft: "7px",
+                  fontWeight: "500",
+                  lineHeight: "10px",
+                }}
+              >
+                max: {formatToINR(newData?.maxBet || newData?.max)}
+              </Typography>
+              {newData?.isCommissionActive && <CommissionDot />}
+            </Box>
           </Box>
         </Box>
 
@@ -105,7 +115,7 @@ const SeasonMarketBox = ({
             alignItems: "center",
           }}
         >
-          {newData?.isCommissionActive && (
+          {/* {newData?.isCommissionActive && (
             <Box
               sx={{
                 position: "absolute",
@@ -114,7 +124,7 @@ const SeasonMarketBox = ({
             >
               <CommissionDot />
             </Box>
-          )}
+          )} */}
           {matchesMobile ? (
             <PlaceBetComponent
               type={type}

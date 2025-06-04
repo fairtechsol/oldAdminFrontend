@@ -121,6 +121,7 @@ const Inplay = () => {
   }, [type]);
 
   useEffect(() => {
+    setCurrentPage(1);
     const intervalId = setInterval(() => {
       getMatchListMarket(type);
     }, 3000);

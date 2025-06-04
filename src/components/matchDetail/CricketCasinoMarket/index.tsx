@@ -7,6 +7,7 @@ import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BetsCountBox from "./BetsCountBox";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
+import CommissionDot from "../../Common/CommissionDot";
 
 interface CricketCasinoMarketProps {
   blockMatch?: any;
@@ -99,6 +100,7 @@ const CricketCasinoMarket = ({
           >
             {title}
           </Typography>
+          {sessionData?.isCommissionActive && <CommissionDot />}
           {blockMatch && (
             <img
               onClick={() =>
@@ -136,7 +138,7 @@ const CricketCasinoMarket = ({
                   ? marketAnalysis?.betType?.session
                       ?.filter((item: any) => sessionData?.id == item?.betId)
                       ?.reduce((prev: number, session: any) => {
-                        prev += session?.profitLoss?.totalBet || 0;
+                        prev += +session?.profitLoss?.totalBet || 0;
                         return prev;
                       }, 0)
                   : allBetsData
