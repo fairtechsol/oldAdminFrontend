@@ -120,8 +120,8 @@ const RunsBox = ({ item, currentOdd }: any) => {
         </Box>
       </Box>
       <Box ref={containerRef} sx={{ height: "350px", overflowY: "scroll" }}>
-        {JSON.parse(item?.proLoss)?.betPlaced?.length > 0 ? (
-          JSON.parse(item?.proLoss)?.betPlaced?.map((v: any) => {
+        {item?.proLoss?.betPlaced?.length > 0 ? (
+          item?.proLoss?.betPlaced?.map((v: any) => {
             const getColor = (value: any) => {
               if (value >= 1) {
                 return "#10DC61";
