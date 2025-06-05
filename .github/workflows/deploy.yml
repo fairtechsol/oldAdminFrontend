@@ -2,7 +2,7 @@ name: Deploy fairgame
 on:
   push:
     branches:
-      - codeCleanTpreMainCopy
+      - dev-server
 jobs:
   deploy:
     runs-on: ubuntu-latest
