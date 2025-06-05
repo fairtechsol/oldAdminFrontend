@@ -91,7 +91,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${ApiConstants.USER.RUN_AMOUNT}/${requestData?.id}?matchId=${requestData?.matchId}`
       );
-      if (resp?.data && resp?.data?.profitLoss) {
+      if (resp?.data && resp?.data?.profitLoss[0]) {
         return {
           matchId: requestData?.matchId,
           id: requestData?.id,
@@ -105,7 +105,7 @@ export const getSessionProLoss = createAsyncThunk<any, any>(
           id: requestData?.id,
           name: requestData?.name,
           type: requestData?.type,
-          proLoss: [{ betPlaced: [] }],
+          proLoss: [JSON.stringify({ betPlaced: [] })],
         };
       }
     } catch (error: any) {
