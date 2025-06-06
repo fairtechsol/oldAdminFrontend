@@ -218,11 +218,11 @@ const UserProfitLoss = ({
                   background: "#f1c550",
                   border: "1px solid #2626264D",
                   width: { lg: "30%", xs: "40%" },
+                  minWidth: "8rem",
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  minWidth: "100px",
                 }}
                 className="wrapContent"
                 key={item?.betId}
