@@ -62,7 +62,7 @@ const UserProfitLossListComp = ({
             sx={{
               display: "flex",
               flexDirection: "column",
-              width: { lg: "30%", xs: "30.06%" },
+              width: { lg: "30%", xs: "40%" },
               height: "100%",
             }}
             key={item?.betId}
@@ -114,7 +114,7 @@ const UserProfitLossListComp = ({
                     >
                       <Typography
                         sx={{
-                          fontSize: "13px",
+                          fontSize: { lg: "13px", xs: "11px" },
                           color: "black",
                           fontWeight: "700",
                           textAlign: "center",
@@ -125,7 +125,7 @@ const UserProfitLossListComp = ({
                       </Typography>
                       <Typography
                         sx={{
-                          fontSize: { lg: "10px", xs: "9px" },
+                          fontSize: { lg: "10px", xs: "8px" },
                           marginTop: -0.4,
                           color: "black",
                           textAlign: "center",
