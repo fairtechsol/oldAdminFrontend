@@ -217,7 +217,7 @@ const UserProfitLoss = ({
                 sx={{
                   background: "#f1c550",
                   border: "1px solid #2626264D",
-                  width: { lg: "30%", xs: "30.06%" },
+                  width: { lg: "30%", xs: "40%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
