@@ -21,26 +21,19 @@ const AllRateSeperate = ({
   return (
     <>
       <Box
-        sx={[
-          {
-            width: { md: "100%", xs: "100%", lg: "100%" },
-            display: "flex",
-            flexDirection: "column",
-            alignSelf: "center",
-            marginX: { lg: "0vw", xs: "0px", md: "0px" },
-            marginY: { lg: ".5vh", xs: "2px" },
-            marginTop: { xs: "0" },
-            marginBottom: { lg: ".5vh", xs: "2px" },
-            borderRadius: "2px",
-            background: "white",
-            padding: "1px",
-            // alignSelf: {
-            //   xs: "center",
-            //   md: "center",
-            //   lg: "flex-start",
-            // },
-          },
-        ]}
+        sx={{
+          width: { md: "100%", xs: "100%", lg: "100%" },
+          display: "flex",
+          flexDirection: "column",
+          alignSelf: "center",
+          marginX: { lg: "0vw", xs: "0px", md: "0px" },
+          marginY: { lg: ".5vh", xs: "2px" },
+          marginTop: { xs: "0" },
+          marginBottom: { lg: ".5vh", xs: "2px" },
+          borderRadius: "2px",
+          background: "white",
+          padding: "1px",
+        }}
       >
         <Box
           sx={{

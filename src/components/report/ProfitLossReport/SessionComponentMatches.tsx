@@ -152,7 +152,6 @@ const SessionComponentMatches = ({
               right: 5,
             }}
           />
-
           <Box
             sx={{
               flexDirection: "row",
@@ -184,7 +183,6 @@ const SessionComponentMatches = ({
             />
           </Box>
         </Box>
-
         <Box
           sx={{
             background: item?.totalLoss > 0 ? "#27AC1E" : "#E32A2A",

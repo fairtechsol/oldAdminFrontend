@@ -26,37 +26,40 @@ const RowHeaderDomain = ({
   const { userData } = useSelector(
     (state: RootState) => state.report.reportList
   );
+
+  const handleClick = () => {
+    if (!visible) {
+      let filter = "";
+      if (userData?.id) {
+        filter += `id=${userData?.id}`;
+      }
+      if (startDate && endDate) {
+        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
+        filter += `&endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
+      } else if (startDate) {
+        filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
+      } else if (endDate) {
+        filter += `endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
+      }
+      setCurrentPage(1);
+      dispatch(
+        getDomainProfitLoss({
+          url: item?.domainUrl,
+          type: item?.eventType,
+          filter: filter,
+        })
+      );
+    }
+    dispatch(resetDomainProfitLoss());
+    dispatch(resetBetProfitLoss());
+    dispatch(resetSessionProfitLoss());
+    setShowMatchList((prev: boolean) => !prev);
+    setVisible((prev) => !prev);
+  };
+  
   return (
     <Box
-      onClick={() => {
-        if (!visible) {
-          let filter = "";
-          if (userData?.id) {
-            filter += `id=${userData?.id}`;
-          }
-          if (startDate && endDate) {
-            filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
-            filter += `&endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
-          } else if (startDate) {
-            filter += `startDate=${moment(startDate)?.format("YYYY-MM-DD")}`;
-          } else if (endDate) {
-            filter += `endDate=${moment(endDate)?.format("YYYY-MM-DD")}`;
-          }
-          setCurrentPage(1);
-          dispatch(
-            getDomainProfitLoss({
-              url: item?.domainUrl,
-              type: item?.eventType,
-              filter: filter,
-            })
-          );
-        }
-        dispatch(resetDomainProfitLoss());
-        dispatch(resetBetProfitLoss());
-        dispatch(resetSessionProfitLoss());
-        setShowMatchList((prev: boolean) => !prev);
-        setVisible((prev) => !prev);
-      }}
+      onClick={handleClick}
       sx={{
         width: "100%",
         height: { lg: "60px", xs: "50px" },
