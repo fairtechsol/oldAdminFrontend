@@ -31,7 +31,7 @@ import {
 import { resetSessionProfitLoss } from "../../../store/actions/reports";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const MultipleMatch = ({}) => {
+const MultipleMatch = () => {
   const theme = useTheme();
   const { state } = useLocation();
   const navigate = useNavigate();
