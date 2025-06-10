@@ -22,7 +22,11 @@ const datas = [
     value: "hockey",
   },
 ];
-const SideBarAdmin = ({ handleDrawerToggle }: any) => {
+
+interface SideBarAdminProps {
+  handleDrawerToggle: () => void;
+}
+const SideBarAdmin = ({ handleDrawerToggle }: SideBarAdminProps) => {
   const [selected, setSelected] = useState({
     value: false,
     matchType: "",

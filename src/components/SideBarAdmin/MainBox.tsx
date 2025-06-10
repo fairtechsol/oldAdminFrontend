@@ -1,8 +1,24 @@
 import { Box, Typography } from "@mui/material";
-import { ARROWDROPDOWN } from "../../assets";
 import { memo } from "react";
+import { ARROWDROPDOWN } from "../../assets";
 
-const MainBox = ({ title, width, color, under, selected, sub }: any) => {
+interface MainBoxProps {
+  title: string;
+  width: number;
+  color: string;
+  under?: boolean;
+  selected?: any;
+  sub?: string;
+}
+
+const MainBox = ({
+  title,
+  width,
+  color,
+  under,
+  selected,
+  sub,
+}: MainBoxProps) => {
   return (
     <Box
       sx={{
