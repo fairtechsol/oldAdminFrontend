@@ -11,18 +11,19 @@ const DropDownItem = ({
   setSelected,
   name,
 }: any) => {
+  const handleClick = () => {
+    if (!disable) {
+      setValue(i);
+      setOpen(false);
+      setSelected((prev: any) => ({
+        ...prev,
+        [name]: i,
+      }));
+    }
+  };
   return (
     <Box
-      onClick={() => {
-        if (!disable) {
-          setValue(i);
-          setOpen(false);
-          setSelected((prev: any) => ({
-            ...prev,
-            [name]: i,
-          }));
-        }
-      }}
+      onClick={handleClick}
       sx={[
         {
           paddingY: "4px",

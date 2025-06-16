@@ -149,7 +149,7 @@ const SearchInput = ({
           paddingX: "5px",
           borderRadius: "35px",
         },
-        inputContainerStyle ?? {},
+        inputContainerStyle || {},
       ]}
     >
       {(!matchesMobile || show) && (

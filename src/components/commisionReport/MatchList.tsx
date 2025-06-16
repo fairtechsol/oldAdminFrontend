@@ -33,40 +33,39 @@ const MatchList = ({
   const { commissionBetPlacedList } = useSelector(
     (state: RootState) => state.report.reportList
   );
+
+  const handleClick = () => {
+    if (
+      showCommisionReport &&
+      selectedId?.matchId == element?.matchId &&
+      selectedId?.userId == id
+    ) {
+      setShowCommisionReport(false);
+      setSelectedId({
+        matchId: "",
+        userId: "",
+      });
+    } else {
+      if (selectedId?.matchId == element?.matchId && selectedId?.userId == id) {
+      } else {
+        setSelectedId({
+          matchId: element?.matchId,
+          userId: id,
+        });
+        setShowCommisionReport(true);
+        dispatch(
+          getCommissionBetPlaced({
+            userId: id,
+            matchId: element?.matchId,
+          })
+        );
+      }
+    }
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        onClick={() => {
-          if (
-            showCommisionReport &&
-            selectedId?.matchId == element?.matchId &&
-            selectedId?.userId == id
-          ) {
-            setShowCommisionReport(false);
-            setSelectedId({
-              matchId: "",
-              userId: "",
-            });
-          } else {
-            if (
-              selectedId?.matchId == element?.matchId &&
-              selectedId?.userId == id
-            ) {
-            } else {
-              setSelectedId({
-                matchId: element?.matchId,
-                userId: id,
-              });
-              setShowCommisionReport(true);
-              dispatch(
-                getCommissionBetPlaced({
-                  userId: id,
-                  matchId: element?.matchId,
-                })
-              );
-            }
-          }
-        }}
+        onClick={handleClick}
         sx={{
           width: "100%",
           height: "50px",
