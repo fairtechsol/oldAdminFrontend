@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { memo } from "react";
 
 const Divider = () => {
   const classes = {
@@ -13,4 +12,4 @@ const Divider = () => {
   return <Box sx={classes.root} />;
 };
 
-export default memo(Divider);
+export default Divider;
