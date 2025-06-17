@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { handleNumber } from "../../helper";
 import StyledImage from "../Common/StyledImages";
 
-const SubHeaderListRow = ({ data }: any) => {
+const SubHeaderListRow = ({ data }: {data: any}) => {
   return (
     <Box
       sx={{

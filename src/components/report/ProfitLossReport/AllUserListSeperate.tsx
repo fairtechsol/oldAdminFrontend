@@ -13,6 +13,17 @@ import ChildUserList from "./ChildUserList";
 import SessionBetSeperate from "./SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
 
+interface AllUserListSeparateProps {
+  item: any;
+  index: number;
+  getBetReport: (val: any) => void;
+  sessionBetData?: any;
+  selectedId?: any;
+  matchId: string;
+  bet1Data?: any;
+  sessionBets?: any;
+}
+
 const AllUserListSeparate = ({
   item,
   index,
@@ -22,7 +33,7 @@ const AllUserListSeparate = ({
   matchId,
   bet1Data,
   sessionBets,
-}: any) => {
+}: AllUserListSeparateProps) => {
   const theme = useTheme();
 
   const { totalBetProfitLossModal } = useSelector(
@@ -658,10 +669,8 @@ const AllUserListSeparate = ({
                         }}
                       >
                         <AllRateSeperate
-                          betHistory={false}
                           count={betData?.length}
                           allBetsData={betData}
-                          profit
                         />
                       </Box>
                       <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
@@ -703,7 +712,6 @@ const AllUserListSeparate = ({
                                   setShowSessionBets={setShowSessionBets}
                                   getBetReport={getBetReport}
                                   selectedId={selectedId}
-                                  sessionBetData={sessionBetData}
                                   user={{
                                     id: item?.userId,
                                     roleName: item?.roleName,
@@ -772,8 +780,6 @@ const AllUserListSeparate = ({
               >
                 <ChildUserList
                   id={showSubUsers?.id}
-                  show={showSubUsers?.value}
-                  setShow={showSubUsers}
                   matchId={matchId}
                   bet1Data={bet1Data}
                   roleName={showSubUsers?.roleName}

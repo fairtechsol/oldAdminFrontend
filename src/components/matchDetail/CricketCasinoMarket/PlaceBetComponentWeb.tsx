@@ -9,7 +9,17 @@ import {
 } from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const PlaceBetComponentWeb = ({ newData, profitLoss, color, index }: any) => {
+interface PlaceBetComponentWebProps {
+  newData: any;
+  profitLoss: any;
+  index: number;
+}
+
+const PlaceBetComponentWeb = ({
+  newData,
+  profitLoss,
+  index,
+}: PlaceBetComponentWebProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
@@ -82,7 +92,7 @@ const PlaceBetComponentWeb = ({ newData, profitLoss, color, index }: any) => {
                   profitLoss?.betPlaced?.[index] ??
                     profitLoss?.profitLoss?.[index]
                 ).toFixed(2),
-                color
+                ""
               )}
         </Typography>
         <img

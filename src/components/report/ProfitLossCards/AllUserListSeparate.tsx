@@ -11,6 +11,16 @@ import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "./AllRateSeperate";
 import ChildUserList from "./ChildUserList";
 
+interface AllUserListSeparateProps {
+  item: any;
+  index: number;
+  getBetReport: (val: any) => void;
+  sessionBetData?: any;
+  matchId: string;
+  bet1Data?: any;
+  sessionBets?: any;
+}
+
 const AllUserListSeparate = ({
   item,
   index,
@@ -19,7 +29,7 @@ const AllUserListSeparate = ({
   matchId,
   bet1Data,
   sessionBets,
-}: any) => {
+}: AllUserListSeparateProps) => {
   const theme = useTheme();
 
   const { userData } = useSelector(
@@ -527,10 +537,8 @@ const AllUserListSeparate = ({
                         }}
                       >
                         <AllRateSeperate
-                          betHistory={false}
                           count={betData?.length}
                           allBetsData={betData}
-                          profit
                         />
                       </Box>
                       <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
@@ -563,8 +571,6 @@ const AllUserListSeparate = ({
             >
               <ChildUserList
                 id={showSubUsers?.id}
-                show={showSubUsers?.value}
-                setShow={showSubUsers}
                 matchId={matchId}
                 bet1Data={bet1Data}
                 roleName={showSubUsers?.roleName}

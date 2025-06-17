@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const AdminEventComponent = ({ data }: any) => {
+const AdminEventComponent = ({ data }: { data: any }) => {
   return (
     <Box
       className="eventTab"

@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { memo } from "react";
 import { PaginationInterface } from "../../interface/common";
 
 const Pagination = ({
@@ -100,4 +99,4 @@ const Pagination = ({
   );
 };
 
-export default memo(Pagination);
+export default Pagination;

@@ -1,8 +1,7 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddNotificationModal from "../../components/matchDetail/Common/AddNotificationModal";
 import FullAllBets from "../../components/matchDetail/Common/FullAllBets";
 import UserProfitLoss from "../../components/matchDetail/Common/UserProfitLoss";
 import CricketCasinoMarket from "../../components/matchDetail/CricketCasinoMarket";
@@ -12,7 +11,6 @@ import TournamentOdds from "../../components/matchDetail/TournamentOdds";
 import { customSortBySessionMarketName, formatToINR } from "../../helper";
 import { matchService, socket, socketService } from "../../socketManager";
 import {
-  AllBetDelete,
   amountupdate,
   getMatchDetail,
   getMatchDetailMarketAnalysis,
@@ -46,7 +44,6 @@ const MatchDetail = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const [visible, setVisible] = useState(false);
   const { state } = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const { matchDetail, success } = useSelector(
@@ -55,7 +52,7 @@ const MatchDetail = () => {
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  const { placedBets, loading, sessionProLoss } = useSelector(
+  const { placedBets, sessionProLoss } = useSelector(
     (state: RootState) => state.match.bets
   );
 
@@ -71,20 +68,6 @@ const MatchDetail = () => {
       matchService.disconnect();
     };
   }, [state?.matchId]);
-
-  const handleDeleteBet = (value: any) => {
-    try {
-      let payload: any = {
-        matchId: state?.matchId,
-        deleteReason: value,
-        urlData: {},
-      };
-
-      dispatch(AllBetDelete(payload));
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const updateMatchDetailToRedux = (event: any) => {
     try {
@@ -173,7 +156,8 @@ const MatchDetail = () => {
         dispatch(removeRunAmount(event));
         dispatch(
           getPlacedBets(
-            `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
             }`
           )
         );
@@ -210,7 +194,8 @@ const MatchDetail = () => {
         dispatch(updateMaxLossForBetOnUndeclare(event));
         dispatch(
           getPlacedBets(
-            `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""
+            `eq${state?.matchId}${
+              state.userId ? `&userId=${state.userId}` : ""
             }`
           )
         );
@@ -330,7 +315,8 @@ const MatchDetail = () => {
           dispatch(getUserProfitLoss(state?.matchId));
           dispatch(
             getPlacedBets(
-              `eq${state?.matchId}${state.userId ? `&userId=${state.userId}` : ""
+              `eq${state?.matchId}${
+                state.userId ? `&userId=${state.userId}` : ""
               }`
             )
           );
@@ -361,20 +347,6 @@ const MatchDetail = () => {
   }, []);
   return (
     <>
-      {visible && (
-        <AddNotificationModal
-          value=""
-          title="Add Remark"
-          visible={visible}
-          loadingDeleteBet={loading}
-          setVisible={setVisible}
-          onDone={handleDeleteBet}
-          onClick={(e: any) => {
-            e.stopPropagation();
-            setVisible(false);
-          }}
-        />
-      )}
       <Box
         sx={{
           display: "flex",
@@ -442,18 +414,18 @@ const MatchDetail = () => {
                 allBetsData={
                   matchDetail?.profitLossDataSession
                     ? Array.from(
-                      matchDetail?.profitLossDataSession?.reduce(
-                        (acc: any, obj: any) =>
-                          acc.has(obj.betId)
-                            ? acc
-                            : acc.add(obj.betId) && acc,
-                        new Set()
-                      ),
-                      (id) =>
-                        matchDetail?.profitLossDataSession?.find(
-                          (obj: any) => obj.betId === id
-                        )
-                    )
+                        matchDetail?.profitLossDataSession?.reduce(
+                          (acc: any, obj: any) =>
+                            acc.has(obj.betId)
+                              ? acc
+                              : acc.add(obj.betId) && acc,
+                          new Set()
+                        ),
+                        (id) =>
+                          matchDetail?.profitLossDataSession?.find(
+                            (obj: any) => obj.betId === id
+                          )
+                      )
                     : []
                 }
                 currentMatch={matchDetail}
@@ -481,18 +453,18 @@ const MatchDetail = () => {
                     allBetsData={
                       matchDetail?.profitLossDataSession
                         ? Array.from(
-                          matchDetail?.profitLossDataSession?.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.betId)
-                                ? acc
-                                : acc.add(obj.betId) && acc,
-                            new Set()
-                          ),
-                          (id) =>
-                            matchDetail?.profitLossDataSession?.find(
-                              (obj: any) => obj.betId === id
-                            )
-                        )
+                            matchDetail?.profitLossDataSession?.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.betId)
+                                  ? acc
+                                  : acc.add(obj.betId) && acc,
+                              new Set()
+                            ),
+                            (id) =>
+                              matchDetail?.profitLossDataSession?.find(
+                                (obj: any) => obj.betId === id
+                              )
+                          )
                         : []
                     }
                     currentMatch={matchDetail}
@@ -519,18 +491,18 @@ const MatchDetail = () => {
                     allBetsData={
                       matchDetail?.profitLossDataSession
                         ? Array.from(
-                          matchDetail?.profitLossDataSession?.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.betId)
-                                ? acc
-                                : acc.add(obj.betId) && acc,
-                            new Set()
-                          ),
-                          (id) =>
-                            matchDetail?.profitLossDataSession?.find(
-                              (obj: any) => obj.betId === id
-                            )
-                        )
+                            matchDetail?.profitLossDataSession?.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.betId)
+                                  ? acc
+                                  : acc.add(obj.betId) && acc,
+                              new Set()
+                            ),
+                            (id) =>
+                              matchDetail?.profitLossDataSession?.find(
+                                (obj: any) => obj.betId === id
+                              )
+                          )
                         : []
                     }
                     currentMatch={matchDetail}
@@ -604,13 +576,13 @@ const MatchDetail = () => {
                 IObets={
                   placedBets.length > 0
                     ? Array.from(
-                      placedBets.reduce(
-                        (acc: any, obj: any) =>
-                          acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                        new Set()
-                      ),
-                      (id) => placedBets.find((obj: any) => obj.id === id)
-                    )
+                        placedBets.reduce(
+                          (acc: any, obj: any) =>
+                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                          new Set()
+                        ),
+                        (id) => placedBets.find((obj: any) => obj.id === id)
+                      )
                     : []
                 }
                 tag={false}
@@ -650,18 +622,18 @@ const MatchDetail = () => {
                   allBetsData={
                     matchDetail?.profitLossDataSession
                       ? Array.from(
-                        matchDetail?.profitLossDataSession?.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.betId)
-                              ? acc
-                              : acc.add(obj.betId) && acc,
-                          new Set()
-                        ),
-                        (id) =>
-                          matchDetail?.profitLossDataSession?.find(
-                            (obj: any) => obj.betId === id
-                          )
-                      )
+                          matchDetail?.profitLossDataSession?.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.betId)
+                                ? acc
+                                : acc.add(obj.betId) && acc,
+                            new Set()
+                          ),
+                          (id) =>
+                            matchDetail?.profitLossDataSession?.find(
+                              (obj: any) => obj.betId === id
+                            )
+                        )
                       : []
                   }
                   currentMatch={matchDetail}

@@ -47,9 +47,9 @@ const TournamentOdds = ({
     return teamBRates < 0 ? `-${formattedRatio}` : formattedRatio;
   };
 
-  const handleLock = (data: any) => {
-    return data?.ex?.availableToBack?.length > 0 ? false : true;
-  };
+  // const handleLock = (data: any) => {
+  //   return data?.ex?.availableToBack?.length > 0 ? false : true;
+  // };
 
   // const onSubmit = (value: any) => {
   //   handleBlock(value, !locked, typeOfBet);
@@ -350,7 +350,6 @@ const TournamentOdds = ({
                       : "#319E5B"
                   }
                   data={runner}
-                  lock={handleLock(runner)}
                   marketDetails={liveData}
                 />
                 <Divider />

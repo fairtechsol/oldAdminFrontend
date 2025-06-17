@@ -1,8 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { handleNumber } from "../../../helper";
 import { memo } from "react";
+import { handleNumber } from "../../../helper";
 
-const SmallBox = ({ valueA, valueB, color }: any) => {
+interface SmallBoxProps {
+  valueA: any;
+  valueB: any;
+}
+
+const SmallBox = ({ valueA, valueB }: SmallBoxProps) => {
   return (
     <Box
       sx={{
@@ -39,7 +44,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleNumber(parseFloat(valueA), color)}
+          {handleNumber(parseFloat(valueA), "")}
         </Typography>
       </Box>
       <Box
@@ -72,7 +77,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
           }}
         >
           {" "}
-          {handleNumber(parseFloat(valueB), color)}
+          {handleNumber(parseFloat(valueB), "")}
         </Typography>
       </Box>
     </Box>

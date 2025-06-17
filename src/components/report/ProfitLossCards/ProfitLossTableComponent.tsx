@@ -8,6 +8,18 @@ import { Constants } from "../../../utils/Constants";
 import Footer from "../../Common/Footer";
 import RowHeaderMatches from "./RowHeaderMatches";
 
+interface ProfitLossTableComponentProps {
+  eventData: any;
+  currentPage: number;
+  endDate: any;
+  startDate: any;
+  userProfitLoss: any;
+  getUserProfitLoss: (val: string) => void;
+  setCurrentPage: (val: number) => void;
+  event: string;
+  setEvent: (val: string) => void;
+}
+
 const ProfitLossTableComponent = ({
   eventData,
   currentPage,
@@ -18,7 +30,7 @@ const ProfitLossTableComponent = ({
   setCurrentPage,
   event,
   setEvent,
-}: any) => {
+}: ProfitLossTableComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   const { matchWiseProfitLossCountCard } = useSelector(
@@ -98,7 +110,6 @@ const ProfitLossTableComponent = ({
               <RowHeaderMatches
                 key={index}
                 item={item}
-                index={index}
                 getHandleReport={getHandleReport}
                 selectedId={selectedId}
                 getBetReport={getBetReport}

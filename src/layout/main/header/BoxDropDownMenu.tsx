@@ -1,4 +1,5 @@
 import { Box, MenuItem } from "@mui/material";
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "../../../assets";
@@ -6,12 +7,11 @@ import StyledImage from "../../../components/Common/StyledImages";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
-import { memo } from "react";
 
 const menutItems = [
   { title: "Change Password", link: `${Constants.oldAdmin}change-password` },
 ];
-const BoxDropDownMenu = ({ handleClose }: any) => {
+const BoxDropDownMenu = ({ handleClose }: { handleClose: () => void }) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 

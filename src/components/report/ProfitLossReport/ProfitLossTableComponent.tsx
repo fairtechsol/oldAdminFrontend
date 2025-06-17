@@ -109,7 +109,6 @@ const ProfitLossTableComponent = ({
             <RowHeaderMatches
               key={index}
               item={item}
-              index={index}
               getHandleReport={getHandleReport}
               selectedId={selectedId}
               getBetReport={getBetReport}

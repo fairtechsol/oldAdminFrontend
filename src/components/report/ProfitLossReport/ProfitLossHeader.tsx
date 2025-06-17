@@ -4,8 +4,19 @@ import Calendar from "../../Common/Calendar";
 import CustomButtonAdmin from "../../Common/CustomButtonAdmin";
 import SearchInputWallet from "./SearchInputWallet";
 
+interface ProfitLossHeaderProps {
+  clientData: any;
+  setSearch: (val: string) => void;
+  search: any;
+  startDate: any;
+  setEndDate: (val: any) => void;
+  setStartDate: (val: any) => void;
+  endDate: any;
+  onClick: () => void;
+  title: any;
+}
+
 const ProfitLossHeader = ({
-  type,
   clientData,
   setSearch,
   search,
@@ -15,8 +26,7 @@ const ProfitLossHeader = ({
   endDate,
   onClick,
   title,
-  setSelectedUser,
-}: any) => {
+}: ProfitLossHeaderProps) => {
   return (
     <Box
       sx={{
@@ -61,24 +71,21 @@ const ProfitLossHeader = ({
             padding: "10px 20px",
           }}
         >
-          {type !== "user" && (
-            <Box
-              sx={{
-                display: "block",
-                width: { xs: "100%", lg: "40%" },
-              }}
-            >
-              <Box sx={{ width: "10px" }} />
-              <SearchInputWallet
-                containerStyle={{ width: "100% !important " }}
-                data={clientData}
-                title="Search By Client Name"
-                setSearch={setSearch}
-                search={search}
-                setSelectedUser={setSelectedUser}
-              />
-            </Box>
-          )}
+          <Box
+            sx={{
+              display: "block",
+              width: { xs: "100%", lg: "40%" },
+            }}
+          >
+            <Box sx={{ width: "10px" }} />
+            <SearchInputWallet
+              containerStyle={{ width: "100% !important " }}
+              data={clientData}
+              title="Search By Client Name"
+              setSearch={setSearch}
+              search={search}
+            />
+          </Box>
           <Box sx={{ width: "10px" }} />
           <Box sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}>
             <Box sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}>

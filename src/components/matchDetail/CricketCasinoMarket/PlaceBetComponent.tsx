@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { handleNumber } from "../../../helper";
 
-const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
+interface PlaceBetComponentProps {
+  profitLoss: any;
+  index: number;
+}
+
+const PlaceBetComponent = ({ profitLoss, index }: PlaceBetComponentProps) => {
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -43,7 +48,7 @@ const PlaceBetComponent = ({ profitLoss, color, index }: any) => {
                     profitLoss?.betPlaced?.[index] ??
                       profitLoss?.profitLoss?.[index]
                   ).toFixed(2),
-                  color
+                  ""
                 )}
           </Typography>
         </Box>

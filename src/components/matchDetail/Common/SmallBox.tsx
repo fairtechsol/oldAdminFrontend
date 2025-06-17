@@ -1,7 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 
-const SmallBox = ({ item, k }: any) => {
+interface SmallBoxProps {
+  item: any;
+  k: number;
+}
+
+const SmallBox = ({ item, k }: SmallBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (

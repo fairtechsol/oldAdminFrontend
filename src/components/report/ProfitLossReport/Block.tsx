@@ -1,6 +1,12 @@
 import { Typography } from "@mui/material";
 
-const Block = ({ i, setSearch, setOpen }: any) => {
+interface BlockProps {
+  i: any;
+  setSearch: (val: any) => void;
+  setOpen: (val: boolean) => void;
+}
+
+const Block = ({ i, setSearch, setOpen }: BlockProps) => {
   return (
     <Typography
       onClick={() => {

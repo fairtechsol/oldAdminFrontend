@@ -2,7 +2,12 @@ import { Box, Drawer } from "@mui/material";
 import { memo } from "react";
 import SideBarAdmin from "../../../components/SideBarAdmin";
 
-const MobileSideBar = ({ mobileOpen, setMobileOpen }: any) => {
+interface MobileSideBarProps {
+  mobileOpen: boolean;
+  setMobileOpen: (val: boolean) => void;
+}
+
+const MobileSideBar = ({ mobileOpen, setMobileOpen }: MobileSideBarProps) => {
   const handleDrawerToggle = () => {
     setMobileOpen(false);
   };

@@ -8,7 +8,6 @@ import { formatToINR } from "../../../helper";
 import {
   getTotalBalance,
   getUserList,
-  getUsersProfile,
   setCreditRefference,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
@@ -26,8 +25,16 @@ const initialValues: any = {
   remark: "",
 };
 
+interface SetCreditComponentProps {
+  handleKeyDown?: any;
+  backgroundColor: string;
+  setSelected: () => void;
+  element: any;
+  endpoint: string;
+  onChangeAmount: any;
+  currentPage: number;
+}
 const SetCreditComponent = ({
-  isWallet,
   handleKeyDown,
   backgroundColor,
   setSelected,
@@ -35,7 +42,7 @@ const SetCreditComponent = ({
   endpoint,
   onChangeAmount,
   currentPage,
-}: any) => {
+}: SetCreditComponentProps) => {
   const [showPass, setShowPass] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();
@@ -62,23 +69,17 @@ const SetCreditComponent = ({
         return;
       }
       let payload;
-      if (isWallet) {
-        payload = {
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        amount: values.amount,
+        transactionPassword: values.transactionPassword,
+        remark: values.remark,
+      };
+
       dispatch(
         setCreditRefference({
-          url: isWallet ? ApiConstants.WALLET.CREDITREFERRENCE : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -94,17 +95,15 @@ const SetCreditComponent = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-      }
+      setSelected();
+
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+
       dispatch(getTotalBalance({}));
       setSubmitting(false);
       dispatch(userListSuccessReset());

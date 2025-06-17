@@ -1,16 +1,19 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { ArrowDown } from "../../../assets";
 import StyledImage from "../../../components/Common/StyledImages";
 import { handleNumber } from "../../../helper";
 import BoxDropDownMenu from "./BoxDropDownMenu";
 
-const BoxProfile = ({ value, containerStyle, balance, color }: any) => {
+interface BoxProfileProps {
+  value: string;
+  containerStyle: object;
+  balance: any;
+}
+
+const BoxProfile = ({ value, containerStyle, balance }: BoxProfileProps) => {
   const [open, setOpen] = useState(false);
 
-  const [anchorEl] = useState(null);
-
-  useEffect(() => {}, [anchorEl]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -61,7 +64,7 @@ const BoxProfile = ({ value, containerStyle, balance, color }: any) => {
               fontWeight: "700",
             }}
           >
-            {handleNumber(parseFloat(balance || 0.0), color)}
+            {handleNumber(parseFloat(balance || 0.0), "")}
           </Typography>
         </Box>
         <StyledImage
@@ -74,13 +77,7 @@ const BoxProfile = ({ value, containerStyle, balance, color }: any) => {
           }}
         />
       </Box>
-      {open && (
-        <BoxDropDownMenu
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
-        />
-      )}
+      {open && <BoxDropDownMenu handleClose={handleClose} />}
     </Box>
   );
 };

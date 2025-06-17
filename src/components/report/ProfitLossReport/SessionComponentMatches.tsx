@@ -11,6 +11,21 @@ import { AppDispatch, RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import SessionBetSeperate from "./SessionBetSeperate";
 
+interface SessionComponentMatchesProps {
+  item: any;
+  index: number;
+  showSessionBets: boolean;
+  setShowSessionBets: (val: any) => void;
+  userId?: any;
+  getBetReport: (val: any) => void;
+  selectedId: any;
+  matchId?: string;
+  user?: any;
+  selectedChildBetId?: string;
+  setSelectedChildBetId?: (val: string) => void;
+  color?: string;
+}
+
 const SessionComponentMatches = ({
   item,
   index,
@@ -24,7 +39,7 @@ const SessionComponentMatches = ({
   selectedChildBetId,
   setSelectedChildBetId,
   color,
-}: any) => {
+}: SessionComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
@@ -52,7 +67,7 @@ const SessionComponentMatches = ({
               user,
             })
           );
-          setSelectedChildBetId(item?.betId);
+          setSelectedChildBetId?.(item?.betId);
         } else {
           dispatch(
             getTotalBetProfitLoss({
@@ -76,7 +91,7 @@ const SessionComponentMatches = ({
             user,
           })
         );
-        setSelectedChildBetId(item?.betId);
+        setSelectedChildBetId?.(item?.betId);
       } else {
         getBetReport({
           eventType: item?.eventType,

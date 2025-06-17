@@ -387,7 +387,6 @@ const CricketCasinoMarket = ({
                             )
                       }
                       index={index}
-                      sessionData={sessionData}
                     />
                     <Divider />
                   </Box>
