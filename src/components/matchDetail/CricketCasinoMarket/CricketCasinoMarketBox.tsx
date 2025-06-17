@@ -12,13 +12,17 @@ import SeperateBox from "../MatchOdds/SeperateBox";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
 
+interface CricketCasinoMarketBoxProps {
+  newData: any;
+  profitLossData: any;
+  index: number;
+}
+
 const CricketCasinoMarketBox = ({
   newData,
-  setData,
   profitLossData,
   index,
-  sessionData,
-}: any) => {
+}: CricketCasinoMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -92,18 +96,13 @@ const CricketCasinoMarketBox = ({
         >
           {matchesMobile ? (
             <PlaceBetComponent
-              sessionData={sessionData}
-              newData={newData}
               profitLoss={profitLossData?.length > 0 && profitLossData[0]}
-              setData={setData}
               index={index}
             />
           ) : (
             <PlaceBetComponentWeb
-              sessionData={sessionData}
               newData={newData}
               profitLoss={profitLossData?.length > 0 && profitLossData[0]}
-              setData={setData}
               index={index}
             />
           )}

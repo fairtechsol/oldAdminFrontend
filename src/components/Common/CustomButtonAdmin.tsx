@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const CustomButtonAdmin = ({ btnStyle, onClick }: any) => {
+interface CustomButtonAdminProps {
+  btnStyle: any;
+  onClick: () => void;
+}
+
+const CustomButtonAdmin = ({ btnStyle, onClick }: CustomButtonAdminProps) => {
   return (
     <Box
       onClick={onClick}

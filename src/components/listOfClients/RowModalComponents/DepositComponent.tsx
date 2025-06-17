@@ -32,9 +32,20 @@ const initialValues: any = {
   transactionType: "add",
 };
 
+interface DepositComponentProps {
+  endpoint: string;
+  walletAccountDetail: any;
+  element: any;
+  backgroundColor: string;
+  setSelected: () => void;
+  selected: boolean;
+  titleBackgroundColor: string;
+  onChangeAmount: any;
+  currentPage: number;
+}
+
 const DepositComponent = ({
   endpoint,
-  isWallet,
   walletAccountDetail,
   element,
   backgroundColor,
@@ -43,7 +54,7 @@ const DepositComponent = ({
   titleBackgroundColor,
   onChangeAmount,
   currentPage,
-}: any) => {
+}: DepositComponentProps) => {
   const [showPass, setShowPass] = useState(false);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -62,25 +73,18 @@ const DepositComponent = ({
         return;
       }
       let payload;
-      if (isWallet) {
-        payload = {
-          amount: parseFloat(values.amount),
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-          transactionType: "add",
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          amount: parseFloat(values.amount),
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-          transactionType: "add",
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        amount: parseFloat(values.amount),
+        transactionPassword: values.transactionPassword,
+        remark: values.remark,
+        transactionType: "add",
+      };
+
       dispatch(
         changeAmmountUser({
-          url: isWallet ? ApiConstants.WALLET.BALANCEUPDATE : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -169,19 +173,17 @@ const DepositComponent = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-        dispatch(getTotalBalance({}));
-        dispatch(getUsersProfile());
-      }
+      setSelected();
+
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+      dispatch(getTotalBalance({}));
+      dispatch(getUsersProfile());
+
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
@@ -192,15 +194,10 @@ const DepositComponent = ({
 
   useEffect(() => {
     onChangeAmount(formik.values.amount, element?.id, "deposite");
-    if (isWallet) {
-      setInitialBalance(
-        +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
-      );
-    } else {
-      setInitialBalance(
-        +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
-      );
-    }
+
+    setInitialBalance(
+      +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
+    );
   }, [formik.values.amount, onChangeAmount]);
 
   return (
@@ -222,8 +219,6 @@ const DepositComponent = ({
               elementToUDM={element}
               userName={element?.userName}
               title={"Deposit Amount"}
-              setSelected={setSelected}
-              selected={selected}
               value={formik.values}
               onChange={handleValueChange}
               setShowPass={setShowPass}
@@ -237,7 +232,6 @@ const DepositComponent = ({
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
               type="deposite"
-              currentPage={currentPage}
             />
           </form>
         </ModalMUI>

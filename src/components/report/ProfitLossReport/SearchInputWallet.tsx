@@ -3,14 +3,21 @@ import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../../assets";
 import Block from "./Block";
 
+interface SearchInputWalletProps {
+  title: string;
+  data: any;
+  containerStyle: object;
+  setSearch: (val: any) => void;
+  search: any;
+}
+
 const SearchInputWallet = ({
   title,
   data,
   containerStyle,
-  inputContainerStyle,
   setSearch,
   search,
-}: any) => {
+}: SearchInputWalletProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,20 +36,17 @@ const SearchInputWallet = ({
         onClick={() => {
           setOpen(!open);
         }}
-        sx={[
-          {
-            width: "100%",
-            height: "37px",
-            justifyContent: "space-between",
-            alignItems: "center",
-            display: "flex",
-            background: "white",
-            borderRadius: "3px",
-            border: "2px solid #DEDEDE",
-            paddingX: "7px",
-          },
-          inputContainerStyle,
-        ]}
+        sx={{
+          width: "100%",
+          height: "37px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          display: "flex",
+          background: "white",
+          borderRadius: "3px",
+          border: "2px solid #DEDEDE",
+          paddingX: "7px",
+        }}
       >
         <TextField
           variant="standard"

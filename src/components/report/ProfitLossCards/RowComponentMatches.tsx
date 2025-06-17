@@ -10,6 +10,16 @@ import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "./AllRateSeperate";
 import AllUserListSeparate from "./AllUserListSeparate";
 
+interface RowComponentMatchesProps {
+  item: any;
+  index: number;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  userProfitLoss: any;
+  getUserProfitLoss: (val: string) => void;
+  currentPage: number;
+}
+
 const RowComponentMatches = ({
   item,
   index,
@@ -18,8 +28,7 @@ const RowComponentMatches = ({
   userProfitLoss,
   getUserProfitLoss,
   currentPage,
-  color,
-}: any) => {
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { betProfitLossListCards } = useSelector(
@@ -226,7 +235,7 @@ const RowComponentMatches = ({
                 lineHeight: "0.9",
               }}
             >
-              {handleNumber(parseFloat(item?.rateProfitLoss || 0), color)}{" "}
+              {handleNumber(parseFloat(item?.rateProfitLoss || 0), "")}{" "}
               {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
                   ${formatToINR(Number(item?.totalDeduction || 0))})`}
             </Typography>
@@ -275,10 +284,7 @@ const RowComponentMatches = ({
                         item={profitLoss}
                         index={index + 1}
                         matchId={item?.gameId}
-                        userId={item?.userId}
-                        showListOfUsers={showListOfUsers}
                         getBetReport={getBetReport}
-                        selectedId={selectedId}
                       />
                     );
                   })}
@@ -298,10 +304,8 @@ const RowComponentMatches = ({
                 }}
               >
                 <AllRateSeperate
-                  betHistory={false}
                   count={betProfitLossListCards?.length}
                   allBetsData={betProfitLossListCards && betProfitLossListCards}
-                  profit
                 />
               </Box>
               <Box sx={{ width: { lg: "1vw", xs: 0 } }} />

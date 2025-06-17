@@ -4,6 +4,22 @@ import { EyeIcon, EyeSlash } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import BoxButton from "./BoxButton";
 
+interface MobileViewUserDetailsProps {
+  value: any;
+  onChange: (val: any, val2: any) => void;
+  setShowPass: (val: any) => void;
+  showPass: boolean;
+  onCancel: () => void;
+  initialBalance: any;
+  backgroundColor: any;
+  loading: boolean;
+  title: string;
+  userName: string;
+  elementToUDM: any;
+  titleBackgroundColor: any;
+  type: string;
+}
+
 const MobileViewUserDetails = ({
   value,
   onChange,
@@ -18,7 +34,7 @@ const MobileViewUserDetails = ({
   elementToUDM,
   titleBackgroundColor,
   type,
-}: any) => {
+}: MobileViewUserDetailsProps) => {
   const formatIndianCurrency = (amount: number) => {
     const formatter = new Intl.NumberFormat("en-IN", {
       currency: "INR",

@@ -6,7 +6,21 @@ import StyledImage from "../../Common/StyledImages";
 import MoneyBox from "../MatchOdds/MoneyBox";
 import SeperateBox from "../MatchOdds/SeperateBox";
 
-const BoxComponent = ({ name, color, rates, data, marketDetails }: any) => {
+interface BoxComponentProps {
+  name: string;
+  color: string;
+  rates: any;
+  data: any;
+  marketDetails: any;
+}
+
+const BoxComponent = ({
+  name,
+  color,
+  rates,
+  data,
+  marketDetails,
+}: BoxComponentProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};

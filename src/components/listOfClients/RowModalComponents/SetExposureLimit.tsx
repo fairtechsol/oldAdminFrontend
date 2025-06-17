@@ -1,22 +1,20 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
-import { EyeIcon, EyeSlash } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import BoxButton from "./BoxButton";
-
 import { useFormik } from "formik";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { EyeIcon, EyeSlash } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import {
   getTotalBalance,
   getUserList,
-  getUsersProfile,
   setExposureLimit,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { ApiConstants } from "../../../utils/Constants";
 import { depositAmountValidations } from "../../../utils/Validations";
+import StyledImage from "../../Common/StyledImages";
+import BoxButton from "./BoxButton";
 
 const initialValues: any = {
   userId: "",
@@ -25,15 +23,23 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
+interface SetExposureLimitProps {
+  backgroundColor: string;
+  setSelected: () => void;
+  element: any;
+  endpoint: string;
+  onChangeAmount: any;
+  currentPage: number;
+}
+
 const SetExposureLimit = ({
   backgroundColor,
   setSelected,
   element,
   endpoint,
-  isWallet,
   onChangeAmount,
   currentPage,
-}: any) => {
+}: SetExposureLimitProps) => {
   const [showPass, setShowPass] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();
@@ -46,21 +52,16 @@ const SetExposureLimit = ({
         return;
       }
       let payload;
-      if (isWallet) {
-        payload = {
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        amount: values.amount,
+        transactionPassword: values.transactionPassword,
+      };
+
       dispatch(
         setExposureLimit({
-          url: isWallet ? ApiConstants.WALLET.EXPOSURELIMIT : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -76,17 +77,15 @@ const SetExposureLimit = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-      }
+      setSelected();
+
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+
       dispatch(getTotalBalance({}));
       setSubmitting(false);
       dispatch(userListSuccessReset());

@@ -32,9 +32,20 @@ const initialValues: any = {
   transactionType: "withDraw",
 };
 
+interface WithdrawComponentProps {
+  endpoint: string;
+  walletAccountDetail: any;
+  element: any;
+  backgroundColor: string;
+  selected: any;
+  setSelected: () => void;
+  titleBackgroundColor?: any;
+  onChangeAmount: any;
+  currentPage: number;
+}
+
 const WithdrawComponent = ({
   endpoint,
-  isWallet,
   walletAccountDetail,
   element,
   backgroundColor,
@@ -43,7 +54,7 @@ const WithdrawComponent = ({
   titleBackgroundColor,
   onChangeAmount,
   currentPage,
-}: any) => {
+}: WithdrawComponentProps) => {
   const [showPass, setShowPass] = useState(false);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -123,25 +134,18 @@ const WithdrawComponent = ({
         return;
       }
       let payload;
-      if (isWallet) {
-        payload = {
-          amount: parseFloat(values.amount),
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-          transactionType: "withDraw",
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          amount: parseFloat(values.amount),
-          transactionPassword: values.transactionPassword,
-          remark: values.remark,
-          transactionType: "withDraw",
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        amount: parseFloat(values.amount),
+        transactionPassword: values.transactionPassword,
+        remark: values.remark,
+        transactionType: "withDraw",
+      };
+
       dispatch(
         changeAmmountUser({
-          url: isWallet ? ApiConstants.WALLET.BALANCEUPDATE : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -157,19 +161,15 @@ const WithdrawComponent = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-        dispatch(getTotalBalance({}));
-        dispatch(getUsersProfile());
-      }
+      setSelected();
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+      dispatch(getTotalBalance({}));
+      dispatch(getUsersProfile());
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
@@ -180,15 +180,9 @@ const WithdrawComponent = ({
 
   useEffect(() => {
     onChangeAmount(formik.values.amount, element?.id, "withdraw");
-    if (isWallet) {
-      setInitialBalance(
-        +walletAccountDetail?.userBal?.currentBalance - +formik.values.amount
-      );
-    } else {
-      setInitialBalance(
-        +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
-      );
-    }
+    setInitialBalance(
+      +walletAccountDetail?.userBal?.currentBalance + +formik.values.amount
+    );
   }, [formik.values.amount, onChangeAmount]);
   const handleValueChange = (v: any, type: string) => {
     if (type === "amount") {
@@ -218,8 +212,6 @@ const WithdrawComponent = ({
               elementToUDM={element}
               userName={element?.userName}
               title={"Withdraw Amount"}
-              setSelected={setSelected}
-              selected={selected}
               value={formik.values}
               onChange={handleValueChange}
               setShowPass={setShowPass}
@@ -233,7 +225,6 @@ const WithdrawComponent = ({
               loading={loading}
               titleBackgroundColor={titleBackgroundColor}
               type="withdraw"
-              currentPage={currentPage}
             />
           </form>
         </ModalMUI>

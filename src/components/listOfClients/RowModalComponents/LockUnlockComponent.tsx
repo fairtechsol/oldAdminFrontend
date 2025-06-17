@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { EyeIcon, EyeSlash } from "../../../assets";
 import {
   getUserList,
-  getUsersProfile,
   setLockUnlockUser,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
@@ -21,15 +20,23 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
+interface LockUnlockComponentProps {
+  setSelected: () => void;
+  element: any;
+  walletAccountDetail?: any;
+  endpoint: string;
+  onChangeAmount: any;
+  currentPage: number;
+}
+
 const LockUnlockComponent = ({
   setSelected,
   element,
   walletAccountDetail,
   endpoint,
-  isWallet,
   onChangeAmount,
   currentPage,
-}: any) => {
+}: LockUnlockComponentProps) => {
   let elementLockUnlockObj1 = {
     all_blocked: element?.userBlock === true ? true : false,
     bet_blocked: element?.betBlock === true ? true : false,
@@ -66,7 +73,7 @@ const LockUnlockComponent = ({
       };
       dispatch(
         setLockUnlockUser({
-          url: isWallet ? ApiConstants.WALLET.LOCKUNLOCK : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -82,17 +89,15 @@ const LockUnlockComponent = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-      }
+      setSelected();
+
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
@@ -111,10 +116,8 @@ const LockUnlockComponent = ({
         sx={{
           display: "flex",
           borderRadius: "5px",
-          // paddingRight: { xs: "0", lg: "10px" },
           flexDirection: { xs: "column", md: "row", lg: "row" },
           gap: 2,
-          // width: { xs: "92vw", md: "80%", lg: "80%" },
         }}
       >
         <Box sx={{ width: "100%" }}>

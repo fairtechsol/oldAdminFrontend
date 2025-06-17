@@ -8,17 +8,27 @@ import { gameIconConstants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
 import RowComponentMatches from "./RowComponentMatches";
 
+interface RowComponentMatchesProps {
+  item: any;
+  getHandleReport: (val: string) => void;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  userProfitLoss: any;
+  getUserProfitLoss: (val: string) => void;
+  eventType: string;
+  currentPage: number;
+}
+
 const RowHeaderMatches = ({
   item,
   getHandleReport,
-  color,
   selectedId,
   getBetReport,
   userProfitLoss,
   getUserProfitLoss,
   eventType,
   currentPage,
-}: any) => {
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [show, setShow] = useState(false);
@@ -143,9 +153,9 @@ const RowHeaderMatches = ({
                 lineHeight: "0.9",
               }}
             >
-              {handleNumber(parseFloat(item?.totalLoss || 0), color)}{" "}
+              {handleNumber(parseFloat(item?.totalLoss || 0), "")}{" "}
               {`${matchesMobile ? "TD(1%)" : "Total Deduction"} : `}
-              {handleNumber(parseFloat(item?.totalDeduction || 0), color)}{" "}
+              {handleNumber(parseFloat(item?.totalDeduction || 0), "")}{" "}
             </Typography>
           </Box>
         </Box>

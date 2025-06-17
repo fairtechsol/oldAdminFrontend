@@ -158,7 +158,6 @@ const Header = () => {
             <Box sx={classes.BoxCont1sub2}>
               <BoxProfile
                 containerStyle={classes.BoxCont1sub2BoxProfileContStyle}
-                image={"https://picsum.photos/200/300"}
                 value={profileDetail && profileDetail?.userName}
                 balance={profileDetail?.userBal?.currentBalance ?? 0}
               />

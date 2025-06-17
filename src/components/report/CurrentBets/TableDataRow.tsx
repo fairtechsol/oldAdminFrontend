@@ -4,6 +4,16 @@ import { memo } from "react";
 import { formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
 
+interface TableDataRowProps {
+  containerStyle: object;
+  data: any;
+  fContainerStyle: object;
+  fTextStyle: object;
+  index: number;
+  currentPage: number;
+  pageLimit: number;
+}
+
 const TableDataRow = ({
   containerStyle,
   data,
@@ -12,9 +22,9 @@ const TableDataRow = ({
   index,
   currentPage,
   pageLimit,
-}: any) => {
+}: TableDataRowProps) => {
   let flag = index % 2 != 0;
-  let no = (index + 1 + pageLimit * (currentPage - 1)).toString();
+  let no: any = (index + 1 + pageLimit * (currentPage - 1)).toString();
   return (
     <Box
       sx={[

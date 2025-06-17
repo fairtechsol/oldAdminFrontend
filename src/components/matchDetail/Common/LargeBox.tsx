@@ -1,7 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 
-const LargeBox = ({ item, k }: any) => {
+interface LargeBoxProps {
+  item: any;
+  k: number;
+}
+
+const LargeBox = ({ item, k }: LargeBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (

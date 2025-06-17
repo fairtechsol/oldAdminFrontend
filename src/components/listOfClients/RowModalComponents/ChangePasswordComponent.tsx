@@ -8,7 +8,6 @@ import {
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { ApiConstants } from "../../../utils/Constants";
 import { userChangePasswordValidations } from "../../../utils/Validations";
 import CustomErrorMessage from "../../Common/CustomErrorMessage";
 import StyledImage from "../../Common/StyledImages";
@@ -20,12 +19,17 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
+interface ChangePasswordComponentProps {
+  setSelected: () => void;
+  element: any;
+  endpoint: string;
+}
+
 const ChangePasswordComponent = ({
   setSelected,
   element,
-  walletAccountDetail,
   endpoint,
-}: any) => {
+}: ChangePasswordComponentProps) => {
   const [showPass, setShowPass] = useState(false);
   const [showPassTransaction, setShowPassTransaction] = useState(false);
 
@@ -39,29 +43,16 @@ const ChangePasswordComponent = ({
         return;
       }
       let payload;
-      if (walletAccountDetail) {
-        payload = {
-          newPassword: values.newPassword,
-          transactionPassword: values.transactionPassword,
-        };
-      } else if (element.roleName === "expert") {
-        payload = {
-          id: element?.id,
-          password: values.newPassword,
-          transactionPassword: values.transactionPassword,
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          newPassword: values.newPassword,
-          transactionPassword: values.transactionPassword,
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        newPassword: values.newPassword,
+        transactionPassword: values.transactionPassword,
+      };
+
       dispatch(
         changePasswordRow({
-          url: walletAccountDetail
-            ? ApiConstants.WALLET.CHANGEPASSWORD
-            : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -77,7 +68,7 @@ const ChangePasswordComponent = ({
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
+      setSelected();
       dispatch(userListSuccessReset());
     }
     if (error) {
