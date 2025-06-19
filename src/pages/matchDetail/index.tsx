@@ -346,69 +346,274 @@ const MatchDetail = () => {
     };
   }, []);
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" },
+        flex: 1,
+        height: "100%",
+        marginX: "0.5%",
+      }}
+    >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", lg: "row" },
           flex: 1,
-          height: "100%",
-          marginX: "0.5%",
+          flexDirection: "column",
+          minHeight: "100px",
+          display: "flex",
         }}
       >
+        <Typography
+          sx={{
+            fontSize: "16px",
+            color: "white",
+            fontWeight: "700",
+            alignSelf: "start",
+          }}
+        >
+          {matchDetail?.title}
+        </Typography>
+        {matchDetail?.tournament &&
+          matchDetail?.tournament
+            ?.filter(
+              (items: any) =>
+                items.activeStatus === "live" &&
+                !["completed_match", "tied_match"].includes(
+                  items?.name?.toLowerCase()
+                )
+            )
+            ?.sort((a: any, b: any) => a.sNo - b.sNo)
+            ?.map((market: any, index: any) => {
+              return (
+                <TournamentOdds
+                  key={index}
+                  currentMatch={matchDetail}
+                  minBet={Math.floor(market?.minBet) || 0}
+                  maxBet={Math.floor(market?.maxBet) || 0}
+                  title={market?.name}
+                  liveData={market}
+                  profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
+                    (item: any) =>
+                      item?.betId === (market?.parentBetId || market?.id)
+                  )}
+                />
+              );
+            })}
+
+        <Box sx={{ width: "150px", height: "3px" }} />
+        {matchDetail?.manualSessionActive &&
+          matchDetail?.sessionBettings?.filter(
+            (item: any) =>
+              !JSON.parse(item).selectionId &&
+              JSON.parse(item)?.activeStatus === "live"
+          )?.length > 0 &&
+          matchesMobile && (
+            <SessionMarket
+              title="Quick Session Market"
+              allBetsData={
+                matchDetail?.profitLossDataSession
+                  ? Array.from(
+                      matchDetail?.profitLossDataSession?.reduce(
+                        (acc: any, obj: any) =>
+                          acc.has(obj.betId) ? acc : acc.add(obj.betId) && acc,
+                        new Set()
+                      ),
+                      (id) =>
+                        matchDetail?.profitLossDataSession?.find(
+                          (obj: any) => obj.betId === id
+                        )
+                    )
+                  : []
+              }
+              currentMatch={matchDetail}
+              sessionData={matchDetail?.sessionBettings?.filter(
+                (item: any) => !JSON.parse(item).selectionId
+              )}
+              min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+              type="session"
+            />
+          )}
+        {matchDetail?.apiSessionActive &&
+          Object.entries(matchDetail?.apiSession || {})
+            ?.filter(
+              ([key, value]: any) =>
+                value?.section?.length > 0 &&
+                key != sessionBettingType.cricketCasino
+            )
+            ?.slice()
+            ?.sort(customSortBySessionMarketName)
+            ?.map(([key, value]: any, index: number) => {
+              return (
+                <SessionMarket
+                  key={index}
+                  title={value?.mname || key}
+                  allBetsData={
+                    matchDetail?.profitLossDataSession
+                      ? Array.from(
+                          matchDetail?.profitLossDataSession?.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.betId)
+                                ? acc
+                                : acc.add(obj.betId) && acc,
+                            new Set()
+                          ),
+                          (id) =>
+                            matchDetail?.profitLossDataSession?.find(
+                              (obj: any) => obj.betId === id
+                            )
+                        )
+                      : []
+                  }
+                  currentMatch={matchDetail}
+                  sessionData={value?.section}
+                  min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+                  type={key || value?.gtype}
+                />
+              );
+            })}
+        {matchDetail?.apiSessionActive &&
+          (matchDetail?.apiSession?.cricketCasino?.section || [])
+            ?.filter(
+              (item: any) =>
+                !(
+                  item?.activeStatus === "unSave" ||
+                  item?.activeStatus === "result"
+                )
+            )
+            ?.map((item: any, index: number) => {
+              return (
+                <CricketCasinoMarket
+                  key={index}
+                  title={item?.RunnerName}
+                  allBetsData={
+                    matchDetail?.profitLossDataSession
+                      ? Array.from(
+                          matchDetail?.profitLossDataSession?.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.betId)
+                                ? acc
+                                : acc.add(obj.betId) && acc,
+                            new Set()
+                          ),
+                          (id) =>
+                            matchDetail?.profitLossDataSession?.find(
+                              (obj: any) => obj.betId === id
+                            )
+                        )
+                      : []
+                  }
+                  currentMatch={matchDetail}
+                  sessionData={item}
+                  min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
+                  type={sessionBettingType.cricketCasino}
+                />
+              );
+            })}
+        {matchDetail?.tournament &&
+          matchDetail?.tournament
+            ?.filter(
+              (items: any) =>
+                items.activeStatus === "live" &&
+                ["completed_match", "tied_match"].includes(
+                  items?.name?.toLowerCase()
+                )
+            )
+            ?.sort((a: any, b: any) => a.sNo - b.sNo)
+            ?.map((market: any, index: any) => {
+              return (
+                <TournamentOdds
+                  key={index}
+                  currentMatch={matchDetail}
+                  minBet={Math.floor(market?.minBet) || 0}
+                  maxBet={Math.floor(market?.maxBet) || 0}
+                  title={market?.name}
+                  liveData={market}
+                  profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
+                    (item: any) =>
+                      item?.betId === (market?.parentBetId || market?.id)
+                  )}
+                />
+              );
+            })}
+        {sessionProLoss?.length > 0 && matchesMobile && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: "1px",
+              rowGap: "5px",
+              height: "440px",
+              overflow: "scroll",
+              marginTop: "1.25vw",
+            }}
+          >
+            {sessionProLoss.map((v: any) => {
+              return (
+                <RunsBox
+                  key={v?.id}
+                  item={v}
+                  currentOdd={currentOdd?.betId === v?.id ? currentOdd : null}
+                />
+              );
+            })}
+          </Box>
+        )}
+
+        {matchesMobile && (
+          <UserProfitLoss
+            single="single"
+            title="User Profit Loss"
+            matchDetail={matchDetail}
+          />
+        )}
+        {placedBets?.length > 0 && (
+          <Box sx={{ mt: 0 }}>
+            <FullAllBets
+              IObets={
+                placedBets.length > 0
+                  ? Array.from(
+                      placedBets.reduce(
+                        (acc: any, obj: any) =>
+                          acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                        new Set()
+                      ),
+                      (id) => placedBets.find((obj: any) => obj.id === id)
+                    )
+                  : []
+              }
+              tag={false}
+            />
+          </Box>
+        )}
+      </Box>
+      {!matchesMobile && <Box sx={{ width: "20px" }} />}
+      {!matchesMobile && (
         <Box
           sx={{
             flex: 1,
             flexDirection: "column",
-            minHeight: "100px",
             display: "flex",
+            minHeight: "100px",
+            maxWidth: "50%",
           }}
         >
-          <Typography
+          <Box
             sx={{
-              fontSize: "16px",
-              color: "white",
-              fontWeight: "700",
-              alignSelf: "start",
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "100%",
             }}
           >
-            {matchDetail?.title}
-          </Typography>
-          {matchDetail?.tournament &&
-            matchDetail?.tournament
-              ?.filter(
-                (items: any) =>
-                  items.activeStatus === "live" &&
-                  !["completed_match", "tied_match"].includes(
-                    items?.name?.toLowerCase()
-                  )
-              )
-              ?.sort((a: any, b: any) => a.sNo - b.sNo)
-              ?.map((market: any, index: any) => {
-                return (
-                  <TournamentOdds
-                    key={index}
-                    currentMatch={matchDetail}
-                    minBet={Math.floor(market?.minBet) || 0}
-                    maxBet={Math.floor(market?.maxBet) || 0}
-                    title={market?.name}
-                    liveData={market}
-                    profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
-                      (item: any) =>
-                        item?.betId === (market?.parentBetId || market?.id)
-                    )}
-                  />
-                );
-              })}
-
+            <Box sx={{ width: "150px", marginY: ".75%", height: "15px" }} />
+          </Box>
           <Box sx={{ width: "150px", height: "3px" }} />
           {matchDetail?.manualSessionActive &&
             matchDetail?.sessionBettings?.filter(
               (item: any) =>
                 !JSON.parse(item).selectionId &&
                 JSON.parse(item)?.activeStatus === "live"
-            )?.length > 0 &&
-            matchesMobile && (
+            )?.length > 0 && (
               <SessionMarket
                 title="Quick Session Market"
                 allBetsData={
@@ -436,109 +641,8 @@ const MatchDetail = () => {
                 type="session"
               />
             )}
-          {matchDetail?.apiSessionActive &&
-            Object.entries(matchDetail?.apiSession || {})
-              ?.filter(
-                ([key, value]: any) =>
-                  value?.section?.length > 0 &&
-                  key != sessionBettingType.cricketCasino
-              )
-              ?.slice()
-              ?.sort(customSortBySessionMarketName)
-              ?.map(([key, value]: any, index: number) => {
-                return (
-                  <SessionMarket
-                    key={index}
-                    title={value?.mname || key}
-                    allBetsData={
-                      matchDetail?.profitLossDataSession
-                        ? Array.from(
-                            matchDetail?.profitLossDataSession?.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.betId)
-                                  ? acc
-                                  : acc.add(obj.betId) && acc,
-                              new Set()
-                            ),
-                            (id) =>
-                              matchDetail?.profitLossDataSession?.find(
-                                (obj: any) => obj.betId === id
-                              )
-                          )
-                        : []
-                    }
-                    currentMatch={matchDetail}
-                    sessionData={value?.section}
-                    min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                    type={key || value?.gtype}
-                  />
-                );
-              })}
-          {matchDetail?.apiSessionActive &&
-            (matchDetail?.apiSession?.cricketCasino?.section || [])
-              ?.filter(
-                (item: any) =>
-                  !(
-                    item?.activeStatus === "unSave" ||
-                    item?.activeStatus === "result"
-                  )
-              )
-              ?.map((item: any, index: number) => {
-                return (
-                  <CricketCasinoMarket
-                    key={index}
-                    title={item?.RunnerName}
-                    allBetsData={
-                      matchDetail?.profitLossDataSession
-                        ? Array.from(
-                            matchDetail?.profitLossDataSession?.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.betId)
-                                  ? acc
-                                  : acc.add(obj.betId) && acc,
-                              new Set()
-                            ),
-                            (id) =>
-                              matchDetail?.profitLossDataSession?.find(
-                                (obj: any) => obj.betId === id
-                              )
-                          )
-                        : []
-                    }
-                    currentMatch={matchDetail}
-                    sessionData={item}
-                    min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                    type={sessionBettingType.cricketCasino}
-                  />
-                );
-              })}
-          {matchDetail?.tournament &&
-            matchDetail?.tournament
-              ?.filter(
-                (items: any) =>
-                  items.activeStatus === "live" &&
-                  ["completed_match", "tied_match"].includes(
-                    items?.name?.toLowerCase()
-                  )
-              )
-              ?.sort((a: any, b: any) => a.sNo - b.sNo)
-              ?.map((market: any, index: any) => {
-                return (
-                  <TournamentOdds
-                    key={index}
-                    currentMatch={matchDetail}
-                    minBet={Math.floor(market?.minBet) || 0}
-                    maxBet={Math.floor(market?.maxBet) || 0}
-                    title={market?.name}
-                    liveData={market}
-                    profitLossFromAnalysis={marketAnalysis?.betType?.match?.find(
-                      (item: any) =>
-                        item?.betId === (market?.parentBetId || market?.id)
-                    )}
-                  />
-                );
-              })}
-          {sessionProLoss?.length > 0 && matchesMobile && (
+
+          {sessionProLoss?.length > 0 && (
             <Box
               sx={{
                 display: "flex",
@@ -546,12 +650,12 @@ const MatchDetail = () => {
                 flexWrap: "wrap",
                 gap: "1px",
                 rowGap: "5px",
-                height: "440px",
+                height: "524px",
                 overflow: "scroll",
                 marginTop: "1.25vw",
               }}
             >
-              {sessionProLoss.map((v: any) => {
+              {sessionProLoss?.map((v: any) => {
                 return (
                   <RunsBox
                     key={v?.id}
@@ -562,124 +666,14 @@ const MatchDetail = () => {
               })}
             </Box>
           )}
-
-          {matchesMobile && (
-            <UserProfitLoss
-              single="single"
-              title="User Profit Loss"
-              matchDetail={matchDetail}
-            />
-          )}
-          {placedBets?.length > 0 && (
-            <Box sx={{ mt: 0 }}>
-              <FullAllBets
-                IObets={
-                  placedBets.length > 0
-                    ? Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      )
-                    : []
-                }
-                tag={false}
-              />
-            </Box>
-          )}
+          <UserProfitLoss
+            single="single"
+            title="User Profit Loss"
+            matchDetail={matchDetail}
+          />
         </Box>
-        {!matchesMobile && <Box sx={{ width: "20px" }} />}
-        {!matchesMobile && (
-          <Box
-            sx={{
-              flex: 1,
-              flexDirection: "column",
-              display: "flex",
-              minHeight: "100px",
-              maxWidth: "50%",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                width: "100%",
-              }}
-            >
-              <Box sx={{ width: "150px", marginY: ".75%", height: "15px" }} />
-            </Box>
-            <Box sx={{ width: "150px", height: "3px" }} />
-            {matchDetail?.manualSessionActive &&
-              matchDetail?.sessionBettings?.filter(
-                (item: any) =>
-                  !JSON.parse(item).selectionId &&
-                  JSON.parse(item)?.activeStatus === "live"
-              )?.length > 0 && (
-                <SessionMarket
-                  title="Quick Session Market"
-                  allBetsData={
-                    matchDetail?.profitLossDataSession
-                      ? Array.from(
-                          matchDetail?.profitLossDataSession?.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.betId)
-                                ? acc
-                                : acc.add(obj.betId) && acc,
-                            new Set()
-                          ),
-                          (id) =>
-                            matchDetail?.profitLossDataSession?.find(
-                              (obj: any) => obj.betId === id
-                            )
-                        )
-                      : []
-                  }
-                  currentMatch={matchDetail}
-                  sessionData={matchDetail?.sessionBettings?.filter(
-                    (item: any) => !JSON.parse(item).selectionId
-                  )}
-                  min={formatToINR(matchDetail?.betFairSessionMinBet) || 0}
-                  type="session"
-                />
-              )}
-
-            {sessionProLoss?.length > 0 && (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  gap: "1px",
-                  rowGap: "5px",
-                  height: "524px",
-                  overflow: "scroll",
-                  marginTop: "1.25vw",
-                }}
-              >
-                {sessionProLoss?.map((v: any) => {
-                  return (
-                    <RunsBox
-                      key={v?.id}
-                      item={v}
-                      currentOdd={
-                        currentOdd?.betId === v?.id ? currentOdd : null
-                      }
-                    />
-                  );
-                })}
-              </Box>
-            )}
-            <UserProfitLoss
-              single="single"
-              title="User Profit Loss"
-              matchDetail={matchDetail}
-            />
-          </Box>
-        )}
-      </Box>
-    </>
+      )}
+    </Box>
   );
 };
 

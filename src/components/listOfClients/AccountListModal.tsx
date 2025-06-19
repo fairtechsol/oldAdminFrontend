@@ -12,7 +12,7 @@ import SubHeaderListRow from "./SubHeaderListRow";
 interface AccountListTableProps {
   endpoint: string;
   id: string;
-  setShow: any;
+  setShow: (val: any) => void;
   title: string;
   element: any;
 }
