@@ -1,7 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import React, { memo } from "react";
+import React, { memo, ReactNode } from "react";
 
-const MarqueeText = ({ children, index }: any) => {
+const MarqueeText = ({
+  children,
+  index,
+}: {
+  children?: ReactNode;
+  index: number;
+}) => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [shouldMarquee, setShouldMarquee] = React.useState(false);
 

@@ -38,71 +38,67 @@ const CommissionReportTable = ({
   }, [id, currentPage]);
 
   return (
-    <>
-      <Box
-        sx={[
-          {
-            width: { xs: "96%", lg: "85%", md: "96%" },
-            // marginX: "0.5%",
-            minHeight: loading ? "50%" : "200px",
-            maxHeight: "90%",
-            display: "flex",
-            flexDirection: "column",
-            // justifyContent: "space-between",
-            borderRadius: "10px",
-            borderBottomRightRadius: "0px",
-            borderBottomLeftRadius: "0px",
-            overflow: "hidden",
-            border: "2px solid white",
-          },
-          (theme: any) => ({
-            backgroundImage: `${theme.palette.primary.headerGradient}`,
-          }),
-        ]}
-      >
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
-              <ListHeader
-                userName={title}
-                title="Commission Report"
-                setShow={setShow}
-              />
-            </Box>
-            <Box
-              sx={{
-                overflowX: "auto",
-                width: { xs: "100%", lg: "100%", md: "100%" },
-              }}
-            >
-              {commissionMatchList?.rows?.map((element: any, index: number) => (
-                <MatchList
-                  key={element?.id}
-                  element={element}
-                  index={index}
-                  selectedId={selectedId}
-                  setSelectedId={setSelectedId}
-                  showCommisionReport={showCommisionReport}
-                  setShowCommisionReport={setShowCommisionReport}
-                  id={id}
-                />
-              ))}
-            </Box>
-            <Pagination
-              currentPage={currentPage}
-              pages={Math.ceil(
-                parseInt(
-                  commissionMatchList?.count ? commissionMatchList?.count : 1
-                ) / Constants.pageLimit
-              )}
-              setCurrentPage={setCurrentPage}
+    <Box
+      sx={[
+        {
+          width: { xs: "96%", lg: "85%", md: "96%" },
+          minHeight: loading ? "50%" : "200px",
+          maxHeight: "90%",
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "10px",
+          borderBottomRightRadius: "0px",
+          borderBottomLeftRadius: "0px",
+          overflow: "hidden",
+          border: "2px solid white",
+        },
+        (theme: any) => ({
+          backgroundImage: `${theme.palette.primary.headerGradient}`,
+        }),
+      ]}
+    >
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
+            <ListHeader
+              userName={title}
+              title="Commission Report"
+              setShow={setShow}
             />
-          </>
-        )}
-      </Box>
-    </>
+          </Box>
+          <Box
+            sx={{
+              overflowX: "auto",
+              width: { xs: "100%", lg: "100%", md: "100%" },
+            }}
+          >
+            {commissionMatchList?.rows?.map((element: any, index: number) => (
+              <MatchList
+                key={element?.id}
+                element={element}
+                index={index}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
+                showCommisionReport={showCommisionReport}
+                setShowCommisionReport={setShowCommisionReport}
+                id={id}
+              />
+            ))}
+          </Box>
+          <Pagination
+            currentPage={currentPage}
+            pages={Math.ceil(
+              parseInt(
+                commissionMatchList?.count ? commissionMatchList?.count : 1
+              ) / Constants.pageLimit
+            )}
+            setCurrentPage={setCurrentPage}
+          />
+        </>
+      )}
+    </Box>
   );
 };
 
