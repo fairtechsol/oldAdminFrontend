@@ -198,9 +198,9 @@ const MultipleMatch = () => {
 
   const handleMatchResultUndeclared = (event: any) => {
     try {
-      alert(111)
       if (state?.matchIds.includes(event?.matchId)) {
-        dispatch(getPlacedBets(`eq${state?.matchId}`));
+        dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
+        // dispatch(getPlacedBets(`eq${state?.matchId}`));
         dispatch(updateMatchRatesOnMarketUndeclareForMulti(event));
       }
     } catch (error) {
