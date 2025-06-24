@@ -35,8 +35,12 @@ const Inplay = () => {
     },
   });
   const classes = useStyles();
-  const { loading, matchListInplay, success, matchListInplaySuccess } =
-    useSelector((state: RootState) => state.match.matchList);
+  const {
+    loading,
+    matchListInplay,
+    success,
+    matchListInplaySuccess,
+  } = useSelector((state: RootState) => state.match.matchList);
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -67,6 +71,18 @@ const Inplay = () => {
     dispatch(getMatchListInplay({ currentPage: currentPage }));
   };
 
+  const getMatchListServiceOnDeclare = (event: any) => {
+    try {
+      if (!event?.betId) {
+        setTimeout(() => {
+          dispatch(getMatchListInplay({ currentPage: currentPage }));
+        }, 1000);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     try {
       if (success && socket) {
@@ -80,10 +96,16 @@ const Inplay = () => {
           socketService.match.declaredMatchResultAllUserOff();
           socketService.match.unDeclaredMatchResultAllUserOff();
           socketService.match.matchAddedOff();
-          socketService.match.matchResultDeclared(getMatchListService);
-          socketService.match.matchResultUnDeclared(getMatchListService);
-          socketService.match.declaredMatchResultAllUser(getMatchListService);
-          socketService.match.unDeclaredMatchResultAllUser(getMatchListService);
+          socketService.match.matchResultDeclared(getMatchListServiceOnDeclare);
+          socketService.match.matchResultUnDeclared(
+            getMatchListServiceOnDeclare
+          );
+          socketService.match.declaredMatchResultAllUser(
+            getMatchListServiceOnDeclare
+          );
+          socketService.match.unDeclaredMatchResultAllUser(
+            getMatchListServiceOnDeclare
+          );
           socketService.match.matchAdded(getMatchListService);
         }
         dispatch(matchListReset());
@@ -131,7 +153,7 @@ const Inplay = () => {
 
     return () => clearInterval(intervalId);
   }, []);
-  
+
   useEffect(() => {
     if (matchListInplaySuccess) {
       getMatchListMarket("cricket");

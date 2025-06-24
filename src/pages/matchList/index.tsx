@@ -68,6 +68,21 @@ const Inplay = () => {
     }
   };
 
+  
+  const getMatchListServiceOnDeclare = (event: any) => {
+    try {
+      if (event?.gameType == type && !event?.betId) {
+        setTimeout(() => {
+           dispatch(
+          getMatchListInplay({ currentPage: currentPage, matchType: type })
+        );
+        }, 1000);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     try {
       dispatch(
@@ -86,10 +101,10 @@ const Inplay = () => {
         socketService.match.declaredMatchResultAllUserOff();
         socketService.match.unDeclaredMatchResultAllUserOff();
         socketService.match.matchAddedOff();
-        socketService.match.matchResultDeclared(getMatchListService);
-        socketService.match.matchResultUnDeclared(getMatchListService);
-        socketService.match.declaredMatchResultAllUser(getMatchListService);
-        socketService.match.unDeclaredMatchResultAllUser(getMatchListService);
+        socketService.match.matchResultDeclared(getMatchListServiceOnDeclare);
+        socketService.match.matchResultUnDeclared(getMatchListServiceOnDeclare);
+        socketService.match.declaredMatchResultAllUser(getMatchListServiceOnDeclare);
+        socketService.match.unDeclaredMatchResultAllUser(getMatchListServiceOnDeclare);
         socketService.match.matchAdded(getMatchListService);
       }
     } catch (e) {
