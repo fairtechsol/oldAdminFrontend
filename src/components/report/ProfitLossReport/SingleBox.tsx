@@ -56,6 +56,7 @@ const SingleBox = ({
               maxHeight: "2em",
               overflow: "hidden",
               lineHeight: 1,
+              overflowWrap: "anywhere",
             }}
           >
             {data}

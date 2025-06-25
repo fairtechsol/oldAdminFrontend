@@ -267,39 +267,89 @@ const AllRateSeperate = ({ allBetsData, count }: AllRateSeperateProps) => {
                       </Box>
                     )}
                     {i?.deleteReason && (
-                      <Box
-                        sx={{
-                          height: "40px",
-                          width: "12%",
-                          display: "flex",
-                          background: "black",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          zIndex: 999,
-                        }}
-                      >
-                        <StyledImage
+                      <>
+                        <Box
                           sx={{
-                            width: { xs: "15px", lg: "20px" },
-                            height: { lg: "20px", xs: "14px" },
-                            marginRight: "5px",
-                          }}
-                          src={DeleteIcon}
-                          alt="delete"
-                        />
-                        <Typography
-                          sx={{
-                            fontSize: { xs: "7px", lg: ".5vw" },
-                            color: "white",
-                            fontWeight: "700",
-                            width: { lg: "65%", xs: "55%" },
-                            textTransform: "uppercase",
+                            height: "40px",
+                            width: "12%",
+                            background: i?.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                           }}
                         >
-                          Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                          Due {"\n"} {i?.deleteReason}
-                        </Typography>
-                      </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              height: "100%",
+                              px: "5px",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: { xs: "9px", lg: "14px" },
+                                color: "white",
+                                fontWeight: "700",
+                              }}
+                            >
+                              {Number(i.totalLoss) >= 0 ? (
+                                <>
+                                  <span style={{ visibility: "hidden" }}>-</span>
+                                  {formatToINR(Number(i.totalLoss).toFixed(2))}
+                                </>
+                              ) : (
+                                formatToINR(Number(i.totalLoss).toFixed(2))
+                              )}
+                            </Typography>
+
+                            {!matchesMobile && (
+                              <StyledImage
+                                sx={{
+                                  width: { xs: "12px", lg: "15px" },
+                                  height: { xs: "5px", lg: "7px" },
+                                }}
+                                src={i?.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
+                                alt="arrow"
+                              />
+                            )}
+                          </Box>
+                        </Box>
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            height: "40px",
+                            width: "100%",
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            // background: "black",
+                            // justifyContent: "center",
+                            alignItems: "center",
+                            zIndex: 999,
+                            paddingRight: "10px",
+                          }}
+                        >
+                          <StyledImage
+                            sx={{
+                              width: { xs: "15px", lg: "20px" },
+                              height: { lg: "20px", xs: "14px" },
+                              marginRight: "5px",
+                            }}
+                            src={DeleteIcon}
+                            alt="delete"
+                          />
+                          <Typography
+                            sx={{
+                              fontSize: { xs: "7px", lg: ".5vw" },
+                              color: "white",
+                              fontWeight: "700",
+                              width: { lg: "65%", xs: "55%" },
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
+                            Due {"\n"} {i?.deleteReason}
+                          </Typography>
+                        </Box>
+                      </>
                     )}
                   </Box>
                 );

@@ -740,8 +740,8 @@ const AllUserListSeparate = ({
                                 allBetsData={
                                   totalBetProfitLossModal
                                     ? Array.from(
-                                        new Set(totalBetProfitLossModal)
-                                      )
+                                      new Set(totalBetProfitLossModal)
+                                    )
                                     : []
                                 }
                                 profit
