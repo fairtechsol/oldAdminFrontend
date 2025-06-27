@@ -341,7 +341,6 @@ const AllRateSeperate = ({ allBetsData, count }: AllRateSeperateProps) => {
                               fontSize: { xs: "7px", lg: ".5vw" },
                               color: "white",
                               fontWeight: "700",
-                              width: { lg: "65%", xs: "55%" },
                               textTransform: "uppercase",
                             }}
                           >
