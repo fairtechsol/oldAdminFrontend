@@ -65,7 +65,9 @@ const MatchList = ({
   return (
     <Box sx={{ width: "100%" }}>
       <Box
-        onClick={handleClick}
+        onClick={() => {
+          element?.matchName?.toLowerCase() !== "settled" && handleClick();
+        }}
         sx={{
           width: "100%",
           height: "50px",
@@ -162,18 +164,21 @@ const MatchList = ({
                 Total: {formatToINR(element?.amount)}
               </Typography>
             )}
-            <StyledImage
-              src={ArrowDown}
-              alt="arrow down"
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  showCommisionReport && selectedId?.matchId == element?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            />
+            {element?.matchName?.toLowerCase() !== "settled" && (
+              <StyledImage
+                src={ArrowDown}
+                alt="arrow down"
+                sx={{
+                  width: { lg: "20px", xs: "10px" },
+                  height: { lg: "10px", xs: "6px" },
+                  transform:
+                    showCommisionReport &&
+                    selectedId?.matchId == element?.matchId
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+              />
+            )}
           </Box>
         </Box>
       </Box>
