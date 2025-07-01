@@ -5,7 +5,6 @@ import { getCommissionMatch } from "../../store/actions/reports";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 import Pagination from "../Common/Pagination";
-import Loader from "../Loader";
 import ListHeader from "./ListHeader";
 import MatchList from "./MatchList";
 
@@ -57,47 +56,47 @@ const CommissionReportTable = ({
         }),
       ]}
     >
-      {loading ? (
+      {/* {loading ? (
         <Loader />
       ) : (
-        <>
-          <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
-            <ListHeader
-              userName={title}
-              title="Commission Report"
-              setShow={setShow}
-            />
-          </Box>
-          <Box
-            sx={{
-              overflowX: "auto",
-              width: { xs: "100%", lg: "100%", md: "100%" },
-            }}
-          >
-            {commissionMatchList?.rows?.map((element: any, index: number) => (
-              <MatchList
-                key={element?.id}
-                element={element}
-                index={index}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-                showCommisionReport={showCommisionReport}
-                setShowCommisionReport={setShowCommisionReport}
-                id={id}
-              />
-            ))}
-          </Box>
-          <Pagination
-            currentPage={currentPage}
-            pages={Math.ceil(
-              parseInt(
-                commissionMatchList?.count ? commissionMatchList?.count : 1
-              ) / Constants.pageLimit
-            )}
-            setCurrentPage={setCurrentPage}
+        <> */}
+      <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
+        <ListHeader
+          userName={title}
+          title="Commission Report"
+          setShow={setShow}
+        />
+      </Box>
+      <Box
+        sx={{
+          overflowX: "auto",
+          width: { xs: "100%", lg: "100%", md: "100%" },
+        }}
+      >
+        {commissionMatchList?.rows?.map((element: any, index: number) => (
+          <MatchList
+            key={element?.id}
+            element={element}
+            index={index}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+            showCommisionReport={showCommisionReport}
+            setShowCommisionReport={setShowCommisionReport}
+            id={id}
           />
-        </>
-      )}
+        ))}
+      </Box>
+      <Pagination
+        currentPage={currentPage}
+        pages={Math.ceil(
+          parseInt(
+            commissionMatchList?.count ? commissionMatchList?.count : 1
+          ) / Constants.pageLimit
+        )}
+        setCurrentPage={setCurrentPage}
+      />
+      {/* </>
+      )} */}
     </Box>
   );
 };
