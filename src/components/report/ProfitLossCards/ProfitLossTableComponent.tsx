@@ -117,6 +117,8 @@ const ProfitLossTableComponent = ({
                 getUserProfitLoss={getUserProfitLoss}
                 eventType={event}
                 currentPage={currentPage}
+                startDate={startDate}
+                endDate={endDate}
               />
             );
           })}

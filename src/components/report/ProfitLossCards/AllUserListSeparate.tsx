@@ -1,5 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ModalMUI from "@mui/material/Modal";
+import moment from "moment";
 import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
@@ -19,6 +20,8 @@ interface AllUserListSeparateProps {
   matchId: string;
   bet1Data?: any;
   sessionBets?: any;
+  startDate: any;
+  endDate: any;
 }
 
 const AllUserListSeparate = ({
@@ -29,6 +32,8 @@ const AllUserListSeparate = ({
   matchId,
   bet1Data,
   sessionBets,
+  startDate,
+  endDate,
 }: AllUserListSeparateProps) => {
   const theme = useTheme();
 
@@ -55,6 +60,8 @@ const AllUserListSeparate = ({
         gameId: props?.matchId,
         user: props?.user,
         searchId: userData?.id ? userData?.id : "",
+        startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+        endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
       };
       const resp = await service.post(
         `${ApiConstants.CARD.GET_TOTAL_BET_PROFIT_LOSS}`,
@@ -442,6 +449,8 @@ const AllUserListSeparate = ({
                             roleName: item?.roleName,
                           },
                           searchId: "",
+                          startDate: startDate,
+                          endDate: endDate,
                         });
                       }
                     }}
@@ -577,6 +586,8 @@ const AllUserListSeparate = ({
                 getBetReport={getBetReport}
                 sessionBetData={sessionBetData}
                 sessionBets={sessionBets}
+                startDate={startDate}
+                endDate={endDate}
               />
             </Box>
           </Box>

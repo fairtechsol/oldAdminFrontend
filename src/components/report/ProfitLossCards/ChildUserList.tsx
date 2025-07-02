@@ -12,6 +12,8 @@ interface ChildUserListProps {
   sessionBetData: any;
   sessionBets: any;
   bet1Data: any;
+  startDate: any;
+  endDate: any;
 }
 
 const ChildUserList = ({
@@ -22,6 +24,8 @@ const ChildUserList = ({
   sessionBetData,
   sessionBets,
   bet1Data,
+  startDate,
+  endDate,
 }: ChildUserListProps) => {
   const [data1, setData] = useState([]);
 
@@ -62,6 +66,8 @@ const ChildUserList = ({
           sessionBetData={sessionBetData}
           bet1Data={bet1Data}
           sessionBets={sessionBets}
+          startDate={startDate}
+          endDate={endDate}
         />
       ))}
     </Box>

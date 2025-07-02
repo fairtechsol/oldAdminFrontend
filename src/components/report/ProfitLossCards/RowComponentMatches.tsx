@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import moment from "moment";
 import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ARROWDOWN, ARROW_UP, ArrowDown } from "../../../assets";
@@ -18,6 +19,8 @@ interface RowComponentMatchesProps {
   userProfitLoss: any;
   getUserProfitLoss: (val: string) => void;
   currentPage: number;
+  startDate: any;
+  endDate: any;
 }
 
 const RowComponentMatches = ({
@@ -28,6 +31,8 @@ const RowComponentMatches = ({
   userProfitLoss,
   getUserProfitLoss,
   currentPage,
+  startDate,
+  endDate,
 }: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -96,6 +101,8 @@ const RowComponentMatches = ({
         getBetProfitLossCards({
           gameId: item?.gameId,
           searchId: userData?.id ? userData?.id : "",
+          startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+          endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
         })
       );
     }
@@ -285,6 +292,8 @@ const RowComponentMatches = ({
                         index={index + 1}
                         matchId={item?.gameId}
                         getBetReport={getBetReport}
+                        startDate={startDate}
+                        endDate={endDate}
                       />
                     );
                   })}

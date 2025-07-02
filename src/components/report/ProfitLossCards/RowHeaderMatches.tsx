@@ -17,6 +17,8 @@ interface RowComponentMatchesProps {
   getUserProfitLoss: (val: string) => void;
   eventType: string;
   currentPage: number;
+  startDate: any;
+  endDate: any;
 }
 
 const RowHeaderMatches = ({
@@ -28,6 +30,8 @@ const RowHeaderMatches = ({
   getUserProfitLoss,
   eventType,
   currentPage,
+  startDate,
+  endDate,
 }: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -209,6 +213,8 @@ const RowHeaderMatches = ({
                 userProfitLoss={userProfitLoss}
                 getUserProfitLoss={getUserProfitLoss}
                 currentPage={currentPage}
+                startDate={startDate}
+                endDate={endDate}
               />
             );
           })}

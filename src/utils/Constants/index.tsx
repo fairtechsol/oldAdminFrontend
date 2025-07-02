@@ -309,4 +309,8 @@ export const gameIconConstants = {
   [cardGamesTypeConstants.queen]: CasinoQueen,
   [cardGamesTypeConstants.worli]: WorliMatka,
   [cardGamesTypeConstants.mac88]: MAC88,
+  "MAC EXCITE": MAC88,
+  "MAC88 VIRTUALS": MAC88,
+  "FUN GAMES": "https://tezcdn.io/casino/int-casino-icon/fun-games.webp",
+  "COLOR PREDICTION": "https://tezcdn.io/casino/int-casino-icon/color-prediction.webp",
 };
