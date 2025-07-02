@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
+import moment from "moment";
 import { memo, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import service from "../../../service";
+import { RootState } from "../../../store/store";
 import { ApiConstants } from "../../../utils/Constants";
 import AllUserListSeparate from "./AllUserListSeparate";
 
@@ -27,6 +30,9 @@ const ChildUserList = ({
   startDate,
   endDate,
 }: ChildUserListProps) => {
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const [data1, setData] = useState([]);
 
   const getChildUserList = async () => {
@@ -36,7 +42,10 @@ const ChildUserList = ({
           id,
           roleName,
         },
+        partnerShipRoleName: profileDetail?.roleName,
         gameId: matchId,
+        startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+        endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
       };
       const { data } = await service.post(
         `${ApiConstants.CARD.GET_USERWISE_PROFIT_LOSS}`,

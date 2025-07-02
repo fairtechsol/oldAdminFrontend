@@ -78,6 +78,9 @@ const ProfitLossCards = () => {
       let payload = {
         gameId: matchId,
         searchId: search?.id ? search?.id : "",
+        startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+        endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
+        partnerShipRoleName: profileDetail?.roleName,
       };
       const { data } = await service.post(
         `${ApiConstants.CARD.GET_USERWISE_PROFIT_LOSS}`,
