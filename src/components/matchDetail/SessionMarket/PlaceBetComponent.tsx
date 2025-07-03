@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleNumber } from "../../../helper";
 import {
@@ -7,9 +8,19 @@ import {
 } from "../../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
+interface PlaceBetComponentProps {
+  newData: any;
+  profitLoss: any;
+  type: string;
+}
+
+const PlaceBetComponent = ({
+  newData,
+  profitLoss,
+  type,
+}: PlaceBetComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), color);
+  const profitloss = handleNumber(parseFloat(profitLoss?.maxLoss), "");
 
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
@@ -81,7 +92,6 @@ const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
           height: "35px",
-
           zIndex: 100,
         }}
       >
@@ -132,4 +142,4 @@ const PlaceBetComponent = ({ newData, profitLoss, color, type }: any) => {
   );
 };
 
-export default PlaceBetComponent;
+export default memo(PlaceBetComponent);

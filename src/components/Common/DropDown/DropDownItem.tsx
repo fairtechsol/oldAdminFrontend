@@ -1,28 +1,29 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
-const DropDownItem = (props: any) => {
-  const {
-    i,
-    CompetitionName,
-    disable,
-    setValue,
-    setOpen,
-    dropDownTextStyle,
-    setSelected,
-    name,
-  } = props;
+const DropDownItem = ({
+  i,
+  CompetitionName,
+  disable,
+  setValue,
+  setOpen,
+  dropDownTextStyle,
+  setSelected,
+  name,
+}: any) => {
+  const handleClick = () => {
+    if (!disable) {
+      setValue(i);
+      setOpen(false);
+      setSelected((prev: any) => ({
+        ...prev,
+        [name]: i,
+      }));
+    }
+  };
   return (
     <Box
-      onClick={() => {
-        if (!disable) {
-          setValue(i);
-          setOpen(false);
-          setSelected((prev: any) => ({
-            ...prev,
-            [name]: i,
-          }));
-        }
-      }}
+      onClick={handleClick}
       sx={[
         {
           paddingY: "4px",
@@ -44,4 +45,4 @@ const DropDownItem = (props: any) => {
   );
 };
 
-export default DropDownItem;
+export default memo(DropDownItem);

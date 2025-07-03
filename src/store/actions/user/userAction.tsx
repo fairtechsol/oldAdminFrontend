@@ -22,10 +22,7 @@ export const changePassword = createAsyncThunk<any, any>(
   "user/changePassword",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -39,10 +36,7 @@ export const changePasswordRow = createAsyncThunk<any, any>(
   "user/changePasswordRow",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -57,7 +51,7 @@ export const getMyAccountDetails = createAsyncThunk<any>(
   "user/getMyAccountDetails",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.BALANCE}`);
+      const resp = await service.get(ApiConstants.USER.BALANCE);
       if (resp) {
         const data = resp?.data?.response;
         return data;
@@ -73,15 +67,15 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   "user/list",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${requestData?.url?.endpoint}?searchBy=${
-          requestData?.searchBy ? requestData?.searchBy : ""
-        }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
-          requestData?.currentPage
-        }&limit=${
-          Constants.pageLimit
-        }&sort=user.betBlock:ASC,user.userBlock:ASC,user.userName:ASC`
-      );
+      const resp = await service.get(requestData?.url?.endpoint, {
+        params: {
+          searchBy: requestData?.searchBy,
+          keyword: requestData?.userName,
+          page: requestData?.currentPage,
+          limit: Constants.pageLimit,
+          sort: "user.betBlock:ASC,user.userBlock:ASC,user.userName:ASC",
+        },
+      });
       if (resp) {
         return resp?.data;
       }
@@ -92,38 +86,16 @@ export const getUserList = createAsyncThunk<any, RequestData | undefined>(
   }
 );
 
-export const getModalUserList = createAsyncThunk<any, RequestData | undefined>(
-  "user/modalList",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${requestData?.url}?searchBy=${
-          requestData?.searchBy ? requestData?.searchBy : ""
-        }&userId=${requestData?.userId}&roleName=${
-          requestData?.roleName
-        }&keyword=${requestData?.userName ? requestData?.userName : ""}&page=${
-          requestData?.currentPage
-        }&limit=${Constants.pageLimit}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const getTotalBalance = createAsyncThunk<any, RequestData | undefined>(
+export const getTotalBalance = createAsyncThunk<any, RequestData | any>(
   "user/balance",
-  async (requestData, thunkApi) => {
+  async ({ userId, roleName }, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.USER.TOTAL_BALANCE}?userId=${
-          requestData?.userId ? requestData?.userId : ""
-        }&roleName=${requestData?.roleName ? requestData?.roleName : ""}`
-      );
+      const resp = await service.get(ApiConstants.USER.TOTAL_BALANCE, {
+        params: {
+          userId,
+          roleName,
+        },
+      });
       if (resp) {
         return resp?.data;
       }
@@ -139,61 +111,7 @@ export const addUser = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.ADDFGADMIN}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const addExpert = createAsyncThunk<any, any>(
-  "user/addExpert",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.ADDEXPERT}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const addUrlAdmin = createAsyncThunk<any, any>(
-  "user/addUrlAdmin",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.ADDURLADMIN}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const updateUrlAdmin = createAsyncThunk<any, any>(
-  "user/updateUrlAdmin",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.UPDATEURLADMIN}`,
+        ApiConstants.USER.ADDFGADMIN,
         requestData
       );
       if (resp) {
@@ -210,10 +128,7 @@ export const updateUser = createAsyncThunk<any, any>(
   "user/updateUser",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${ApiConstants.USER.UPDATE}`,
-        requestData
-      );
+      const resp = await service.post(ApiConstants.USER.UPDATE, requestData);
       if (resp) {
         return resp?.data;
       }
@@ -223,35 +138,17 @@ export const updateUser = createAsyncThunk<any, any>(
     }
   }
 );
-export const updateExpert = createAsyncThunk<any, any>(
-  "user/updateExpert",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.UPDATEEXPERT}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
 export const getUsersProfile = createAsyncThunk(
   "user/profile",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.PROFILE}`);
+      const resp = await service.get(ApiConstants.USER.PROFILE);
       if (resp) {
-        if (resp?.data[0][0]?.loginAt === null) {
+        if (resp?.data?.loginAt === null) {
           window.location.replace("/admin/login");
           sessionStorage.clear();
         } else {
-          return resp?.data[0][0];
+          return resp?.data;
         }
       }
     } catch (error: any) {
@@ -264,11 +161,13 @@ export const getUsersDetail = createAsyncThunk<any, string>(
   "user/detail",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.USER.PROFILE}?userId=${requestData}`
-      );
+      const resp = await service.get(ApiConstants.USER.PROFILE, {
+        params: {
+          userId: requestData,
+        },
+      });
       if (resp) {
-        return resp?.data[0][0];
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -281,10 +180,7 @@ export const changeAmmountUser = createAsyncThunk<any, any>(
   "balance/update",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -300,7 +196,7 @@ export const handleSettleCommission = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.COMMISSION_SETTLEMENT}`,
+        ApiConstants.USER.COMMISSION_SETTLEMENT,
         requestData
       );
       if (resp) {
@@ -332,7 +228,7 @@ export const marqueeNotification = createAsyncThunk<any>(
   "expert/notification",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.MARQUEE}`);
+      const resp = await service.get(ApiConstants.USER.MARQUEE);
       if (resp) {
         return resp?.data;
       }
@@ -347,10 +243,7 @@ export const setCreditRefference = createAsyncThunk<any, any>(
   "user/update/creditreferrence",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -365,10 +258,7 @@ export const setExposureLimit = createAsyncThunk<any, any>(
   "user/update/exposurelimit",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -383,10 +273,7 @@ export const setLockUnlockUser = createAsyncThunk<any, any>(
   "/user/lockUnlockUser",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(
-        `${requestData.url}`,
-        requestData.payload
-      );
+      const resp = await service.post(requestData.url, requestData.payload);
       if (resp) {
         return resp?.data;
       }
@@ -402,9 +289,11 @@ export const getAlreadyUserExist = createAsyncThunk<
   SearchUsers | undefined
 >("user/clientName", async (requestData) => {
   try {
-    const resp = await service.get(
-      `${ApiConstants.USER.ALREADY_EXIST}?userName=${requestData}`
-    );
+    const resp = await service.get(ApiConstants.USER.ALREADY_EXIST, {
+      params: {
+        userName: requestData,
+      },
+    });
     if (resp) {
       return resp?.data?.isUserExist;
     }
@@ -413,38 +302,22 @@ export const getAlreadyUserExist = createAsyncThunk<
     throw err;
   }
 });
-export const getChildUserProfitLoss = createAsyncThunk<any, string>(
-  "user/childProfitLoss",
-  async (requestData) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.USER.CHILD_PROFIT_LOSS}/${requestData}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      throw err;
-    }
-  }
-);
 
 export const handleExport = createAsyncThunk<any, any>(
   "user/export",
   async (requestData, thunkApi) => {
     try {
-      const response = await service.get(
-        `${requestData.endPoint}?type=${requestData.type}&userId=${
-          requestData.userId ? requestData.userId : ""
-        }`
-      );
+      const response = await service.get(requestData.endPoint, {
+        params: {
+          type: requestData.type,
+          userId: requestData.userId,
+        },
+      });
 
       const fileData = response?.data?.file;
 
       let blob = new Blob();
       if (requestData.type == "pdf") {
-        // window.open(`data:application/pdf;base64,${fileData}`, '_blank');
         const binaryData = new Uint8Array(
           atob(fileData)
             .split("")
@@ -457,21 +330,17 @@ export const handleExport = createAsyncThunk<any, any>(
             .split("")
             .map((char) => char.charCodeAt(0))
         );
-        // Create a Blob from the Uint8Array
         blob = new Blob([binaryData], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
       }
-      // Create a temporary URL for the Blob
       const url = window.URL.createObjectURL(blob);
-      // Create an <a> element and trigger the download
       const link = document.createElement("a");
       link.href = url;
       link.download = requestData?.name
         ? `${requestData?.name}`.replace(/[^\w\s]/g, "_")
         : "Client_List";
       link.click();
-      // Clean up by revoking the URL
       window.URL.revokeObjectURL(url);
     } catch (error: any) {
       const err = error as AxiosError;
@@ -492,11 +361,11 @@ export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.MATCH_WISE_PROFITLOSS}`,
+        ApiConstants.USER.MATCH_WISE_PROFITLOSS,
         requestData
       );
       if (resp) {
-        return { result: resp?.data?.result, count: resp?.data?.count };
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -509,7 +378,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_PROFITLOSS,
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
@@ -526,7 +395,7 @@ export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_BET_PROFITLOSS,
         requestData
       );
       if (resp) {
@@ -543,7 +412,7 @@ export const getTotalBetProfitLossForModal = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_BET_PROFITLOSS,
         requestData
       );
       if (resp) {
@@ -553,29 +422,6 @@ export const getTotalBetProfitLossForModal = createAsyncThunk<any, any>(
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);
     }
-  }
-);
-export const getSessionProfitLoss = createAsyncThunk<any, any>(
-  "/sessionProfitLoss",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const handleModelActions = createAsyncThunk<any, any>(
-  "/user/handleModelActions",
-  async (data) => {
-    return data;
   }
 );
 export const getSearchClientList = createAsyncThunk<
@@ -583,9 +429,11 @@ export const getSearchClientList = createAsyncThunk<
   SearchUsers | undefined
 >("user/clientList", async (requestData, thunkApi) => {
   try {
-    const resp = await service.get(
-      `${ApiConstants.USER.ALREADY_SEARCHLIST}?userName=${requestData?.userName}`
-    );
+    const resp = await service.get(ApiConstants.USER.ALREADY_SEARCHLIST, {
+      params: {
+        userName: requestData?.userName,
+      },
+    });
     if (resp) {
       return resp?.data;
     }

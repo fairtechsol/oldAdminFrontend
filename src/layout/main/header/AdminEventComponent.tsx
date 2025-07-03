@@ -1,32 +1,29 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const AdminEventComponent = (props: any) => {
-  const { data } = props;
-
+const AdminEventComponent = ({ data }: { data: any }) => {
   return (
     <Box
       className="eventTab"
-      sx={[
-        {
-          width: "60px",
-          minHeight: 80,
-          minWidth: 80,
-          height: "60px",
-          marginX: ".5vw",
-          borderRadius: ".6vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: { lg: "center", xs: "center" },
-          background: "white",
-          cursor: "pointer",
-        },
-        { border: "2px solid white" },
-      ]}
+      sx={{
+        width: "60px",
+        minHeight: 80,
+        minWidth: 80,
+        height: "60px",
+        marginX: ".5vw",
+        borderRadius: ".6vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: { lg: "center", xs: "center" },
+        background: "white",
+        cursor: "pointer",
+        border: "2px solid white",
+      }}
     >
       <img
         src={data.image}
+        alt="image"
         style={{ width: "40px", height: "40px", alignSelf: "center" }}
       />
       <Typography

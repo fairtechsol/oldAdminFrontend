@@ -1,25 +1,23 @@
-// import { useState } from "react";
-import MainBox from "./MainBox";
 import { Box } from "@mui/material";
-import RenderBets from "./RenderBets";
 import moment from "moment";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCompetitionMatches,
   resetCompetitionMatches,
 } from "../../store/actions/match/matchAction";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import MainBox from "./MainBox";
+import RenderBets from "./RenderBets";
 
-const RenderDates = (props: any) => {
-  const {
-    i,
-    handleDrawerToggle,
-    colors,
-    competitionId,
-    selectedCompetitionDate,
-    setSelectedCompertitionDate,
-  } = props;
+const RenderDates = ({
+  i,
+  handleDrawerToggle,
+  colors,
+  competitionId,
+  selectedCompetitionDate,
+  setSelectedCompertitionDate,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
 
   const { competitionMatches } = useSelector(
@@ -75,4 +73,4 @@ const RenderDates = (props: any) => {
   );
 };
 
-export default RenderDates;
+export default memo(RenderDates);

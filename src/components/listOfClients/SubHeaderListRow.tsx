@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../Common/StyledImages";
 import { handleNumber } from "../../helper";
+import StyledImage from "../Common/StyledImages";
 
-const SubHeaderListRow = (props: any) => {
-  const { data, color } = props;
+const SubHeaderListRow = ({ data }: {data: any}) => {
   return (
     <Box
       sx={{
@@ -26,7 +25,7 @@ const SubHeaderListRow = (props: any) => {
           paddingX: "10px",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" }}></Typography>
+        <Typography sx={{ color: "white", fontSize: "12px" }} />
       </Box>
       <Box
         sx={{
@@ -41,7 +40,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalCreditReference || 0), color)}
+          {handleNumber(parseFloat(data?.totalCreditReference || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -57,7 +56,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.currBalance || 0), color)}
+          {handleNumber(parseFloat(data?.currBalance || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -74,13 +73,10 @@ const SubHeaderListRow = (props: any) => {
           justifyContent: "space-between",
         }}
       >
-        {" "}
-        {/* element.profit_loss >= 0 ? '#27AC1E' : '#E32A2A'*/}
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?userBal?.profitLoss} */}
-          {handleNumber(parseFloat(data?.profitsum || 0), color)}
+          {handleNumber(parseFloat(data?.profitsum || 0), "")}
         </Typography>
         <StyledImage
           src={
@@ -88,6 +84,7 @@ const SubHeaderListRow = (props: any) => {
               ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
               : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
           }
+          alt="arrow up down"
           sx={{
             height: "15px",
             marginLeft: "5px",
@@ -110,13 +107,10 @@ const SubHeaderListRow = (props: any) => {
           justifyContent: "space-between",
         }}
       >
-        {" "}
-        {/* element.profit_loss >= 0 ? '#27AC1E' : '#E32A2A'*/}
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?.percent_profit_loss} */}
-          {handleNumber(parseFloat(data?.percentprofitloss || 0), color)}
+          {handleNumber(parseFloat(data?.percentprofitloss || 0), "")}
         </Typography>
         <StyledImage
           src={
@@ -124,6 +118,7 @@ const SubHeaderListRow = (props: any) => {
               ? "https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
               : "https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
           }
+          alt="arrow up down"
           sx={{
             height: "15px",
             marginLeft: "5px",
@@ -145,7 +140,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalcommission || 0), color)}
+          {handleNumber(parseFloat(data?.totalcommission || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -161,7 +156,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {handleNumber(parseFloat(data?.totalExposure || 0), color)}
+          {handleNumber(parseFloat(data?.totalExposure || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -177,8 +172,7 @@ const SubHeaderListRow = (props: any) => {
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
         >
-          {/* {data?.availablebalancesum} */}
-          {handleNumber(parseFloat(data?.availableBalance || 0), color)}
+          {handleNumber(parseFloat(data?.availableBalance || 0), "")}
         </Typography>
       </Box>
       <Box
@@ -191,7 +185,7 @@ const SubHeaderListRow = (props: any) => {
           height: "45px",
           borderRight: "2px solid white",
         }}
-      ></Box>
+      />
       <Box
         sx={{
           width: { lg: "5vw", md: "5vw", xs: "14vw" },
@@ -202,7 +196,7 @@ const SubHeaderListRow = (props: any) => {
           height: "45px",
           borderRight: "2px solid white",
         }}
-      ></Box>
+      />
       <Box
         sx={{
           width: { lg: "8vw", md: "8vw", xs: "26.5vw" },
@@ -216,9 +210,7 @@ const SubHeaderListRow = (props: any) => {
       >
         <Typography
           sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
-        >
-          {/* {+data?.totalExposure || 0} */}
-        </Typography>
+        />
       </Box>
       <Box
         sx={{
@@ -228,9 +220,8 @@ const SubHeaderListRow = (props: any) => {
           justifyContent: "center",
           alignItems: "center",
           height: "45px",
-          borderRight: "2px solid white",
         }}
-      ></Box>
+      />
     </Box>
   );
 };

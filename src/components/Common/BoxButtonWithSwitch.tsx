@@ -1,10 +1,24 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import MaterialUISwitch from "./MaterialUISwitch";
 
-const BoxButtonWithSwitch = (props: any) => {
-  const { title, val, name, setLockUnlockObj, lockUnlockObj, showLockUnlock } =
-    props;
+interface BoxButtonWithSwitchProps {
+  title: string;
+  val: boolean;
+  name: string;
+  setLockUnlockObj: (val: any) => void;
+  lockUnlockObj: any;
+  showLockUnlock: boolean;
+}
+
+const BoxButtonWithSwitch = ({
+  title,
+  val,
+  name,
+  setLockUnlockObj,
+  lockUnlockObj,
+  showLockUnlock,
+}: BoxButtonWithSwitchProps) => {
   const [checked, setChecked] = useState(val);
   const classes = {
     mainBox: [
@@ -48,4 +62,4 @@ const BoxButtonWithSwitch = (props: any) => {
   );
 };
 
-export default BoxButtonWithSwitch;
+export default memo(BoxButtonWithSwitch);

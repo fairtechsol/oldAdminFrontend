@@ -1,9 +1,13 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { handleNumber } from "../../../helper";
 
-const SmallBox = (props: any) => {
-  const { valueA, valueB, color} = props;
+interface SmallBoxProps {
+  valueA: any;
+  valueB: any;
+}
 
+const SmallBox = ({ valueA, valueB }: SmallBoxProps) => {
   return (
     <Box
       sx={{
@@ -15,7 +19,6 @@ const SmallBox = (props: any) => {
       <Box
         sx={{
           width: { lg: "3.68vw", xs: "12.7vw", md: "70px" },
-          // position: "absolute",
           flexDirection: "column",
           paddingX: "5px",
           display: "flex",
@@ -41,15 +44,12 @@ const SmallBox = (props: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {" "}
-          {handleNumber(parseFloat(valueA), color)}
-          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`}{" "} */}
+          {handleNumber(parseFloat(valueA), "")}
         </Typography>
       </Box>
       <Box
         sx={{
           width: { lg: "3.7vw", xs: "12.7vw", md: "70px" },
-          // position: "absolute",
           paddingX: "5px",
           display: "flex",
           flexDirection: "column",
@@ -65,8 +65,7 @@ const SmallBox = (props: any) => {
         <Typography
           sx={{ color: "#FF4D4D", fontSize: "8px", fontWeight: "bold" }}
         >
-          {" "}
-          Book{" "}
+          Book
         </Typography>
 
         <Typography
@@ -78,11 +77,11 @@ const SmallBox = (props: any) => {
           }}
         >
           {" "}
-          {handleNumber(parseFloat(valueB), color)}
+          {handleNumber(parseFloat(valueB), "")}
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default SmallBox;
+export default memo(SmallBox);

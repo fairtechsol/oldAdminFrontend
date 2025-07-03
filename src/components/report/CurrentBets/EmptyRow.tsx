@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
-const EmptyRow = ({ containerStyle }: any) => {
+interface EmptyRowProps {
+  containerStyle: object;
+}
+
+const EmptyRow = ({ containerStyle }: EmptyRowProps) => {
   return (
     <Box
       sx={[

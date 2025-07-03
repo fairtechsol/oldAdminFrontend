@@ -1,8 +1,24 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { ARROWDROPDOWN } from "../../assets";
 
-const MainBox = (props: any) => {
-  const { title, width, color, under, selected, sub } = props;
+interface MainBoxProps {
+  title: string;
+  width: number;
+  color: string;
+  under?: boolean;
+  selected?: any;
+  sub?: string;
+}
+
+const MainBox = ({
+  title,
+  width,
+  color,
+  under,
+  selected,
+  sub,
+}: MainBoxProps) => {
   return (
     <Box
       sx={{
@@ -29,12 +45,11 @@ const MainBox = (props: any) => {
       <Box
         sx={{
           display: "flex",
-
           width: "100%",
           alignItems: "center",
         }}
       >
-        <Box sx={{ display: "flex", flex: 0.1 }}></Box>
+        <Box sx={{ display: "flex", flex: 0.1 }} />
         <Typography
           sx={{
             fontSize: "12px",
@@ -73,6 +88,7 @@ const MainBox = (props: any) => {
                 selected?.value && under ? "rotate(0deg)" : "rotate(180deg)",
             }}
             src={ARROWDROPDOWN}
+            alt="arrow down"
           />
         </Box>
       )}
@@ -80,4 +96,4 @@ const MainBox = (props: any) => {
   );
 };
 
-export default MainBox;
+export default memo(MainBox);

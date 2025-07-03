@@ -7,7 +7,7 @@ export interface AccountListInterface {
   exposuresum: string;
   availablebalancesum: string;
   exposurelimit: string;
-  currentPage :number
+  currentPage: number;
 }
 
 export interface AccountListDataInterface {
@@ -26,23 +26,17 @@ export interface AccountListDataInterface {
   all_blocked: boolean;
   exposure_limit: string;
   role: string;
-  currentPage :number
+  currentPage: number;
 }
 
 export interface AccountListRowInterface {
-  key?: number;
-  callProfile?: boolean;
-  showOptions?: boolean;
-  showUserDetails?: boolean;
-  showCReport?: boolean;
-  containerStyle?: any;
-  profit?: boolean;
-  fContainerStyle?: any;
-  fTextStyle?: any;
-  element?: any;
-  getListOfUser?: (value: any) => void;
-  show?: boolean;
-  currentPage? :number
+  key: number;
+  containerStyle: any;
+  profit: boolean;
+  fContainerStyle: any;
+  fTextStyle: any;
+  element: any;
+  currentPage: number;
 }
 
 export interface RowModalComponent {

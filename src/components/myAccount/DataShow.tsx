@@ -1,10 +1,16 @@
 import { Box, Typography } from "@mui/material";
-import { DataShowInterface } from "../../interface/myAccount";
+import { memo } from "react";
 import { handleNumber } from "../../helper";
+import { DataShowInterface } from "../../interface/myAccount";
 
-const DataShow = (props: DataShowInterface) => {
-  const { title, value, value2, value3, containerStyle, valueContainerStyle } =
-    props;
+const DataShow = ({
+  title,
+  value,
+  valueProfitLoss,
+  valuePercentage,
+  containerStyle,
+  valueContainerStyle,
+}: DataShowInterface) => {
   return (
     <Box
       sx={[
@@ -53,9 +59,13 @@ const DataShow = (props: DataShowInterface) => {
             }}
           >
             {handleNumber(parseFloat(value), "white")}
-            {value3 ? `(${value3}%)` : value3 === 0 ? "(0%)" : null}
+            {valuePercentage
+              ? `(${valuePercentage}%)`
+              : valuePercentage === 0
+              ? "(0%)"
+              : null}
           </Typography>
-          {value2 ? (
+          {valueProfitLoss ? (
             <Typography
               sx={{
                 fontSize: { lg: "11px", xs: "10px" },
@@ -65,18 +75,13 @@ const DataShow = (props: DataShowInterface) => {
                 fontWeight: "600",
               }}
             >
-              {handleNumber(parseFloat(value2), "white")}
+              {handleNumber(parseFloat(valueProfitLoss), "white")}
             </Typography>
           ) : null}
         </Box>
-        {/* <Typography
-          sx={{ color: "white", fontSize: "12px", fontWeight: "600" }}
-        >
-          {value}
-        </Typography> */}
       </Box>
     </Box>
   );
 };
 
-export default DataShow;
+export default memo(DataShow);

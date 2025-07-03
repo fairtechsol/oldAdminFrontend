@@ -1,25 +1,17 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import StyledImage from "../../Common/StyledImages";
-import BoxButton from "./BoxButton";
-
 import { useFormik } from "formik";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { EyeIconWhite, EyeSlashWhite } from "../../../assets";
 import {
   changePasswordRow,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { ApiConstants } from "../../../utils/Constants";
 import { userChangePasswordValidations } from "../../../utils/Validations";
-
-import {
-  // EyeIcon,
-  EyeIconWhite,
-  // EyeSlash,
-  EyeSlashWhite,
-} from "../../../assets";
 import CustomErrorMessage from "../../Common/CustomErrorMessage";
+import StyledImage from "../../Common/StyledImages";
+import BoxButton from "./BoxButton";
 
 const initialValues: any = {
   userId: "",
@@ -27,8 +19,17 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
-const ChangePasswordComponent = (props: any) => {
-  const { setSelected, element, walletAccountDetail, endpoint } = props;
+interface ChangePasswordComponentProps {
+  setSelected: () => void;
+  element: any;
+  endpoint: string;
+}
+
+const ChangePasswordComponent = ({
+  setSelected,
+  element,
+  endpoint,
+}: ChangePasswordComponentProps) => {
   const [showPass, setShowPass] = useState(false);
   const [showPassTransaction, setShowPassTransaction] = useState(false);
 
@@ -42,44 +43,16 @@ const ChangePasswordComponent = (props: any) => {
         return;
       }
       let payload;
-      if (walletAccountDetail) {
-        payload = {
-          newPassword: values.newPassword,
-          transactionPassword: values.transactionPassword,
-          // remark: values.remark,
-        };
-      }
-      // else if (
-      //   element.roleName === "superAdmin" ||
-      //   element.roleName === "fairGameAdmin"
-      // ) {
-      //   payload = {
-      //     userId: element?.id,
-      //     newPassword: values.newPassword,
-      //     transactionPassword: values.transactionPassword,
-      //     // remark: values.remark,
-      //   };
-      // }
-      else if (element.roleName === "expert") {
-        payload = {
-          id: element?.id,
-          password: values.newPassword,
-          transactionPassword: values.transactionPassword,
-          // remark: values.remark,
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          newPassword: values.newPassword,
-          transactionPassword: values.transactionPassword,
-          // remark: values.remark,
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        newPassword: values.newPassword,
+        transactionPassword: values.transactionPassword,
+      };
+
       dispatch(
         changePasswordRow({
-          url: walletAccountDetail
-            ? ApiConstants.WALLET.CHANGEPASSWORD
-            : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -95,7 +68,7 @@ const ChangePasswordComponent = (props: any) => {
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
+      setSelected();
       dispatch(userListSuccessReset());
     }
     if (error) {
@@ -167,7 +140,6 @@ const ChangePasswordComponent = (props: any) => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={touched.newPassword && Boolean(errors.newPassword)}
-                    // helperText={touched.newPassword && errors.newPassword}
                     sx={{ width: "100%", height: "45px", color: "white" }}
                     variant="standard"
                     InputProps={{
@@ -184,7 +156,6 @@ const ChangePasswordComponent = (props: any) => {
                       },
                     }}
                   />
-
                   <Box
                     onClick={() => {
                       setShowPass(!showPass);
@@ -192,6 +163,7 @@ const ChangePasswordComponent = (props: any) => {
                   >
                     <StyledImage
                       src={showPass ? EyeIconWhite : EyeSlashWhite}
+                      alt="eye icon"
                       sx={{ height: "14px", width: "20px", fill: "white" }}
                     />
                   </Box>
@@ -210,7 +182,7 @@ const ChangePasswordComponent = (props: any) => {
               }}
             >
               <BoxButton
-                color={"#E32A2A"}
+                color="#E32A2A"
                 containerStyle={{
                   width: "100%",
                   background: "#E32A2A",
@@ -230,7 +202,7 @@ const ChangePasswordComponent = (props: any) => {
                 onClick={() => {
                   setSelected();
                 }}
-                title={"Cancel"}
+                title="Cancel"
               />
             </Box>
           </Box>
@@ -262,7 +234,6 @@ const ChangePasswordComponent = (props: any) => {
               >
                 Transaction Password
               </Typography>
-
               <Box
                 sx={{
                   width: { xs: "100%", lg: "32.5", md: "60%" },
@@ -310,6 +281,7 @@ const ChangePasswordComponent = (props: any) => {
                   >
                     <StyledImage
                       src={showPassTransaction ? EyeIconWhite : EyeSlashWhite}
+                      alt="eye icon"
                       sx={{ height: "14px", width: "20px" }}
                     />
                   </Box>
@@ -320,7 +292,6 @@ const ChangePasswordComponent = (props: any) => {
                 />
               </Box>
             </Box>
-
             <Box
               sx={{
                 display: "flex",
@@ -329,7 +300,7 @@ const ChangePasswordComponent = (props: any) => {
               }}
             >
               <BoxButton
-                color={"#0B4F26"}
+                color="#0B4F26"
                 disabled={isSubmitting}
                 loading={loading}
                 containerStyle={{
@@ -347,11 +318,10 @@ const ChangePasswordComponent = (props: any) => {
                 }}
                 isSelected={true}
                 type="submit"
-                title={"Submit"}
+                title="Submit"
               />
             </Box>
           </Box>
-
           <Box
             sx={{
               display: "none",
@@ -368,9 +338,9 @@ const ChangePasswordComponent = (props: any) => {
                   height: "35px",
                 }}
                 isSelected={true}
-                color={"#0B4F26"}
+                color="#0B4F26"
                 type="submit"
-                title={"Submit"}
+                title="Submit"
               />
             </Box>
           </Box>
@@ -380,4 +350,4 @@ const ChangePasswordComponent = (props: any) => {
   );
 };
 
-export default ChangePasswordComponent;
+export default memo(ChangePasswordComponent);

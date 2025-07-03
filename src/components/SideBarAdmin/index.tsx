@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../assets";
 import RenderGames from "./RenderGames";
 
@@ -22,15 +22,18 @@ const datas = [
     value: "hockey",
   },
 ];
-const SideBarAdmin = (props: any) => {
-  const { handleDrawerToggle } = props;
+
+interface SideBarAdminProps {
+  handleDrawerToggle: () => void;
+}
+const SideBarAdmin = ({ handleDrawerToggle }: SideBarAdminProps) => {
   const [selected, setSelected] = useState({
     value: false,
     matchType: "",
   });
 
   return (
-    <Box>
+    <>
       <Box
         sx={[
           {
@@ -59,7 +62,7 @@ const SideBarAdmin = (props: any) => {
             alignItems: "center",
           }}
         >
-          <Box sx={{ display: "flex", flex: 0.1 }}></Box>
+          <Box sx={{ display: "flex", flex: 0.1 }} />
           <Box
             sx={{
               display: "flex",
@@ -94,6 +97,7 @@ const SideBarAdmin = (props: any) => {
                 height: "8px",
               }}
               src={ARROWDROPDOWN}
+              alt="arrow down"
             />
           </Box>
         </Box>
@@ -110,7 +114,7 @@ const SideBarAdmin = (props: any) => {
           />
         );
       })}
-    </Box>
+    </>
   );
 };
-export default SideBarAdmin;
+export default memo(SideBarAdmin);

@@ -5,18 +5,29 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import { BallStart } from "../../../assets";
 import { formatNumber, formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
 import CommissionDot from "../../Common/CommissionDot";
 import SeperateBox from "../MatchOdds/SeperateBox";
+import MarqueeText from "./MarqueeText";
 import PlaceBetComponent from "./PlaceBetComponent";
 import PlaceBetComponentWeb from "./PlaceBetComponentWeb";
-import MarqueeText from "./MarqueeText";
 
-const SeasonMarketBox = (props: any) => {
-  const { newData, setData, profitLossData, index, type } = props;
+interface SeasonMarketBoxProps {
+  newData: any;
+  profitLossData: any;
+  index: number;
+  type: string;
+}
+
+const SeasonMarketBox = ({
+  newData,
+  profitLossData,
+  index,
+  type,
+}: SeasonMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -41,7 +52,7 @@ const SeasonMarketBox = (props: any) => {
               background: "rgba(0,0,0,0.5)",
               zIndex: 2,
             }}
-          ></Box>
+          />
         )}
         <Box
           sx={{
@@ -57,7 +68,7 @@ const SeasonMarketBox = (props: any) => {
             <Typography
               sx={{
                 color: "black",
-                fontSize: { lg: "12px", md: "11px", xs: "10px" },
+                fontSize: { lg: "12px", md: "11px", xs: "9px" },
                 marginLeft: "7px",
                 fontWeight: "600",
                 lineHeight: "10px",
@@ -69,19 +80,28 @@ const SeasonMarketBox = (props: any) => {
                   }`
                 : newData?.name ?? newData?.RunnerName}
             </Typography>
-            <Typography
+            <Box
               sx={{
-                color: "black",
-                fontSize: { lg: "9px", md: "9px", xs: "8px" },
-                marginLeft: "7px",
-                fontWeight: "500",
-                lineHeight: "10px",
+                display: "flex",
+                alignItems: "center",
+                textAlign: "start",
+                gap: 1,
               }}
             >
-              max: {formatToINR(newData?.maxBet || newData?.max)}
-            </Typography>
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: { lg: "9px", md: "9px", xs: "8px" },
+                  marginLeft: "7px",
+                  fontWeight: "500",
+                  lineHeight: "10px",
+                }}
+              >
+                max: {formatToINR(newData?.maxBet || newData?.max)}
+              </Typography>
+              {newData?.isCommissionActive && <CommissionDot />}
+            </Box>
           </Box>
-          {/* </Typography> */}
         </Box>
 
         <Box
@@ -95,7 +115,7 @@ const SeasonMarketBox = (props: any) => {
             alignItems: "center",
           }}
         >
-          {newData?.isCommissionActive && (
+          {/* {newData?.isCommissionActive && (
             <Box
               sx={{
                 position: "absolute",
@@ -104,20 +124,18 @@ const SeasonMarketBox = (props: any) => {
             >
               <CommissionDot />
             </Box>
-          )}
+          )} */}
           {matchesMobile ? (
             <PlaceBetComponent
               type={type}
               newData={newData}
               profitLoss={profitLossData && profitLossData[0]}
-              setData={setData}
             />
           ) : (
             <PlaceBetComponentWeb
               type={type}
               newData={newData}
               profitLoss={profitLossData && profitLossData[0]}
-              setData={setData}
             />
           )}
 
@@ -133,11 +151,8 @@ const SeasonMarketBox = (props: any) => {
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
-                // marginLeft: "-2px",
                 height: "38px",
-                // position: "absolute",
                 marginLeft: { lg: "20%", md: "0%", xs: "0%" },
-                // right: 0,
                 width: { lg: "36.5%", md: "60%", xs: "60.5%" },
                 justifyContent: { xs: "center", lg: "center" },
                 alignItems: "center",
@@ -153,6 +168,7 @@ const SeasonMarketBox = (props: any) => {
                 ) <= 1 && (
                   <img
                     src={BallStart}
+                    alt="ball start"
                     style={{ width: "113px", height: "32px" }}
                   />
                 )
@@ -184,8 +200,6 @@ const SeasonMarketBox = (props: any) => {
               {newData?.isManual ? (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={Math.floor(newData?.noRate)}
                     value2={Math.floor(newData?.noPercent)}
                     lock={
@@ -196,9 +210,8 @@ const SeasonMarketBox = (props: any) => {
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
+                  />
                   <SeperateBox
-                    session={true}
                     value={Math.floor(newData?.yesRate)}
                     value2={formatNumber(Math.floor(newData?.yesPercent))}
                     lock={
@@ -211,8 +224,6 @@ const SeasonMarketBox = (props: any) => {
               ) : (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={newData.ex?.availableToLay[0]?.price ?? 0}
                     value2={newData.ex?.availableToLay[0]?.size ?? 0}
                     lock={
@@ -228,9 +239,8 @@ const SeasonMarketBox = (props: any) => {
                   />
                   <Box
                     sx={{ width: "3px", display: "flex", background: "pink" }}
-                  ></Box>
+                  />
                   <SeperateBox
-                    session={true}
                     value={newData.ex?.availableToBack[0]?.price ?? 0}
                     value2={newData.ex?.availableToBack[0]?.size ?? 0}
                     lock={
@@ -247,9 +257,7 @@ const SeasonMarketBox = (props: any) => {
             </>
           )}
 
-          <Box
-            sx={{ width: ".45%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".45%", display: "flex", background: "pink" }} />
         </Box>
       </Box>
       <Divider />
@@ -284,7 +292,7 @@ const SeasonMarketBox = (props: any) => {
                   background: "rgba(0,0,0,0.5)",
                   zIndex: 2,
                 }}
-              ></Box>
+              />
             )}
             <Box
               sx={{
@@ -294,7 +302,7 @@ const SeasonMarketBox = (props: any) => {
                 alignItems: "center",
                 background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
               }}
-            ></Box>
+            />
             <Box
               sx={{
                 display: "flex",
@@ -314,11 +322,8 @@ const SeasonMarketBox = (props: any) => {
                 <Box
                   sx={{
                     background: "rgba(0,0,0,1)",
-                    // marginLeft: "-2px",
                     height: "38px",
-                    // position: "absolute",
                     marginLeft: { lg: "20%", md: "0%", xs: "0%" },
-                    // right: 0,
                     width: { lg: "36.5%", md: "60%", xs: "60.5%" },
                     justifyContent: { xs: "center", lg: "center" },
                     alignItems: "center",
@@ -331,6 +336,7 @@ const SeasonMarketBox = (props: any) => {
                     item === 1 && (
                       <img
                         src={BallStart}
+                        alt="ball start"
                         style={{ width: "113px", height: "32px" }}
                       />
                     )
@@ -357,8 +363,6 @@ const SeasonMarketBox = (props: any) => {
               ) : (
                 <>
                   <SeperateBox
-                    session={true}
-                    back={true}
                     value={
                       sessionBettingType.oddEven === type
                         ? newData.ex?.availableToBack[item]?.price ?? 0
@@ -376,7 +380,7 @@ const SeasonMarketBox = (props: any) => {
                             ? newData.ex?.availableToBack[item]?.price ?? 0
                             : newData.ex?.availableToLay[item]?.price ?? 0
                         )
-                      )
+                      ) || type === "khado"
                         ? true
                         : false
                     }
@@ -390,9 +394,8 @@ const SeasonMarketBox = (props: any) => {
                       display: "flex",
                       background: "pink",
                     }}
-                  ></Box>
+                  />
                   <SeperateBox
-                    session={true}
                     value={
                       sessionBettingType.oddEven === type
                         ? newData.ex?.availableToLay[item]?.price ?? 0
@@ -421,7 +424,7 @@ const SeasonMarketBox = (props: any) => {
 
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box>
+              />
             </Box>
           </Box>
           <Divider />
@@ -432,4 +435,4 @@ const SeasonMarketBox = (props: any) => {
   );
 };
 
-export default SeasonMarketBox;
+export default memo(SeasonMarketBox);

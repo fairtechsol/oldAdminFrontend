@@ -1,194 +1,89 @@
 import { Box, Typography } from "@mui/material";
 
+const columns = [
+  { label: "No", width: "5%", minWidth: "70px" },
+  { label: "Event Type", width: "10%", minWidth: "100px" },
+  { label: "Event Name", width: "10%", minWidth: "100px" },
+  { label: "User name", width: "10%", minWidth: "100px", fontSize: "11px" },
+  { label: "Team", width: "10%", minWidth: "100px" },
+  { label: "Bet Type", width: "10%", minWidth: "100px" },
+  { label: "User Rate", width: "7%", minWidth: "100px" },
+  {
+    label: ["Back/Lay", "Yes/No"],
+    width: "8%",
+    minWidth: "100px",
+    multiline: true,
+  },
+  {
+    label: "Amount",
+    width: "8%",
+    minWidth: "100px",
+    fontSize: { xs: "8px", md: "9px", lg: "12px" },
+  },
+  { label: "Place Date", width: "11%", minWidth: "100px" },
+  { label: "Match Date", width: "11%", minWidth: "100px" },
+];
+
 const TableHeaderList = () => {
+  const commonBoxStyles = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "35px",
+    borderRight: "2px solid white",
+    paddingLeft: "10px",
+  };
+
+  const defaultFontSize = { xs: "10px", md: "12px", lg: "12px" };
+
   return (
     <Box
       sx={{
         display: "flex",
-        width:{xs:'1070px', lg: "100%"},
+        width: { xs: "1070px", md: "100%", lg: "100%" },
         height: "35px",
         background: "#262626",
         alignItems: "center",
         borderTop: "2px solid white",
         borderBottom: "2px solid white",
-        // overflow: "auto"
       }}
     >
-      <Box
-        sx={{
-          width: "5%",
-          minWidth: "70px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>No</Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "10%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-       
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" , lineHeight: "0.9"}}>
-          Event Type
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "10%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
-          Event Name
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "10%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "11px" , lineHeight: "0.9"}}>
-          User name
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "10%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>Team</Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "10%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
-          Bet Type
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "7%",
-          minWidth: "100px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9" }}>
-          User Rate
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "8%",
-          minWidth: "100px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-          // overflow: "hidden"
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: { xs: "7px", md: "9px", lg: "12px" } , lineHeight: "0.9" }}>
-          Back/Lay
-        </Typography>
-        <Typography sx={{ color: "white", fontSize: { xs: "7px", md: "9px", lg: "12px" } , lineHeight: "0.9" }}>
-          Yes/No
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "8%",
-          minWidth: "100px",
-          display: "flex",
-          justifyContent: "center",
-          paddingLeft: "10px",
-          alignItems: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: { xs: "8px", md: "9px", lg: "12px" } }}>
-          Amount
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "11%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9"  }}>
-          Place Date
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: "11%",
-          minWidth: "100px",
-          display: "flex",
-          paddingLeft: "10px",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "35px",
-          borderRight: "2px solid white",
-        }}
-      >
-        <Typography sx={{ color: "white", fontSize: "12px", lineHeight: "0.9"  }}>
-          Match Date
-        </Typography>
-      </Box>
+      {columns.map((col, idx) => (
+        <Box
+          key={idx}
+          sx={{
+            ...commonBoxStyles,
+            width: col.width,
+            minWidth: col.minWidth,
+            flexDirection: col.multiline ? "column" : "row",
+          }}
+        >
+          {Array.isArray(col.label) ? (
+            col.label.map((line, i) => (
+              <Typography
+                key={i}
+                sx={{
+                  color: "white",
+                  fontSize: col.fontSize || defaultFontSize,
+                  lineHeight: "0.9",
+                }}
+              >
+                {line}
+              </Typography>
+            ))
+          ) : (
+            <Typography
+              sx={{
+                color: "white",
+                fontSize: col.fontSize || defaultFontSize,
+                lineHeight: "0.9",
+              }}
+            >
+              {col.label}
+            </Typography>
+          )}
+        </Box>
+      ))}
     </Box>
   );
 };

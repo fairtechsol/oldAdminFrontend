@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import "./styles.css";
-import { memo } from "react";
 import { LoaderInterface } from "../../interface/common";
+import "./styles.css";
 
 const Loader = ({ text, height, width }: LoaderInterface) => {
   return (
@@ -16,15 +15,15 @@ const Loader = ({ text, height, width }: LoaderInterface) => {
         flexDirection: "column",
       }}
     >
-      <div className="loading-wrap">
-        <div className="loading">
-          <div></div>
-          <div></div>
-        </div>
-      </div>
+      <Box className="loading-wrap">
+        <Box className="loading">
+          <Box />
+          <Box />
+        </Box>
+      </Box>
       <Typography sx={{ marginTop: "-40px" }}>{text}</Typography>
     </Box>
   );
 };
 
-export default memo(Loader);
+export default Loader;

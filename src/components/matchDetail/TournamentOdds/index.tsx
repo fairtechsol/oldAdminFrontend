@@ -1,34 +1,35 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { Fragment, memo, useState } from "react";
 import { useSelector } from "react-redux";
-import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
+import { ARROWUP } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import { RootState } from "../../../store/store";
 import CommissionDot from "../../Common/CommissionDot";
 import Divider from "../../Inplay/Divider";
-import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BoxComponent from "../LiveBookmaker/BoxComponent";
 import SmallBox from "../MatchOdds/SmallBox";
 
-const TournamentOdds = (props: any) => {
-  const {
-    currentMatch,
-    minBet,
-    maxBet,
-    typeOfBet,
-    locked,
-    blockMatch,
-    handleShowLock,
-    selft,
-    showBox,
-    upcoming,
-    showUnlock,
-    handleBlock,
-    handleHide,
-    liveData,
-    title,
-    profitLossFromAnalysis,
-  } = props;
+interface TournamentOddsProps {
+  currentMatch: any;
+  minBet: any;
+  maxBet: any;
+  liveData: any;
+  title: any;
+  showBox?: boolean;
+  upcoming?: boolean;
+  profitLossFromAnalysis?: any;
+}
+
+const TournamentOdds = ({
+  currentMatch,
+  minBet,
+  maxBet,
+  showBox,
+  upcoming,
+  liveData,
+  title,
+  profitLossFromAnalysis,
+}: TournamentOddsProps) => {
   const { marketAnalysis } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -46,16 +47,19 @@ const TournamentOdds = (props: any) => {
     return teamBRates < 0 ? `-${formattedRatio}` : formattedRatio;
   };
 
-  const handleLock = (data: any) => {
-    return data?.ex?.availableToBack?.length > 0 ? false : true;
-  };
+  // const handleLock = (data: any) => {
+  //   return data?.ex?.availableToBack?.length > 0 ? false : true;
+  // };
 
-  const onSubmit = (value: any) => {
-    handleBlock(value, !locked, typeOfBet);
-  };
+  // const onSubmit = (value: any) => {
+  //   handleBlock(value, !locked, typeOfBet);
+  // };
+
+  let key =
+    (liveData?.parentBetId || liveData?.id) + "_profitLoss_" + currentMatch?.id;
+
   return (
     <Box
-      key="odds"
       sx={{
         position: "relative",
         display: "flex",
@@ -63,8 +67,7 @@ const TournamentOdds = (props: any) => {
         padding: 0.2,
         flexDirection: "column",
         width: "100%",
-        marginTop: typeOfBet == "Quick Bookmaker" ? "0" : "3px",
-        marginBottom: typeOfBet == "Quick Bookmaker" ? "3px" : "0",
+        marginBottom: "3px",
         alignSelf: {
           xs: "center",
           md: "center",
@@ -98,20 +101,17 @@ const TournamentOdds = (props: any) => {
               marginLeft: "7px",
             }}
           >
-            {typeOfBet === "MANUAL BOOKMAKER"
-              ? "QUICK BOOKMAKER"
-              : title
-              ? title
-              : typeOfBet}
+            {title}
           </Typography>
           {liveData?.isCommissionActive && <CommissionDot />}
-          {blockMatch && (
+          {/* {blockMatch && (
             <img
               onClick={() => (selft ? handleShowLock(true, typeOfBet) : "")}
               src={locked ? LOCKED : LOCKOPEN}
+              alt="lock"
               style={{ width: "14px", height: "20px" }}
             />
-          )}
+          )} */}
         </Box>
         <Box
           sx={{
@@ -119,7 +119,7 @@ const TournamentOdds = (props: any) => {
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <Box className="slanted" />
         </Box>
         <Box
           sx={{
@@ -138,17 +138,8 @@ const TournamentOdds = (props: any) => {
                   ? profitLossFromAnalysis?.profitLoss?.a
                   : 0
                 : currentMatch?.profitLossDataMatch
-                ? currentMatch?.profitLossDataMatch[
-                    (liveData?.parentBetId || liveData?.id) +
-                      "_profitLoss_" +
-                      currentMatch?.id
-                  ]
-                  ? JSON.parse(
-                      currentMatch?.profitLossDataMatch[
-                        liveData?.parentBetId ||
-                          liveData?.id + "_profitLoss_" + currentMatch?.id
-                      ] || "{}"
-                    )?.[
+                ? currentMatch?.profitLossDataMatch[key]
+                  ? (currentMatch?.profitLossDataMatch[key] || {})?.[
                       liveData?.runners?.[0]?.parentRunnerId ||
                         liveData?.runners?.[0]?.id
                     ]
@@ -159,18 +150,8 @@ const TournamentOdds = (props: any) => {
                   ? profitLossFromAnalysis?.profitLoss?.b
                   : 0
                 : currentMatch?.profitLossDataMatch
-                ? currentMatch?.profitLossDataMatch[
-                    (liveData?.parentBetId || liveData?.id) +
-                      "_profitLoss_" +
-                      currentMatch?.id
-                  ]
-                  ? JSON.parse(
-                      currentMatch?.profitLossDataMatch[
-                        (liveData?.parentBetId || liveData?.id) +
-                          "_profitLoss_" +
-                          currentMatch?.id
-                      ] || "{}"
-                    )?.[
+                ? currentMatch?.profitLossDataMatch[key]
+                  ? (currentMatch?.profitLossDataMatch[key] || {})?.[
                       liveData?.runners?.[1]?.parentRunnerId ||
                         liveData?.runners?.[1]?.id
                     ]
@@ -183,18 +164,8 @@ const TournamentOdds = (props: any) => {
                   ? profitLossFromAnalysis?.profitLoss?.a
                   : 0
                 : currentMatch?.profitLossDataMatch
-                ? currentMatch?.profitLossDataMatch[
-                    (liveData?.parentBetId || liveData?.id) +
-                      "_profitLoss_" +
-                      currentMatch?.id
-                  ]
-                  ? JSON.parse(
-                      currentMatch?.profitLossDataMatch[
-                        (liveData?.parentBetId || liveData?.id) +
-                          "_profitLoss_" +
-                          currentMatch?.id
-                      ] || "{}"
-                    )?.[
+                ? currentMatch?.profitLossDataMatch[key]
+                  ? (currentMatch?.profitLossDataMatch[key] || {})?.[
                       liveData?.runners?.[0]?.parentRunnerId ||
                         liveData?.runners?.[0]?.id
                     ]
@@ -205,18 +176,8 @@ const TournamentOdds = (props: any) => {
                   ? profitLossFromAnalysis?.profitLoss?.b
                   : 0
                 : currentMatch?.profitLossDataMatch
-                ? currentMatch?.profitLossDataMatch[
-                    (liveData?.parentBetId || liveData?.id) +
-                      "_profitLoss_" +
-                      currentMatch?.id
-                  ]
-                  ? JSON.parse(
-                      currentMatch?.profitLossDataMatch[
-                        (liveData?.parentBetId || liveData?.id) +
-                          "_profitLoss_" +
-                          currentMatch?.id
-                      ] || "{}"
-                    )?.[
+                ? currentMatch?.profitLossDataMatch[key]
+                  ? (currentMatch?.profitLossDataMatch[key] || {})?.[
                       liveData?.runners?.[1]?.parentRunnerId ||
                         liveData?.runners?.[1]?.id
                     ]
@@ -229,6 +190,7 @@ const TournamentOdds = (props: any) => {
               setVisible(!visible);
             }}
             src={ARROWUP}
+            alt="arrow up"
             style={{
               transform: visible ? "rotate(180deg)" : "rotate(0deg)",
               width: "15px",
@@ -257,7 +219,7 @@ const TournamentOdds = (props: any) => {
                 display: "flex",
                 background: "'#319E5B'",
                 height: "25px",
-                width: "40%",
+                width: "58%",
                 alignItems: "center",
               }}
             >
@@ -276,7 +238,7 @@ const TournamentOdds = (props: any) => {
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: { lg: "60%", xs: "80%" },
+                width: { lg: "60%", xs: "43.4%" },
                 justifyContent: { lg: "flex-end", xs: "flex-end" },
               }}
             >
@@ -284,7 +246,7 @@ const TournamentOdds = (props: any) => {
                 sx={{
                   background: "#00C0F9",
                   border: "1px solid #2626264D",
-                  width: { lg: "5vw", xs: "30%" },
+                  width: { lg: "5vw", xs: "47%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -299,12 +261,12 @@ const TournamentOdds = (props: any) => {
               </Box>
               <Box
                 sx={{ width: "3px", display: "flex", background: "white" }}
-              ></Box>
+              />
               <Box
                 sx={{
                   background: "#FF9292",
                   border: "1px solid #2626264D",
-                  width: { lg: "5vw", xs: "30%" },
+                  width: { lg: "5vw", xs: "47%" },
                   height: "100%",
                   display: "flex",
                   justifyContent: "center",
@@ -317,9 +279,6 @@ const TournamentOdds = (props: any) => {
                   Lay
                 </Typography>
               </Box>
-              <Box
-                sx={{ width: ".7px", display: "flex", background: "white" }}
-              ></Box>
             </Box>
           </Box>
 
@@ -333,7 +292,6 @@ const TournamentOdds = (props: any) => {
                 sx={{
                   position: "absolute",
                   height: "100%",
-                  // top: "18%",
                   width: "100%",
                   display: "flex",
                   zIndex: "999",
@@ -360,7 +318,7 @@ const TournamentOdds = (props: any) => {
               </Box>
             )}
             {liveData?.runners?.map((runner: any, index: number) => (
-              <>
+              <Fragment key={index}>
                 <BoxComponent
                   name={runner?.nat || runner?.runnerName}
                   rates={
@@ -370,22 +328,10 @@ const TournamentOdds = (props: any) => {
                             String.fromCharCode(97 + index)
                           ]
                         : 0
-                      : currentMatch?.profitLossDataMatch?.[
-                          (liveData?.parentBetId || liveData?.id) +
-                            "_" +
-                            "profitLoss" +
-                            "_" +
-                            currentMatch?.id
+                      : currentMatch?.profitLossDataMatch?.[key]
+                      ? (currentMatch?.profitLossDataMatch[key] || {})?.[
+                          runner?.parentRunnerId || runner?.id
                         ]
-                      ? JSON.parse(
-                          currentMatch?.profitLossDataMatch?.[
-                            (liveData?.parentBetId || liveData?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              currentMatch?.id
-                          ]
-                        )?.[runner?.parentRunnerId || runner?.id]
                       : 0
                   }
                   color={
@@ -395,119 +341,21 @@ const TournamentOdds = (props: any) => {
                         ] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
-                      : currentMatch?.profitLossDataMatch?.[
-                        (liveData?.parentBetId || liveData?.id) +
-                            "_" +
-                            "profitLoss" +
-                            "_" +
-                            currentMatch?.id
-                        ]
-                      ? JSON.parse(
-                          currentMatch?.profitLossDataMatch?.[
-                            (liveData?.parentBetId || liveData?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              currentMatch?.id
-                          ]
-                        )?.[runner?.parentRunnerId || runner?.id] < 0
+                      : currentMatch?.profitLossDataMatch?.[key]
+                      ? (currentMatch?.profitLossDataMatch[key] || {})?.[
+                          runner?.parentRunnerId || runner?.id
+                        ] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
                   data={runner}
-                  lock={handleLock(runner)}
                   marketDetails={liveData}
                 />
                 <Divider />
-              </>
+              </Fragment>
             ))}
-
-            {/* <BoxComponent
-              name={
-                typeOfBet !== ("Match Odds" || "Half Time")
-                  ? "Yes"
-                  : currentMatch?.teamA
-              }
-              rates={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.A +
-                          "_" +
-                          currentMatch?.id
-                      ]
-                    : 0
-                  : 0
-              }
-              color={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.A +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.A +
-                          "_" +
-                          currentMatch?.id
-                      ] < 0
-                      ? "#FF4D4D"
-                      : "#319E5B"
-                    : "#319E5B"
-                  : "#319E5B"
-              }
-              data={liveData?.length > 0 ? liveData[0] : []}
-              lock={handleLock(liveData?.length > 0 ? liveData[0] : [])}
-            />
-            <Divider />
-            <BoxComponent
-              color={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.B +
-                          "_" +
-                          currentMatch?.id
-                      ] < 0
-                      ? "#FF4D4D"
-                      : "#319E5B"
-                    : "#319E5B"
-                  : "#319E5B"
-              }
-              name={
-                typeOfBet !== ("Match Odds" || "Half Time")
-                  ? "No"
-                  : currentMatch?.teamB
-              }
-              rates={
-                currentMatch?.profitLossDataMatch
-                  ? currentMatch?.profitLossDataMatch[
-                      profitLossDataForMatchConstants[liveData?.type]?.B +
-                        "_" +
-                        currentMatch?.id
-                    ]
-                    ? currentMatch?.profitLossDataMatch[
-                        profitLossDataForMatchConstants[liveData?.type]?.B +
-                          "_" +
-                          currentMatch?.id
-                      ]
-                    : 0
-                  : 0
-              }
-              data={liveData?.length > 0 ? liveData[1] : []}
-              lock={handleLock(liveData?.length > 0 ? liveData[1] : [])}
-              align="end"
-            /> */}
-            {locked && (
+            {/* {locked && (
               <Box
                 sx={{
                   background: "rgba(0,0,0,.5)",
@@ -532,7 +380,11 @@ const TournamentOdds = (props: any) => {
                     display: "flex",
                   }}
                 >
-                  <img src={LOCKED} style={{ width: "35px", height: "40px" }} />
+                  <img
+                    src={LOCKED}
+                    style={{ width: "35px", height: "40px" }}
+                    alt="locked"
+                  />
 
                   <Typography
                     sx={{
@@ -547,11 +399,11 @@ const TournamentOdds = (props: any) => {
                   </Typography>
                 </Box>
               </Box>
-            )}
+            )} */}
           </Box>
         </>
       )}
-      {false && (
+      {/* {false && (
         <Box
           sx={{
             position: "absolute",
@@ -591,9 +443,9 @@ const TournamentOdds = (props: any) => {
             onSubmit={onSubmit}
           />
         </Box>
-      )}
+      )} */}
     </Box>
   );
 };
 
-export default TournamentOdds;
+export default memo(TournamentOdds);

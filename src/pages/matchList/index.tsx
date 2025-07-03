@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import MatchComponent from "../../components/Inplay/MatchComponent";
@@ -16,25 +16,28 @@ import Loader from "../../components/Loader";
 import { socketService } from "../../socketManager";
 import {
   getMatchListInplay,
+  matchListInplaySuccessReset,
   updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants, marketApiConst } from "../../utils/Constants";
+
 const Inplay = () => {
   const navigate = useNavigate();
   const { type } = useParams();
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { loading, matchListInplay, success } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const { loading, matchListInplay, success, matchListInplaySuccess } =
+    useSelector((state: RootState) => state.match.matchList);
   const useStyles = makeStyles({
     whiteTextPagination: {
       "& .MuiPaginationItem-root": {
-        color: "white", // Change text color to white
+        color: "white",
       },
     },
   });
+
+  const classes = useStyles();
 
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -65,6 +68,21 @@ const Inplay = () => {
     }
   };
 
+  
+  const getMatchListServiceOnDeclare = (event: any) => {
+    try {
+      if (event?.gameType == type && !event?.betId) {
+        setTimeout(() => {
+           dispatch(
+          getMatchListInplay({ currentPage: currentPage, matchType: type })
+        );
+        }, 1000);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     try {
       dispatch(
@@ -83,13 +101,10 @@ const Inplay = () => {
         socketService.match.declaredMatchResultAllUserOff();
         socketService.match.unDeclaredMatchResultAllUserOff();
         socketService.match.matchAddedOff();
-        // matchListInplay?.matches?.map((item: any) => {
-        //   socketService.match.joinMatchRoom(item?.id, profileDetail?.roleName);
-        // });
-        socketService.match.matchResultDeclared(getMatchListService);
-        socketService.match.matchResultUnDeclared(getMatchListService);
-        socketService.match.declaredMatchResultAllUser(getMatchListService);
-        socketService.match.unDeclaredMatchResultAllUser(getMatchListService);
+        socketService.match.matchResultDeclared(getMatchListServiceOnDeclare);
+        socketService.match.matchResultUnDeclared(getMatchListServiceOnDeclare);
+        socketService.match.declaredMatchResultAllUser(getMatchListServiceOnDeclare);
+        socketService.match.unDeclaredMatchResultAllUser(getMatchListServiceOnDeclare);
         socketService.match.matchAdded(getMatchListService);
       }
     } catch (e) {
@@ -99,9 +114,6 @@ const Inplay = () => {
 
   useEffect(() => {
     return () => {
-      // matchListInplay?.matches?.map((item: any) => {
-      //   socketService.match.leaveMatchRoom(item?.id);
-      // });
       socketService.match.matchResultDeclaredOff();
       socketService.match.matchResultUnDeclaredOff();
       socketService.match.declaredMatchResultAllUserOff();
@@ -122,18 +134,23 @@ const Inplay = () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [type]);
-  const classes = useStyles();
 
   useEffect(() => {
-    setTimeout(() => {
-      getMatchListMarket(type);
-    }, 1500);
+    setCurrentPage(1);
     const intervalId = setInterval(() => {
       getMatchListMarket(type);
     }, 3000);
 
     return () => clearInterval(intervalId);
   }, [type]);
+
+  useEffect(() => {
+    if (matchListInplaySuccess) {
+      getMatchListMarket(type);
+      dispatch(matchListInplaySuccessReset());
+    }
+  }, [matchListInplaySuccess]);
+
   return (
     <>
       {matchListInplay && matchListInplay?.matches?.length > 0
@@ -156,7 +173,6 @@ const Inplay = () => {
                 top={true}
                 blur={false}
                 match={match}
-                // handleUpdateMatch={handleUpdateMatch}
               />
             );
           })
@@ -201,4 +217,4 @@ const Inplay = () => {
   );
 };
 
-export default Inplay;
+export default memo(Inplay);

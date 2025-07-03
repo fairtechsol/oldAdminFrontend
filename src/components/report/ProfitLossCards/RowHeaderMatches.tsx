@@ -8,18 +8,31 @@ import { gameIconConstants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
 import RowComponentMatches from "./RowComponentMatches";
 
+interface RowComponentMatchesProps {
+  item: any;
+  getHandleReport: (val: string) => void;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  userProfitLoss: any;
+  getUserProfitLoss: (val: string) => void;
+  eventType: string;
+  currentPage: number;
+  startDate: any;
+  endDate: any;
+}
+
 const RowHeaderMatches = ({
   item,
   getHandleReport,
-  // show,
-  color,
   selectedId,
   getBetReport,
   userProfitLoss,
   getUserProfitLoss,
   eventType,
   currentPage,
-}: any) => {
+  startDate,
+  endDate,
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [show, setShow] = useState(false);
@@ -60,6 +73,7 @@ const RowHeaderMatches = ({
         >
           <StyledImage
             src={gameIconConstants[item?.eventType]}
+            alt={item?.eventType}
             sx={{ width: { lg: "35px", xs: "25px" } }}
           />
         </Box>
@@ -87,6 +101,7 @@ const RowHeaderMatches = ({
           </Typography>
           <StyledImage
             src={ArrowDown}
+            alt="arrow down"
             sx={{
               width: { lg: "20px", xs: "10px" },
               transform: show ? "rotate(180deg)" : "rotate(0deg)",
@@ -126,6 +141,7 @@ const RowHeaderMatches = ({
             </Typography>
             <StyledImage
               src={item?.totalLoss > 0 ? ARROW_UP : ARROWDOWN}
+              alt="arrow"
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -141,9 +157,9 @@ const RowHeaderMatches = ({
                 lineHeight: "0.9",
               }}
             >
-              {handleNumber(parseFloat(item?.totalLoss || 0), color)}{" "}
+              {handleNumber(parseFloat(item?.totalLoss || 0), "")}{" "}
               {`${matchesMobile ? "TD(1%)" : "Total Deduction"} : `}
-              {handleNumber(parseFloat(item?.totalDeduction || 0), color)}{" "}
+              {handleNumber(parseFloat(item?.totalDeduction || 0), "")}{" "}
             </Typography>
           </Box>
         </Box>
@@ -197,6 +213,8 @@ const RowHeaderMatches = ({
                 userProfitLoss={userProfitLoss}
                 getUserProfitLoss={getUserProfitLoss}
                 currentPage={currentPage}
+                startDate={startDate}
+                endDate={endDate}
               />
             );
           })}

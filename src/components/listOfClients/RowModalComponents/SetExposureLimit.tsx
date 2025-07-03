@@ -1,22 +1,20 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
-import { EyeIcon, EyeSlash } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import BoxButton from "./BoxButton";
-
 import { useFormik } from "formik";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { EyeIcon, EyeSlash } from "../../../assets";
+import { formatToINR } from "../../../helper";
 import {
   getTotalBalance,
   getUserList,
-  getUsersProfile,
   setExposureLimit,
   userListSuccessReset,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { depositAmountValidations } from "../../../utils/Validations";
 import { ApiConstants } from "../../../utils/Constants";
-import { formatToINR } from "../../../helper";
+import { depositAmountValidations } from "../../../utils/Validations";
+import StyledImage from "../../Common/StyledImages";
+import BoxButton from "./BoxButton";
 
 const initialValues: any = {
   userId: "",
@@ -25,16 +23,23 @@ const initialValues: any = {
   transactionPassword: "",
 };
 
-const SetExposureLimit = (props: any) => {
-  const {
-    backgroundColor,
-    setSelected,
-    element,
-    endpoint,
-    isWallet,
-    onChangeAmount,
-    currentPage,
-  } = props;
+interface SetExposureLimitProps {
+  backgroundColor: string;
+  setSelected: () => void;
+  element: any;
+  endpoint: string;
+  onChangeAmount: any;
+  currentPage: number;
+}
+
+const SetExposureLimit = ({
+  backgroundColor,
+  setSelected,
+  element,
+  endpoint,
+  onChangeAmount,
+  currentPage,
+}: SetExposureLimitProps) => {
   const [showPass, setShowPass] = useState(false);
 
   const dispatch: AppDispatch = useDispatch();
@@ -47,23 +52,16 @@ const SetExposureLimit = (props: any) => {
         return;
       }
       let payload;
-      if (isWallet) {
-        payload = {
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-          // remark: values.remark,
-        };
-      } else {
-        payload = {
-          userId: element?.id,
-          amount: values.amount,
-          transactionPassword: values.transactionPassword,
-          // remark: values.remark,
-        };
-      }
+
+      payload = {
+        userId: element?.id,
+        amount: values.amount,
+        transactionPassword: values.transactionPassword,
+      };
+
       dispatch(
         setExposureLimit({
-          url: isWallet ? ApiConstants.WALLET.EXPOSURELIMIT : endpoint,
+          url: endpoint,
           payload: payload,
         })
       );
@@ -79,18 +77,16 @@ const SetExposureLimit = (props: any) => {
   useEffect(() => {
     if (success) {
       formik.resetForm();
-      setSelected(false);
-      if (isWallet) {
-        dispatch(getUsersProfile());
-      } else {
-        dispatch(
-          getUserList({
-            currentPage: currentPage,
-            url: { endpoint: ApiConstants.USER.LIST },
-          })
-        );
-      }
-      dispatch(getTotalBalance());
+      setSelected();
+
+      dispatch(
+        getUserList({
+          currentPage: currentPage,
+          url: { endpoint: ApiConstants.USER.LIST },
+        })
+      );
+
+      dispatch(getTotalBalance({}));
       setSubmitting(false);
       dispatch(userListSuccessReset());
     }
@@ -107,11 +103,8 @@ const SetExposureLimit = (props: any) => {
     if (event.target.value != "") {
       value = parseFloat(event.target.value.replace(/[^\w\s]/gi, ""));
     }
-
     formik.setFieldValue("amount", value);
     onChangeAmount(value, element?.id, "exposure");
-    // console.log(event)    // onChangeAmount(formik.values.amount, element?.id, "deposite");
-    // setChexckValue(event.target.value);
   };
 
   return (
@@ -154,7 +147,6 @@ const SetExposureLimit = (props: any) => {
               }}
             >
               <TextField
-                // onKeyDown={handleKeyDown}
                 required={true}
                 id="amount"
                 name="amount"
@@ -239,6 +231,7 @@ const SetExposureLimit = (props: any) => {
               >
                 <StyledImage
                   src={showPass ? EyeIcon : EyeSlash}
+                  alt="eye icon"
                   sx={{ height: "14px", width: "20px" }}
                 />
               </Box>
@@ -296,12 +289,12 @@ const SetExposureLimit = (props: any) => {
           <Box sx={{ display: "flex", width: "150px" }}>
             <BoxButton
               disabled={isSubmitting}
-              color={"#0B4F26"}
+              color="#0B4F26"
               loading={loading}
               containerStyle={{ width: "150px", height: "35px" }}
               isSelected={true}
               type="submit"
-              title={"Submit"}
+              title="Submit"
             />
           </Box>
           <Box
@@ -312,7 +305,7 @@ const SetExposureLimit = (props: any) => {
             }}
           >
             <BoxButton
-              color={"#E32A2A"}
+              color="#E32A2A"
               containerStyle={{
                 width: "150px",
                 background: "#E32A2A",
@@ -324,7 +317,7 @@ const SetExposureLimit = (props: any) => {
                 setSelected();
                 onChangeAmount(0, element?.id, "exposure");
               }}
-              title={"Cancel"}
+              title="Cancel"
             />
           </Box>
         </Box>
@@ -333,4 +326,4 @@ const SetExposureLimit = (props: any) => {
   );
 };
 
-export default SetExposureLimit;
+export default memo(SetExposureLimit);
