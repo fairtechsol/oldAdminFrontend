@@ -103,7 +103,6 @@ const SeasonMarketBox = ({
             </Box>
           </Box>
         </Box>
-
         <Box
           sx={{
             display: "flex",
@@ -115,16 +114,6 @@ const SeasonMarketBox = ({
             alignItems: "center",
           }}
         >
-          {/* {newData?.isCommissionActive && (
-            <Box
-              sx={{
-                position: "absolute",
-                right: { xs: "60vw", sm: "53vw", lg: "22vw", md: "50vw" },
-              }}
-            >
-              <CommissionDot />
-            </Box>
-          )} */}
           {matchesMobile ? (
             <PlaceBetComponent
               type={type}
@@ -154,7 +143,7 @@ const SeasonMarketBox = ({
                 height: "38px",
                 marginLeft: { lg: "20%", md: "0%", xs: "0%" },
                 width: { lg: "36.5%", md: "60%", xs: "60.5%" },
-                justifyContent: { xs: "center", lg: "center" },
+                justifyContent: "center",
                 alignItems: "center",
                 display: "flex",
                 zIndex: 1,
@@ -325,7 +314,7 @@ const SeasonMarketBox = ({
                     height: "38px",
                     marginLeft: { lg: "20%", md: "0%", xs: "0%" },
                     width: { lg: "36.5%", md: "60%", xs: "60.5%" },
-                    justifyContent: { xs: "center", lg: "center" },
+                    justifyContent: "center",
                     alignItems: "center",
                     display: "flex",
                     zIndex: 1,

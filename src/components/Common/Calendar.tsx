@@ -19,7 +19,7 @@ const Calendar = ({ title, startDate, setStartDate, limit }: CalendarProps) => {
     <Box
       sx={{
         zIndex: 100,
-        width: { lg: "50%", xs: "50%" },
+        width: "50%",
         position: "relative",
         height: "35px",
       }}

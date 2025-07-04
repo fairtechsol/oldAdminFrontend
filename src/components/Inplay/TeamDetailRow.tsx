@@ -44,7 +44,7 @@ const TeamDetailRow = ({
           background: "white",
           height: "40px",
           width: { lg: "60%", xs: "80%" },
-          justifyContent: { xs: "flex-end", lg: "flex-end" },
+          justifyContent: "flex-end",
           alignItems: "center",
         }}
       >

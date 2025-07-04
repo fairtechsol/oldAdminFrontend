@@ -86,7 +86,7 @@ const UserProfitLoss = ({
               fontSize: {
                 lg: "13px",
                 md: "12px",
-                xs: matchesMobile ? "12px" : "12px",
+                xs: "12px",
               },
               fontWeight: "bold",
               marginLeft: "7px",
@@ -203,7 +203,6 @@ const UserProfitLoss = ({
               Username
             </Typography>
           </Box>
-
           <Box
             sx={{
               display: "flex",

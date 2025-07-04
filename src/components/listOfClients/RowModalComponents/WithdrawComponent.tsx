@@ -240,7 +240,7 @@ const WithdrawComponent = ({
           >
             <Box
               sx={{
-                width: { xs: "100%", lg: "100%", md: "100%" },
+                width: "100%",
                 gap: "1%",
                 display: { xs: "flex", lg: "block" },
                 flexDirection: "row-reverse",
@@ -265,14 +265,10 @@ const WithdrawComponent = ({
                     display: "flex",
                     alignItems: "center",
                     width: "60%",
-                    flexDirection: {
-                      xs: "row",
-                      md: "row",
-                      lg: "row",
-                    },
+                    flexDirection: "row",
                     justifyContent: "space-between",
                     position: { xs: "relative", lg: "static" },
-                    marginTop: { xs: "0", lg: "0" },
+                    marginTop: 0,
                   }}
                 >
                   <Typography
@@ -282,7 +278,7 @@ const WithdrawComponent = ({
                         lg: "16px",
                         md: "16px",
                       },
-                      width: { xs: "100%", lg: "100%", md: "100%" },
+                      width: "100%",
                       fontWeight: "600",
                       marginRight: {
                         xs: 0,
@@ -388,7 +384,6 @@ const WithdrawComponent = ({
                   />
                 </Box>
               </Box>
-
               <Box
                 sx={{
                   width: { xs: "41%", lg: "100%" },
@@ -409,11 +404,7 @@ const WithdrawComponent = ({
                     display: "flex",
                     alignItems: "center",
                     width: "60%",
-                    flexDirection: {
-                      xs: "row",
-                      md: "row",
-                      lg: "row",
-                    },
+                    flexDirection: "row",
                     justifyContent: "space-between",
                     position: { xs: "relative", lg: "static" },
                     marginTop: { xs: "0", lg: "0" },
@@ -426,7 +417,7 @@ const WithdrawComponent = ({
                         lg: "16px",
                         md: "16px",
                       },
-                      width: { xs: "100%", lg: "100%", md: "100%" },
+                      width: "100%",
                       fontWeight: "600",
                       marginRight: {
                         xs: 0,

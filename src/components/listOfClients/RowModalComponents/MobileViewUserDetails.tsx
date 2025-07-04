@@ -251,7 +251,7 @@ const MobileViewUserDetails = ({
               />
             </Box>
           </Box>
-        </Box>{" "}
+        </Box>
         <Box
           sx={{
             width: "100%",

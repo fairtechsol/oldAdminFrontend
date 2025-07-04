@@ -41,7 +41,7 @@ const LargeBox = ({ item, k }: LargeBoxProps) => {
         >
           <Typography
             sx={{
-              fontSize: matchesMobile ? "8px" : "8px",
+              fontSize: "8px",
               fontWeight: "600",
               color: item?.color,
               textTransform: "capitalize",

@@ -98,7 +98,7 @@ const MatchList = ({
             position: "relative",
             height: "100%",
             paddingY: "4px",
-            alignItems: { lg: "center", xs: "center" },
+            alignItems: "center",
             display: "flex",
             paddingX: "10px",
             background: "#0B4F26",
@@ -190,7 +190,7 @@ const MatchList = ({
             marginLeft: { lg: "4%" },
             display: "flex",
             overflowX: "auto",
-            flexDirection: { lg: "column", xs: "column" },
+            flexDirection: "column",
           }}
         >
           <HeaderRowCommissionReport />

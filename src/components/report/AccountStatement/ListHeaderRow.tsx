@@ -27,11 +27,7 @@ const ListHeaderRow = ({
     <Box
       sx={{
         display: "flex",
-        flexDirection: {
-          xs: "row",
-          lg: "row",
-          md: "row",
-        },
+        flexDirection: "row",
         justifyContent: "space-between",
         px: "10px",
         gap: 1,

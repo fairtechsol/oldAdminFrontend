@@ -24,7 +24,6 @@ const PlaceBetComponent = ({ profitLoss, index }: PlaceBetComponentProps) => {
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
           height: "35px",
-
           zIndex: 100,
         }}
       >
@@ -32,12 +31,8 @@ const PlaceBetComponent = ({ profitLoss, index }: PlaceBetComponentProps) => {
           <Typography
             sx={{
               marginTop: "2px",
-              fontSize: {
-                lg: !profitLoss?.maxLoss ? "8px" : "8px",
-                md: "8px",
-                xs: "8px",
-              },
-              fontWeight: !profitLoss?.maxLoss ? "500" : "500",
+              fontSize: "8px",
+              fontWeight: "500",
               color: "white",
             }}
           >

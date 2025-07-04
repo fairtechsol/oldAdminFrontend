@@ -43,7 +43,6 @@ export interface DropdownInterface {
   dropDownTextStyle?: any;
   Detail?: any;
   place?: any;
-  type?: any;
   matchesSelect?: any;
   disable?: boolean;
   setSelected?: (value: any) => void;

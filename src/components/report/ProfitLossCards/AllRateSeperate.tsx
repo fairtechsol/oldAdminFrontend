@@ -19,7 +19,7 @@ const AllRateSeperate = ({ allBetsData, count }: AllRateSeperateProps) => {
     <>
       <Box
         sx={{
-          width: { md: "100%", xs: "100%", lg: "100%" },
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignSelf: "center",

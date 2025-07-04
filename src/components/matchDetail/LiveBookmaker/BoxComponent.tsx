@@ -41,7 +41,7 @@ const BoxComponent = ({
           background: "white",
           position: "relative",
           height: "40px",
-          width: { xs: "40%", lg: "40%" },
+          width: "40%",
           alignItems: "center",
         }}
       >
@@ -78,7 +78,7 @@ const BoxComponent = ({
             height: "40px",
             display: "flex",
             width: { lg: "60%", xs: "80%" },
-            justifyContent: { xs: "flex-end", lg: "flex-end" },
+            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >
@@ -94,7 +94,7 @@ const BoxComponent = ({
                 desktop: "10.17vw",
                 desktop2XL: "10.12vw",
               },
-              justifyContent: { xs: "flex-end", lg: "flex-end" },
+              justifyContent: "flex-end",
               alignItems: "center",
             }}
           >
@@ -119,7 +119,7 @@ const BoxComponent = ({
             background: "white",
             height: "40px",
             width: { lg: "60%", xs: "80%" },
-            justifyContent: { xs: "flex-end", lg: "flex-end" },
+            justifyContent: "flex-end",
             alignItems: "center",
           }}
         >

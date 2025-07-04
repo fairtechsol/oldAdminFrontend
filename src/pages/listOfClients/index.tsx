@@ -18,7 +18,7 @@ const ListOfClients = () => {
             color: "white",
             fontSize: "16px",
             fontWeight: "600",
-            marginLeft: { lg: "0.5%", xs: "0.5%" },
+            marginLeft: "0.5%",
           }}
         >
           Account List

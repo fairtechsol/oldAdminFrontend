@@ -56,10 +56,6 @@ const CommissionReportTable = ({
         }),
       ]}
     >
-      {/* {loading ? (
-        <Loader />
-      ) : (
-        <> */}
       <Box sx={{ marginX: "0", background: "#F8C851", height: "50px" }}>
         <ListHeader
           userName={title}
@@ -70,7 +66,7 @@ const CommissionReportTable = ({
       <Box
         sx={{
           overflowX: "auto",
-          width: { xs: "100%", lg: "100%", md: "100%" },
+          width: "100%",
         }}
       >
         {commissionMatchList?.rows?.map((element: any, index: number) => (
@@ -95,8 +91,6 @@ const CommissionReportTable = ({
         )}
         setCurrentPage={setCurrentPage}
       />
-      {/* </>
-      )} */}
     </Box>
   );
 };

@@ -67,7 +67,6 @@ const SmallBox = ({ valueA, valueB }: SmallBoxProps) => {
         >
           Book
         </Typography>
-
         <Typography
           sx={{
             fontSize: "13px",

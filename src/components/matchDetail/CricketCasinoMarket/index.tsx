@@ -3,11 +3,11 @@ import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LOCKED, LOCKOPEN } from "../../../assets";
 import { RootState } from "../../../store/store";
+import CommissionDot from "../../Common/CommissionDot";
 import Divider from "../../Inplay/Divider";
 import UnlockComponent from "../../lockMatchDetailComponent/UnlockComponent";
 import BetsCountBox from "./BetsCountBox";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
-import CommissionDot from "../../Common/CommissionDot";
 
 interface CricketCasinoMarketProps {
   blockMatch?: any;
@@ -278,7 +278,7 @@ const CricketCasinoMarket = ({
                 background: "#319E5B",
                 height: "25px",
                 width: { lg: "60%", xs: "81%" },
-                justifyContent: { lg: "flex-end", xs: "flex-end" },
+                justifyContent: "flex-end",
               }}
             >
               <Box

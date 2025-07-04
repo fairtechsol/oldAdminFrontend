@@ -36,7 +36,7 @@ const MyAccount = () => {
             color: "white",
             fontSize: "18px",
             fontWeight: "600",
-            marginLeft: { lg: "0.5%", xs: "0.5%" },
+            marginLeft: "0.5%",
           }}
         >
           My Account

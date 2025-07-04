@@ -142,7 +142,7 @@ const RowComponentMatches = ({
             position: "relative",
             height: "100%",
             paddingY: "4px",
-            alignItems: { lg: "center", xs: "center" },
+            alignItems: "center",
             display: "flex",
             paddingX: "10px",
             background: "#0B4F26",
@@ -278,7 +278,7 @@ const RowComponentMatches = ({
               <Box sx={{ width: "100%", display: "flex", gap: 1 }}>
                 <Box
                   sx={{
-                    width: { xs: "100%", lg: "100%", md: "100%" },
+                    width: "100%",
                     overflow: "hidden",
                     marginY: { xs: ".2vh", lg: "1vh" },
                     padding: 0.2,

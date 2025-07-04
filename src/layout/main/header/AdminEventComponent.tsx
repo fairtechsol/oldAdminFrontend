@@ -15,7 +15,7 @@ const AdminEventComponent = ({ data }: { data: any }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: { lg: "center", xs: "center" },
+        justifyContent: "center",
         background: "white",
         cursor: "pointer",
         border: "2px solid white",

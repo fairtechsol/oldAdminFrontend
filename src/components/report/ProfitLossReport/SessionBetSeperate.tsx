@@ -24,7 +24,7 @@ const SessionBetSeperate = ({
   return (
     <Box
       sx={{
-        width: { md: "100%", xs: "100%", lg: "100%" },
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         marginX: { lg: "0vw", xs: "0px", md: "0px" },

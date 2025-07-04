@@ -19,7 +19,7 @@ const BetsCountBox = ({ total }: { total: number }) => {
     >
       <Typography
         sx={{
-          fontSize: matchesMobile ? "8px" : "8px",
+          fontSize: "8px",
           fontWeight: "bold",
           color: "#FF4D4D",
         }}

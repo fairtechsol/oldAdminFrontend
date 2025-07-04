@@ -227,7 +227,7 @@ const RowModalComponents = ({
         <Box
           sx={{
             display: "flex",
-            flexDirection: { xs: "row", lg: "row", md: "row" },
+            flexDirection: "row",
             gap: { xs: 0.5 },
             flexWrap: "wrap",
             justifyContent: "center",

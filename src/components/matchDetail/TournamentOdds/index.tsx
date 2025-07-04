@@ -127,7 +127,7 @@ const TournamentOdds = ({
             background: "#262626",
             display: "flex",
             alignItems: "center",
-            justifyContent: { lg: "flex-end", xs: "flex-end" },
+            justifyContent: "flex-end",
             paddingRight: { lg: "0", xs: "0" },
           }}
         >
@@ -239,7 +239,7 @@ const TournamentOdds = ({
                 background: "#319E5B",
                 height: "25px",
                 width: { lg: "60%", xs: "43.4%" },
-                justifyContent: { lg: "flex-end", xs: "flex-end" },
+                justifyContent: "flex-end",
               }}
             >
               <Box

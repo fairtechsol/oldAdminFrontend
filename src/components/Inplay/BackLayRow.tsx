@@ -26,7 +26,7 @@ const BackLayRow = () => {
           background: "#319E5B",
           height: "25px",
           width: { lg: "60%", xs: "80%" },
-          justifyContent: { lg: "flex-end", xs: "flex-end" },
+          justifyContent: "flex-end",
         }}
       >
         <Box

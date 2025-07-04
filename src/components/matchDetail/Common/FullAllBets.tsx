@@ -206,7 +206,7 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
             background: "#262626",
             display: "flex",
             alignItems: "center",
-            justifyContent: { lg: "flex-end", xs: "flex-end" },
+            justifyContent: "flex-end",
             padding: { lg: "0", xs: "0" },
           }}
         >
@@ -232,7 +232,6 @@ const FullAllBets = ({ tag, IObets }: FullAllBetsProps) => {
             >
               Total Bet
             </Typography>
-
             <Typography
               sx={{
                 fontSize: "14px",

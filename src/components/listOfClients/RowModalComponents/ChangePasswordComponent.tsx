@@ -94,7 +94,7 @@ const ChangePasswordComponent = ({
               alignItems: "center",
               overflow: "hidden",
               justifyContent: { xs: "flex-start", lg: "center" },
-              flexDirection: { xs: "row", md: "row", lg: "row" },
+              flexDirection: "row",
             }}
           >
             <Box
@@ -212,7 +212,7 @@ const ChangePasswordComponent = ({
               alignItems: "center",
               overflow: "hidden",
               justifyContent: { xs: "flex-start", lg: "center" },
-              flexDirection: { xs: "row", md: "row", lg: "row" },
+              flexDirection: "row",
               marginTop: "20px",
             }}
           >
@@ -241,7 +241,7 @@ const ChangePasswordComponent = ({
               >
                 <Box
                   sx={{
-                    width: { xs: "100%", lg: "100%", md: "100%" },
+                    width: "100%",
                     height: "45px",
                     background: "#0B4F26",
                     display: "flex",
@@ -325,7 +325,7 @@ const ChangePasswordComponent = ({
           <Box
             sx={{
               display: "none",
-              flexDirection: { xs: "row", md: "row", lg: "row" },
+              flexDirection: "row",
               justifyContent: "flex-start",
               gap: 1,
               alignItems: "center",

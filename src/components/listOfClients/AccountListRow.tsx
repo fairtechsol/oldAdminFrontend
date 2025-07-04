@@ -681,7 +681,6 @@ const AccountListRow = ({
               </Box>
             </Box>
           </Box>
-
           <Box
             sx={{
               width: "100%",
@@ -702,7 +701,6 @@ const AccountListRow = ({
           </Box>
         </Box>
       )}
-
       <ModalMUI
         open={showCommissionReport?.value}
         onClose={() => {

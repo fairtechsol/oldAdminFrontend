@@ -181,7 +181,7 @@ const MatchComponent = ({
               <Typography
                 sx={{
                   fontStyle: "italic",
-                  fontSize: { lg: "10px", xs: "10px" },
+                  fontSize: "10px",
                   fontWeight: "600",
                   color: "white",
                 }}

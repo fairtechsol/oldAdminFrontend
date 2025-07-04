@@ -1,5 +1,4 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { memo } from "react";
 
 interface HeaderRowProps {
   tag?: boolean;
@@ -207,4 +206,4 @@ const HeaderRow = ({ tag }: HeaderRowProps) => {
   );
 };
 
-export default memo(HeaderRow);
+export default HeaderRow;

@@ -1,9 +1,7 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
 const BetsCountBox = ({ total }: { total: number }) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
       sx={{
@@ -19,7 +17,7 @@ const BetsCountBox = ({ total }: { total: number }) => {
     >
       <Typography
         sx={{
-          fontSize: matchesMobile ? "8px" : "8px",
+          fontSize: "8px",
           fontWeight: "bold",
           color: "#FF4D4D",
         }}
@@ -28,7 +26,7 @@ const BetsCountBox = ({ total }: { total: number }) => {
       </Typography>
       <Typography
         sx={{
-          fontSize: matchesMobile ? "14px" : "14px",
+          fontSize: "14px",
           fontWeight: "bold",
           color: "#0B4F26",
           lineHeight: 1,
