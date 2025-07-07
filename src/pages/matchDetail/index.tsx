@@ -339,8 +339,6 @@ const MatchDetail = () => {
             })
           );
         }
-      } else if (document.visibilityState === "hidden") {
-        socketService.match.getMatchRatesOff(state?.matchId);
       }
     };
 

@@ -299,11 +299,7 @@ const MultipleMatch = () => {
           dispatch(resetSessionProfitLoss());
           dispatch(getPlacedBets(`inArr${JSON.stringify(state?.matchIds)}`));
         }
-      } else if (document.visibilityState === "hidden") {
-        state?.matchIds?.map((item: any) => {
-          socketService.match.getMatchRatesOff(item);
-        });
-      }
+      } 
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
