@@ -1,5 +1,6 @@
 import { Presence, Socket } from "phoenix";
 import { useEffect, useRef, useState } from "react";
+import { baseUrls } from "../utils/Constants";
 
 interface UsePhoenixChannelProps {
   role: string;
@@ -23,7 +24,7 @@ export const usePhoenixChannel = ({
   const channelRef = useRef<any>(null);
 
   const setupSocketAndChannel = () => {
-    const socket = new Socket("wss://serviceexl.fairgame7.com/socket", {
+    const socket = new Socket(baseUrls.phoenixApi, {
       params: {
         roleName: role,
         matchIdArray: matchId,
