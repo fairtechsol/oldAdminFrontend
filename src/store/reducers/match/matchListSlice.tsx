@@ -256,12 +256,7 @@ const matchListSlice = createSlice({
           state.matchListInplay.matches = state.matchListInplay.matches.map(
             (match: any) => {
               const matchFromApi = apiMatchMap.get(+match.eventId);
-              if (matchFromApi) {
-                return { ...match, ...matchFromApi };
-              } else {
-                delete match?.section;
-                return match;
-              }
+              return matchFromApi ? { ...match, ...matchFromApi } : match;
             }
           );
         }
