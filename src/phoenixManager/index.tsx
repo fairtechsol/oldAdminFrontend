@@ -27,7 +27,7 @@ export const usePhoenixChannel = ({
       params: {
         roleName: role,
         matchIdArray: matchId,
-        user_id: userId,
+        userId: userId,
       },
     });
 
