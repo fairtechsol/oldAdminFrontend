@@ -77,42 +77,23 @@ const Analysis = () => {
   };
 
   const handleSubmit = () => {
-    if (max == "2") {
-      if (selected.length != 2) {
-        toast.error("Select 2 matches");
-        return;
-      }
-    } else if (max == "3") {
-      if (selected.length != 3) {
-        toast.error("Select 3 matches");
-        return;
-      }
-    } else if (max == "4") {
-      if (selected.length != 4) {
-        toast.error("Select 4 matches");
-        return;
-      }
+    const maxMatches = Number(max);
+
+    if (selected.length !== maxMatches) {
+      toast.error(`Select ${maxMatches} matches`);
+      return;
     }
-    if (selected) {
-      setMode("0");
-      setSelected([]);
-      setMatchIds([]);
-    }
-    if (max == "3") {
-      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
-        state: {
-          match: Number(max),
-          matchIds: matchIds,
-        },
-      });
-    } else {
-      navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
-        state: {
-          match: Number(max),
-          matchIds: matchIds,
-        },
-      });
-    }
+
+    setMode("0");
+    setSelected([]);
+    setMatchIds([]);
+
+    navigate(`${Constants.oldAdmin}market_analysis/multiple_Match`, {
+      state: {
+        match: maxMatches,
+        matchIds,
+      },
+    });
   };
 
   const getMatchListService = () => {
